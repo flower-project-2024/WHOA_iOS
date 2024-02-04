@@ -97,12 +97,11 @@
 		54FD0F2D2B6FCE2D00F964C3 /* WHOA_iOS */ = {
 			isa = PBXGroup;
 			children = (
-				54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */,
-				54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */,
-				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
-				54FD0F372B6FCE2E00F964C3 /* Assets.xcassets */,
 				54FD0F392B6FCE2E00F964C3 /* LaunchScreen.storyboard */,
-				54FD0F3C2B6FCE2E00F964C3 /* Info.plist */,
+				54FD0F5E2B6FD48900F964C3 /* App */,
+				54FD0F612B6FD60700F964C3 /* UI */,
+				54FD0F602B6FD52E00F964C3 /* Resources */,
+				54FD0F5F2B6FD4EB00F964C3 /* SupportingFiles */,
 			);
 			path = WHOA_iOS;
 			sourceTree = "<group>";
@@ -122,6 +121,47 @@
 				54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */,
 			);
 			path = WHOA_iOSUITests;
+			sourceTree = "<group>";
+		};
+		54FD0F5E2B6FD48900F964C3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */,
+				54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		54FD0F5F2B6FD4EB00F964C3 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F3C2B6FCE2E00F964C3 /* Info.plist */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		54FD0F602B6FD52E00F964C3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F372B6FCE2E00F964C3 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		54FD0F612B6FD60700F964C3 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F622B6FFC1C00F964C3 /* Home */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		54FD0F622B6FFC1C00F964C3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,7 +472,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WHOA_iOS/Info.plist;
+				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -465,7 +505,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WHOA_iOS/Info.plist;
+				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
