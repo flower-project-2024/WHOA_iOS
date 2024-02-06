@@ -26,6 +26,7 @@
 		54FD0F522B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */; };
 		54FD0F652B7000C000F964C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F642B7000C000F964C3 /* SnapKit */; };
 		54FD0F682B7002D300F964C3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F672B7002D300F964C3 /* Alamofire */; };
+		54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		54FD0F4B2B6FCE2E00F964C3 /* WHOA_iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WHOA_iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F4F2B6FCE2E00F964C3 /* WHOA_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHOA_iOSUITests.swift; sourceTree = "<group>"; };
 		54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHOA_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F622B6FFC1C00F964C3 /* Home */,
+				54FD0F692B70198500F964C3 /* FlowerCustomizing */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -209,6 +212,22 @@
 				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		54FD0F692B70198500F964C3 /* FlowerCustomizing */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F6A2B701B2000F964C3 /* BuyingIntent */,
+			);
+			path = FlowerCustomizing;
+			sourceTree = "<group>";
+		};
+		54FD0F6A2B701B2000F964C3 /* BuyingIntent */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */,
+			);
+			path = BuyingIntent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
