@@ -17,6 +17,7 @@
 		0857383D2B72348E00AAFAC6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382F2B721A5700AAFAC6 /* Pretendard-Regular.otf */; };
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
+		085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -56,6 +57,7 @@
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerView.swift; sourceTree = "<group>"; };
+		085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageLabel.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */,
+				085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */,
 				085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
