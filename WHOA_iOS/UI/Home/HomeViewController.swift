@@ -17,10 +17,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-
+    
         view.addSubview(todaysFlowerView)
         view.addSubview(cheapFlowerView)
         
+        setupNavigation()
         setupConstraints()
         
         todaysFlowerView.decorateButton.addTarget(self, action: #selector(decorateButtonTapped), for: .touchUpInside)
@@ -31,10 +32,19 @@ class HomeViewController: UIViewController {
     }
 
     // MARK: - Helper
+    private func setupNavigation(){
+        // 내비게이션 바에 로고 이미지
+        let logoImageView = UIImageView(image: UIImage(named: "WhoaLogo.png"))
+        self.navigationItem.titleView = logoImageView
+        
+        // 네비게이션 바 줄 없애기
+        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
+        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
+    }
     
     private func setupConstraints(){
         todaysFlowerView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(50)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         cheapFlowerView.snp.makeConstraints { make in
