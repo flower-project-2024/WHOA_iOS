@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
 		085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */; };
 		085738392B72348400AAFAC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */; };
@@ -27,6 +26,14 @@
 		54FD0F652B7000C000F964C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F642B7000C000F964C3 /* SnapKit */; };
 		54FD0F682B7002D300F964C3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F672B7002D300F964C3 /* Alamofire */; };
 		54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */; };
+		54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */; };
+		54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F702B73BF4900F964C3 /* CustomTitleLabel.swift */; };
+		54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */; };
+		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
+		54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F7B2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift */; };
+		54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F7E2B742C4900F964C3 /* BackButton.swift */; };
+		54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F802B743C0000F964C3 /* NextButton.swift */; };
+		54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* BuyingIntentType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +63,6 @@
 		085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerView.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +75,14 @@
 		54FD0F4F2B6FCE2E00F964C3 /* WHOA_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHOA_iOSUITests.swift; sourceTree = "<group>"; };
 		54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHOA_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentViewController.swift; sourceTree = "<group>"; };
+		54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressHStackView.swift; sourceTree = "<group>"; };
+		54FD0F702B73BF4900F964C3 /* CustomTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleLabel.swift; sourceTree = "<group>"; };
+		54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDescriptionLabel.swift; sourceTree = "<group>"; };
+		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		54FD0F7B2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentButtonHStackView.swift; sourceTree = "<group>"; };
+		54FD0F7E2B742C4900F964C3 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		54FD0F802B743C0000F964C3 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
+		54FD0F842B74C13B00F964C3 /* BuyingIntentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,14 +128,6 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		085738342B721C5A00AAFAC6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		54FD0F222B6FCE2D00F964C3 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +153,7 @@
 			children = (
 				54FD0F5E2B6FD48900F964C3 /* App */,
 				54FD0F612B6FD60700F964C3 /* UI */,
+				54FD0F822B74C0DB00F964C3 /* Global */,
 				54FD0F602B6FD52E00F964C3 /* Resources */,
 				54FD0F5F2B6FD4EB00F964C3 /* SupportingFiles */,
 			);
@@ -199,6 +206,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				54FD0F762B73CF2B00F964C3 /* Common */,
 				54FD0F622B6FFC1C00F964C3 /* Home */,
 				54FD0F692B70198500F964C3 /* FlowerCustomizing */,
 			);
@@ -208,7 +216,6 @@
 		54FD0F622B6FFC1C00F964C3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				085738342B721C5A00AAFAC6 /* View */,
 				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
 			);
 			path = Home;
@@ -217,6 +224,7 @@
 		54FD0F692B70198500F964C3 /* FlowerCustomizing */ = {
 			isa = PBXGroup;
 			children = (
+				54FD0F6D2B73416700F964C3 /* CommonViews */,
 				54FD0F6A2B701B2000F964C3 /* BuyingIntent */,
 			);
 			path = FlowerCustomizing;
@@ -225,9 +233,54 @@
 		54FD0F6A2B701B2000F964C3 /* BuyingIntent */ = {
 			isa = PBXGroup;
 			children = (
+				54FD0F7D2B73E15800F964C3 /* Views */,
 				54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */,
 			);
 			path = BuyingIntent;
+			sourceTree = "<group>";
+		};
+		54FD0F6D2B73416700F964C3 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */,
+				54FD0F702B73BF4900F964C3 /* CustomTitleLabel.swift */,
+				54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */,
+				54FD0F7E2B742C4900F964C3 /* BackButton.swift */,
+				54FD0F802B743C0000F964C3 /* NextButton.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		54FD0F762B73CF2B00F964C3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F772B73CF6200F964C3 /* ImageManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		54FD0F7D2B73E15800F964C3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F7B2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		54FD0F822B74C0DB00F964C3 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F832B74C11700F964C3 /* Types */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		54FD0F832B74C11700F964C3 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				54FD0F842B74C13B00F964C3 /* BuyingIntentType.swift */,
+			);
+			path = Types;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -376,11 +429,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
+				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
+				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
+				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
+				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
+				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
+				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
+				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
-				085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
