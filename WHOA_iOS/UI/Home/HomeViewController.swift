@@ -12,30 +12,14 @@ class HomeViewController: UIViewController {
     var todaysFlowerView = TodaysFlowerView()
     var cheapFlowerView = CheapFlowerView()
     
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        return scrollView
-    }()
-    
-    let contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        view.addSubview(scrollView)
-        
-        scrollView.addSubview(contentView)
-        
-        contentView.addSubview(todaysFlowerView)
-        contentView.addSubview(cheapFlowerView)
-//        view.addSubview(todaysFlowerView)
-//        view.addSubview(cheapFlowerView)
+
+        view.addSubview(todaysFlowerView)
+        view.addSubview(cheapFlowerView)
         
         setupConstraints()
         
@@ -49,16 +33,6 @@ class HomeViewController: UIViewController {
     // MARK: - Helper
     
     private func setupConstraints(){
-        scrollView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView.frameLayoutGuide)
-            //make.width.equalTo(scrollView.frameLayoutGuide)  // 세로 스크롤
-            //make.height.equalTo(1200)
-        }
-        
         todaysFlowerView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(50)
             make.leading.trailing.equalToSuperview().inset(20)
