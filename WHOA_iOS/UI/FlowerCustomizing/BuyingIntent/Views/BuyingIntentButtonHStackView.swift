@@ -36,12 +36,20 @@ class BuyingIntentButtonHStackView: UIStackView {
 
 class BuyingIntentButton: UIButton {
     
+    // MARK: - Properties
+    
+    override var isSelected: Bool {
+        didSet {
+            updateSelection()
+        }
+    }
+    
     // MARK: - Initialization
     
     init(text: String) {
         super.init(frame: .zero)
         
-        setupButton(text)
+        setupView(text)
     }
     
     required init?(coder: NSCoder) {
@@ -50,7 +58,7 @@ class BuyingIntentButton: UIButton {
     
     // MARK: - Functions
     
-    private func setupButton(_ text: String) {
+    private func setupView(_ text: String) {
         var config = UIButton.Configuration.gray()
         config.baseForegroundColor = .black
         config.baseBackgroundColor = UIColor(
@@ -60,11 +68,18 @@ class BuyingIntentButton: UIButton {
             alpha: 1.0
         )
         config.title = text
-        
         config.image = UIImage(named: "IntentImage")
         config.imagePlacement = .top
         config.imagePadding = 6
         
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = true
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 2
         self.configuration = config
+    }
+    
+    private func updateSelection() {
+        layer.borderColor = isSelected ? UIColor.green.cgColor : UIColor.clear.cgColor
     }
 }
