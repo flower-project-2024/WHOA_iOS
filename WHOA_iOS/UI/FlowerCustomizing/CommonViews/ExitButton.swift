@@ -15,6 +15,7 @@ class ExitButton: UIImageView {
         super.init(frame: .zero)
         
         setupView()
+        addTapGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -28,13 +29,25 @@ class ExitButton: UIImageView {
         self.tintColor = .black
         self.contentMode = .scaleAspectFit
         self.isUserInteractionEnabled = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(exitButtonTapped))
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         self.addGestureRecognizer(tapGesture)
     }
     
     @objc
-    func exitButtonTapped() {
-        print("exitButtonTapped")
+    private func handleTap() {
+        showExitAlert()
+    }
+    
+    private func showExitAlert() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let topViewController = windowScene.windows.first?.rootViewController else { return }
+        let customAlertVC = CustomExitAlertViewController()
+        
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        topViewController.present(customAlertVC, animated: false, completion: nil)
+        
     }
 }
