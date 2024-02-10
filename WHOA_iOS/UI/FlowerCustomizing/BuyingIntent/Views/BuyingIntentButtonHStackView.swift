@@ -75,11 +75,12 @@ class BuyingIntentButton: UIButton {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
         self.layer.borderColor = UIColor.clear.cgColor
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 1
         self.configuration = config
     }
     
     private func updateSelection() {
         layer.borderColor = isSelected ? UIColor.green.cgColor : UIColor.clear.cgColor
+        self.backgroundColor = isSelected ? UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2) : UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
     }
 }
