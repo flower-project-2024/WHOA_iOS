@@ -18,6 +18,10 @@
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
 		542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */; };
+		542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* BuyingIntentViewModel.swift */; };
+		542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */; };
+		542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */; };
+		542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -67,6 +71,10 @@
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitAlertViewController.swift; sourceTree = "<group>"; };
+		542DD3E62B7813A300DBFCCC /* BuyingIntentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentViewModel.swift; sourceTree = "<group>"; };
+		542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewController.swift; sourceTree = "<group>"; };
+		542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewModel.swift; sourceTree = "<group>"; };
+		542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentModel.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +138,15 @@
 				0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */,
+				542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */,
+			);
+			path = FlowerColorPicker;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -230,6 +247,7 @@
 			children = (
 				54FD0F6D2B73416700F964C3 /* CommonViews */,
 				54FD0F6A2B701B2000F964C3 /* BuyingIntent */,
+				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 			);
 			path = FlowerCustomizing;
 			sourceTree = "<group>";
@@ -239,6 +257,8 @@
 			children = (
 				54FD0F7D2B73E15800F964C3 /* Views */,
 				54FD0F6B2B701B9C00F964C3 /* BuyingIntentViewController.swift */,
+				542DD3E62B7813A300DBFCCC /* BuyingIntentViewModel.swift */,
+				542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */,
 			);
 			path = BuyingIntent;
 			sourceTree = "<group>";
@@ -440,11 +460,15 @@
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
+				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
+				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
+				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
+				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
