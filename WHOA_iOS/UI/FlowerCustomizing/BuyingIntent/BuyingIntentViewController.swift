@@ -134,29 +134,6 @@ class BuyingIntentViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
-    private func updateButton(sender: BuyingIntentButton) {
-        let intentButtons = [
-            celebrationButton, birthdayButton,
-            condolenceButton, weddingButton,
-            affectionButton, promotionButton,
-            exhibitionButton, awardButton,
-            apologyButton, eventButton
-        ]
-        
-        intentButtons.forEach {
-            if $0 != sender { $0.isSelected = false }
-        }
-        
-        nextButton.isActive = intentButtons.allSatisfy({ !$0.isSelected }) ? false : true
-    }
-//    
-//    private func updateIntentTypeSelection(sender: BuyingIntentButton) {
-//        guard let buttonText = sender.titleLabel?.text, let intentType = BuyingIntentType(rawValue: buttonText) else { return }
-//        
-//        viewModel.setBuyingIntentType(intentType)
-//    }
-
-    
     // MARK: - Actions
     
     @objc
