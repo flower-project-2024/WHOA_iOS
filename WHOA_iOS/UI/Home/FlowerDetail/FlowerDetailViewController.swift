@@ -172,13 +172,9 @@ class FlowerDetailViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(50)
             make.centerX.equalToSuperview()
         }
-        imagePageControl.snp.makeConstraints { make in
-            make.top.equalTo(imageScrollView.snp.bottom)
-            make.centerX.equalToSuperview()
-        }
         
         flowerNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imagePageControl.snp.bottom).offset(20)
+            make.top.equalTo(imageScrollView.snp.bottom).offset(20)
             make.leading.equalToSuperview().inset(20)
         }
         
@@ -220,6 +216,11 @@ class FlowerDetailViewController: UIViewController {
         birthFlowerDateLabel.snp.makeConstraints { make in
             make.leading.equalTo(flowerLanguageContentLabel.snp.leading)
             make.centerY.equalTo(birthFlowerLabel.snp.centerY)
+        }
+        
+        imagePageControl.snp.makeConstraints { make in
+            make.top.equalTo(birthFlowerDateLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
         }
     }
     
