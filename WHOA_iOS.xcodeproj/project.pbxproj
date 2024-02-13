@@ -19,6 +19,9 @@
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
 		085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */; };
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
+		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
+		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
+		089062922B77B42B00C856CB /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 089062912B77B42B00C856CB /* image.png */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
@@ -61,6 +64,9 @@
 		085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerView.swift; sourceTree = "<group>"; };
 		085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageLabel.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
+		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
+		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
+		089062912B77B42B00C856CB /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +133,31 @@
 				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		08877E262B7623990028BD26 /* FlowerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				089062902B77A66B00C856CB /* ViewModel */,
+				08877E292B7623F50028BD26 /* View */,
+				08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */,
+			);
+			path = FlowerDetail;
+			sourceTree = "<group>";
+		};
+		08877E292B7623F50028BD26 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08877E2C2B7641110028BD26 /* ColorChipButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		089062902B77A66B00C856CB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -214,8 +245,10 @@
 		54FD0F622B6FFC1C00F964C3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				08877E262B7623990028BD26 /* FlowerDetail */,
 				085738342B721C5A00AAFAC6 /* View */,
 				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
+				089062912B77B42B00C856CB /* image.png */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -332,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				089062922B77B42B00C856CB /* image.png in Resources */,
 				0857383C2B72348C00AAFAC6 /* Pretendard-Medium.otf in Resources */,
 				0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */,
 				085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */,
@@ -366,10 +400,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */,
 				085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */,
@@ -533,9 +569,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7G8HP2JBMK;
+				DEVELOPMENT_TEAM = 7AS2J3XH7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -549,8 +586,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "KSH.WHOA-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "suyeon.WHOA-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -566,9 +604,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7G8HP2JBMK;
+				DEVELOPMENT_TEAM = 7AS2J3XH7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -582,8 +621,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "KSH.WHOA-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "suyeon.WHOA-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
