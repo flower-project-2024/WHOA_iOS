@@ -11,6 +11,13 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     var todaysFlowerView = TodaysFlowerView()
     var cheapFlowerView = CheapFlowerView()
+    var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "어떤 꽃을 찾으시나요?"
+        searchBar.searchBarStyle = .minimal
+        searchBar.frame.size.width = searchBar.bounds.width
+        return searchBar
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -18,6 +25,7 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .white
     
+        view.addSubview(searchBar)
         view.addSubview(todaysFlowerView)
         view.addSubview(cheapFlowerView)
         
@@ -43,13 +51,17 @@ class HomeViewController: UIViewController {
     }
     
     private func setupConstraints(){
-        todaysFlowerView.snp.makeConstraints { make in
+        searchBar.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        todaysFlowerView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
+        }
         cheapFlowerView.snp.makeConstraints { make in
-            make.top.equalTo(todaysFlowerView.snp.bottom).offset(65)
-            make.leading.trailing.equalToSuperview().inset(21)
+            make.top.equalTo(todaysFlowerView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(todaysFlowerView.snp.horizontalEdges)
             make.bottom.equalToSuperview()
         }
     }
@@ -84,6 +96,7 @@ extension HomeViewController : UITableViewDataSource {
 extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("select \(indexPath.row)")
+        navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
     }
 }
 
