@@ -108,6 +108,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		080E1E8E2B7B6DB200902192 /* FlowerSearch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FlowerSearch;
+			sourceTree = "<group>";
+		};
 		0857382A2B721A2200AAFAC6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +252,7 @@
 		54FD0F622B6FFC1C00F964C3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				080E1E8E2B7B6DB200902192 /* FlowerSearch */,
 				08877E262B7623990028BD26 /* FlowerDetail */,
 				085738342B721C5A00AAFAC6 /* View */,
 				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,

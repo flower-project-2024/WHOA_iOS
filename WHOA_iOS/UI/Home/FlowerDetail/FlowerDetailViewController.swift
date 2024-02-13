@@ -93,6 +93,18 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
+    private let birthFlowerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "탄생화"
+        return label
+    }()
+    
+    private let birthFlowerDateLabel: UILabel = {
+        let label = UILabel()
+        label.text = "8월 15일"
+        return label
+    }()
+    
     private let decorateButton: UIButton = {
         let button = UIButton()
         
@@ -139,6 +151,8 @@ class FlowerDetailViewController: UIViewController {
         view.addSubview(flowerLanguageContentLabel)
         view.addSubview(colorLabel)
         view.addSubview(colorChipStackView)
+        view.addSubview(birthFlowerLabel)
+        view.addSubview(birthFlowerDateLabel)
         
         // add colorChipButtons to colorChipStackView
         colorButtonList.forEach({ button in
@@ -196,6 +210,16 @@ class FlowerDetailViewController: UIViewController {
         colorChipStackView.snp.makeConstraints { make in
             make.leading.equalTo(flowerLanguageContentLabel.snp.leading)
             make.centerY.equalTo(colorLabel.snp.centerY)
+        }
+        
+        birthFlowerLabel.snp.makeConstraints { make in
+            make.leading.equalTo(colorLabel.snp.leading)
+            make.top.equalTo(colorLabel.snp.bottom).offset(15)
+        }
+        
+        birthFlowerDateLabel.snp.makeConstraints { make in
+            make.leading.equalTo(flowerLanguageContentLabel.snp.leading)
+            make.centerY.equalTo(birthFlowerLabel.snp.centerY)
         }
     }
     
