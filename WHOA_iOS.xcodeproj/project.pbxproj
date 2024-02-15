@@ -17,7 +17,7 @@
 		0857383D2B72348E00AAFAC6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382F2B721A5700AAFAC6 /* Pretendard-Regular.otf */; };
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
-		085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */; };
+		085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */; };
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
 		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
@@ -62,7 +62,7 @@
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerView.swift; sourceTree = "<group>"; };
-		085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageLabel.swift; sourceTree = "<group>"; };
+		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
 		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */,
-				085738402B726B3000AAFAC6 /* FlowerLanguageLabel.swift */,
+				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
 				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
 				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
 			);
@@ -415,7 +415,7 @@
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 				08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
-				085738412B726B3000AAFAC6 /* FlowerLanguageLabel.swift in Sources */,
+				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

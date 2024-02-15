@@ -38,6 +38,13 @@ class TodaysFlowerView: UIView {
         return label
     }()
     
+    let birthFlowerLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel()
+        label.text = "8/15 탄생화"
+        label.font = UIFont(name: "Pretendard-Regular", size: 14.0)
+        return label
+    }()
+    
     let flowerDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "무게감 있는 진한 향이 오래도록 퍼져나가, 영원한 사랑을 전하기에 제격이에요."
@@ -46,11 +53,8 @@ class TodaysFlowerView: UIView {
         return label
     }()
     
-    let flowerLanguageLabel: FlowerLanguageLabel = {
-        let label = FlowerLanguageLabel()
-        label.clipsToBounds = true
-        label.layer.cornerRadius = 12
-        label.backgroundColor = UIColor(red: 0.88, green: 0.88, blue: 0.88, alpha: 1.00)
+    let flowerLanguageLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel()
         label.font = UIFont(name: "Pretendard-Regular", size: 14.0)
         label.text = "영원한 사랑"
         return label
@@ -77,6 +81,7 @@ class TodaysFlowerView: UIView {
         addSubview(stackView)
         
         flowerDescriptionView.addSubview(flowerNameLabel)
+        flowerDescriptionView.addSubview(birthFlowerLabel)
         flowerDescriptionView.addSubview(flowerDescriptionLabel)
         flowerDescriptionView.addSubview(flowerLanguageLabel)
         
@@ -104,6 +109,11 @@ class TodaysFlowerView: UIView {
         flowerNameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.top.equalToSuperview().inset(20)
+        }
+        
+        birthFlowerLabel.snp.makeConstraints { make in
+            make.leading.equalTo(flowerNameLabel.snp.trailing).offset(20)
+            make.centerY.equalTo(flowerNameLabel.snp.centerY)
         }
         
         flowerDescriptionLabel.snp.makeConstraints { make in
