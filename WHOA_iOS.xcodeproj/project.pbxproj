@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
 		085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */; };
 		085738392B72348400AAFAC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */; };
@@ -21,6 +20,7 @@
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
 		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
+		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		089062922B77B42B00C856CB /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 089062912B77B42B00C856CB /* image.png */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
@@ -61,11 +61,11 @@
 		085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerView.swift; sourceTree = "<group>"; };
 		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
 		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
+		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		089062912B77B42B00C856CB /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,10 +134,10 @@
 		085738342B721C5A00AAFAC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				085738352B721CF000AAFAC6 /* TodaysFlowerView.swift */,
 				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
 				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
 				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
+				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -408,6 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
@@ -416,7 +417,6 @@
 				08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
-				085738362B721CF000AAFAC6 /* TodaysFlowerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

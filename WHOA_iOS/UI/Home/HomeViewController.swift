@@ -8,8 +8,21 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    // MARK: - Views
+    lazy var carouselView: UICollectionView = {
+        let flowlayout = UICollectionViewFlowLayout()
+        flowlayout.minimumLineSpacing = 0
+        flowlayout.minimumInteritemSpacing = 0
+        flowlayout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
+        //collectionView.isPagingEnabled = true  // cellSize의 width가 collectionView의 width와 같지 않기 때문에
+        collectionView.showsHorizontalScrollIndicator = true // 나중에 false 로 바꾸기
+        collectionView.backgroundColor = .clear
+        return collectionView
+    }()
+    
     // MARK: - Properties
-    var todaysFlowerView = TodaysFlowerView()
     var cheapFlowerView = CheapFlowerView()
     var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -19,25 +32,45 @@ class HomeViewController: UIViewController {
         return searchBar
     }()
     
+    var cellSize: CGSize = .zero
+    var timer: Timer = Timer()
+    
+    let minimumLineSpacing: CGFloat = 10
+    
+    var temporaryData: [UIColor] = [.red, .purple]
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
     
-        view.addSubview(searchBar)
-        view.addSubview(todaysFlowerView)
-        view.addSubview(cheapFlowerView)
-        
+        addViews()
         setupNavigation()
         setupConstraints()
+        //setupCollectionView()
 
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
+        setupCollectionView()
+    }
+    
+    deinit {
+        timer.invalidate()
     }
 
     // MARK: - Helper
+    private func addViews(){
+        view.addSubview(searchBar)
+        view.addSubview(carouselView)
+        view.addSubview(cheapFlowerView)
+    }
+    
     private func setupNavigation(){
         // 내비게이션 바에 로고 이미지
         let logoImageView = UIImageView(image: UIImage(named: "WhoaLogo.png"))
@@ -53,16 +86,58 @@ class HomeViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        todaysFlowerView.snp.makeConstraints { make in
+        carouselView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(230)
         }
         cheapFlowerView.snp.makeConstraints { make in
-            make.top.equalTo(todaysFlowerView.snp.bottom).offset(20)
-            make.horizontalEdges.equalTo(todaysFlowerView.snp.horizontalEdges)
+            make.top.equalTo(carouselView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
             make.bottom.equalToSuperview()
         }
     }
+    
+    private func setupCollectionView(){
+        // minimumLineSpacing 고려하여 width 값 조절
+        cellSize = CGSize(width: carouselView.bounds.width - (minimumLineSpacing * 4), height: 230)
+        carouselView.contentInset = UIEdgeInsets(top: 0,
+                                                 left: minimumLineSpacing * 2,
+                                                 bottom: 0,
+                                                 right: minimumLineSpacing)
+        print("cellSize: \(cellSize)")
+        carouselView.delegate = self
+        carouselView.dataSource = self
+        
+        carouselView.decelerationRate = .fast
+        
+        carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
+        
+        // 최초 타이머 등록
+        resetTimer()
+    }
+    
+    private func resetTimer() {
+        timer.invalidate()  // 루프에서 타이머 삭제
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { timer in
+            let cellWidthIncludingSpacing: CGFloat = self.cellSize.width + self.minimumLineSpacing
+            let estimatedIndex = self.carouselView.contentOffset.x / cellWidthIncludingSpacing
+            let index = Int(round(estimatedIndex))
+            
+            print("current index: \(index)")
+
+            // 현재가 마지막 아이템이면 첫 인덱스로, 아니면 +1
+            let next = (index + 1 == self.temporaryData.count) ? 0 : index + 1
+
+            print("next index: \(next)")
+            
+            if self.temporaryData.count == 0 { return }
+
+            // 다음 지정된 인덱스로 스크롤
+            self.carouselView.scrollToItem(at: IndexPath(item: next, section: 0), at: .centeredHorizontally, animated: true)
+        })
+    }
+
     
     // MARK: - Actions
     @objc func decorateButtonTapped(){
@@ -70,7 +145,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extensions; TableView
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,6 +173,7 @@ extension HomeViewController : UITableViewDelegate {
     }
 }
 
+// MARK: - Extensions; ScrollView
 extension UIScrollView {
     func updateContentSize() {
         let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
@@ -116,5 +192,49 @@ extension UIScrollView {
         
         // 최종 계산 영역의 크기를 반환
         return totalRect.union(view.frame)
+    }
+}
+
+// MARK: - Extensions; CollectionView
+extension HomeViewController: UICollectionViewDelegate {
+    // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let cellWidthIncludingSpacing: CGFloat = cellSize.width + minimumLineSpacing
+
+        let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
+        let index: Int
+        if velocity.x > 0 {
+            index = Int(ceil(estimatedIndex))
+        } else if velocity.x < 0 {
+            index = Int(floor(estimatedIndex))
+        } else {
+            index = Int(round(estimatedIndex))
+        }
+
+        targetContentOffset.pointee = CGPoint(x: (CGFloat(index) * cellWidthIncludingSpacing) - (minimumLineSpacing * 2), y: 0)
+        
+        // 직접 스크롤하면 타이머 초기화
+        resetTimer()
+    }
+}
+
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath)
+        return cell
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return cellSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return minimumLineSpacing
     }
 }

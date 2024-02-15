@@ -14,7 +14,7 @@ class CheapFlowerView: UIView {
         let label = UILabel()
         label.text = "오늘따라 저렴한 꽃을\n알아보아요"
         label.numberOfLines = 0
-        label.font = UIFont(name: "Pretendard-Bold", size: 24)
+        label.font = UIFont(name: "Pretendard-Bold", size: 20)
         return label
     }()
     
@@ -29,7 +29,6 @@ class CheapFlowerView: UIView {
     let topThreeTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
-        tableView.backgroundColor = .lightGray
         tableView.separatorStyle = .none
 //        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension

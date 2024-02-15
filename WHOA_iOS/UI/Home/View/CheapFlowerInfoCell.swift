@@ -33,7 +33,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         label.text = "히아신스"
         return label
     }()
@@ -46,10 +46,10 @@ class CheapFlowerInfoCell: UITableViewCell {
         return label
     }()
     
-    let priceChangeRateLabel: UILabel = {
+    let priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
-        label.text = "-58%"
+        label.text = "2100원"
         label.textColor = .darkGray
         return label
     }()
@@ -72,7 +72,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         contentView.addSubview(rankingLabel)
         contentView.addSubview(flowerNameLabel)
         contentView.addSubview(flowerLanguageLabel)
-        contentView.addSubview(priceChangeRateLabel)
+        contentView.addSubview(priceLabel)
         
         // constraints
         flowerImageView.snp.makeConstraints { make in
@@ -99,7 +99,7 @@ class CheapFlowerInfoCell: UITableViewCell {
             make.top.equalTo(flowerNameLabel.snp.bottom)
         }
         
-        priceChangeRateLabel.snp.makeConstraints { make in
+        priceLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
             make.centerY.equalTo(flowerImageView)
         }
