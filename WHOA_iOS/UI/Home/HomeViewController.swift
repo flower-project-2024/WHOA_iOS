@@ -31,8 +31,6 @@ class HomeViewController: UIViewController {
         
         setupNavigation()
         setupConstraints()
-        
-        todaysFlowerView.decorateButton.addTarget(self, action: #selector(decorateButtonTapped), for: .touchUpInside)
 
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self

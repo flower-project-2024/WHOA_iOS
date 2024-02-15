@@ -68,19 +68,6 @@ class TodaysFlowerView: UIView {
         return stackView;
     }()
     
-    let decorateButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "이 꽃으로 꾸미기"
-        config.attributedTitle?.font = UIFont(name: "Pretendard-Bold", size: 20.0)
-        config.background.backgroundColor = UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1.00)
-        config.background.cornerRadius = 10
-        config.contentInsets = .init(top: 15, leading: 15, bottom: 15, trailing: 15)
-        button.configuration = config
-        return button
-    }()
-    
     // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,7 +75,6 @@ class TodaysFlowerView: UIView {
         // add ui elements
         addSubview(todaysFlowerLabel)
         addSubview(stackView)
-        addSubview(decorateButton)
         
         flowerDescriptionView.addSubview(flowerNameLabel)
         flowerDescriptionView.addSubview(flowerDescriptionLabel)
@@ -107,6 +93,7 @@ class TodaysFlowerView: UIView {
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(todaysFlowerLabel.snp.bottom).offset(17)
+            make.bottom.equalToSuperview()
         }
         
         flowerImageView.snp.makeConstraints { make in
@@ -129,12 +116,6 @@ class TodaysFlowerView: UIView {
             make.leading.equalTo(flowerDescriptionLabel)
             make.top.equalTo(flowerDescriptionLabel.snp.bottom).offset(8.25)
             make.bottom.equalToSuperview().inset(20)
-        }
-        
-        decorateButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(stackView.snp.bottom).offset(17)
-            make.bottom.equalToSuperview()
         }
     }
     
