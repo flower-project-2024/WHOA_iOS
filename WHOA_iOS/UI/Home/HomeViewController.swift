@@ -24,16 +24,17 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     var cheapFlowerView = CheapFlowerView()
-    var searchBar: UISearchBar = {
+    lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
         searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
         searchBar.frame.size.width = searchBar.bounds.width
         return searchBar
     }()
     
     var cellSize: CGSize = .zero
-    var timer: Timer = Timer()
+    var timer: Timer? = Timer()
     
     let minimumLineSpacing: CGFloat = 10
     
@@ -60,8 +61,13 @@ class HomeViewController: UIViewController {
         setupCollectionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        resetTimer()
+    }
+    
     deinit {
-        timer.invalidate()
+        timer?.invalidate()
+        timer = nil
     }
 
     // MARK: - Helper
@@ -114,11 +120,13 @@ class HomeViewController: UIViewController {
         carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
         
         // 최초 타이머 등록
-        resetTimer()
+        //resetTimer()
     }
     
     private func resetTimer() {
-        timer.invalidate()  // 루프에서 타이머 삭제
+        print("\(Thread.current)")
+        timer?.invalidate()  // 루프에서 타이머 삭제
+        timer = nil
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { timer in
             let cellWidthIncludingSpacing: CGFloat = self.cellSize.width + self.minimumLineSpacing
             let estimatedIndex = self.carouselView.contentOffset.x / cellWidthIncludingSpacing
@@ -169,6 +177,8 @@ extension HomeViewController : UITableViewDataSource {
 extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("select \(indexPath.row)")
+        timer?.invalidate()
+        timer = nil
         navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
     }
 }
@@ -236,5 +246,15 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return minimumLineSpacing
+    }
+}
+
+// MARK: - search bar
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        timer?.invalidate()
+        timer = nil
+        print("\(Thread.current)")
+        self.navigationController?.pushViewController(FlowerSearchViewController(), animated: true)
     }
 }
