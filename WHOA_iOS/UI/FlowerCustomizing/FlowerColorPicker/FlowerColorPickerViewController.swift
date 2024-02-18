@@ -16,14 +16,6 @@ class FlowerColorPickerViewController: UIViewController {
     private var isChevronUp = true
     var colorButtonTopConstraint: Constraint?
     
-    var shouldHideFirstView: Bool? {
-        didSet {
-            guard let shouldHideFirstView = self.shouldHideFirstView else { return }
-            self.stackviewA.isHidden = shouldHideFirstView
-            self.stackviewB.isHidden = !self.stackviewA.isHidden
-        }
-    }
-    
     // MARK: - UI
     
     private let exitButton = ExitButton()
@@ -34,6 +26,7 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorSelectionLabel: UILabel = {
         let label = UILabel()
         label.text = "조합"
+        label.font = UIFont(name: "Pretendard", size: 16)
         return label
     }()
     
@@ -54,9 +47,14 @@ class FlowerColorPickerViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.distribution = .equalCentering
         stackView.spacing = 9
-        stackView.backgroundColor = .systemGray5
+        stackView.backgroundColor = UIColor(
+            red: 249/255,
+            green: 249/255,
+            blue: 251/255,
+            alpha: 1.0
+        )
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins =  NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        stackView.directionalLayoutMargins =  NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
         stackView.layer.cornerRadius = 10
         stackView.layer.masksToBounds = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
@@ -67,10 +65,21 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorButton1: UIButton = {
         let button = UIButton()
         button.setTitle("단일 색", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
+        button.setTitleColor(UIColor(
+            red: 102/255,
+            green: 102/255,
+            blue: 103/255,
+            alpha: 1.0
+        ), for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 17
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 15
+        button.layer.borderColor = UIColor(
+            red: 233/255,
+            green: 233/255,
+            blue: 235/255,
+            alpha: 1.0
+        ).cgColor
         button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         return button
@@ -79,10 +88,21 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorButton2: UIButton = {
         let button = UIButton()
         button.setTitle("2가지 색", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
+        button.setTitleColor(UIColor(
+            red: 102/255,
+            green: 102/255,
+            blue: 103/255,
+            alpha: 1.0
+        ), for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 17
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 15
+        button.layer.borderColor = UIColor(
+            red: 233/255,
+            green: 233/255,
+            blue: 235/255,
+            alpha: 1.0
+        ).cgColor
         button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         return button
@@ -91,10 +111,21 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorButton3: UIButton = {
         let button = UIButton()
         button.setTitle("컬러풀한", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
+        button.setTitleColor(UIColor(
+            red: 102/255,
+            green: 102/255,
+            blue: 103/255,
+            alpha: 1.0
+        ), for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 17
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 15
+        button.layer.borderColor = UIColor(
+            red: 233/255,
+            green: 233/255,
+            blue: 235/255,
+            alpha: 1.0
+        ).cgColor
         button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         return button
@@ -103,10 +134,21 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorButton4: UIButton = {
         let button = UIButton()
         button.setTitle("포인트 컬러", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
+        button.setTitleColor(UIColor(
+            red: 102/255,
+            green: 102/255,
+            blue: 103/255,
+            alpha: 1.0
+        ), for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 17
-        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 15
+        button.layer.borderColor = UIColor(
+            red: 233/255,
+            green: 233/255,
+            blue: 235/255,
+            alpha: 1.0
+        ).cgColor
         button.layer.borderWidth = 1
         button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
         return button
@@ -127,61 +169,7 @@ class FlowerColorPickerViewController: UIViewController {
         return stackView
     }()
     
-    private let colorDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "색을 선택해주세요"
-        return label
-    }()
-    
-    private let realColorButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.systemMint.cgColor
-        button.layer.borderWidth = 1
-        return button
-    }()
-    
-    lazy var segCon: UISegmentedControl = {
-        let segmentedControl: UISegmentedControl = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
-        segmentedControl.center = CGPoint(x: self.view.frame.width/2, y: 400)
-        segmentedControl.selectedSegmentIndex = 0
-        return segmentedControl
-    }()
-    
-    let stackviewA: UIStackView = {
-        // UIStackView 및 UIButton 생성
-        let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        
-        let basicColors = [UIColor.red, .orange, .yellow, .green, .blue, .purple, .purple, .cyan]
-        for color in basicColors {
-            let button = UIButton()
-            button.backgroundColor = color
-            stackView.addArrangedSubview(button)
-        }
-        
-        return stackView
-    }()
-    
-    let stackviewB: UIStackView = {
-        let stackView = UIStackView()
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        
-        let basicColors = [UIColor.red, .red, .red, .red, .red, .red, .red, .red]
-        for color in basicColors {
-            let button = UIButton()
-            button.backgroundColor = color
-            stackView.addArrangedSubview(button)
-        }
-        
-        return stackView
-    }()
+    private let colorPickerView = ColorPickerView()
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
@@ -209,6 +197,7 @@ class FlowerColorPickerViewController: UIViewController {
     }()
     
     // MARK: - Initialize
+    
     init(viewModel: FlowerColorPickerViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -226,6 +215,8 @@ class FlowerColorPickerViewController: UIViewController {
         setupUI()
     }
     
+    // MARK: - Functions
+    
     private func setupUI() {
         view.backgroundColor = .white
         
@@ -235,20 +226,14 @@ class FlowerColorPickerViewController: UIViewController {
         view.addSubview(descriptionLabel)
         view.addSubview(colorSelectionHStackView)
         view.addSubview(colorButtonHStackView)
-        view.addSubview(colorDescriptionLabel)
-        view.addSubview(realColorButton)
-        view.addSubview(segCon)
-        view.addSubview(stackviewA)
-        view.addSubview(stackviewB)
+        view.addSubview(colorPickerView)
         view.addSubview(noticeLabel)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
-        colorDescriptionLabel.isHidden = true
-        realColorButton.isHidden = true
-        segCon.isHidden = true
-        self.segCon.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
-        didChangeValue(segment: self.segCon)
+        colorPickerView.isHidden = true
+//        self.segCon.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
+//        didChangeValue(segment: self.segCon)
     }
     
     // MARK: - Actions
@@ -265,78 +250,109 @@ class FlowerColorPickerViewController: UIViewController {
     @objc
     func colorButtonTapped(_ sender: UIButton) {
         colorSelectionLabel.text = sender.titleLabel?.text
-        colorDescriptionLabel.isHidden = false
-        realColorButton.isHidden = false
-        segCon.isHidden = false
+        colorPickerView.isHidden = false
+        
+        let buttons = [colorButton1, colorButton2, colorButton3, colorButton4]
+        
+        sender.layer.borderColor = UIColor(red: 79/255, green: 234/255, blue: 191/255, alpha: 1.0).cgColor
+        sender.setTitleColor(.black, for: .normal)
+        
+        for button in buttons {
+            if button != sender {
+                button.layer.borderColor = UIColor(
+                    red: 233/255,
+                    green: 233/255,
+                    blue: 235/255,
+                    alpha: 1.0
+                ).cgColor
+                button.setTitleColor(UIColor(
+                    red: 102/255,
+                    green: 102/255,
+                    blue: 103/255,
+                    alpha: 1.0
+                ), for: .normal)
+            }
+        }
     }
     
-    @objc 
-    func didChangeValue(segment: UISegmentedControl) {
-      self.shouldHideFirstView = segment.selectedSegmentIndex != 0
-    }
+//    @objc
+//    func didChangeValue(segment: UISegmentedControl) {
+//        lazy var stackViewArray: [UIStackView] = [stackviewA, stackviewB, stackviewC]
+//        let selectedIndex = segment.selectedSegmentIndex
+//            for (index, stackView) in stackViewArray.enumerated() {
+//                stackView.isHidden = index != selectedIndex
+//            }
+//    }
     
+//    @objc
+//    func colorPlateButtonTapped(_ sender: UIButton) {
+//        realColorButton.setImage(nil, for: .normal)
+//        realColorButton.layer.borderColor = .none
+//        realColorButton.backgroundColor = sender.backgroundColor
+//        
+//        sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
+//        sender.tintColor = .white
+//        
+//        let buttons = [
+//            colorPlateButton1,
+//            colorPlateButton2,
+//            colorPlateButton3,
+//            colorPlateButton4,
+//            colorPlateButton5,
+//            colorPlateButton6,
+//            colorPlateButton7,
+//            colorPlateButton8,
+//        ]
+//        
+//        for button in buttons {
+//            if button != sender {
+//                button.setImage(nil, for: .normal)
+//            }
+//        }
+        
+//    }
 }
 
 extension FlowerColorPickerViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(2)
-            $0.leading.equalToSuperview().offset(12.75)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            $0.leading.equalToSuperview().offset(17)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp_bottomMargin).offset(15.375)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(13.875)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-13.125)
+            $0.top.equalTo(exitButton.snp_bottomMargin).offset(32)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(18.5)
             $0.height.equalTo(12.75)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp_bottomMargin).offset(16.875)
+            $0.top.equalTo(progressHStackView.snp_bottomMargin).offset(24)
             $0.leading.equalTo(view).offset(20)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel).offset(32)
-            $0.leading.equalTo(view).offset(20)
-            $0.width.equalTo(250)
+            $0.top.equalTo(titleLabel).offset(40)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(114)
+            $0.width.equalTo(256)
         }
         
         colorSelectionHStackView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel).offset(36)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.top.equalTo(descriptionLabel.snp_bottomMargin).offset(32)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
         colorButtonHStackView.snp.makeConstraints {
-            $0.top.equalTo(colorSelectionHStackView.snp_bottomMargin).offset(21)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.top.equalTo(colorSelectionHStackView.snp_bottomMargin).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(36)
         }
         
-        colorDescriptionLabel.snp.makeConstraints {
+        colorPickerView.snp.makeConstraints {
             colorButtonTopConstraint = $0.top.equalTo(colorButtonHStackView.snp_bottomMargin).offset(30).constraint
-            $0.leading.trailing.equalToSuperview().inset(15)
-        }
-        
-        realColorButton.snp.makeConstraints {
-            $0.top.equalTo(colorDescriptionLabel.snp_bottomMargin).offset(30)
-            $0.leading.trailing.equalToSuperview().inset(15)
-            $0.height.equalTo(96)
-        }
-        
-        segCon.snp.makeConstraints {
-            $0.top.equalTo(realColorButton.snp_bottomMargin).offset(30)
-            $0.leading.trailing.equalToSuperview().inset(15)
-        }
-        
-        stackviewA.snp.makeConstraints {
-            $0.top.equalTo(segCon.snp_bottomMargin).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(15)
-        }
-        
-        stackviewB.snp.makeConstraints {
-            $0.top.equalTo(segCon.snp_bottomMargin).offset(40)
-            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         backButton.snp.makeConstraints {
