@@ -23,6 +23,7 @@ class FlowerSearchViewController: UIViewController {
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
         searchBar.searchBarStyle = .minimal
         searchBar.frame.size.width = searchBar.bounds.width
+        searchBar.showsCancelButton = false
         searchBar.delegate = self
 //        searchBar.autocorrectionType = .no
 //        searchBar.spellCheckingType = .no
@@ -32,18 +33,10 @@ class FlowerSearchViewController: UIViewController {
     }()
     
     // MARK: - Properties
-//    lazy var searchController: UISearchController = {
-//        let sc = UISearchController(searchResultsController: nil)
-//        sc.searchBar.placeholder = "어떤 꽃을 찾으시나요?"
-//        sc.obscuresBackgroundDuringPresentation = true  // 사용자가 입력 중 배경을 어둡게 할지
-//        sc.searchResultsUpdater = self  // UISearchResultUpdating 프로토콜 사용위함
-//        return sc
-//    }()
     
     lazy var filteredItems: [String] = []
     let tempData: [String] = [
         "히아신스", "아네모네", "아마란서스", "아마릴리스", "아이리스", "장미", "튤립", "그냥 꽃"
-//        "hello", "chocolate", "jeju", "beer", "laptop", "iPhone", "coffee"
     ]
     private var isFiltering: Bool = false
     private var searchedText: String = ""
@@ -52,7 +45,6 @@ class FlowerSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //self.navigationItem.searchController = searchController
         self.navigationItem.hidesSearchBarWhenScrolling = false
         self.navigationItem.titleView = searchBar
         self.navigationController?.navigationBar.tintColor = .black
@@ -113,7 +105,6 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
 extension FlowerSearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.isFiltering = true
-        self.searchBar.showsCancelButton = true
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
