@@ -23,6 +23,8 @@
 		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		089062922B77B42B00C856CB /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 089062912B77B42B00C856CB /* image.png */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
+		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
+		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -68,6 +70,8 @@
 		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		089062912B77B42B00C856CB /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
+		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
+		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 		080E1E8E2B7B6DB200902192 /* FlowerSearch */ = {
 			isa = PBXGroup;
 			children = (
+				08F7B29F2B823DD100DFD4F7 /* cell */,
+				08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */,
 			);
 			path = FlowerSearch;
 			sourceTree = "<group>";
@@ -165,6 +171,14 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		08F7B29F2B823DD100DFD4F7 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -410,7 +424,9 @@
 			files = (
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
+				08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
+				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
