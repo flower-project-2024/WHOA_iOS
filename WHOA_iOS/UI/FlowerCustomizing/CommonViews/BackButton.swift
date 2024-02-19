@@ -11,10 +11,11 @@ class BackButton: UIButton {
     
     // MARK: - Initialization
     
-    init() {
+    init(isActive: Bool) {
         super.init(frame: .zero)
         
         setupView()
+        updateButtonState(isActive)
     }
     
     required init?(coder: NSCoder) {
@@ -25,23 +26,27 @@ class BackButton: UIButton {
     
     private func setupView() {
         self.setTitle("이전", for: .normal)
-        self.setTitleColor(
-            UIColor(
-                red: 175/255,
-                green: 175/255,
-                blue: 175/255,
-                alpha: 1.0
-            ),
-            for: .normal
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 10
+        self.layer.borderWidth = 1
+    }
+    
+    private func updateButtonState(_ isActive: Bool) {
+        self.isEnabled = isActive
+        self.layer.borderColor = UIColor( isActive ? .black : .clear).cgColor
+        
+        self.setTitleColor( isActive ? .black : UIColor(
+            red: 175/255,
+            green: 175/255,
+            blue: 175/255,
+            alpha: 1.0
+        ), for: .normal
         )
-        self.backgroundColor = UIColor(
+        self.backgroundColor = isActive ? .white : UIColor(
             red: 248/255,
             green: 248/255,
             blue: 248/255,
             alpha: 1.0
         )
-        self.clipsToBounds = true
-        self.layer.cornerRadius = 10
-        self.isEnabled = false
     }
 }

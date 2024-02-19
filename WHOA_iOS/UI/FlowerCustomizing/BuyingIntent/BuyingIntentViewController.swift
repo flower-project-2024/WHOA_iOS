@@ -68,7 +68,7 @@ class BuyingIntentViewController: UIViewController {
         return stackView
     }()
     
-    private let backButton = BackButton()
+    private let backButton = BackButton(isActive: false)
     private let nextButton = NextButton()
     
     private lazy var navigationHStackView: UIStackView = {
