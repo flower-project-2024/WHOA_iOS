@@ -93,7 +93,6 @@ class FlowerDetailViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
-     //   stackView.distribution = .
         return stackView
     }()
     

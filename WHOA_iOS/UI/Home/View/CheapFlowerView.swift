@@ -30,7 +30,6 @@ class CheapFlowerView: UIView {
         let tableView = UITableView()
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
         tableView.separatorStyle = .none
-//        tableView.estimatedRowHeight = 80
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()

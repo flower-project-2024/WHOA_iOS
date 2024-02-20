@@ -64,7 +64,6 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.clipsToBounds = true
-        //stackView.layer.cornerRadius = 10
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.distribution = .fillProportionally

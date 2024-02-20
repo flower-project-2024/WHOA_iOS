@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         //collectionView.isPagingEnabled = true  // cellSize의 width가 collectionView의 width와 같지 않기 때문에
-        collectionView.showsHorizontalScrollIndicator = true // 나중에 false 로 바꾸기
+        collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = .clear
         return collectionView
     }()
@@ -49,7 +49,6 @@ class HomeViewController: UIViewController {
         addViews()
         setupNavigation()
         setupConstraints()
-        //setupCollectionView()
 
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
@@ -111,33 +110,24 @@ class HomeViewController: UIViewController {
                                                  left: minimumLineSpacing * 2,
                                                  bottom: 0,
                                                  right: minimumLineSpacing)
-        print("cellSize: \(cellSize)")
         carouselView.delegate = self
         carouselView.dataSource = self
         
         carouselView.decelerationRate = .fast
         
         carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
-        
-        // 최초 타이머 등록
-        //resetTimer()
     }
     
     private func resetTimer() {
-        print("\(Thread.current)")
-        timer?.invalidate()  // 루프에서 타이머 삭제
+        timer?.invalidate()
         timer = nil
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { timer in
             let cellWidthIncludingSpacing: CGFloat = self.cellSize.width + self.minimumLineSpacing
             let estimatedIndex = self.carouselView.contentOffset.x / cellWidthIncludingSpacing
             let index = Int(round(estimatedIndex))
-            
-            print("current index: \(index)")
 
             // 현재가 마지막 아이템이면 첫 인덱스로, 아니면 +1
             let next = (index + 1 == self.temporaryData.count) ? 0 : index + 1
-
-            print("next index: \(next)")
             
             if self.temporaryData.count == 0 { return }
 
@@ -254,7 +244,6 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         timer?.invalidate()
         timer = nil
-        print("\(Thread.current)")
         self.navigationController?.pushViewController(FlowerSearchViewController(), animated: true)
     }
 }

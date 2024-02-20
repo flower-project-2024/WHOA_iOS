@@ -79,7 +79,6 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
         // 검색 중이고 필터링된 내용이 있을 때만
         if isFiltering && !filteredItems.isEmpty {
             let filteredText = filteredItems[indexPath.row]
-            print("filtered: \(filteredText)")
             
             let attributeString = NSMutableAttributedString(string: filteredText)
             
@@ -114,9 +113,7 @@ extension FlowerSearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedText = searchBar.text ?? ""
-        print("Searched Text: \(searchedText)")
         self.filteredItems = self.tempData.filter { $0.localizedCaseInsensitiveContains(searchedText) }
-        print("Filtered Items: \(filteredItems)")
         self.searchTableView.reloadData()
     }
 }
