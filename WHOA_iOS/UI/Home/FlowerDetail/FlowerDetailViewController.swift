@@ -258,6 +258,8 @@ class FlowerDetailViewController: UIViewController {
         imageScrollView.delegate = self
         outerScrollView.delegate = self
         
+        decorateButton.addTarget(self, action: #selector(decorateBtnTapped), for: .touchUpInside)
+        
         generateColorChipButtons()
         
         addSubViews()
@@ -445,6 +447,10 @@ class FlowerDetailViewController: UIViewController {
             
             imageScrollView.contentSize.width = imageView.frame.width * CGFloat(index+1)
         }
+    }
+    // MARK: - Actions
+    @objc func decorateBtnTapped(){
+        print("===이 꽃으로 꾸미기===")
     }
 }
 
