@@ -176,7 +176,7 @@ extension HomeViewController : UITableViewDataSource {
 
 extension HomeViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select \(indexPath.row)")
+        tableView.deselectRow(at: indexPath, animated: false)
         timer?.invalidate()
         timer = nil
         navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
