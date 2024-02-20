@@ -8,7 +8,14 @@
 import UIKit
 
 class FlowerDetailViewController: UIViewController {
-    // MARK: - Properties
+    // MARK: - Views
+    private let outerScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.isDirectionalLockEnabled = true
+        scrollView.alwaysBounceHorizontal = false
+        return scrollView
+    }()
     
     private lazy var imageScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -82,9 +89,6 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    var colorButtonList: [ColorChipButton] = []
-    var imageList: [String] = []
-    
     private let colorChipStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -105,6 +109,123 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
+    private let detailStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 34
+        return stackView
+    }()
+    
+    private let viewTermStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .top
+        return stackView
+    }()
+    
+    private let viewTermImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .red
+        return imageView
+    }()
+    
+    private let viewTermContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private let viewTermTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.text = "관상기간"
+        return label
+    }()
+    
+    private let viewTermContentLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.text = "5~14일"
+        return label
+    }()
+    
+    private let waterStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .top
+        return stackView
+    }()
+    
+    private let waterImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .green
+        return imageView
+    }()
+    
+    private let waterContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private let waterTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.text = "탈수 잦음"
+        return label
+    }()
+    
+    private let waterContentLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private let usageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 16
+        stackView.alignment = .top
+        return stackView
+    }()
+    
+    private let usageImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .blue
+        return imageView
+    }()
+    
+    private let usageContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private let usageTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.text = "드라이플라워"
+        return label
+    }()
+    
+    private let usageContentLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.text = "거꾸로 매달아 말리면 드라이플라워로 활용할 수 있어요"
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private let decorateButton: UIButton = {
         let button = UIButton()
         
@@ -117,6 +238,10 @@ class FlowerDetailViewController: UIViewController {
         button.configuration = config
         return button
     }()
+    
+    // MARK: - Properties
+    var colorButtonList: [ColorChipButton] = []
+    var imageList: [String] = []
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -131,6 +256,7 @@ class FlowerDetailViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = ""
         
         imageScrollView.delegate = self
+        outerScrollView.delegate = self
         
         generateColorChipButtons()
         
@@ -143,16 +269,20 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Functions
     private func addSubViews(){
         // add views
-        view.addSubview(imageScrollView)
-        view.addSubview(imagePageControl)
-        view.addSubview(flowerNameLabel)
-        view.addSubview(flowerDescriptionLabel)
-        view.addSubview(flowerLanguageLabel)
-        view.addSubview(flowerLanguageContentLabel)
-        view.addSubview(colorLabel)
-        view.addSubview(colorChipStackView)
-        view.addSubview(birthFlowerLabel)
-        view.addSubview(birthFlowerDateLabel)
+        view.addSubview(outerScrollView)
+        
+        outerScrollView.addSubview(imageScrollView)
+        outerScrollView.addSubview(imagePageControl)
+        outerScrollView.addSubview(flowerNameLabel)
+        outerScrollView.addSubview(flowerDescriptionLabel)
+        outerScrollView.addSubview(flowerLanguageLabel)
+        outerScrollView.addSubview(flowerLanguageContentLabel)
+        outerScrollView.addSubview(colorLabel)
+        outerScrollView.addSubview(colorChipStackView)
+        outerScrollView.addSubview(birthFlowerLabel)
+        outerScrollView.addSubview(birthFlowerDateLabel)
+        outerScrollView.addSubview(detailStackView)
+        outerScrollView.addSubview(decorateButton)
         
         // add colorChipButtons to colorChipStackView
         colorButtonList.forEach({ button in
@@ -163,11 +293,45 @@ class FlowerDetailViewController: UIViewController {
             print(button)
             colorChipStackView.addArrangedSubview(button)
         })
+        
+        [viewTermStackView, waterStackView, usageStackView].forEach {
+            detailStackView.addArrangedSubview($0)
+        }
+        
+        [viewTermImageView, viewTermContentStackView].forEach {
+            viewTermStackView.addArrangedSubview($0)
+        }
+        
+        [waterImageView, waterContentStackView].forEach {
+            waterStackView.addArrangedSubview($0)
+        }
+        
+        [usageImageView, usageContentStackView].forEach {
+            usageStackView.addArrangedSubview($0)
+        }
+        
+        [viewTermTitleLabel, viewTermContentLabel].forEach {
+            viewTermContentStackView.addArrangedSubview($0)
+        }
+        
+        [waterTitleLabel, waterContentLabel].forEach {
+            waterContentStackView.addArrangedSubview($0)
+        }
+        
+        [usageTitleLabel, usageContentLabel].forEach {
+            usageContentStackView.addArrangedSubview($0)
+        }
     }
     
     private func setupConstraints(){
-        imageScrollView.snp.makeConstraints { make in
+        outerScrollView.snp.makeConstraints { make in
+            make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalToSuperview()
+        }
+        
+        imageScrollView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
             make.height.equalTo(250)
             make.leading.trailing.equalToSuperview().inset(50)
             make.centerX.equalToSuperview()
@@ -184,10 +348,6 @@ class FlowerDetailViewController: UIViewController {
             make.trailing.equalToSuperview().inset(20)
         }
         
-//        stackView.snp.makeConstraints { make in
-//            make.top.equalTo(flowerDescriptionLabel.snp.bottom).offset(15)
-//            make.leading.equalTo(flowerDescriptionLabel.snp.leading)
-//        }
         flowerLanguageLabel.snp.makeConstraints { make in
             make.top.equalTo(flowerDescriptionLabel.snp.bottom).offset(15)
             make.leading.equalTo(flowerDescriptionLabel.snp.leading)
@@ -221,6 +381,32 @@ class FlowerDetailViewController: UIViewController {
         imagePageControl.snp.makeConstraints { make in
             make.top.equalTo(birthFlowerDateLabel.snp.bottom).offset(20)
             make.centerX.equalToSuperview()
+        }
+        
+        detailStackView.snp.makeConstraints { make in
+            make.top.equalTo(imagePageControl.snp.bottom).offset(45)
+            make.leading.trailing.equalToSuperview().inset(30)
+        }
+        
+        viewTermImageView.snp.makeConstraints { make in
+            make.width.equalTo(43)
+            make.height.equalTo(viewTermImageView.snp.width).multipliedBy(1)
+        }
+        
+        waterImageView.snp.makeConstraints { make in
+            make.width.equalTo(43)
+            make.height.equalTo(waterImageView.snp.width).multipliedBy(1)
+        }
+        
+        usageImageView.snp.makeConstraints { make in
+            make.width.equalTo(43)
+            make.height.equalTo(usageImageView.snp.width).multipliedBy(1)
+        }
+        
+        decorateButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(25)
+            make.top.equalTo(detailStackView.snp.bottom).offset(103)
+            make.bottom.equalToSuperview().inset(40)
         }
     }
     
