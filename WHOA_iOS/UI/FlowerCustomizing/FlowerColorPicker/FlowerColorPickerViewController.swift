@@ -181,7 +181,7 @@ class FlowerColorPickerViewController: UIViewController {
         return label
     }()
     
-    private let backButton = BackButton()
+    private let backButton = BackButton(isActive: true)
     private let nextButton = NextButton()
     
     private lazy var navigationHStackView: UIStackView = {
@@ -213,6 +213,7 @@ class FlowerColorPickerViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupButtonActions()
     }
     
     // MARK: - Functions
@@ -232,8 +233,11 @@ class FlowerColorPickerViewController: UIViewController {
         
         setupAutoLayout()
         colorPickerView.isHidden = true
-//        self.segCon.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
-//        didChangeValue(segment: self.segCon)
+    }
+    
+    private func setupButtonActions() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -275,42 +279,15 @@ class FlowerColorPickerViewController: UIViewController {
         }
     }
     
-//    @objc
-//    func didChangeValue(segment: UISegmentedControl) {
-//        lazy var stackViewArray: [UIStackView] = [stackviewA, stackviewB, stackviewC]
-//        let selectedIndex = segment.selectedSegmentIndex
-//            for (index, stackView) in stackViewArray.enumerated() {
-//                stackView.isHidden = index != selectedIndex
-//            }
-//    }
+    @objc
+    func backButtonTapped() {
+        dismiss(animated: true)
+    }
     
-//    @objc
-//    func colorPlateButtonTapped(_ sender: UIButton) {
-//        realColorButton.setImage(nil, for: .normal)
-//        realColorButton.layer.borderColor = .none
-//        realColorButton.backgroundColor = sender.backgroundColor
-//        
-//        sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
-//        sender.tintColor = .white
-//        
-//        let buttons = [
-//            colorPlateButton1,
-//            colorPlateButton2,
-//            colorPlateButton3,
-//            colorPlateButton4,
-//            colorPlateButton5,
-//            colorPlateButton6,
-//            colorPlateButton7,
-//            colorPlateButton8,
-//        ]
-//        
-//        for button in buttons {
-//            if button != sender {
-//                button.setImage(nil, for: .normal)
-//            }
-//        }
-        
-//    }
+    @objc
+    func nextButtonTapped() {
+        print("dd")
+    }
 }
 
 extension FlowerColorPickerViewController {
@@ -353,6 +330,7 @@ extension FlowerColorPickerViewController {
         colorPickerView.snp.makeConstraints {
             colorButtonTopConstraint = $0.top.equalTo(colorButtonHStackView.snp_bottomMargin).offset(30).constraint
             $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(noticeLabel.snp_topMargin)
         }
         
         backButton.snp.makeConstraints {
