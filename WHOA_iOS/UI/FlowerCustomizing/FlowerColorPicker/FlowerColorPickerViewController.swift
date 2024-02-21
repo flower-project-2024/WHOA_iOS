@@ -62,7 +62,7 @@ class FlowerColorPickerViewController: UIViewController {
         return stackView
     }()
     
-    private let colorButton1: UIButton = {
+    private let singleColorButton: UIButton = {
         let button = UIButton()
         button.setTitle("단일 색", for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -85,7 +85,7 @@ class FlowerColorPickerViewController: UIViewController {
         return button
     }()
     
-    private let colorButton2: UIButton = {
+    private let dualColorButton: UIButton = {
         let button = UIButton()
         button.setTitle("2가지 색", for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -108,7 +108,7 @@ class FlowerColorPickerViewController: UIViewController {
         return button
     }()
     
-    private let colorButton3: UIButton = {
+    private let colorfulButton: UIButton = {
         let button = UIButton()
         button.setTitle("컬러풀한", for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -131,7 +131,7 @@ class FlowerColorPickerViewController: UIViewController {
         return button
     }()
     
-    private let colorButton4: UIButton = {
+    private let pointColorButton: UIButton = {
         let button = UIButton()
         button.setTitle("포인트 컬러", for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -154,13 +154,13 @@ class FlowerColorPickerViewController: UIViewController {
         return button
     }()
     
-    private lazy var colorButtonHStackView: UIStackView = {
+    private lazy var NumberOfColorsButtonHStackView: UIStackView = {
         let stackView = UIStackView()
         [
-            colorButton1,
-            colorButton2,
-            colorButton3,
-            colorButton4,
+            singleColorButton,
+            dualColorButton,
+            colorfulButton,
+            pointColorButton,
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -226,7 +226,7 @@ class FlowerColorPickerViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(colorSelectionHStackView)
-        view.addSubview(colorButtonHStackView)
+        view.addSubview(NumberOfColorsButtonHStackView)
         view.addSubview(colorPickerView)
         view.addSubview(noticeLabel)
         view.addSubview(navigationHStackView)
@@ -246,7 +246,7 @@ class FlowerColorPickerViewController: UIViewController {
     func buttonTapped() {
         isChevronUp.toggle()
         chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        colorButtonHStackView.isHidden = isChevronUp
+        NumberOfColorsButtonHStackView.isHidden = isChevronUp
         
         colorButtonTopConstraint?.update(offset: isChevronUp ? -21 : 21)
     }
@@ -256,7 +256,7 @@ class FlowerColorPickerViewController: UIViewController {
         colorSelectionLabel.text = sender.titleLabel?.text
         colorPickerView.isHidden = false
         
-        let buttons = [colorButton1, colorButton2, colorButton3, colorButton4]
+        let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
         
         sender.layer.borderColor = UIColor(red: 79/255, green: 234/255, blue: 191/255, alpha: 1.0).cgColor
         sender.setTitleColor(.black, for: .normal)
@@ -321,14 +321,14 @@ extension FlowerColorPickerViewController {
             $0.height.equalTo(56)
         }
         
-        colorButtonHStackView.snp.makeConstraints {
+        NumberOfColorsButtonHStackView.snp.makeConstraints {
             $0.top.equalTo(colorSelectionHStackView.snp_bottomMargin).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(36)
         }
         
         colorPickerView.snp.makeConstraints {
-            colorButtonTopConstraint = $0.top.equalTo(colorButtonHStackView.snp_bottomMargin).offset(30).constraint
+            colorButtonTopConstraint = $0.top.equalTo(NumberOfColorsButtonHStackView.snp_bottomMargin).offset(30).constraint
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(noticeLabel.snp_topMargin)
         }

@@ -23,6 +23,7 @@
 		542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */; };
 		542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */; };
 		5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460710D2B8235E10033B598 /* ColorPickerView.swift */; };
+		546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071122B863BB70033B598 /* NumberOfColorsType.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -77,6 +78,7 @@
 		542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewModel.swift; sourceTree = "<group>"; };
 		542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentModel.swift; sourceTree = "<group>"; };
 		5460710D2B8235E10033B598 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		546071122B863BB70033B598 /* NumberOfColorsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfColorsType.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F842B74C13B00F964C3 /* BuyingIntentType.swift */,
+				546071122B863BB70033B598 /* NumberOfColorsType.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			files = (
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
+				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
