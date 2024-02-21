@@ -64,7 +64,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     private let singleColorButton: UIButton = {
         let button = UIButton()
-        button.setTitle("단일 색", for: .normal)
+        button.setTitle(NumberOfColorsType.단일.rawValue, for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
         button.setTitleColor(UIColor(
             red: 102/255,
@@ -81,13 +81,13 @@ class FlowerColorPickerViewController: UIViewController {
             alpha: 1.0
         ).cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(numberOfColorsButton), for: .touchUpInside)
         return button
     }()
     
     private let dualColorButton: UIButton = {
         let button = UIButton()
-        button.setTitle("2가지 색", for: .normal)
+        button.setTitle(NumberOfColorsType.두가지.rawValue, for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
         button.setTitleColor(UIColor(
             red: 102/255,
@@ -104,13 +104,13 @@ class FlowerColorPickerViewController: UIViewController {
             alpha: 1.0
         ).cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(numberOfColorsButton), for: .touchUpInside)
         return button
     }()
     
     private let colorfulButton: UIButton = {
         let button = UIButton()
-        button.setTitle("컬러풀한", for: .normal)
+        button.setTitle(NumberOfColorsType.컬러풀한.rawValue, for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
         button.setTitleColor(UIColor(
             red: 102/255,
@@ -127,13 +127,13 @@ class FlowerColorPickerViewController: UIViewController {
             alpha: 1.0
         ).cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(numberOfColorsButton), for: .touchUpInside)
         return button
     }()
     
     private let pointColorButton: UIButton = {
         let button = UIButton()
-        button.setTitle("포인트 컬러", for: .normal)
+        button.setTitle(NumberOfColorsType.포인트.rawValue, for: .normal)
         button.titleLabel?.font = UIFont(name: "Pretendard-Regular", size: 14)
         button.setTitleColor(UIColor(
             red: 102/255,
@@ -150,11 +150,11 @@ class FlowerColorPickerViewController: UIViewController {
             alpha: 1.0
         ).cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(colorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(numberOfColorsButton), for: .touchUpInside)
         return button
     }()
     
-    private lazy var NumberOfColorsButtonHStackView: UIStackView = {
+    private lazy var numberOfColorsButtonHStackView: UIStackView = {
         let stackView = UIStackView()
         [
             singleColorButton,
@@ -169,7 +169,7 @@ class FlowerColorPickerViewController: UIViewController {
         return stackView
     }()
     
-    private let colorPickerView = ColorPickerView()
+    private var colorPickerView = ColorPickerView(numberOfColors: .단일)
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
@@ -226,7 +226,7 @@ class FlowerColorPickerViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(colorSelectionHStackView)
-        view.addSubview(NumberOfColorsButtonHStackView)
+        view.addSubview(numberOfColorsButtonHStackView)
         view.addSubview(colorPickerView)
         view.addSubview(noticeLabel)
         view.addSubview(navigationHStackView)
@@ -246,14 +246,15 @@ class FlowerColorPickerViewController: UIViewController {
     func buttonTapped() {
         isChevronUp.toggle()
         chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        NumberOfColorsButtonHStackView.isHidden = isChevronUp
+        numberOfColorsButtonHStackView.isHidden = isChevronUp
         
         colorButtonTopConstraint?.update(offset: isChevronUp ? -21 : 21)
     }
     
     @objc
-    func colorButtonTapped(_ sender: UIButton) {
+    func numberOfColorsButton(_ sender: UIButton) {
         colorSelectionLabel.text = sender.titleLabel?.text
+        colorPickerView.numberOfColors = NumberOfColorsType(rawValue: sender.titleLabel?.text ?? "") ?? .단일
         colorPickerView.isHidden = false
         
         let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
@@ -321,14 +322,14 @@ extension FlowerColorPickerViewController {
             $0.height.equalTo(56)
         }
         
-        NumberOfColorsButtonHStackView.snp.makeConstraints {
+        numberOfColorsButtonHStackView.snp.makeConstraints {
             $0.top.equalTo(colorSelectionHStackView.snp_bottomMargin).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(36)
         }
         
         colorPickerView.snp.makeConstraints {
-            colorButtonTopConstraint = $0.top.equalTo(NumberOfColorsButtonHStackView.snp_bottomMargin).offset(30).constraint
+            colorButtonTopConstraint = $0.top.equalTo(numberOfColorsButtonHStackView.snp_bottomMargin).offset(30).constraint
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(noticeLabel.snp_topMargin)
         }
