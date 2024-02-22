@@ -12,9 +12,9 @@ class FlowerColorPickerViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel: FlowerColorPickerViewModel
+    private let viewModel: FlowerColorPickerViewModel
+    private var colorButtonTopConstraint: Constraint?
     private var isChevronUp = true
-    var colorButtonTopConstraint: Constraint?
     
     // MARK: - UI
     
@@ -57,7 +57,7 @@ class FlowerColorPickerViewController: UIViewController {
         stackView.directionalLayoutMargins =  NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
         stackView.layer.cornerRadius = 10
         stackView.layer.masksToBounds = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(buttonTapped))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(colorSelectionHStackViewTapped))
         stackView.addGestureRecognizer(tapGesture)
         return stackView
     }()
@@ -214,6 +214,11 @@ class FlowerColorPickerViewController: UIViewController {
         
         setupUI()
         setupButtonActions()
+        colorPickerView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        colorPickerView.isHidden = true
     }
     
     // MARK: - Functions
@@ -232,7 +237,6 @@ class FlowerColorPickerViewController: UIViewController {
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
-        colorPickerView.isHidden = true
     }
     
     private func setupButtonActions() {
@@ -240,15 +244,32 @@ class FlowerColorPickerViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
+    private func updateButtonSelection(with selectedButton: UIButton) {
+      let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
+
+        buttons.forEach {
+            $0 == selectedButton ? selectButton($0) : unselectButton($0)
+        }
+    }
+    
+    private func selectButton(_ button: UIButton) {
+      button.layer.borderColor = UIColor(red: 79/255, green: 234/255, blue: 191/255, alpha: 1.0).cgColor
+      button.setTitleColor(.black, for: .normal)
+    }
+
+    private func unselectButton(_ button: UIButton) {
+      button.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1.0).cgColor
+      button.setTitleColor(UIColor(red: 102/255, green: 102/255, blue: 103/255, alpha: 1.0), for: .normal)
+    }
+    
     // MARK: - Actions
     
     @objc
-    func buttonTapped() {
+    func colorSelectionHStackViewTapped() {
         isChevronUp.toggle()
         chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        numberOfColorsButtonHStackView.isHidden = isChevronUp
-        
         colorButtonTopConstraint?.update(offset: isChevronUp ? -21 : 21)
+        numberOfColorsButtonHStackView.isHidden = isChevronUp
     }
     
     @objc
@@ -257,27 +278,7 @@ class FlowerColorPickerViewController: UIViewController {
         colorPickerView.numberOfColors = NumberOfColorsType(rawValue: sender.titleLabel?.text ?? "") ?? .단일
         colorPickerView.isHidden = false
         
-        let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
-        
-        sender.layer.borderColor = UIColor(red: 79/255, green: 234/255, blue: 191/255, alpha: 1.0).cgColor
-        sender.setTitleColor(.black, for: .normal)
-        
-        for button in buttons {
-            if button != sender {
-                button.layer.borderColor = UIColor(
-                    red: 233/255,
-                    green: 233/255,
-                    blue: 235/255,
-                    alpha: 1.0
-                ).cgColor
-                button.setTitleColor(UIColor(
-                    red: 102/255,
-                    green: 102/255,
-                    blue: 103/255,
-                    alpha: 1.0
-                ), for: .normal)
-            }
-        }
+        updateButtonSelection(with: sender)
     }
     
     @objc
@@ -349,5 +350,11 @@ extension FlowerColorPickerViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
         }
+    }
+}
+
+extension FlowerColorPickerViewController: FlowerColorPickerDelegate {
+    func isNextButtonEnabled(isEnabled: Bool) {
+        nextButton.isActive = isEnabled
     }
 }
