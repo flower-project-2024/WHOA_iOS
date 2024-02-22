@@ -7,16 +7,25 @@
 
 import UIKit
 
+protocol FlowerColorPickerDelegate: AnyObject {
+    func isNextButtonEnabled(isEnabled: Bool)
+}
+
 class ColorPickerView: UIView {
     
-    private var selectedColor: UIColor?
     private var selectedButton: UIButton?
+    private var selectedColor: UIColor?
+    private var flowerColorPickerButtons: [UIButton] = []
     private var colorPlateButtons: [UIButton] = []
     private var previousSegmentIndex: Int = 0
+    private lazy var selectedFlowerColorPickerButton: UIButton = flowerColorPickerButton
+    
+    weak var delegate: FlowerColorPickerDelegate?
     
     var numberOfColors: NumberOfColorsType {
         didSet {
             updateRealColorButtons(numberOfColors: numberOfColors)
+            updateNextButtonState()
         }
     }
     
@@ -32,39 +41,36 @@ class ColorPickerView: UIView {
     private let flowerColorPickerButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        button.setTitle("1", for: .normal)
         button.tintColor = UIColor.systemMint
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.systemMint.cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(realColorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let flowerColorPickerButton2: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.setTitle("2", for: .normal)
         button.tintColor = UIColor.lightGray
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(realColorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let flowerColorPickerButton3: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.setTitle("3", for: .normal)
         button.tintColor = UIColor.lightGray
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
-        button.addTarget(self, action: #selector(realColorButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -80,7 +86,7 @@ class ColorPickerView: UIView {
     }()
     
     
-    lazy var segmentContrl: UISegmentedControl = {
+    private lazy var segmentContrl: UISegmentedControl = {
         let segmentedControl: UISegmentedControl = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.center = CGPoint(x: self.frame.width/2, y: 400)
@@ -207,20 +213,8 @@ class ColorPickerView: UIView {
         self.numberOfColors = numberOfColors
         super.init(frame: .zero)
         
-        colorPlateButtons = [
-            colorPlateButton1,
-            colorPlateButton2,
-            colorPlateButton3,
-            colorPlateButton4,
-            colorPlateButton5,
-            colorPlateButton6,
-            colorPlateButton7,
-            colorPlateButton8
-        ]
-        
+        config()
         setupUI()
-        self.segmentContrl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
-        didChangeValue(segment: self.segmentContrl)
     }
     
     required init?(coder: NSCoder) {
@@ -236,11 +230,97 @@ class ColorPickerView: UIView {
         addSubview(colorPlateVStack)
         
         setupAutoLayout()
+        setupSegmentContrl()
+    }
+    
+    private func setupSegmentContrl() {
+        self.segmentContrl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
+        didChangeValue(segment: self.segmentContrl)
+    }
+    
+    private func config() {
+        colorPlateButtons = [
+            colorPlateButton1,
+            colorPlateButton2,
+            colorPlateButton3,
+            colorPlateButton4,
+            colorPlateButton5,
+            colorPlateButton6,
+            colorPlateButton7,
+            colorPlateButton8
+        ]
+        
+        flowerColorPickerButtons = [
+            flowerColorPickerButton,
+            flowerColorPickerButton2,
+            flowerColorPickerButton3
+        ]
+    }
+    
+    private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
+        if selectedFlowerColorPickerButton != selectedButton {
+            selectedFlowerColorPickerButton = selectedButton
+            selectedButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            selectedButton.layer.borderColor = UIColor.systemMint.cgColor
+            selectedButton.tintColor = .systemMint
+        }
+    }
+    
+    private func updateOtherFlowerColorPickerButtons() {
+        for button in flowerColorPickerButtons {
+            if button != selectedFlowerColorPickerButton && button.backgroundColor == nil {
+                button.setImage(UIImage(systemName: "plus.app"), for: .normal)
+                button.layer.borderColor = UIColor.lightGray.cgColor
+                button.tintColor = .lightGray
+            }
+        }
     }
     
     private func changePlateColor(colors: [UIColor]) {
         for i in 0..<colorPlateButtons.count {
             colorPlateButtons[i].backgroundColor = colors[i]
+        }
+    }
+    
+    private func updateRealColorButtons(numberOfColors: NumberOfColorsType) {
+        flowerColorPickerButtonHStackView.arrangedSubviews.forEach {
+            if $0 != flowerColorPickerButton {
+                flowerColorPickerButtonHStackView.removeArrangedSubview($0)
+                $0.isHidden = true
+            }
+        }
+        
+        flowerColorPickerButtonCount(numberOfColors: numberOfColors).forEach {
+            flowerColorPickerButtonHStackView.addArrangedSubview($0)
+            $0.isHidden = false
+        }
+    }
+    
+    private func clearColorPlateButtons() {
+        for button in colorPlateButtons {
+            button.isSelected = false
+            button.setImage(nil, for: .normal)
+        }
+    }
+    
+    private func changeColorPlateBasedOnSegment(_ segment: UISegmentedControl) {
+        switch segment.selectedSegmentIndex {
+        case 0:
+            changePlateColor(colors: [.red, .orange, .yellow, .green, .blue, .purple, .systemPink, .white])
+        case 1:
+            changePlateColor(colors: [.black, .brown, .cyan, .darkGray, .darkText, .gray, .label, .lightGray])
+        case 2:
+            changePlateColor(colors: [.link, .magenta, .opaqueSeparator, .systemCyan, .systemTeal, .systemMint, .systemIndigo, .clear])
+        default:
+            break
+        }
+    }
+    
+    private func restoreSelectedButton(_ segment: UISegmentedControl) {
+        if segment.selectedSegmentIndex == previousSegmentIndex && selectedButton != nil {
+            selectedButton?.isSelected = true
+            selectedButton?.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            selectedButton?.tintColor = .white
         }
     }
     
@@ -259,82 +339,83 @@ class ColorPickerView: UIView {
         return buttons
     }
     
-    private func updateRealColorButtons(numberOfColors: NumberOfColorsType) {
-        flowerColorPickerButtonHStackView.arrangedSubviews.forEach {
-            if $0 != flowerColorPickerButton {
-                flowerColorPickerButtonHStackView.removeArrangedSubview($0)
-                $0.isHidden = true
-            }
-        }
-        
-        flowerColorPickerButtonCount(numberOfColors: numberOfColors).forEach {
-            flowerColorPickerButtonHStackView.addArrangedSubview($0)
-            $0.isHidden = false
-        }
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    func realColorButtonTapped(sender: UIButton) {
-        print(sender.titleLabel?.text)
-    }
-    
-    @objc
-    func didChangeValue(segment: UISegmentedControl) {
-        
-        for button in colorPlateButtons {
-            button.isSelected = false
-            button.setImage(nil, for: .normal)
-        }
-        
-        switch segment.selectedSegmentIndex {
-        case 0:
-            changePlateColor(colors: [.red,.orange,.yellow,.green,.blue,.purple,.systemPink,.white])
-        case 1:
-            changePlateColor(colors: [.black, .brown, .cyan,.darkGray, .darkText, .gray, .label, .lightGray])
-        case 2:
-            changePlateColor(colors:      [.link,.magenta,.opaqueSeparator,.systemCyan,.systemTeal,.systemMint,.systemIndigo,.clear])
-        default:
-            break
-        }
-        
-        if segment.selectedSegmentIndex == previousSegmentIndex && selectedButton != nil {
-            selectedButton?.isSelected = true
-            selectedButton?.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            selectedButton?.tintColor = .white
-        }
-        
-    }
-    
-    @objc
-    func colorPlateButtonTapped(_ sender: UIButton) {
-        
-        if selectedButton != sender {
-            selectedButton = sender
-            sender.isSelected = true
-            sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            sender.tintColor = .white
-            
-            flowerColorPickerButton.setImage(nil, for: .normal)
-            flowerColorPickerButton.layer.borderColor = .none
-            flowerColorPickerButton.backgroundColor = sender.backgroundColor
-            previousSegmentIndex = segmentContrl.selectedSegmentIndex
-        } else {
-            selectedButton = nil
-            sender.isSelected = false
-            sender.setImage(nil, for: .normal)
-            
-            flowerColorPickerButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            flowerColorPickerButton.layer.borderColor = UIColor.systemMint.cgColor
-            flowerColorPickerButton.backgroundColor = .clear
-        }
-        
+    private func updateOtherColorPlateButtons(_ sender: UIButton) {
         for button in colorPlateButtons {
             if button != sender {
                 button.setImage(nil, for: .normal)
             }
         }
+    }
+    
+    private func handleColorSelection(_ sender: UIButton) {
+        selectedButton = sender
+        sender.isSelected = true
+        sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        sender.tintColor = .white
+        
+        selectedFlowerColorPickerButton.setImage(nil, for: .normal)
+        selectedFlowerColorPickerButton.layer.borderColor = .none
+        selectedFlowerColorPickerButton.backgroundColor = sender.backgroundColor
+        previousSegmentIndex = segmentContrl.selectedSegmentIndex
+    }
+    
+    private func resetButtonSelection(_ sender: UIButton) {
+        selectedButton = nil
+        sender.isSelected = false
+        sender.setImage(nil, for: .normal)
+        
+        selectedFlowerColorPickerButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        selectedFlowerColorPickerButton.layer.borderColor = UIColor.systemMint.cgColor
+        selectedFlowerColorPickerButton.backgroundColor = nil
+    }
+    
+    private func updateNextButtonState() {
+        switch numberOfColors {
+        case .단일:
+            if flowerColorPickerButton.backgroundColor != nil {
+                delegate?.isNextButtonEnabled(isEnabled: true)
+            } else {
+                delegate?.isNextButtonEnabled(isEnabled: false)
+            }
+        case .두가지, .포인트:
+            if flowerColorPickerButton.backgroundColor != nil &&
+                flowerColorPickerButton2.backgroundColor != nil {
+                delegate?.isNextButtonEnabled(isEnabled: true)
+            } else {
+                delegate?.isNextButtonEnabled(isEnabled: false)
+            }
+        case .컬러풀한:
+            if flowerColorPickerButton.backgroundColor != nil &&
+                flowerColorPickerButton2.backgroundColor != nil &&
+                flowerColorPickerButton3.backgroundColor != nil {
+                delegate?.isNextButtonEnabled(isEnabled: true)
+            } else {
+                delegate?.isNextButtonEnabled(isEnabled: false)
+            }
+        }
+    }
+    
+    
+    // MARK: - Actions
+    
+    @objc
+    func FlowerColorPickerButtonTapped(sender: UIButton) {
+        updateSelectedFlowerColorPickerButton(with: sender)
+        updateOtherFlowerColorPickerButtons()
+    }
+    
+    @objc
+    func didChangeValue(segment: UISegmentedControl) {
+        clearColorPlateButtons()
+        changeColorPlateBasedOnSegment(segment)
+        restoreSelectedButton(segment)
+    }
+    
+    @objc
+    func colorPlateButtonTapped(_ sender: UIButton) {
+        selectedButton != sender ? handleColorSelection(sender) : resetButtonSelection(sender)
+        updateOtherColorPlateButtons(sender)
+        updateNextButtonState()
     }
 }
 
