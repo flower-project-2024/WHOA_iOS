@@ -248,16 +248,16 @@ class FlowerColorPickerViewController: UIViewController {
       let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
 
         buttons.forEach {
-            $0 == selectedButton ? selectButton($0) : unselectButton($0)
+            $0 == selectedButton ? selectedButtonUI($0) : unselectedButtonUI($0)
         }
     }
     
-    private func selectButton(_ button: UIButton) {
+    private func selectedButtonUI(_ button: UIButton) {
       button.layer.borderColor = UIColor(red: 79/255, green: 234/255, blue: 191/255, alpha: 1.0).cgColor
       button.setTitleColor(.black, for: .normal)
     }
 
-    private func unselectButton(_ button: UIButton) {
+    private func unselectedButtonUI(_ button: UIButton) {
       button.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1.0).cgColor
       button.setTitleColor(UIColor(red: 102/255, green: 102/255, blue: 103/255, alpha: 1.0), for: .normal)
     }
