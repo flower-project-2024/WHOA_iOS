@@ -16,7 +16,7 @@ class NoSearchResultCell: UITableViewCell {
     private let noResultImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "questionmark.bubble")
+        imageView.image = UIImage(named: "NoSearchResultIcon")
         return imageView
     }()
     
