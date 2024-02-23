@@ -22,6 +22,9 @@
 		542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */; };
 		542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */; };
 		542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */; };
+		5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */; };
+		5460711E2B88BAA10033B598 /* NetwokringTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711D2B88BAA10033B598 /* NetwokringTestViewModel.swift */; };
+		546071202B88BAAC0033B598 /* NetwokringTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -75,6 +78,9 @@
 		542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewController.swift; sourceTree = "<group>"; };
 		542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewModel.swift; sourceTree = "<group>"; };
 		542DD3EF2B794B1000DBFCCC /* BuyingIntentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentModel.swift; sourceTree = "<group>"; };
+		5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestViewController.swift; sourceTree = "<group>"; };
+		5460711D2B88BAA10033B598 /* NetwokringTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestViewModel.swift; sourceTree = "<group>"; };
+		5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestModel.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +153,16 @@
 				542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */,
 			);
 			path = FlowerColorPicker;
+			sourceTree = "<group>";
+		};
+		5460711C2B88BA500033B598 /* NetwokringTest */ = {
+			isa = PBXGroup;
+			children = (
+				5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */,
+				5460711D2B88BAA10033B598 /* NetwokringTestViewModel.swift */,
+				5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */,
+			);
+			path = NetwokringTest;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -227,6 +243,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5460711C2B88BA500033B598 /* NetwokringTest */,
 				54FD0F762B73CF2B00F964C3 /* Common */,
 				54FD0F622B6FFC1C00F964C3 /* Home */,
 				54FD0F692B70198500F964C3 /* FlowerCustomizing */,
@@ -459,11 +476,13 @@
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
+				5460711E2B88BAA10033B598 /* NetwokringTestViewModel.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
+				546071202B88BAAC0033B598 /* NetwokringTestModel.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
@@ -472,6 +491,7 @@
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
+				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
