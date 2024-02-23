@@ -13,6 +13,8 @@ protocol FlowerColorPickerDelegate: AnyObject {
 
 class ColorPickerView: UIView {
     
+    // MARK: - Properties
+    
     private var selectedButton: UIButton?
     private var selectedColor: UIColor?
     private var flowerColorPickerButtons: [UIButton] = []
@@ -268,10 +270,14 @@ class ColorPickerView: UIView {
     
     private func updateOtherFlowerColorPickerButtons() {
         for button in flowerColorPickerButtons {
-            if button != selectedFlowerColorPickerButton && button.backgroundColor == nil {
-                button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-                button.layer.borderColor = UIColor.lightGray.cgColor
-                button.tintColor = .lightGray
+            if button != selectedFlowerColorPickerButton {
+                if button.backgroundColor != nil {
+                    button.setImage(nil, for: .normal)
+                } else {
+                    button.setImage(UIImage(systemName: "plus.app"), for: .normal)
+                    button.layer.borderColor = UIColor.lightGray.cgColor
+                    button.tintColor = .lightGray
+                }
             }
         }
     }
@@ -400,6 +406,21 @@ class ColorPickerView: UIView {
     
     @objc
     func FlowerColorPickerButtonTapped(sender: UIButton) {
+        if sender.backgroundColor != nil {
+            colorPlateButtons.forEach{
+                if $0.backgroundColor == sender.backgroundColor {
+                    selectedButton = $0
+                    $0.isSelected = true
+                    $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
+                    $0.tintColor = .white
+                } else {
+                    selectedButton = nil
+                    $0.isSelected = false
+                    $0.setImage(nil, for: .normal)
+                }
+            }
+        }
+            
         updateSelectedFlowerColorPickerButton(with: sender)
         updateOtherFlowerColorPickerButtons()
     }
