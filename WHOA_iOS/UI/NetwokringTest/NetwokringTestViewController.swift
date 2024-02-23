@@ -11,6 +11,8 @@ import UIKit
 class NetwokringTestViewController: UIViewController {
     
     override func viewDidLoad() {
-        <#code#>
+        NetworkManager.shared.fetchNetworkingTest { result in
+            print(result)
+        }
     }
 }
