@@ -288,7 +288,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        print("dd")
+        viewModel.goToNextVC(fromCurrentVC: self, animated: true)
     }
 }
 

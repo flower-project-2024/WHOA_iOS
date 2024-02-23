@@ -5,13 +5,20 @@
 //  Created by KSH on 2/11/24.
 //
 
-import Foundation
+import UIKit
 
 class FlowerColorPickerViewModel {
     
-    let intentType: BuyingIntentType
+    private let flowerColorPickerModel: FlowerColorPickerModel?
     
     init(intentType: BuyingIntentType) {
-        self.intentType = intentType
+        flowerColorPickerModel = FlowerColorPickerModel(intentType: intentType)
+    }
+    
+    func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
+        let flowerSelectVC = FlowerSelectViewController()
+        flowerSelectVC.modalPresentationStyle = .fullScreen
+        
+        fromCurrentVC.present(flowerSelectVC, animated: true)
     }
 }
