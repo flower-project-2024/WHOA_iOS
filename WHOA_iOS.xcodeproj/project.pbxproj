@@ -27,6 +27,7 @@
 		546071202B88BAAC0033B598 /* NetwokringTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */; };
 		546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071232B88C22F0033B598 /* HTTPMethods.swift */; };
 		546071262B88C2740033B598 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071252B88C2740033B598 /* NetworkError.swift */; };
+		546071282B88C2C30033B598 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071272B88C2C30033B598 /* ServableAPI.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -85,6 +86,7 @@
 		5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestModel.swift; sourceTree = "<group>"; };
 		546071232B88C22F0033B598 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		546071252B88C2740033B598 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		546071272B88C2C30033B598 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				546071232B88C22F0033B598 /* HTTPMethods.swift */,
 				546071252B88C2740033B598 /* NetworkError.swift */,
+				546071272B88C2C30033B598 /* ServableAPI.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 			files = (
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
+				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				546071262B88C2740033B598 /* NetworkError.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
