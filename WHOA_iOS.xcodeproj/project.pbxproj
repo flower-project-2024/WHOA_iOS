@@ -25,6 +25,8 @@
 		5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */; };
 		5460711E2B88BAA10033B598 /* NetwokringTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711D2B88BAA10033B598 /* NetwokringTestViewModel.swift */; };
 		546071202B88BAAC0033B598 /* NetwokringTestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */; };
+		546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071232B88C22F0033B598 /* HTTPMethods.swift */; };
+		546071262B88C2740033B598 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071252B88C2740033B598 /* NetworkError.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -81,6 +83,8 @@
 		5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestViewController.swift; sourceTree = "<group>"; };
 		5460711D2B88BAA10033B598 /* NetwokringTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestViewModel.swift; sourceTree = "<group>"; };
 		5460711F2B88BAAC0033B598 /* NetwokringTestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestModel.swift; sourceTree = "<group>"; };
+		546071232B88C22F0033B598 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
+		546071252B88C2740033B598 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +169,23 @@
 			path = NetwokringTest;
 			sourceTree = "<group>";
 		};
+		546071212B88C1860033B598 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				546071222B88C1AF0033B598 /* Network */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		546071222B88C1AF0033B598 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				546071232B88C22F0033B598 /* HTTPMethods.swift */,
+				546071252B88C2740033B598 /* NetworkError.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		54FD0F222B6FCE2D00F964C3 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F5E2B6FD48900F964C3 /* App */,
+				546071212B88C1860033B598 /* Networking */,
 				54FD0F612B6FD60700F964C3 /* UI */,
 				54FD0F822B74C0DB00F964C3 /* Global */,
 				54FD0F602B6FD52E00F964C3 /* Resources */,
@@ -474,6 +496,7 @@
 			files = (
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
+				546071262B88C2740033B598 /* NetworkError.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
 				5460711E2B88BAA10033B598 /* NetwokringTestViewModel.swift in Sources */,
@@ -482,6 +505,7 @@
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
+				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
 				546071202B88BAAC0033B598 /* NetwokringTestModel.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
