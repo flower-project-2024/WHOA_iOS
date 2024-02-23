@@ -11,7 +11,6 @@ struct TestAPI: ServableAPI {
     typealias Response = TestDTO
     
     var path: String { "/search/" }
-    
     var params: [String : String] {
         [
             "media": "music",

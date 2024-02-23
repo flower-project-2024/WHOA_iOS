@@ -29,6 +29,9 @@
 		546071262B88C2740033B598 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071252B88C2740033B598 /* NetworkError.swift */; };
 		546071282B88C2C30033B598 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071272B88C2C30033B598 /* ServableAPI.swift */; };
 		5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071292B88C4D30033B598 /* NetworkService.swift */; };
+		5460712D2B88C5670033B598 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460712C2B88C5670033B598 /* TestAPI.swift */; };
+		546071302B88C5960033B598 /* TestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460712F2B88C5960033B598 /* TestDTO.swift */; };
+		546071322B88C6A30033B598 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071312B88C6A30033B598 /* NetworkManager.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -89,6 +92,9 @@
 		546071252B88C2740033B598 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		546071272B88C2C30033B598 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
 		546071292B88C4D30033B598 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		5460712C2B88C5670033B598 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
+		5460712F2B88C5960033B598 /* TestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDTO.swift; sourceTree = "<group>"; };
+		546071312B88C6A30033B598 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,7 +182,10 @@
 		546071212B88C1860033B598 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				5460712B2B88C5550033B598 /* APIs */,
+				5460712E2B88C57C0033B598 /* DTOs */,
 				546071222B88C1AF0033B598 /* Network */,
+				546071312B88C6A30033B598 /* NetworkManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -190,6 +199,22 @@
 				546071272B88C2C30033B598 /* ServableAPI.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		5460712B2B88C5550033B598 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				5460712C2B88C5670033B598 /* TestAPI.swift */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		5460712E2B88C57C0033B598 /* DTOs */ = {
+			isa = PBXGroup;
+			children = (
+				5460712F2B88C5960033B598 /* TestDTO.swift */,
+			);
+			path = DTOs;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -500,6 +525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5460712D2B88C5670033B598 /* TestAPI.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
@@ -523,8 +549,10 @@
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
+				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				546071302B88C5960033B598 /* TestDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
