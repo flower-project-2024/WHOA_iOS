@@ -7,6 +7,8 @@
 
 import Foundation
 
+// 같은 API 제공자에게서 여러개의 API를 요청할 때 도메인 등의 중복 값들을 생략가능
+// path, parameter, 도메인 주소까지 커스텀 가능
 protocol ServableAPI {
     associatedtype Response: Decodable
     var path: String { get }

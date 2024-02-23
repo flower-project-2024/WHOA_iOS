@@ -15,6 +15,7 @@ class NetworkService: NetworkServable {
 
     init() {}
 
+    // ServableAPI를 채택한 객체를 매개변수로 받아, 네트워크 통신하는 로직
     func request<API>(
         _ api: API,
         completion: @escaping (Result<API.Response, NetworkError>) -> Void
