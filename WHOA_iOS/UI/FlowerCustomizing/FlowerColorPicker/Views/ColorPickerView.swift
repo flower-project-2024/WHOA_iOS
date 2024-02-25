@@ -26,7 +26,7 @@ class ColorPickerView: UIView {
     
     var numberOfColors: NumberOfColorsType {
         didSet {
-            updateRealColorButtons(numberOfColors: numberOfColors)
+            flowerColorPickerButtonCount(numberOfColors: numberOfColors)
             updateNextButtonState()
         }
     }
@@ -79,16 +79,13 @@ class ColorPickerView: UIView {
     private lazy var flowerColorPickerButtonHStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.addArrangedSubview(flowerColorPickerButton)
-        flowerColorPickerButtonCount(numberOfColors: numberOfColors).forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
+        flowerColorPickerButtons.forEach { stackView.addArrangedSubview($0) }
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         return stackView
     }()
     
-    
-    private lazy var segmentContrl: UISegmentedControl = {
+    private lazy var segmentControl: UISegmentedControl = {
         let segmentedControl: UISegmentedControl = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.center = CGPoint(x: self.frame.width/2, y: 400)
@@ -228,16 +225,16 @@ class ColorPickerView: UIView {
     private func setupUI() {
         addSubview(colorDescriptionLabel)
         addSubview(flowerColorPickerButtonHStackView)
-        addSubview(segmentContrl)
+        addSubview(segmentControl)
         addSubview(colorPlateVStack)
         
         setupAutoLayout()
-        setupSegmentContrl()
+        setupSegmentControl()
     }
     
-    private func setupSegmentContrl() {
-        self.segmentContrl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
-        didChangeValue(segment: self.segmentContrl)
+    private func setupSegmentControl() {
+        self.segmentControl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
+        didChangeValue(segment: self.segmentControl)
     }
     
     private func config() {
@@ -288,20 +285,6 @@ class ColorPickerView: UIView {
         }
     }
     
-    private func updateRealColorButtons(numberOfColors: NumberOfColorsType) {
-        flowerColorPickerButtonHStackView.arrangedSubviews.forEach {
-            if $0 != flowerColorPickerButton {
-                flowerColorPickerButtonHStackView.removeArrangedSubview($0)
-                $0.isHidden = true
-            }
-        }
-        
-        flowerColorPickerButtonCount(numberOfColors: numberOfColors).forEach {
-            flowerColorPickerButtonHStackView.addArrangedSubview($0)
-            $0.isHidden = false
-        }
-    }
-    
     private func clearColorPlateButtons() {
         for button in colorPlateButtons {
             button.isSelected = false
@@ -330,19 +313,18 @@ class ColorPickerView: UIView {
         }
     }
     
-    private func flowerColorPickerButtonCount(numberOfColors: NumberOfColorsType) -> [UIButton] {
-        var buttons = [UIButton]()
-        
+    private func flowerColorPickerButtonCount(numberOfColors: NumberOfColorsType) {
         switch numberOfColors {
         case .단일:
-            break
+            flowerColorPickerButton2.isHidden = true
+            flowerColorPickerButton3.isHidden = true
         case .두가지, .포인트:
-            buttons = [flowerColorPickerButton2]
+            flowerColorPickerButton2.isHidden = false
+            flowerColorPickerButton3.isHidden = true
         case .컬러풀한:
-            buttons = [flowerColorPickerButton2, flowerColorPickerButton3]
+            flowerColorPickerButton2.isHidden = false
+            flowerColorPickerButton3.isHidden = false
         }
-        
-        return buttons
     }
     
     private func updateOtherColorPlateButtons(_ sender: UIButton) {
@@ -362,7 +344,7 @@ class ColorPickerView: UIView {
         selectedFlowerColorPickerButton.setImage(nil, for: .normal)
         selectedFlowerColorPickerButton.layer.borderColor = .none
         selectedFlowerColorPickerButton.backgroundColor = sender.backgroundColor
-        previousSegmentIndex = segmentContrl.selectedSegmentIndex
+        previousSegmentIndex = segmentControl.selectedSegmentIndex
     }
     
     private func resetButtonSelection(_ sender: UIButton) {
@@ -420,7 +402,6 @@ class ColorPickerView: UIView {
                 }
             }
         }
-            
         updateSelectedFlowerColorPickerButton(with: sender)
         updateOtherFlowerColorPickerButtons()
     }
@@ -453,13 +434,13 @@ extension ColorPickerView {
             $0.height.equalTo(96)
         }
         
-        segmentContrl.snp.makeConstraints {
+        segmentControl.snp.makeConstraints {
             $0.top.equalTo(flowerColorPickerButton.snp_bottomMargin).offset(30)
             $0.leading.trailing.equalToSuperview()
         }
         
         colorPlateVStack.snp.makeConstraints {
-            $0.top.equalTo(segmentContrl.snp_bottomMargin).offset(40)
+            $0.top.equalTo(segmentControl.snp_bottomMargin).offset(40)
             $0.leading.trailing.equalToSuperview()
         }
     }
