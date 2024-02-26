@@ -257,24 +257,34 @@ class ColorPickerView: UIView {
         ]
     }
     
+    private func selectedFlowerColorPickerButtonUI(button: UIButton) {
+        button.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        button.layer.borderColor = UIColor.systemMint.cgColor
+        button.tintColor = .systemMint
+    }
+    
+    private func unSelectedFlowerColorPickerButtonUI(button: UIButton) {
+        button.setImage(UIImage(systemName: "plus.app"), for: .normal)
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.tintColor = .lightGray
+    }
+    
+    // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
     private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
         if selectedFlowerColorPickerButton != selectedButton {
             selectedFlowerColorPickerButton = selectedButton
-            selectedButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            selectedButton.layer.borderColor = UIColor.systemMint.cgColor
-            selectedButton.tintColor = .systemMint
+            selectedFlowerColorPickerButtonUI(button: selectedButton)
         }
     }
     
+    // 도화지 클릭 시 클릭되지 않은 나머지 도화지들의 UI를 변경해주는 로직
     private func updateOtherFlowerColorPickerButtons() {
         for button in flowerColorPickerButtons {
             if button != selectedFlowerColorPickerButton {
                 if button.backgroundColor != nil {
                     button.setImage(nil, for: .normal)
                 } else {
-                    button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-                    button.layer.borderColor = UIColor.lightGray.cgColor
-                    button.tintColor = .lightGray
+                    unSelectedFlowerColorPickerButtonUI(button: button)
                 }
             }
         }
@@ -403,15 +413,13 @@ class ColorPickerView: UIView {
     @objc
     func FlowerColorPickerButtonTapped(sender: UIButton) {
         if sender.backgroundColor != nil {
-            colorPlateButtons.forEach{
+            colorPlateButtons.forEach {
                 if $0.backgroundColor == sender.backgroundColor {
                     selectedButton = $0
-                    $0.isSelected = true
                     $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
                     $0.tintColor = .white
                 } else {
                     selectedButton = nil
-                    $0.isSelected = false
                     $0.setImage(nil, for: .normal)
                 }
             }
