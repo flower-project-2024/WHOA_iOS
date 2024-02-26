@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 protocol FlowerColorPickerDelegate: AnyObject {
     func isNextButtonEnabled(isEnabled: Bool)
@@ -325,6 +326,7 @@ class ColorPickerView: UIView {
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = false
         }
+        configPointColorPickerStyle(numberOfColors)
     }
     
     private func updateOtherColorPlateButtons(_ sender: UIButton) {
@@ -383,6 +385,18 @@ class ColorPickerView: UIView {
         }
     }
     
+    func configPointColorPickerStyle(_ numberOfColors: NumberOfColorsType) {
+        if numberOfColors == .포인트 {
+            flowerColorPickerButtonHStackView.distribution = .fill
+            
+            flowerColorPickerButton.snp.makeConstraints {
+                $0.width.equalTo(flowerColorPickerButtonHStackView.snp.width).multipliedBy(0.318).priority(3)
+            }
+        } else {
+            flowerColorPickerButtonHStackView.distribution = .fillEqually
+        }
+    }
+    
     
     // MARK: - Actions
     
@@ -429,7 +443,7 @@ extension ColorPickerView {
         }
         
         flowerColorPickerButtonHStackView.snp.makeConstraints {
-            $0.top.equalTo(colorDescriptionLabel.snp_bottomMargin).offset(20)
+            $0.top.equalTo(colorDescriptionLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(96)
         }
