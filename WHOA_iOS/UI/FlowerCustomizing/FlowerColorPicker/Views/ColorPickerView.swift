@@ -19,7 +19,7 @@ class ColorPickerView: UIView {
     private var selectedButton: UIButton?
     private var selectedColor: UIColor?
     private var flowerColorPickerButtons: [UIButton] = []
-    private var colorPlateButtons: [UIButton] = []
+    private var colorPaletteButtons: [UIButton] = []
     private var previousSegmentIndex: Int = 0
     private lazy var selectedFlowerColorPickerButton: UIButton = flowerColorPickerButton
     
@@ -93,49 +93,49 @@ class ColorPickerView: UIView {
         return segmentedControl
     }()
     
-    private let colorPlateButton1: UIButton = {
+    private let colorPaletteButton1: UIButton = {
         let button = UIButton()
         button.backgroundColor = .red
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton2: UIButton = {
+    private let colorPaletteButton2: UIButton = {
         let button = UIButton()
         button.backgroundColor = .orange
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton3: UIButton = {
+    private let colorPaletteButton3: UIButton = {
         let button = UIButton()
         button.backgroundColor = .yellow
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton4: UIButton = {
+    private let colorPaletteButton4: UIButton = {
         let button = UIButton()
         button.backgroundColor = .green
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private lazy var colorPlateHStack = {
+    private lazy var colorPaletteHStack = {
         let stackView = UIStackView()
         [
-            colorPlateButton1,
-            colorPlateButton2,
-            colorPlateButton3,
-            colorPlateButton4,
+            colorPaletteButton1,
+            colorPaletteButton2,
+            colorPaletteButton3,
+            colorPaletteButton4,
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -143,51 +143,51 @@ class ColorPickerView: UIView {
         return stackView
     }()
     
-    private let colorPlateButton5: UIButton = {
+    private let colorPaletteButton5: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton6: UIButton = {
+    private let colorPaletteButton6: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemPink
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton7: UIButton = {
+    private let colorPaletteButton7: UIButton = {
         let button = UIButton()
         button.backgroundColor = .purple
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let colorPlateButton8: UIButton = {
+    private let colorPaletteButton8: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
-        button.addTarget(self, action: #selector(colorPlateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private lazy var colorPlateHStack2 = {
+    private lazy var colorPaletteHStack2 = {
         let stackView = UIStackView()
         [
-            colorPlateButton5,
-            colorPlateButton6,
-            colorPlateButton7,
-            colorPlateButton8,
+            colorPaletteButton5,
+            colorPaletteButton6,
+            colorPaletteButton7,
+            colorPaletteButton8,
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -195,11 +195,11 @@ class ColorPickerView: UIView {
         return stackView
     }()
     
-    private lazy var colorPlateVStack: UIStackView = {
+    private lazy var colorPaletteVStack: UIStackView = {
         let stackView = UIStackView()
         [
-            colorPlateHStack,
-            colorPlateHStack2
+            colorPaletteHStack,
+            colorPaletteHStack2
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -227,7 +227,7 @@ class ColorPickerView: UIView {
         addSubview(colorDescriptionLabel)
         addSubview(flowerColorPickerButtonHStackView)
         addSubview(segmentControl)
-        addSubview(colorPlateVStack)
+        addSubview(colorPaletteVStack)
         
         setupAutoLayout()
         setupSegmentControl()
@@ -239,15 +239,15 @@ class ColorPickerView: UIView {
     }
     
     private func config() {
-        colorPlateButtons = [
-            colorPlateButton1,
-            colorPlateButton2,
-            colorPlateButton3,
-            colorPlateButton4,
-            colorPlateButton5,
-            colorPlateButton6,
-            colorPlateButton7,
-            colorPlateButton8
+        colorPaletteButtons = [
+            colorPaletteButton1,
+            colorPaletteButton2,
+            colorPaletteButton3,
+            colorPaletteButton4,
+            colorPaletteButton5,
+            colorPaletteButton6,
+            colorPaletteButton7,
+            colorPaletteButton8
         ]
         
         flowerColorPickerButtons = [
@@ -290,27 +290,27 @@ class ColorPickerView: UIView {
         }
     }
     
-    private func changePlateColor(colors: [UIColor]) {
-        for i in 0..<colorPlateButtons.count {
-            colorPlateButtons[i].backgroundColor = colors[i]
+    private func changePaletteColor(colors: [UIColor]) {
+        for i in 0..<colorPaletteButtons.count {
+            colorPaletteButtons[i].backgroundColor = colors[i]
         }
     }
     
-    private func clearColorPlateButtons() {
-        for button in colorPlateButtons {
+    private func clearColorPaletteButtons() {
+        for button in colorPaletteButtons {
             button.isSelected = false
             button.setImage(nil, for: .normal)
         }
     }
     
-    private func changeColorPlateBasedOnSegment(_ segment: UISegmentedControl) {
+    private func changeColorPaletteBasedOnSegment(_ segment: UISegmentedControl) {
         switch segment.selectedSegmentIndex {
         case 0:
-            changePlateColor(colors: [.red, .orange, .yellow, .green, .blue, .purple, .systemPink, .white])
+            changePaletteColor(colors: [.red, .orange, .yellow, .green, .blue, .purple, .systemPink, .white])
         case 1:
-            changePlateColor(colors: [.black, .brown, .cyan, .darkGray, .darkText, .gray, .label, .lightGray])
+            changePaletteColor(colors: [.black, .brown, .cyan, .darkGray, .darkText, .gray, .label, .lightGray])
         case 2:
-            changePlateColor(colors: [.link, .magenta, .opaqueSeparator, .systemCyan, .systemTeal, .systemMint, .systemIndigo, .clear])
+            changePaletteColor(colors: [.link, .magenta, .opaqueSeparator, .systemCyan, .systemTeal, .systemMint, .systemIndigo, .clear])
         default:
             break
         }
@@ -339,8 +339,8 @@ class ColorPickerView: UIView {
         configPointColorPickerStyle(numberOfColors)
     }
     
-    private func updateOtherColorPlateButtons(_ sender: UIButton) {
-        for button in colorPlateButtons {
+    private func updateOtherColorPaletteButtons(_ sender: UIButton) {
+        for button in colorPaletteButtons {
             if button != sender {
                 button.setImage(nil, for: .normal)
             }
@@ -413,7 +413,7 @@ class ColorPickerView: UIView {
     @objc
     func FlowerColorPickerButtonTapped(sender: UIButton) {
         if sender.backgroundColor != nil {
-            colorPlateButtons.forEach {
+            colorPaletteButtons.forEach {
                 if $0.backgroundColor == sender.backgroundColor {
                     selectedButton = $0
                     $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
@@ -430,15 +430,15 @@ class ColorPickerView: UIView {
     
     @objc
     func didChangeValue(segment: UISegmentedControl) {
-        clearColorPlateButtons()
-        changeColorPlateBasedOnSegment(segment)
+        clearColorPaletteButtons()
+        changeColorPaletteBasedOnSegment(segment)
         restoreSelectedButton(segment)
     }
     
     @objc
-    func colorPlateButtonTapped(_ sender: UIButton) {
+    func colorPaletteButtonTapped(_ sender: UIButton) {
         selectedButton != sender ? handleColorSelection(sender) : resetButtonSelection(sender)
-        updateOtherColorPlateButtons(sender)
+        updateOtherColorPaletteButtons(sender)
         updateNextButtonState()
     }
 }
@@ -461,7 +461,7 @@ extension ColorPickerView {
             $0.leading.trailing.equalToSuperview()
         }
         
-        colorPlateVStack.snp.makeConstraints {
+        colorPaletteVStack.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp_bottomMargin).offset(40)
             $0.leading.trailing.equalToSuperview()
         }
