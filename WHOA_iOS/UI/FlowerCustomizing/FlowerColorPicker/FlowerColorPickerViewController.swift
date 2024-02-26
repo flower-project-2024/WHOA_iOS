@@ -169,7 +169,7 @@ class FlowerColorPickerViewController: UIViewController {
         return stackView
     }()
     
-    private var colorPickerView = ColorPickerView(numberOfColors: .단일)
+    private lazy var colorPickerView = ColorPickerView(viewModel: viewModel, numberOfColors: .단일)
     
     private let noticeLabel: UILabel = {
         let label = UILabel()

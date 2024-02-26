@@ -9,14 +9,20 @@ import UIKit
 
 class FlowerColorPickerViewModel {
     
-    private let flowerColorPickerModel: FlowerColorPickerModel?
+    private var flowerColorPickerModel: FlowerColorPickerModel?
     
     init(intentType: BuyingIntentType) {
         flowerColorPickerModel = FlowerColorPickerModel(intentType: intentType)
     }
     
+    func getColors(colors: [UIColor?]) {
+        flowerColorPickerModel?.colors = colors
+    }
+    
     func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        let flowerSelectVC = FlowerSelectViewController()
+        guard let tempModel = flowerColorPickerModel else { return }
+        
+        let flowerSelectVC = FlowerSelectViewController(tempModel: tempModel)
         flowerSelectVC.modalPresentationStyle = .fullScreen
         
         fromCurrentVC.present(flowerSelectVC, animated: true)

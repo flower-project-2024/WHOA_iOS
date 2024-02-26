@@ -16,6 +16,7 @@ class ColorPickerView: UIView {
     
     // MARK: - Properties
     
+    private var viewModel: FlowerColorPickerViewModel
     private var selectedButton: UIButton?
     private var selectedColor: UIColor?
     private var flowerColorPickerButtons: [UIButton] = []
@@ -209,7 +210,8 @@ class ColorPickerView: UIView {
     
     // MARK: - Initialize
     
-    init(numberOfColors: NumberOfColorsType) {
+    init(viewModel: FlowerColorPickerViewModel, numberOfColors: NumberOfColorsType) {
+        self.viewModel = viewModel
         self.numberOfColors = numberOfColors
         super.init(frame: .zero)
         
@@ -370,9 +372,14 @@ class ColorPickerView: UIView {
     }
     
     private func updateNextButtonState() {
+        var colors: [UIColor?]
+        
         switch numberOfColors {
         case .단일:
             if flowerColorPickerButton.backgroundColor != nil {
+                colors = [flowerColorPickerButton.backgroundColor]
+                viewModel.getColors(colors: colors)
+                
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
@@ -380,6 +387,9 @@ class ColorPickerView: UIView {
         case .두가지, .포인트:
             if flowerColorPickerButton.backgroundColor != nil &&
                 flowerColorPickerButton2.backgroundColor != nil {
+                colors = [flowerColorPickerButton.backgroundColor, flowerColorPickerButton2.backgroundColor]
+                viewModel.getColors(colors: colors)
+                
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
@@ -388,6 +398,13 @@ class ColorPickerView: UIView {
             if flowerColorPickerButton.backgroundColor != nil &&
                 flowerColorPickerButton2.backgroundColor != nil &&
                 flowerColorPickerButton3.backgroundColor != nil {
+                colors = [
+                    flowerColorPickerButton.backgroundColor,
+                    flowerColorPickerButton2.backgroundColor,
+                    flowerColorPickerButton3.backgroundColor
+                ]
+                viewModel.getColors(colors: colors)
+                
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
