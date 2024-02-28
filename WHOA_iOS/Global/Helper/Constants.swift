@@ -11,4 +11,5 @@ import Foundation
 
 enum CellIdentifier {
     static let hashTagCellIdentifier = "HashTagCollectionViewCell"
+    static let flowerSelectTableViewCellIdentifier = "FlowerSelectTableViewCell"
 }
