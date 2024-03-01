@@ -13,7 +13,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "IntentImage")
+        imageView.image = UIImage(named: "tempFlower")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -21,12 +21,14 @@ class FlowerSelectTableViewCell: UITableViewCell {
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "튤립"
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
         return label
     }()
     
     private let addImageButton: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "plus.app")
+        imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -38,9 +40,8 @@ class FlowerSelectTableViewCell: UITableViewCell {
             addImageButton
         ].forEach { stackView.addArrangedSubview($0) }
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
-        stackView.backgroundColor = .green
+        stackView.distribution = .equalCentering
+        stackView.alignment = .center
         return stackView
     }()
 
@@ -48,12 +49,16 @@ class FlowerSelectTableViewCell: UITableViewCell {
     private let hashTag: UILabel = {
         let label = UILabel()
         label.text = "믿는 사랑"
+        label.textColor = .systemMint
+        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
         return label
     }()
     
     private let hashTag2: UILabel = {
         let label = UILabel()
         label.text = "추억"
+        label.textColor = .systemMint
+        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
         return label
     }()
     
@@ -65,8 +70,8 @@ class FlowerSelectTableViewCell: UITableViewCell {
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 9
-        stackView.backgroundColor = .yellow
+        stackView.alignment = .trailing
+        stackView.spacing = 4
         return stackView
     }()
     
@@ -78,7 +83,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.backgroundColor = .blue
         return stackView
     }()
     
@@ -89,8 +93,8 @@ class FlowerSelectTableViewCell: UITableViewCell {
             flowerDescriptionVStackView
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.backgroundColor = .red
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 12
         return stackView
     }()
 
@@ -120,7 +124,6 @@ extension FlowerSelectTableViewCell {
         
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.equalTo(60)
         }
         
         addImageButton.snp.makeConstraints {

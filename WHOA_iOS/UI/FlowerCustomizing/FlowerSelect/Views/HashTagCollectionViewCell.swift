@@ -13,14 +13,11 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI
     
-    private let hashTagButton: UIButton = {
-        let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 16
-        button.layer.borderColor = UIColor.systemMint.cgColor
-        button.layer.borderWidth = 1
-        return button
+    private let hashTagTitle: UILabel = {
+        let label = UILabel()
+        label.text = "전체"
+        label.font = UIFont(name: "Pretendard-Regular", size: 18)
+        return label
     }()
     
     // MARK: - Initialize
@@ -38,22 +35,25 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     
     private func setupUI() {
-        addSubview(hashTagButton)
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 20
+        
+        addSubview(hashTagTitle)
         
         setupAutoLayout()
     }
     
     func setupHashTag(text: String) {
-        hashTagButton.setTitle(text, for: .normal)
+        hashTagTitle.text = text
     }
 }
 
 extension HashTagCollectionViewCell {
     private func setupAutoLayout() {
-        hashTagButton.snp.makeConstraints {
+        hashTagTitle.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.size.equalTo(48)
         }
     }
 }

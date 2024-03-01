@@ -11,8 +11,9 @@ class FlowerSelectViewController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel = FlowerSelectViewModel()
     var tempModel: FlowerColorPickerModel
-    var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿는 사랑", "추억"]
+    var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿음", "추억"]
     
     // MARK: - UI
     
@@ -61,7 +62,7 @@ class FlowerSelectViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.lightGray.cgColor
+        collectionView.layer.borderColor = UIColor.systemGray3.cgColor
         
         return collectionView
     }()
@@ -106,6 +107,7 @@ class FlowerSelectViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        nextButton.isActive = true
     }
     
     // MARK: - Fuctions
@@ -124,6 +126,7 @@ class FlowerSelectViewController: UIViewController {
 
         setupAutoLayout()
         setupCollectionView()
+        setupButtonActions()
         titleLabel.text = "\"\(tempModel.intentType.rawValue)\"과 어울리는 꽃 선택"
     }
     
@@ -132,6 +135,23 @@ class FlowerSelectViewController: UIViewController {
         hashTagCollectionView.dataSource = self
         hashTagCollectionView.register(HashTagCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.hashTagCellIdentifier)
         hashTagCollectionView.backgroundColor = .white
+    }
+    
+    private func setupButtonActions() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    func backButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @objc
+    func nextButtonTapped() {
+        viewModel.goToNextVC(fromCurrentVC: self, animated: true)
     }
 }
 
@@ -218,7 +238,11 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.size.width / 6 - 5, height: UIScreen.main.bounds.height / 5 - 30)
+        
+        return CGSize(width: collectionView.frame.width / 7 - 3, height: collectionView.frame.height / 1.5)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
 }
 
