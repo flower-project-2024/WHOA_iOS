@@ -29,6 +29,8 @@
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
 		548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */; };
 		548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */; };
+		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
+		54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -89,6 +91,8 @@
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectTableViewCell.swift; sourceTree = "<group>"; };
+		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
+		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 			children = (
 				548C4AE82B8E6B34002F4FCB /* Views */,
 				546071162B87EBB50033B598 /* FlowerSelectViewController.swift */,
+				54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */,
 			);
 			path = FlowerSelect;
 			sourceTree = "<group>";
@@ -197,6 +202,14 @@
 				548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		54E9816C2B90A656000669DB /* FlowerReplacement */ = {
+			isa = PBXGroup;
+			children = (
+				54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */,
+			);
+			path = FlowerReplacement;
 			sourceTree = "<group>";
 		};
 		54FD0F222B6FCE2D00F964C3 = {
@@ -299,6 +312,7 @@
 				54FD0F6A2B701B2000F964C3 /* BuyingIntent */,
 				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 				546071152B87EAE30033B598 /* FlowerSelect */,
+				54E9816C2B90A656000669DB /* FlowerReplacement */,
 			);
 			path = FlowerCustomizing;
 			sourceTree = "<group>";
@@ -522,6 +536,7 @@
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
+				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
@@ -533,6 +548,7 @@
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
