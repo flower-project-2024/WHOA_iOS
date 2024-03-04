@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08572A192B8CF950002F045F /* CustomAlertViewController.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
 		085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */; };
 		085738392B72348400AAFAC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */; };
@@ -16,6 +17,9 @@
 		0857383D2B72348E00AAFAC6 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382F2B721A5700AAFAC6 /* Pretendard-Regular.otf */; };
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
+		0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6252B8677BF00727F14 /* MyPageViewController.swift */; };
+		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
+		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
 		542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */; };
 		542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* BuyingIntentViewModel.swift */; };
@@ -60,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08572A192B8CF950002F045F /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		0857382C2B721A5700AAFAC6 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -69,6 +74,9 @@
 		085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		0887F6252B8677BF00727F14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
+		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitAlertViewController.swift; sourceTree = "<group>"; };
 		542DD3E62B7813A300DBFCCC /* BuyingIntentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingIntentViewModel.swift; sourceTree = "<group>"; };
@@ -138,6 +146,33 @@
 				0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		0887F6242B86777F00727F14 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				0887F62A2B867D4D00727F14 /* CustomView */,
+				0887F6272B867B9D00727F14 /* cell */,
+				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		0887F6272B867B9D00727F14 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0887F6282B867BAE00727F14 /* SavedRequestCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		0887F62A2B867D4D00727F14 /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				0887F62B2B867D5800727F14 /* RequestCustomButton.swift */,
+				08572A192B8CF950002F045F /* CustomAlertViewController.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
@@ -227,6 +262,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0887F6242B86777F00727F14 /* MyPage */,
 				54FD0F762B73CF2B00F964C3 /* Common */,
 				54FD0F622B6FFC1C00F964C3 /* Home */,
 				54FD0F692B70198500F964C3 /* FlowerCustomizing */,
@@ -455,15 +491,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
+				0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* BuyingIntentButtonHStackView.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
+				08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
@@ -471,6 +510,7 @@
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
+				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 			);
