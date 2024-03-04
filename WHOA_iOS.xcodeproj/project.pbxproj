@@ -29,6 +29,7 @@
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
 		548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */; };
 		548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */; };
+		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
@@ -91,6 +92,7 @@
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectTableViewCell.swift; sourceTree = "<group>"; };
+		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,7 @@
 			children = (
 				548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */,
 				548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */,
+				54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */,
+				54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,

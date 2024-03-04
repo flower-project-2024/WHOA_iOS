@@ -14,7 +14,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "TempFlower")
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -33,20 +33,22 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let hashTag: UILabel = {
-        let label = UILabel()
-        label.text = "믿는 사랑"
-        label.textColor = .systemMint
-//        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
-        return label
+    private let hashTag: tempHashTagLabel = {
+        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+        hashTagLabel.text = "믿는 사랑"
+        hashTagLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
+        hashTagLabel.textColor = .systemMint
+        hashTagLabel.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+        return hashTagLabel
     }()
     
-    private let hashTag2: UILabel = {
-        let label = UILabel()
-        label.text = "추억"
-        label.textColor = .systemMint
-//        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
-        return label
+    private let hashTag2: tempHashTagLabel = {
+        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+        hashTagLabel.text = "추억"
+        hashTagLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
+        hashTagLabel.textColor = .systemMint
+        hashTagLabel.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+        return hashTagLabel
     }()
     
     private lazy var hashTagHStackView: UIStackView = {
@@ -56,7 +58,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
             hashTag2
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.alignment = .trailing
         stackView.spacing = 4
         return stackView
@@ -81,7 +83,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 12
         return stackView
     }()
 
