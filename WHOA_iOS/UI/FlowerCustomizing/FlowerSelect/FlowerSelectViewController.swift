@@ -263,7 +263,19 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let selectedCell = collectionView.cellForItem(at: indexPath) as? HashTagCollectionViewCell else { return }
+        selectedCell.hashTagTitle.font = UIFont(name: "Pretendard-SemiBold", size: 18)
+        selectedCell.hashTagTitle.textColor = .black
+        selectedCell.contentView.layer.borderColor = UIColor.systemMint.cgColor
         
+        for cell in collectionView.visibleCells {
+            if cell != selectedCell {
+                let otherCell = cell as! HashTagCollectionViewCell
+                otherCell.hashTagTitle.font = UIFont(name: "Pretendard-Regular", size: 18)
+                otherCell.hashTagTitle.textColor = .systemGray2
+                otherCell.contentView.layer.borderColor = UIColor.systemGray5.cgColor
+            }
+        }
     }
 }
 
