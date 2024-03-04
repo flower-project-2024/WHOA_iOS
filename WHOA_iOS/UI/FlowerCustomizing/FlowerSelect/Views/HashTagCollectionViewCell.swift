@@ -13,10 +13,11 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     // MARK: - UI
     
-    private let hashTagTitle: UILabel = {
+    let hashTagTitle: UILabel = {
         let label = UILabel()
         label.text = "전체"
         label.font = UIFont(name: "Pretendard-Regular", size: 18)
+        label.textColor = UIColor.systemGray2
         return label
     }()
     
@@ -35,7 +36,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     
     private func setupUI() {
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderColor = UIColor.systemGray5.cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 20
         

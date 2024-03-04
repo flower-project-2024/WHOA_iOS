@@ -13,7 +13,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "tempFlower")
+        imageView.image = UIImage(named: "TempFlower")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -21,7 +21,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "튤립"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         return label
     }()
     
@@ -33,24 +33,11 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var flowerNameHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            flowerNameLabel,
-            addImageButton
-        ].forEach { stackView.addArrangedSubview($0) }
-        stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
-        stackView.alignment = .center
-        return stackView
-    }()
-
-    
     private let hashTag: UILabel = {
         let label = UILabel()
         label.text = "믿는 사랑"
         label.textColor = .systemMint
-        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+//        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
         return label
     }()
     
@@ -58,7 +45,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "추억"
         label.textColor = .systemMint
-        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+//        label.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
         return label
     }()
     
@@ -75,22 +62,22 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private lazy var flowerDescriptionVStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            flowerNameHStackView,
-            hashTagHStackView
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        return stackView
+    private let flowerDescriptionView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(
+            red: 248/255,
+            green: 248/255,
+            blue: 248/255,
+            alpha: 1.0
+        )
+        return view
     }()
     
     private lazy var fullHStackView: UIStackView = {
         let stackView = UIStackView()
         [
             flowerImageView,
-            flowerDescriptionVStackView
+            flowerDescriptionView
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -98,8 +85,14 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return stackView
     }()
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
+    }
     
     // MARK: - Initialize
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -111,11 +104,21 @@ class FlowerSelectTableViewCell: UITableViewCell {
     }
     
     // MARK: - Functions
+    
     private func setupUI() {
-        addSubview(flowerDescriptionVStackView)
-        addSubview(fullHStackView)
+        contentView.addSubview(flowerDescriptionView)
+        flowerDescriptionView.addSubview(flowerNameLabel)
+        flowerDescriptionView.addSubview(addImageButton)
+        flowerDescriptionView.addSubview(hashTagHStackView)
+        
+        contentView.addSubview(fullHStackView)
         
         setupAutoLayout()
+        
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.systemGray5.cgColor
     }
 }
 
@@ -124,25 +127,23 @@ extension FlowerSelectTableViewCell {
         
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
+            $0.width.equalTo(148)
+        }
+        
+        flowerNameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(13)
+            $0.leading.equalToSuperview().offset(12)
+            $0.trailing.equalToSuperview().inset(60)
         }
         
         addImageButton.snp.makeConstraints {
-            $0.size.equalTo(24)
-        }
-        
-        flowerNameHStackView.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview()
-            $0.leading.equalTo(flowerImageView.snp.trailing)
+            $0.centerY.equalTo(flowerNameLabel.snp.centerY)
+            $0.trailing.equalToSuperview().inset(15)
+            $0.size.equalTo(18)
         }
         
         hashTagHStackView.snp.makeConstraints {
-            $0.bottom.trailing.equalToSuperview()
-            $0.leading.equalTo(flowerImageView.snp.trailing)
-        }
-        
-        flowerDescriptionVStackView.snp.makeConstraints {
-            $0.top.bottom.trailing.equalToSuperview()
-            $0.leading.equalTo(flowerImageView.snp.trailing)
+            $0.leading.bottom.equalToSuperview().inset(12)
         }
         
         fullHStackView.snp.makeConstraints {

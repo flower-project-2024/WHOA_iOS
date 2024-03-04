@@ -24,19 +24,34 @@ class FlowerSelectViewController: UIViewController {
     
     private let flowerImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemGray5
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.systemGray5.cgColor
         return imageView
     }()
     
     private let flowerImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemGray5
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.systemGray5.cgColor
         return imageView
     }()
     
     private let flowerImageView3: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemGray5
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.systemGray5.cgColor
         return imageView
     }()
     
@@ -62,7 +77,7 @@ class FlowerSelectViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.systemGray3.cgColor
+        collectionView.layer.borderColor = UIColor.systemGray5.cgColor
         
         return collectionView
     }()
@@ -71,7 +86,12 @@ class FlowerSelectViewController: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = 120
         tableView.dataSource = self
-        tableView.register(FlowerSelectTableViewCell.self, forCellReuseIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier)
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.register(
+            FlowerSelectTableViewCell.self,
+            forCellReuseIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier
+        )
         return tableView
     }()
     
@@ -197,7 +217,7 @@ extension FlowerSelectViewController {
         }
         
         flowerSelectTableView.snp.makeConstraints {
-            $0.top.equalTo(hashTagCollectionView.snp.bottom).offset(11)
+            $0.top.equalTo(hashTagCollectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(navigationHStackView.snp.top).offset(-20)
         }
@@ -239,10 +259,11 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: collectionView.frame.width / 7 - 3, height: collectionView.frame.height / 1.5)
+        return CGSize(width: collectionView.frame.width / 7 - 2, height: collectionView.frame.height / 1.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -257,6 +278,16 @@ extension FlowerSelectViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier, for: indexPath) as? FlowerSelectTableViewCell
                 else { return UITableViewCell() }
         
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        
         return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension FlowerSelectViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        flowerSelectTableView.deselectRow(at: indexPath, animated: false)
     }
 }
