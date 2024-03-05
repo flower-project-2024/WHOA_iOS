@@ -11,12 +11,17 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
+    override var isSelected: Bool {
+            didSet {
+                updateAppearance()
+            }
+        }
+    
     // MARK: - UI
     
     let hashTagTitle: UILabel = {
         let label = UILabel()
-        label.text = "전체"
-        label.font = UIFont(name: "Pretendard-Regular", size: 18)
+        label.font = UIFont(name: "Pretendard-Regular", size: 16)
         label.textColor = UIColor.systemGray2
         return label
     }()
@@ -47,6 +52,12 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     func setupHashTag(text: String) {
         hashTagTitle.text = text
+    }
+    
+    private func updateAppearance() {
+        hashTagTitle.font = isSelected ? UIFont(name: "Pretendard-SemiBold", size: 16) : UIFont(name: "Pretendard-Regular", size: 16)
+        hashTagTitle.textColor = isSelected ? .black : .systemGray2
+        contentView.layer.borderColor = isSelected ? UIColor.systemMint.cgColor : UIColor.systemGray5.cgColor
     }
 }
 

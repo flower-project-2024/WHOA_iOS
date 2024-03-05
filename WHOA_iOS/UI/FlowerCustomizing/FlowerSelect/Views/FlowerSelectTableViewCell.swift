@@ -13,7 +13,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "TempFlower")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

@@ -14,6 +14,7 @@ class FlowerSelectViewController: UIViewController {
     let viewModel = FlowerSelectViewModel()
     var tempModel: FlowerColorPickerModel
     var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿음", "추억"]
+    var tempImage = ["IntentImage", "WhoaLogo", "TempFlower"]
     
     // MARK: - UI
     
@@ -245,6 +246,11 @@ extension FlowerSelectViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.hashTagCellIdentifier, for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
         
+        if indexPath.row == 0 {
+            cell.isSelected = true
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+        }
+
         cell.setupHashTag(text: tempHashTag[indexPath.row])
         return cell
     }
@@ -261,22 +267,6 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: collectionView.frame.width / 7 - 2, height: collectionView.frame.height / 1.5)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let selectedCell = collectionView.cellForItem(at: indexPath) as? HashTagCollectionViewCell else { return }
-        selectedCell.hashTagTitle.font = UIFont(name: "Pretendard-SemiBold", size: 18)
-        selectedCell.hashTagTitle.textColor = .black
-        selectedCell.contentView.layer.borderColor = UIColor.systemMint.cgColor
-        
-        for cell in collectionView.visibleCells {
-            if cell != selectedCell {
-                let otherCell = cell as! HashTagCollectionViewCell
-                otherCell.hashTagTitle.font = UIFont(name: "Pretendard-Regular", size: 18)
-                otherCell.hashTagTitle.textColor = .systemGray2
-                otherCell.contentView.layer.borderColor = UIColor.systemGray5.cgColor
-            }
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -291,6 +281,7 @@ extension FlowerSelectViewController: UITableViewDataSource {
                 else { return UITableViewCell() }
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        cell.imageView?.image = UIImage(named: tempImage[indexPath.row])
         
         return cell
     }
