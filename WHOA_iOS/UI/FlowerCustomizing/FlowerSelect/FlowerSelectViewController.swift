@@ -127,6 +127,7 @@ class FlowerSelectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
         nextButton.isActive = true
     }
@@ -149,6 +150,20 @@ class FlowerSelectViewController: UIViewController {
         setupCollectionView()
         setupButtonActions()
         titleLabel.text = "\"\(tempModel.intentType.rawValue)\"과 어울리는 꽃 선택"
+    }
+    
+    private func bind() {
+        viewModel.flowerImagesDidChage = { [weak self] images in
+            self?.flowerImageView1.image = UIImage(named: images[0])
+            
+            if images.count > 1 {
+                self?.flowerImageView2.image = UIImage(named: images[1])
+            }
+            
+            if images.count > 2 {
+                self?.flowerImageView3.image = UIImage(named: images[2])
+            }
+        }
     }
     
     private func setupCollectionView() {
@@ -281,7 +296,11 @@ extension FlowerSelectViewController: UITableViewDataSource {
                 else { return UITableViewCell() }
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        cell.imageView?.image = UIImage(named: tempImage[indexPath.row])
+        cell.flowerImageView.image = UIImage(named: tempImage[indexPath.row])
+        
+        cell.addImageButtonClicked = { [weak self] in
+            self?.viewModel.addFlowerImage(imageString: self?.tempImage[indexPath.row])
+        }
         
         return cell
     }

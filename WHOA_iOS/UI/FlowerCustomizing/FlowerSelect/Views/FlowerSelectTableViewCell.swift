@@ -9,10 +9,19 @@ import UIKit
 
 class FlowerSelectTableViewCell: UITableViewCell {
     
+    // MARK: - Properties
+    var addImageButtonClicked: (() -> Void)?
+    var isAddImageButtonSelected: Bool = false {
+        didSet {
+            updateAppearance(isAddImageButtonSelected)
+        }
+    }
+    
     // MARK: - UI
     
-    private let flowerImageView: UIImageView = {
+    let flowerImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "TempFlower")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -24,11 +33,14 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let addImageButton: UIImageView = {
+    lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "plus.app")
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -84,7 +96,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
         stackView.distribution = .fillProportionally
         return stackView
     }()
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -113,12 +125,24 @@ class FlowerSelectTableViewCell: UITableViewCell {
         
         contentView.addSubview(fullHStackView)
         
-        setupAutoLayout()
-        
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.systemGray5.cgColor
+        
+        setupAutoLayout()
+    }
+    
+    private func updateAppearance(_ isSelected: Bool) {
+        addImageButton.image = isSelected ? UIImage(named: "MinusButton") : UIImage(systemName: "plus.app")
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    func addImageButtonTapped() {
+        isAddImageButtonSelected.toggle()
+        addImageButtonClicked?()
     }
 }
 
