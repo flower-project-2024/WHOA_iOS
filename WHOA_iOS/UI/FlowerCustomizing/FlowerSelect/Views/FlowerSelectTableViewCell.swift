@@ -10,12 +10,14 @@ import UIKit
 class FlowerSelectTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    var addImageButtonClicked: (() -> Void)?
+    
     var isAddImageButtonSelected: Bool = false {
         didSet {
             updateAppearance(isAddImageButtonSelected)
         }
     }
+    
+    var addImageButtonClicked: (() -> Void)?
     
     // MARK: - UI
     

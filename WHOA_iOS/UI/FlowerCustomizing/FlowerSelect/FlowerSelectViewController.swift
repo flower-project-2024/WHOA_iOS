@@ -34,6 +34,18 @@ class FlowerSelectViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var minusImageView1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
     private let flowerImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -45,6 +57,18 @@ class FlowerSelectViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var minusImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
     private let flowerImageView3: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -53,6 +77,18 @@ class FlowerSelectViewController: UIViewController {
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
         imageView.layer.borderColor = UIColor.systemGray5.cgColor
+        return imageView
+    }()
+    
+    private lazy var minusImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -96,8 +132,17 @@ class FlowerSelectViewController: UIViewController {
         return tableView
     }()
     
-    private let backButton = BackButton(isActive: true)
-    private let nextButton = NextButton()
+    private let backButton: BackButton = {
+        let button = BackButton(isActive: true)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    private let nextButton: NextButton = {
+        let button = NextButton()
+        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     private lazy var navigationHStackView: UIStackView = {
         let stackView = UIStackView()
@@ -129,7 +174,6 @@ class FlowerSelectViewController: UIViewController {
         
         bind()
         setupUI()
-        nextButton.isActive = true
     }
     
     // MARK: - Fuctions
@@ -141,28 +185,37 @@ class FlowerSelectViewController: UIViewController {
         view.addSubview(progressHStackView)
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
+        
         view.addSubview(flowerImageViewHStackView)
+        view.addSubview(minusImageView1)
+        view.addSubview(minusImageView2)
+        view.addSubview(minusImageView3)
+        
         view.addSubview(hashTagCollectionView)
         view.addSubview(flowerSelectTableView)
         view.addSubview(navigationHStackView)
-
+        
         setupAutoLayout()
         setupCollectionView()
-        setupButtonActions()
         titleLabel.text = "\"\(tempModel.intentType.rawValue)\"과 어울리는 꽃 선택"
     }
     
     private func bind() {
         viewModel.flowerImagesDidChage = { [weak self] images in
-            self?.flowerImageView1.image = UIImage(named: images[0])
+            let imageViews = [
+                self?.flowerImageView1,
+                self?.flowerImageView2,
+                self?.flowerImageView3
+            ]
+            let minusImageViews = [
+                self?.minusImageView1,
+                self?.minusImageView2,
+                self?.minusImageView3
+            ]
             
-            if images.count > 1 {
-                self?.flowerImageView2.image = UIImage(named: images[1])
-            }
+            self?.updateFlowerImageViews(imagesString: images, imageViews: imageViews, minusImageViews: minusImageViews)
             
-            if images.count > 2 {
-                self?.flowerImageView3.image = UIImage(named: images[2])
-            }
+            self?.nextButton.isActive = images.count > 0 ? true : false
         }
     }
     
@@ -173,12 +226,69 @@ class FlowerSelectViewController: UIViewController {
         hashTagCollectionView.backgroundColor = .white
     }
     
-    private func setupButtonActions() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+    private func updateFlowerImageViews(
+        imagesString: [String],
+        imageViews: [UIImageView?],
+        minusImageViews: [UIImageView?]
+    ) {
+        for (index, imageView) in imageViews.enumerated() {
+            guard let imageView = imageView else { continue }
+            
+            if index < imagesString.count {
+                imageView.image = UIImage(named: imagesString[index])
+                imageView.backgroundColor = .clear
+                minusImageViews[index]?.isHidden = false
+            } else {
+                imageView.image = nil
+                imageView.backgroundColor = .systemGray5
+                minusImageViews[index]?.isHidden = true
+            }
+        }
+    }
+    
+    // 추후 viewModel로 이동
+    private func findCellIndexPathRow(for imageViewString: String) -> Int? {
+        return tempImage.firstIndex(of: imageViewString)
     }
     
     // MARK: - Actions
+    
+    @objc
+    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
+        guard let imageView = sender.view as? UIImageView else { return }
+        
+        var indexToRemove: Int?
+        switch imageView {
+        case minusImageView1:
+            flowerImageView1.image = nil
+            flowerImageView1.backgroundColor = .systemGray5
+            minusImageView1.isHidden = true
+            indexToRemove = 0
+        case minusImageView2:
+            flowerImageView2.image = nil
+            flowerImageView2.backgroundColor = .systemGray5
+            minusImageView2.isHidden = true
+            indexToRemove = 1
+        case minusImageView3:
+            flowerImageView3.image = nil
+            flowerImageView3.backgroundColor = .systemGray5
+            minusImageView3.isHidden = true
+            indexToRemove = 2
+        default:
+            break
+        }
+        
+        if let indexToRemove = indexToRemove {
+            guard
+                let indexPath = findCellIndexPathRow(for: viewModel.getFlowerImage(at: indexToRemove)),
+                let cell = flowerSelectTableView.cellForRow(at: [0,indexPath]) as? FlowerSelectTableViewCell
+            else { return }
+            
+            cell.isAddImageButtonSelected = false
+            
+            viewModel.popFlowerImage(index: indexToRemove)
+        }
+    }
     
     @objc
     func backButtonTapped() {
@@ -226,6 +336,21 @@ extension FlowerSelectViewController {
             $0.trailing.equalToSuperview().inset(202)
         }
         
+        minusImageView1.snp.makeConstraints {
+            $0.top.trailing.equalTo(flowerImageView1).inset(2)
+            $0.size.equalTo(16)
+        }
+        
+        minusImageView2.snp.makeConstraints {
+            $0.top.trailing.equalTo(flowerImageView2).inset(2)
+            $0.size.equalTo(16)
+        }
+        
+        minusImageView3.snp.makeConstraints {
+            $0.top.trailing.equalTo(flowerImageView3).inset(2)
+            $0.size.equalTo(16)
+        }
+        
         hashTagCollectionView.snp.makeConstraints {
             $0.top.equalTo(flowerImageViewHStackView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
@@ -265,7 +390,7 @@ extension FlowerSelectViewController: UICollectionViewDataSource, UICollectionVi
             cell.isSelected = true
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
         }
-
+        
         cell.setupHashTag(text: tempHashTag[indexPath.row])
         return cell
     }
@@ -292,14 +417,19 @@ extension FlowerSelectViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier, for: indexPath) as? FlowerSelectTableViewCell
-                else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier, for: indexPath) as? FlowerSelectTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.flowerImageView.image = UIImage(named: tempImage[indexPath.row])
         
         cell.addImageButtonClicked = { [weak self] in
-            self?.viewModel.addFlowerImage(imageString: self?.tempImage[indexPath.row])
+            guard let self = self else { return }
+            
+            if cell.isAddImageButtonSelected && self.viewModel.getFlowerImagesCount() < 3 {
+                self.viewModel.pushFlowerImage(imageString: self.tempImage[indexPath.row])
+            } else {
+                self.viewModel.popFlowerImage(imageString: self.tempImage[indexPath.row])
+            }
         }
         
         return cell
