@@ -68,7 +68,7 @@ class BuyingIntentViewController: UIViewController {
         return stackView
     }()
     
-    private let backButton = BackButton()
+    private let backButton = BackButton(isActive: false)
     private let nextButton = NextButton()
     
     private lazy var navigationHStackView: UIStackView = {
@@ -164,26 +164,26 @@ class BuyingIntentViewController: UIViewController {
 extension BuyingIntentViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(2)
-            $0.leading.equalToSuperview().offset(12.75)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
+            $0.leading.equalToSuperview().offset(17)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp_bottomMargin).offset(15.375)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(13.875)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-13.125)
+            $0.top.equalTo(exitButton.snp_bottomMargin).offset(32)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(18.5)
             $0.height.equalTo(12.75)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp_bottomMargin).offset(16.875)
+            $0.top.equalTo(progressHStackView.snp_bottomMargin).offset(24)
             $0.leading.equalTo(view).offset(20)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel).offset(32)
-            $0.leading.equalTo(view).offset(20)
-            $0.width.equalTo(150)
+            $0.top.equalTo(titleLabel).offset(40)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().inset(114)
+            $0.width.equalTo(256)
         }
         
         intentButtonVStackView.snp.makeConstraints {

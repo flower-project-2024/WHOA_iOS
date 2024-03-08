@@ -25,6 +25,6 @@ class CustomTitleLabel: UILabel {
     
     private func setupView(_ text: String) {
         self.text = text
-        self.font = .boldSystemFont(ofSize: 20)
+        self.font = UIFont(name: "Pretendard-SemiBold", size: 24)
     }
 }

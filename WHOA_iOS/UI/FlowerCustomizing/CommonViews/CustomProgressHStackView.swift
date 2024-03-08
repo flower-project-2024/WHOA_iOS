@@ -33,7 +33,7 @@ class CustomProgressHStackView: UIStackView {
             progressLabel
         ].forEach { self.addArrangedSubview($0)}
         self.axis = .horizontal
-        self.spacing = 7.5
+        self.spacing = 10
     }
 }
 
@@ -90,6 +90,7 @@ class CustomProgressLabel: UILabel {
         
         fullString.addAttributes(grayAttributes, range: (percentageText as NSString).range(of: "\(percentageText.split(separator: "/").first ?? "1")"))
         
+        self.font = UIFont(name: "Pretendard-Regular", size: 14)
         self.textColor = UIColor(
             red: 189/255,
             green: 189/255,
@@ -97,5 +98,6 @@ class CustomProgressLabel: UILabel {
             alpha: 1.0
         )
         self.attributedText = fullString
+
     }
 }
