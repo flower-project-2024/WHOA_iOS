@@ -7,10 +7,11 @@
 
 import UIKit
 
-class WrappingpaperViewController: UIViewController {
+class PackagingSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     
+    let viewModel = PackagingSelectionViewModel()
     
     // MARK: - UI
     
@@ -163,9 +164,14 @@ class WrappingpaperViewController: UIViewController {
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
+        
+        requirementTextView.delegate = self
     }
     
     private func bind() {
+        viewModel.savedTextDidChanged = { [weak self] savedText in
+            self?.nextButton.isActive = savedText.count > 0 ? true : false
+        }
     }
     
     private func selectedViewUpdate(
@@ -252,6 +258,11 @@ class WrappingpaperViewController: UIViewController {
             )
             
             requirementTextView.isHidden = false
+            
+            if viewModel.savedText.count == 0 {
+                nextButton.isActive = false
+                placeholder.isHidden = false
+            }
         }
     }
     
@@ -266,7 +277,7 @@ class WrappingpaperViewController: UIViewController {
     }
 }
 
-extension WrappingpaperViewController {
+extension PackagingSelectionViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -339,5 +350,30 @@ extension WrappingpaperViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
         }
+    }
+}
+
+extension PackagingSelectionViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        requirementTextView.layer.borderColor = UIColor.systemMint.cgColor
+        
+        placeholder.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        requirementTextView.layer.borderColor = UIColor.systemGray5.cgColor
+        
+        if textView.text.count == 0 {
+            placeholder.isHidden = false
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true) /// 화면을 누르면 키보드 내려가게 하는 것
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.savedText = textView.text
+        print(viewModel.savedText)
     }
 }
