@@ -37,6 +37,7 @@
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
 		548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */; };
 		548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */; };
+		54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6B7E32B9CAA7200628FF7 /* PackagingSelectionViewController.swift */; };
 		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */; };
@@ -108,6 +109,7 @@
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		548C4AEC2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectTableViewCell.swift; sourceTree = "<group>"; };
+		54D6B7E32B9CAA7200628FF7 /* PackagingSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingSelectionViewController.swift; sourceTree = "<group>"; };
 		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
@@ -269,6 +271,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		54D6B7E22B9CA9D900628FF7 /* PackagingSelection */ = {
+			isa = PBXGroup;
+			children = (
+				54D6B7E32B9CAA7200628FF7 /* PackagingSelectionViewController.swift */,
+			);
+			path = PackagingSelection;
+			sourceTree = "<group>";
+		};
 		54E9816C2B90A656000669DB /* FlowerReplacement */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +390,7 @@
 				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 				546071152B87EAE30033B598 /* FlowerSelect */,
 				54E9816C2B90A656000669DB /* FlowerReplacement */,
+				54D6B7E22B9CA9D900628FF7 /* PackagingSelection */,
 			);
 			path = FlowerCustomizing;
 			sourceTree = "<group>";
@@ -611,6 +622,7 @@
 				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,
 				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
+				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
