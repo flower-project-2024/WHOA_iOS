@@ -42,6 +42,8 @@
 		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */; };
+		54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */; };
+		54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17CB2B9D83E200717E6F /* RangeSlider.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -115,6 +117,8 @@
 		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
+		54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewController.swift; sourceTree = "<group>"; };
+		54EB17CB2B9D83E200717E6F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +294,23 @@
 			path = FlowerReplacement;
 			sourceTree = "<group>";
 		};
+		54EB17C72B9D836400717E6F /* FlowerPrice */ = {
+			isa = PBXGroup;
+			children = (
+				54EB17C82B9D83B900717E6F /* Views */,
+				54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */,
+			);
+			path = FlowerPrice;
+			sourceTree = "<group>";
+		};
+		54EB17C82B9D83B900717E6F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54EB17CB2B9D83E200717E6F /* RangeSlider.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		54FD0F222B6FCE2D00F964C3 = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +415,7 @@
 				546071152B87EAE30033B598 /* FlowerSelect */,
 				54E9816C2B90A656000669DB /* FlowerReplacement */,
 				54D6B7E22B9CA9D900628FF7 /* PackagingSelection */,
+				54EB17C72B9D836400717E6F /* FlowerPrice */,
 			);
 			path = FlowerCustomizing;
 			sourceTree = "<group>";
@@ -609,6 +631,7 @@
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				546071172B87EBB50033B598 /* FlowerSelectViewController.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
+				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
 				546071262B88C2740033B598 /* NetworkError.swift in Sources */,
 				54FD0F6C2B701B9C00F964C3 /* BuyingIntentViewController.swift in Sources */,
 				5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */,
@@ -638,6 +661,7 @@
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,
 				54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */,
 				546071302B88C5960033B598 /* TestDTO.swift in Sources */,
