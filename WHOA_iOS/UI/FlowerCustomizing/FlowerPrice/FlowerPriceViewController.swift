@@ -32,7 +32,7 @@ class FlowerPriceViewController: UIViewController {
         slider.lower = 0
         slider.upper = 150000
         slider.trackColor = .systemGray5
-        slider.trackTintColor = .systemMint
+        slider.trackTintColor = .systemGray5
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
       }()
@@ -95,6 +95,7 @@ class FlowerPriceViewController: UIViewController {
     @objc
     private func changeValue() {
         nextButton.isActive = true
+        rangeSlider.trackTintColor = .systemMint
         
         let maxNumber = self.rangeSlider.upper
         let minNumber = self.rangeSlider.lower
@@ -149,7 +150,7 @@ extension FlowerPriceViewController {
         rangeSlider.snp.makeConstraints {
             $0.top.equalTo(valueLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(44)
+            $0.height.equalTo(21)
             $0.width.equalTo(370)
         }
         

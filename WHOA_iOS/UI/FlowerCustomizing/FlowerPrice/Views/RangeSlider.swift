@@ -16,7 +16,7 @@ import SnapKit
 final class RangeSlider: UIControl {
     // MARK: Constant
     private enum Constant {
-        static let barRatio = 2.0/10.0
+        static let barRatio = 4.0 / 10.0
     }
     
     // MARK: UI
@@ -195,7 +195,7 @@ class ThumbButton: RoundableButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        self.layer.borderWidth = 2.0
+        self.layer.borderWidth = 1.5
         self.layer.borderColor = UIColor.systemMint.cgColor
     }
     required init?(coder: NSCoder) {
