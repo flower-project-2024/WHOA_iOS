@@ -120,7 +120,7 @@
 		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
 		54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewController.swift; sourceTree = "<group>"; };
 		54EB17CB2B9D83E200717E6F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
-		54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSelectionViewController.swift; path = WHOA_iOS/UI/FlowerCustomizing/PhotoSelectionViewController.swift; sourceTree = SOURCE_ROOT; };
+		54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSelectionViewController.swift; path = WHOA_iOS/UI/FlowerCustomizing/PhotoSelection/PhotoSelectionViewController.swift; sourceTree = SOURCE_ROOT; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
