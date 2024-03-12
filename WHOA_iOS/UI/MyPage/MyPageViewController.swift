@@ -16,6 +16,7 @@ class MyPageViewController: UIViewController {
         let label = UILabel()
         label.text = "저장된 요구서"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.textAlignment = .left
         return label
     }()
     
@@ -35,24 +36,27 @@ class MyPageViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        setupNavigation()
         addViews()
         setupConstraints()
     }
     
     // MARK: - Helpers
+    
+    private func setupNavigation(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: viewTitleLabel)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.barTintColor = .white  // TODO: white or not?
+    }
+    
     private func addViews(){
         view.addSubview(viewTitleLabel)
         view.addSubview(tableView)
     }
     
     private func setupConstraints(){
-        viewTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(35)
-            make.leading.equalToSuperview().inset(20)
-        }
-        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(viewTitleLabel.snp.bottom).offset(16)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
@@ -79,6 +83,12 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 160+16
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("cell selected")
+        self.navigationController?.pushViewController(RequestDetailViewController(requestTitle: savedRequestList[indexPath.item]), animated: true)
+        return
     }
     
 }
