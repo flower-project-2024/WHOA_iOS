@@ -42,13 +42,7 @@ class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let buyingIntentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        //stackView.distribution = .fillProportionally
-        return stackView
-    }()
+    private let buyingIntentStackView = RequestDetailStackView()
     
     private let buyingIntentTitleLabel: UILabel = {
         let label = UILabel()
@@ -65,11 +59,7 @@ class RequestDetailViewController: UIViewController {
         return label
     }()
     
-    private let borderLine1: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine1 = BorderLine()
     
     private let flowerColorStackView: UIStackView = {
         let stackView = UIStackView()
@@ -127,19 +117,9 @@ class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let borderLine2: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine2 = BorderLine()
     
-    private let flowerTypeStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 12
-        return stackView
-    }()
+    private let flowerTypeStackView = RequestDetailStackView()
     
     private let flowerTypeTitleLabel: UILabel = {
         let label = UILabel()
@@ -158,18 +138,9 @@ class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let borderLine3: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine3 = BorderLine()
     
-    private let alternativesStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        return stackView
-    }()
+    private let alternativesStackView = RequestDetailStackView()
     
     private let alternativesTitleLabel: UILabel = {
         let label = UILabel()
@@ -186,18 +157,9 @@ class RequestDetailViewController: UIViewController {
         return label
     }()
     
-    private let borderLine4: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine4 = BorderLine()
     
-    private let wrappingStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        return stackView
-    }()
+    private let wrappingStackView = RequestDetailStackView()
     
     private let wrappingTitleLabel: UILabel = {
         let label = UILabel()
@@ -214,18 +176,9 @@ class RequestDetailViewController: UIViewController {
         return label
     }()
     
-    private let borderLine5: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine5 = BorderLine()
     
-    private let priceStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        return stackView
-    }()
+    private let priceStackView = RequestDetailStackView()
     
     private let priceTitleLabel: UILabel = {
         let label = UILabel()
@@ -242,19 +195,9 @@ class RequestDetailViewController: UIViewController {
         return label
     }()
     
-    private let borderLine6: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        return view
-    }()
+    private let borderLine6 = BorderLine()
     
-    private let additionalRequirementStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.alignment = .leading
-        return stackView
-    }()
+    private let additionalRequirementStackView = RequestDetailStackView()
     
     private let additionalRequirementTitleLabel: UILabel = {
         let label = UILabel()
@@ -278,6 +221,7 @@ class RequestDetailViewController: UIViewController {
         return stackView
     }()
     
+    // 이미지는 최대 3개
     private let referenceImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
