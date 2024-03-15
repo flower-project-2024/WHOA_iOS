@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Photos
 
 class PhotoSelectionViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    private let viewModel = PhotoSelectionViewModel()
     
     // MARK: - UI
     
@@ -48,35 +53,44 @@ class PhotoSelectionViewController: UIViewController {
         return label
     }()
     
-    private let photoImageView1: UIImageView = {
+    private lazy var photoImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "PhotoIcon")
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .systemGray6
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private let photoImageView2: UIImageView = {
+    private lazy var photoImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "PhotoIcon")
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .systemGray6
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private let photoImageView3: UIImageView = {
+    private lazy var photoImageView3: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "PhotoIcon")
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .systemGray6
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -157,12 +171,28 @@ class PhotoSelectionViewController: UIViewController {
     // MARK: - Actions
     
     @objc
-    func backButtonTapped() {
+    func photoImageViewTapped() {
+        viewModel.authService.requestAuthorization { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success:
+                let vc = PhotoViewController()
+                vc.modalPresentationStyle = .fullScreen
+                present(vc, animated: true)
+            case .failure:
+                return
+            }
+        }
+    }
+    
+    @objc
+    private func backButtonTapped() {
         dismiss(animated: true)
     }
     
     @objc
-    func nextButtonTapped() {
+    private func nextButtonTapped() {
         print("다음이동")
     }
 }
