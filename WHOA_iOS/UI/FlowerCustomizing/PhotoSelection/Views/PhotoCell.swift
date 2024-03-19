@@ -98,6 +98,10 @@ final class PhotoCell: UICollectionViewCell {
             highlightedView.isHidden = true
         }
     }
+    
+    func getImage() -> UIImage? {
+            return imageView.image
+        }
 }
 
 extension PhotoCell {

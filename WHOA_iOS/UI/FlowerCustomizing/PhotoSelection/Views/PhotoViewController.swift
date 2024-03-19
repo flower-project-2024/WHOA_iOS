@@ -26,6 +26,13 @@ class PhotoViewController: UIViewController {
     // album 여러개에 대한 예시는 생략 (UIPickerView와 같은 것을 이용하여 currentAlbumIndex를 바꾸어주면 됨)
     private var albums = [PHFetchResult<PHAsset>]()
     private var dataSource = [PhotoCellInfo]()
+    private var selectedCellImageArray = [Int: UIImage?]() {
+        didSet {
+            updateAddButton()
+        }
+    }
+    
+    
     private var currentAlbumIndex = 0 {
         didSet { loadImages() }
     }
@@ -52,6 +59,7 @@ class PhotoViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("추가", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -124,11 +132,20 @@ class PhotoViewController: UIViewController {
         }
     }
     
+    private func updateAddButton() {
+        let addButtonText = self.selectedCellImageArray.isEmpty ? "" : "\(self.selectedCellImageArray.count)장"
+        addButton.attributedTitle(firstPart: addButtonText, secondPart: "추가")
+    }
+    
     // MARK: - Actions
     
     @objc
     private func exitButtonTapped() {
         dismiss(animated: true)
+    }
+    
+    @objc
+    private func addButtonTapped() {
     }
 }
 
@@ -158,10 +175,17 @@ extension PhotoViewController {
 }
 
 extension PhotoViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         dataSource.count
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.id, for: indexPath) as? PhotoCell
         else { return UICollectionViewCell() }
@@ -185,12 +209,14 @@ extension PhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let info = dataSource[indexPath.item]
         let updatingIndexPaths: [IndexPath]
+        let selectedCellImage = (collectionView.cellForItem(at: indexPath) as? PhotoCell)?.getImage()
         
         if case .selected = info.selectedOrder {
             dataSource[indexPath.item] = .init(phAsset: info.phAsset, image: info.image, selectedOrder: .none)
             
             if let selectedIndex = selectedIndexArray.firstIndex(of: indexPath.item) {
                 selectedIndexArray.remove(at: selectedIndex)
+                selectedCellImageArray.removeAll()
                 
                 selectedIndexArray
                     .enumerated()
@@ -198,6 +224,7 @@ extension PhotoViewController: UICollectionViewDelegate {
                         let order = order + 1
                         let prev = dataSource[index]
                         dataSource[index] = .init(phAsset: prev.phAsset, image: prev.image, selectedOrder: .selected(order))
+                        selectedCellImageArray.updateValue(selectedCellImage, forKey: order)
                     }
             }
             updatingIndexPaths = [indexPath] + selectedIndexArray
@@ -212,10 +239,10 @@ extension PhotoViewController: UICollectionViewDelegate {
                         let order = order + 1
                         let prev = dataSource[selectedIndex]
                         dataSource[selectedIndex] = .init(phAsset: prev.phAsset, image: prev.image, selectedOrder: .selected(order))
+                        selectedCellImageArray.updateValue(selectedCellImage, forKey: order)
                     }
                 
-                updatingIndexPaths = selectedIndexArray
-                    .map { IndexPath(row: $0, section: 0) }
+                updatingIndexPaths = selectedIndexArray.map { IndexPath(row: $0, section: 0) }
             } else {
                 return
             }
