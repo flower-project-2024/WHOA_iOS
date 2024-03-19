@@ -24,6 +24,7 @@
 		0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6252B8677BF00727F14 /* MyPageViewController.swift */; };
 		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
 		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
+		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
@@ -87,6 +88,7 @@
 		0887F6252B8677BF00727F14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
 		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
+		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
@@ -163,6 +165,8 @@
 		0886DA612B957BA6003779CE /* RequestDetail */ = {
 			isa = PBXGroup;
 			children = (
+				0887F62A2B867D4D00727F14 /* CustomView */,
+				08C0ADF02BA979B30099EFE5 /* View */,
 				0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
 				0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
 				0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
@@ -175,7 +179,6 @@
 			isa = PBXGroup;
 			children = (
 				0886DA612B957BA6003779CE /* RequestDetail */,
-				0887F62A2B867D4D00727F14 /* CustomView */,
 				0887F6272B867B9D00727F14 /* cell */,
 				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
 			);
@@ -199,6 +202,14 @@
 				08DDC0872BA2CAD900C343CA /* BorderLine.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		08C0ADF02BA979B30099EFE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
@@ -544,6 +555,7 @@
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
+				08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

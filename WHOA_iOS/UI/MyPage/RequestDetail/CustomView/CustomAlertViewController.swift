@@ -18,6 +18,7 @@ class CustomAlertViewController: UIViewController {
     // MARK: - Properties
     private var requestTitle: String?
     private var alertType: AlertType?
+    private var myPageVC: MyPageViewController?
     
     // MARK: - Views
     private let alertView: UIView = {
@@ -98,11 +99,12 @@ class CustomAlertViewController: UIViewController {
     }()
     
     // MARK: - Initialization
-    convenience init(requestTitle: String? = nil, alertType: AlertType) {
+    convenience init(requestTitle: String? = nil, alertType: AlertType, myPageVC: MyPageViewController) {
         self.init()
 
         self.requestTitle = requestTitle
         self.alertType = alertType
+        self.myPageVC = myPageVC
         print("---custom alert vc, requestTitle:\(requestTitle), alertType: \(alertType)")
     }
     
@@ -157,5 +159,16 @@ class CustomAlertViewController: UIViewController {
     @objc func confirmBtnTapped(){
         print("===요구서 삭제/수정 확인===")
         dismiss(animated: false)
+        
+        if alertType == AlertType.modify {
+             //TODO: 구매 목적 페이지로 이동..
+            let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
+            buyingIntentVC.modalPresentationStyle = .fullScreen
+            
+            myPageVC!.present(buyingIntentVC, animated: true)
+        }
+        else {
+            // TODO: 요구서 삭제 api 요청
+        }
     }
 }
