@@ -54,6 +54,7 @@
 		54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */; };
 		54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E52BA354F400717E6F /* PhotoCell.swift */; };
 		54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */; };
+		54EB17EA2BA9ED5700717E6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* Extensions.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -139,6 +140,7 @@
 		54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		54EB17E52BA354F400717E6F /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		54EB17E92BA9ED5700717E6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				548C4AE62B8E694A002F4FCB /* Constants.swift */,
+				54EB17E92BA9ED5700717E6F /* Extensions.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
+				54EB17EA2BA9ED5700717E6F /* Extensions.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectViewController.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
