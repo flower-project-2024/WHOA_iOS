@@ -32,10 +32,11 @@ class PhotoViewController: UIViewController {
         }
     }
     
-    
     private var currentAlbumIndex = 0 {
         didSet { loadImages() }
     }
+    
+    var completionHandler: (([Int: UIImage?]) -> ())?
     
     // MARK: - UI
     
@@ -146,6 +147,8 @@ class PhotoViewController: UIViewController {
     
     @objc
     private func addButtonTapped() {
+        completionHandler?(selectedCellImageArray)
+        dismiss(animated: true)
     }
 }
 
@@ -209,7 +212,6 @@ extension PhotoViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let info = dataSource[indexPath.item]
         let updatingIndexPaths: [IndexPath]
-        let selectedCellImage = (collectionView.cellForItem(at: indexPath) as? PhotoCell)?.getImage()
         
         if case .selected = info.selectedOrder {
             dataSource[indexPath.item] = .init(phAsset: info.phAsset, image: info.image, selectedOrder: .none)
@@ -223,6 +225,7 @@ extension PhotoViewController: UICollectionViewDelegate {
                     .forEach { order, index in
                         let order = order + 1
                         let prev = dataSource[index]
+                        let selectedCellImage = (collectionView.cellForItem(at: [0, index]) as? PhotoCell)?.getImage()
                         dataSource[index] = .init(phAsset: prev.phAsset, image: prev.image, selectedOrder: .selected(order))
                         selectedCellImageArray.updateValue(selectedCellImage, forKey: order)
                     }
@@ -238,6 +241,7 @@ extension PhotoViewController: UICollectionViewDelegate {
                     .forEach { order, selectedIndex in
                         let order = order + 1
                         let prev = dataSource[selectedIndex]
+                        let selectedCellImage = (collectionView.cellForItem(at: [0, selectedIndex]) as? PhotoCell)?.getImage()
                         dataSource[selectedIndex] = .init(phAsset: prev.phAsset, image: prev.image, selectedOrder: .selected(order))
                         selectedCellImageArray.updateValue(selectedCellImage, forKey: order)
                     }

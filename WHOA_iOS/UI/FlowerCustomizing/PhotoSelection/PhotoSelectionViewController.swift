@@ -114,13 +114,13 @@ class PhotoSelectionViewController: UIViewController {
         return scrollView
     }()
     
-    private let backButton: BackButton = {
+    private let backButton: UIButton = {
         let button = BackButton(isActive: true)
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    private let nextButton: NextButton = {
+    private let nextButton: UIButton = {
         let button = NextButton()
         button.isActive = true
         button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
@@ -132,7 +132,7 @@ class PhotoSelectionViewController: UIViewController {
         [
             backButton,
             nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
+        ].forEach { stackView.addArrangedSubview($0) }
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 9
@@ -164,7 +164,6 @@ class PhotoSelectionViewController: UIViewController {
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
-        
         requirementTextView.delegate = self
     }
     
@@ -179,6 +178,39 @@ class PhotoSelectionViewController: UIViewController {
             case .success:
                 let vc = PhotoViewController()
                 vc.modalPresentationStyle = .fullScreen
+                vc.completionHandler = { photos in
+                    for i in photos {
+                        switch i.key {
+                        case 1:
+                            self.photoImageView1.image = i.value
+                            self.photoImageView1.contentMode = .scaleAspectFill
+                        case 2:
+                            self.photoImageView2.image = i.value
+                            self.photoImageView2.contentMode = .scaleAspectFill
+                        case 3:
+                            self.photoImageView3.image = i.value
+                            self.photoImageView3.contentMode = .scaleAspectFill
+                        default:
+                            continue
+                        }
+                    }
+                    
+                    switch photos.count {
+                    case 2:
+                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
+                        self.photoImageView3.contentMode = .center
+                    case 1:
+                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
+                        self.photoImageView2.image = UIImage(named: "PhotoIcon")
+                        self.photoImageView3.contentMode = .center
+                        self.photoImageView2.contentMode = .center
+                    default:
+                        break
+                    }
+                    
+                    self.viewModel.getPhotos(photos: photos.values.map{$0})
+                }
+                
                 present(vc, animated: true)
             case .failure:
                 return
