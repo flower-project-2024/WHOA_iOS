@@ -127,7 +127,7 @@ class RequestDetailViewController: UIViewController {
         }
         
         requestDetailView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(30)
+            make.top.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
         
@@ -141,11 +141,13 @@ class RequestDetailViewController: UIViewController {
     // MARK: - Actions
     
     @objc func saveAsImageButtonTapped(){
-        print("이미지로 저장")
-        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .requestSaveAlert, currentVC: self)
+        print("이미지로 저장 액션 함수 시작")
         
-        customAlertVC.modalPresentationStyle = .overFullScreen
-        self.present(customAlertVC, animated: false, completion: nil)
+        ImageSaver().saveAsImage(requestDetailView.transfromToImage()!, target: self) {
+            let customAlertVC = CustomAlertViewController(requestTitle: self.requestTitle, alertType: .requestSaveAlert, currentVC: self)
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            self.present(customAlertVC, animated: false, completion: nil)
+        }
     }
     
     @objc func goBack(){

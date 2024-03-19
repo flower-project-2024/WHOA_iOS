@@ -226,6 +226,7 @@ class RequestDetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = .white
         addViews()
         setupConstraints()
     }
@@ -283,7 +284,7 @@ class RequestDetailView: UIView {
     
     private func setupConstraints(){
         buyingIntentStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(30)
             make.leading.equalToSuperview().inset(45)
         }
         
