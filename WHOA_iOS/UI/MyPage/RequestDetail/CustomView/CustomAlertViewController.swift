@@ -13,6 +13,7 @@ class CustomAlertViewController: UIViewController {
     enum AlertType: String {
         case modify = "수정"
         case delete = "삭제"
+        case requestSaveAlert = "이미지가 저장되었습니다"
     }
     
     // MARK: - Properties
@@ -32,15 +33,21 @@ class CustomAlertViewController: UIViewController {
     lazy var titleLabel: UILabel = { [self] in
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
-//        var fullTitle: String?
+        var fullTitle = ""
         
-        let fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
-
+        // 이미지 저장 팝업인 경우만 attribute 필요 없음
+        if alertType == .requestSaveAlert {
+            label.text = alertType?.rawValue
+        }
+        else{
+            fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
+            let attributedText = NSMutableAttributedString(string: fullTitle)
+            let range = (fullTitle as NSString).range(of: requestTitle!)
+            attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
+            label.attributedText = attributedText
+        }
         print("---custom alert vc, titleLabel: \(fullTitle)")
-        let attributedText = NSMutableAttributedString(string: fullTitle)
-        let range = (fullTitle as NSString).range(of: requestTitle!)
-        attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
-        label.attributedText = attributedText
+        
         return label
     }()
     
@@ -48,12 +55,15 @@ class CustomAlertViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
         
-        if alertType == AlertType.delete {
+        if alertType == .delete {
             label.text = "삭제하면 복구할 수 없습니다."
         }
         
-        else {
+        else if alertType == .modify{
             label.text = "커스터마이징을 다시 시작합니다."
+        }
+        else {
+            label.text = "요구서를 꽃집 사장님에게 전달해주세요."
         }
         
         label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
@@ -80,7 +90,14 @@ class CustomAlertViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)  // primary
         config.background.cornerRadius = 10
-        config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
+        
+        if alertType == .requestSaveAlert {
+            config.attributedTitle = AttributedString("확인")
+        }
+        else{
+            config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
+        }
+        
         config.attributedTitle?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         config.baseForegroundColor = .white   // gray01
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 41, bottom: 13, trailing: 41)
@@ -99,7 +116,7 @@ class CustomAlertViewController: UIViewController {
     }()
     
     // MARK: - Initialization
-    convenience init(requestTitle: String? = nil, alertType: AlertType, myPageVC: MyPageViewController) {
+    convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
         self.init()
 
         self.requestTitle = requestTitle
@@ -122,7 +139,9 @@ class CustomAlertViewController: UIViewController {
         alertView.addSubview(descriptionLabel)
         alertView.addSubview(buttonStackView)
         
-        buttonStackView.addArrangedSubview(cancelButton)
+        if alertType != .requestSaveAlert {
+            buttonStackView.addArrangedSubview(cancelButton)
+        }
         buttonStackView.addArrangedSubview(confirmButton)
     }
     
@@ -145,7 +164,8 @@ class CustomAlertViewController: UIViewController {
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(50)
-            make.centerX.equalToSuperview()
+//            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(24)
         }
     }
@@ -161,13 +181,13 @@ class CustomAlertViewController: UIViewController {
         dismiss(animated: false)
         
         if alertType == AlertType.modify {
-             //TODO: 구매 목적 페이지로 이동..
+            //TODO: 구매 목적 페이지로 이동..
             let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
             buyingIntentVC.modalPresentationStyle = .fullScreen
             
             myPageVC!.present(buyingIntentVC, animated: true)
         }
-        else {
+        else if alertType == .delete {
             // TODO: 요구서 삭제 api 요청
         }
     }

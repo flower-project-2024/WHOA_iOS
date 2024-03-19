@@ -148,7 +148,7 @@ class SavedRequestCell: UITableViewCell {
     // MARK: - Actions
     @objc func modifyBtnTapped(){
         print("===요구서 수정===")
-        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, myPageVC: myPageVC!)
+        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         
         customAlertVC.modalPresentationStyle = .overFullScreen
         myPageVC?.present(customAlertVC, animated: false, completion: nil)
@@ -156,7 +156,7 @@ class SavedRequestCell: UITableViewCell {
     
     @objc func deleteBtnTapped(){
         print("===요구서 삭제===")
-        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, myPageVC: myPageVC!)
+        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
         
         customAlertVC.modalPresentationStyle = .overFullScreen
         myPageVC?.present(customAlertVC, animated: false, completion: nil)

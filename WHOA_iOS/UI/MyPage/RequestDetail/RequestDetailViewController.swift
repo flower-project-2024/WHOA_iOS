@@ -10,6 +10,7 @@ import UIKit
 class RequestDetailViewController: UIViewController {
     // MARK: - Properties
     private var requestTitle: String!
+    var myPageVC: MyPageViewController?
 //    private var viewModel: RequestDetailViewModel!
     
     // MARK: - Views
@@ -141,6 +142,10 @@ class RequestDetailViewController: UIViewController {
     
     @objc func saveAsImageButtonTapped(){
         print("이미지로 저장")
+        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .requestSaveAlert, currentVC: self)
+        
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        self.present(customAlertVC, animated: false, completion: nil)
     }
     
     @objc func goBack(){
