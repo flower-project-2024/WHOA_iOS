@@ -43,6 +43,7 @@ class SavedRequestCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
         label.text = "2024-01-01"
+        label.textColor = UIColor(red: 144/255, green: 144/255, blue: 144/255, alpha: 1)
         return label
     }()
     
