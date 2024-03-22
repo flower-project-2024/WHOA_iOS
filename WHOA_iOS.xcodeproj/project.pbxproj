@@ -55,7 +55,7 @@
 		54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E52BA354F400717E6F /* PhotoCell.swift */; };
 		54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */; };
 		54EB17EA2BA9ED5700717E6F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* Extensions.swift */; };
-		54EB17ED2BAB103900717E6F /* CustomSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomSummaryViewController.swift */; };
+		54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */; };
 		54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */; };
 		54EB17F22BAC4CBE00717E6F /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F12BAC4CBE00717E6F /* RequestDetailView.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
@@ -144,7 +144,7 @@
 		54EB17E52BA354F400717E6F /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		54EB17E92BA9ED5700717E6F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		54EB17EC2BAB103900717E6F /* CustomSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSummaryViewController.swift; sourceTree = "<group>"; };
+		54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewController.swift; sourceTree = "<group>"; };
 		54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSummaryView.swift; sourceTree = "<group>"; };
 		54EB17F12BAC4CBE00717E6F /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,13 +371,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		54EB17EB2BAB0EB100717E6F /* CustomSummary */ = {
+		54EB17EB2BAB0EB100717E6F /* CustomizingSummary */ = {
 			isa = PBXGroup;
 			children = (
 				54EB17EE2BAB2ED400717E6F /* Views */,
-				54EB17EC2BAB103900717E6F /* CustomSummaryViewController.swift */,
+				54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */,
 			);
-			path = CustomSummary;
+			path = CustomizingSummary;
 			sourceTree = "<group>";
 		};
 		54EB17EE2BAB2ED400717E6F /* Views */ = {
@@ -496,7 +496,7 @@
 				54D6B7E22B9CA9D900628FF7 /* PackagingSelection */,
 				54EB17C72B9D836400717E6F /* FlowerPrice */,
 				54EB17CD2B9F1C5300717E6F /* PhotoSelection */,
-				54EB17EB2BAB0EB100717E6F /* CustomSummary */,
+				54EB17EB2BAB0EB100717E6F /* CustomizingSummary */,
 			);
 			path = FlowerCustomizing;
 			sourceTree = "<group>";
@@ -738,7 +738,7 @@
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* BuyingIntentType.swift in Sources */,
-				54EB17ED2BAB103900717E6F /* CustomSummaryViewController.swift in Sources */,
+				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* Extensions.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectViewController.swift in Sources */,

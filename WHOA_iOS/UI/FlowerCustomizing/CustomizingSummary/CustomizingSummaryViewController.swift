@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomSummaryViewController: UIViewController {
+class CustomizingSummaryViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -103,7 +103,7 @@ class CustomSummaryViewController: UIViewController {
     }
 }
 
-extension CustomSummaryViewController {
+extension CustomizingSummaryViewController {
     private func setupAutoLayout() {
         scrollView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
