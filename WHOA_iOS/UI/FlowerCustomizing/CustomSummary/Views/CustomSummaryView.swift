@@ -11,6 +11,12 @@ class CustomSummaryView: UIView {
     
     // MARK: - Properties
     
+    var requestName = "꽃다발 요구서1" {
+        didSet {
+            print(requestName)
+        }
+    }
+    
     // MARK: - UI
     
     private let requestNameTextField: UITextField = {
@@ -69,6 +75,7 @@ class CustomSummaryView: UIView {
         addSubview(requestDetailView)
         
         setupAutoLayout()
+        requestNameTextField.delegate = self
     }
     
     // MARK: - Actions
@@ -77,6 +84,7 @@ class CustomSummaryView: UIView {
     private func editButtonTapped() {
         requestNameTextField.isEnabled = true
         requestNameTextFieldPlaceholder.isHidden = true
+        requestNameTextField.becomeFirstResponder()
     }
 }
 
@@ -108,5 +116,30 @@ extension CustomSummaryView {
             $0.top.equalTo(requestNameTextField.snp.bottom).offset(26)
             $0.leading.trailing.equalToSuperview()
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomSummaryView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        requestNameTextField.isEnabled = false
+        requestNameTextFieldPlaceholder.isHidden = textField.text == "" ? false : true
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            self.requestName = text
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        requestNameTextField.resignFirstResponder()
+        requestNameTextField.isEnabled = false
+        requestNameTextFieldPlaceholder.isHidden = requestNameTextField.text == "" ? false : true
+        endEditing(true)
     }
 }
