@@ -457,7 +457,7 @@ class RequestDetailView: UIView {
     private func setupConstraints(){
         buyingIntentStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(30)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         borderLine1.snp.makeConstraints { make in
@@ -468,7 +468,7 @@ class RequestDetailView: UIView {
         
         flowerColorStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine1.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         flowerColorChipView1.snp.makeConstraints { make in
@@ -494,7 +494,7 @@ class RequestDetailView: UIView {
         
         flowerTypeStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine2.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         borderLine3.snp.makeConstraints { make in
@@ -505,7 +505,7 @@ class RequestDetailView: UIView {
         
         alternativesStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine3.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         borderLine4.snp.makeConstraints { make in
@@ -516,7 +516,7 @@ class RequestDetailView: UIView {
         
         wrappingStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine4.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         borderLine5.snp.makeConstraints { make in
@@ -527,7 +527,7 @@ class RequestDetailView: UIView {
         
         priceStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine5.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
         }
         
         borderLine6.snp.makeConstraints { make in
@@ -538,7 +538,7 @@ class RequestDetailView: UIView {
         
         additionalRequirementStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine6.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalToSuperview().inset(20)
             make.bottom.equalToSuperview().inset(32)
         }
         
