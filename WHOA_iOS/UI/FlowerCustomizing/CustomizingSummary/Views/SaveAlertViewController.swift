@@ -11,6 +11,8 @@ class SaveAlertViewController: UIViewController {
     
     // MARK: - Properties
     
+    // MARK: - UI
+    
     private let alertView: UIView = {
         let view = UIView()
         view.backgroundColor = .white

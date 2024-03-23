@@ -99,7 +99,10 @@ class CustomizingSummaryViewController: UIViewController {
     
     @objc
     private func nextButtonTapped() {
-        print("다음이동")
+        let saveAlertVC = SaveAlertViewController()
+        
+        saveAlertVC.modalPresentationStyle = .fullScreen
+        present(saveAlertVC, animated: true)
     }
 }
 
