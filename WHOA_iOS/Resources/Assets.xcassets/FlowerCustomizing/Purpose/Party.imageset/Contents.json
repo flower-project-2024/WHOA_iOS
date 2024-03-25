@@ -1,15 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "Party.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Image.png",
+      "filename" : "Party@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Party@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
