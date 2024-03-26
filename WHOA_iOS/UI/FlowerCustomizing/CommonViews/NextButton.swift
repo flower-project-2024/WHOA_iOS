@@ -31,39 +31,26 @@ class NextButton: UIButton {
     
     private func setupView() {
         self.setTitle("다음", for: .normal)
-        self.setTitleColor(
-            UIColor(
-                red: 104/255,
-                green: 104/255,
-                blue: 104/255,
-                alpha: 1.0
-            ),
-            for: .normal
-        )
-        self.backgroundColor = UIColor(
-            red: 207/255,
-            green: 207/255,
-            blue: 207/255,
-            alpha: 1.0
-        )
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
         self.isEnabled = false
+        updateButtonState()
     }
     
     private func updateButtonState() {
         self.isEnabled = isActive
         backgroundColor = self.isEnabled ? .black : UIColor(
-            red: 207/255,
-            green: 207/255,
-            blue: 207/255,
+            red: 248/255,
+            green: 248/255,
+            blue: 248/255,
             alpha: 1.0
         )
         self.setTitleColor( self.isEnabled ? .white : UIColor(
-            red: 104/255,
-            green: 104/255,
-            blue: 104/255,
-            alpha: 1.0), for: .normal
+            red: 175/255,
+            green: 175/255,
+            blue: 175/255,
+            alpha: 1.0
+        ), for: .normal
         )
     }
 }
