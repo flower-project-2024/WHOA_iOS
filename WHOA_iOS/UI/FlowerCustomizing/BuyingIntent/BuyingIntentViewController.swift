@@ -21,36 +21,30 @@ class BuyingIntentViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
     private let descriptionLabel = CustomDescriptionLabel(text: "목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
     
-    private let celebrationButton = BuyingIntentButton(text: BuyingIntentType.회갑.rawValue)
-    private let birthdayButton = BuyingIntentButton(text: BuyingIntentType.생일.rawValue)
-    private let condolenceButton = BuyingIntentButton(text: BuyingIntentType.추모.rawValue)
-    private let weddingButton = BuyingIntentButton(text: BuyingIntentType.결혼식.rawValue)
-    private let affectionButton = BuyingIntentButton(text: BuyingIntentType.애정표현.rawValue)
-    private let promotionButton = BuyingIntentButton(text: BuyingIntentType.승진.rawValue)
-    private let exhibitionButton = BuyingIntentButton(text: BuyingIntentType.전시.rawValue)
-    private let awardButton = BuyingIntentButton(text: BuyingIntentType.수상.rawValue)
-    private let apologyButton = BuyingIntentButton(text: BuyingIntentType.사과.rawValue)
-    private let eventButton = BuyingIntentButton(text: BuyingIntentType.행사.rawValue)
+    private let affectionButton = BuyingIntentButton(purposeType: BuyingIntentType.affection)
+    private let birthdayButton = BuyingIntentButton(purposeType: BuyingIntentType.birthday)
+    private let gratitudeButton = BuyingIntentButton(purposeType: BuyingIntentType.gratitude)
+    private let proposeButton = BuyingIntentButton(purposeType: BuyingIntentType.propose)
+    private let partyButton = BuyingIntentButton(purposeType: BuyingIntentType.party)
+    private let employmentButton = BuyingIntentButton(purposeType: BuyingIntentType.employment)
+    private let promotionButton = BuyingIntentButton(purposeType: BuyingIntentType.promotion)
+    private let friendshipButton = BuyingIntentButton(purposeType: BuyingIntentType.friendship)
     
     private lazy var intentButtonHStackView1 = BuyingIntentButtonHStackView(
-        button1: celebrationButton,
+        button1: affectionButton,
         button2: birthdayButton
     )
     private lazy var intentButtonHStackView2 = BuyingIntentButtonHStackView(
-        button1: condolenceButton,
-        button2: weddingButton
+        button1: gratitudeButton,
+        button2: proposeButton
     )
     private lazy var intentButtonHStackView3 = BuyingIntentButtonHStackView(
-        button1: affectionButton,
-        button2: promotionButton
+        button1: partyButton,
+        button2: employmentButton
     )
     private lazy var intentButtonHStackView4 = BuyingIntentButtonHStackView(
-        button1: exhibitionButton,
-        button2: awardButton
-    )
-    private lazy var intentButtonHStackView5 = BuyingIntentButtonHStackView(
-        button1: apologyButton,
-        button2: eventButton
+        button1: promotionButton,
+        button2: friendshipButton
     )
     
     private lazy var intentButtonVStackView: UIStackView = {
@@ -59,13 +53,19 @@ class BuyingIntentViewController: UIViewController {
             intentButtonHStackView1,
             intentButtonHStackView2,
             intentButtonHStackView3,
-            intentButtonHStackView4,
-            intentButtonHStackView5
+            intentButtonHStackView4
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 9
         return stackView
+    }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
+        view.layer.shadowRadius = 1
+        return view
     }()
     
     private let backButton = BackButton(isActive: false)
@@ -114,22 +114,21 @@ class BuyingIntentViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
         view.addSubview(intentButtonVStackView)
+        view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
     }
     
     private func setupButtonActions() {
-        celebrationButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        birthdayButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        condolenceButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        weddingButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        affectionButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        promotionButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        exhibitionButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        awardButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        apologyButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
-        eventButton.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside)
+        let intentButtons = [
+            affectionButton, birthdayButton,
+            gratitudeButton, proposeButton,
+            partyButton, employmentButton,
+            promotionButton, friendshipButton,
+        ]
+        
+        intentButtons.forEach { $0.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside) }
         
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
@@ -139,11 +138,10 @@ class BuyingIntentViewController: UIViewController {
     @objc
     func intentButtonTapped(sender: BuyingIntentButton) {
         let intentButtons = [
-            celebrationButton, birthdayButton,
-            condolenceButton, weddingButton,
-            affectionButton, promotionButton,
-            exhibitionButton, awardButton,
-            apologyButton, eventButton
+            affectionButton, birthdayButton,
+            gratitudeButton, proposeButton,
+            partyButton, employmentButton,
+            promotionButton, friendshipButton,
         ]
         
         sender.isSelected.toggle()
@@ -187,10 +185,15 @@ extension BuyingIntentViewController {
         }
         
         intentButtonVStackView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp_bottomMargin).offset(27)
-            $0.leading.equalToSuperview().offset(15.75)
-            $0.trailing.equalToSuperview().offset(-15.75)
-            
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
+            $0.leading.equalToSuperview().offset(21)
+            $0.trailing.equalToSuperview().offset(-21)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(intentButtonVStackView.snp.bottom).offset(50)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
         }
         
         backButton.snp.makeConstraints {

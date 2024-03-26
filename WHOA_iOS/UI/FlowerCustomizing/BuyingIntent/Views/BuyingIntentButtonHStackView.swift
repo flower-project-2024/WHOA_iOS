@@ -46,10 +46,10 @@ class BuyingIntentButton: UIButton {
     
     // MARK: - Initialization
     
-    init(text: String) {
+    init(purposeType: BuyingIntentType) {
         super.init(frame: .zero)
         
-        setupView(text)
+        setupUI(purposeType)
     }
     
     required init?(coder: NSCoder) {
@@ -58,7 +58,7 @@ class BuyingIntentButton: UIButton {
     
     // MARK: - Functions
     
-    private func setupView(_ text: String) {
+    private func setupUI(_ purposeType: BuyingIntentType) {
         var config = UIButton.Configuration.gray()
         config.baseForegroundColor = .black
         config.baseBackgroundColor = UIColor(
@@ -67,10 +67,10 @@ class BuyingIntentButton: UIButton {
             blue: 248/255,
             alpha: 1.0
         )
-        config.title = text
-        config.image = UIImage(named: "IntentImage")
+        config.title = purposeType.rawValue
+        config.image = getPurposeImage(purposeType)
         config.imagePlacement = .top
-        config.imagePadding = 6
+        config.imagePadding = 10
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
@@ -82,5 +82,27 @@ class BuyingIntentButton: UIButton {
     private func updateSelection() {
         layer.borderColor = isSelected ? UIColor.green.cgColor : UIColor.clear.cgColor
         self.backgroundColor = isSelected ? UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2) : UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
+    }
+    
+    private func getPurposeImage(_ purposeType: BuyingIntentType) -> UIImage? {
+        
+        switch purposeType {
+        case .affection:
+            UIImage(named: "Affection")
+        case .birthday:
+            UIImage(named: "Birthday")
+        case .gratitude:
+            UIImage(named: "Gratitude")
+        case .propose:
+            UIImage(named: "Propose")
+        case .party:
+            UIImage(named: "Party")
+        case .employment:
+            UIImage(named: "Employment")
+        case .promotion:
+            UIImage(named: "Promotion")
+        case .friendship:
+            UIImage(named: "Friendship")
+        }
     }
 }
