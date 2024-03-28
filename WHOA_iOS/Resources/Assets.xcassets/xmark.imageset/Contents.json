@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "xmark.png",
+      "filename" : "Xmark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Xmark@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Xmark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
