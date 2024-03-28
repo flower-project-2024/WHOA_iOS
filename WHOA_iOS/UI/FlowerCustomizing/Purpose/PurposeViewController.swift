@@ -57,7 +57,7 @@ class PurposeViewController: UIViewController {
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 9
+        stackView.spacing = 12
         return stackView
     }()
     
@@ -161,23 +161,23 @@ class PurposeViewController: UIViewController {
 extension PurposeViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
-            $0.leading.equalToSuperview().offset(17)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
+            $0.leading.equalToSuperview().offset(22)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp_bottomMargin).offset(32)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(18.5)
+            $0.top.equalTo(exitButton.snp.bottom).offset(29)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
             $0.height.equalTo(12.75)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp_bottomMargin).offset(24)
-            $0.leading.equalTo(view).offset(20)
+            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel).offset(40)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(114)
             $0.width.equalTo(256)
@@ -201,9 +201,8 @@ extension PurposeViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
