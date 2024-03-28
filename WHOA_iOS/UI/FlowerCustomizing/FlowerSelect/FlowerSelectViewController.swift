@@ -197,7 +197,7 @@ class FlowerSelectViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\"\(tempModel.intentType.rawValue)\"과 어울리는 꽃 선택"
+        titleLabel.text = "\"\(tempModel.purposeType.rawValue)\"과 어울리는 꽃 선택"
     }
     
     private func bind() {

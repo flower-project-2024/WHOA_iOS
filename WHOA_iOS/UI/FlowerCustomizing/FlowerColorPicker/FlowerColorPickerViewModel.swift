@@ -11,8 +11,8 @@ class FlowerColorPickerViewModel {
     
     private var flowerColorPickerModel: FlowerColorPickerModel?
     
-    init(intentType: BuyingIntentType) {
-        flowerColorPickerModel = FlowerColorPickerModel(intentType: intentType)
+    init(purposeType: PurposeType) {
+        flowerColorPickerModel = FlowerColorPickerModel(purposeType: purposeType)
     }
     
     func getColors(colors: [UIColor?]) {

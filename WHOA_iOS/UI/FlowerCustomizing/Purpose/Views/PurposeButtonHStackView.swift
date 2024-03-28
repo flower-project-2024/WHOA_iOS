@@ -1,5 +1,5 @@
 //
-//  BuyingIntentButton.swift
+//  PurposeButton.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/8/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class BuyingIntentButtonHStackView: UIStackView {
+class PurposeButtonHStackView: UIStackView {
     
     // MARK: - Initialization
     
-    init(button1: BuyingIntentButton, button2: BuyingIntentButton) {
+    init(button1: PurposeButton, button2: PurposeButton) {
         super.init(frame: .zero)
         
         setupView(button1, button2)
@@ -23,7 +23,7 @@ class BuyingIntentButtonHStackView: UIStackView {
     
     // MARK: - Functions
     
-    private func setupView(_ button1: BuyingIntentButton, _ button2: BuyingIntentButton) {
+    private func setupView(_ button1: PurposeButton, _ button2: PurposeButton) {
         [
             button1,
             button2
@@ -34,7 +34,7 @@ class BuyingIntentButtonHStackView: UIStackView {
     }
 }
 
-class BuyingIntentButton: UIButton {
+class PurposeButton: UIButton {
     
     // MARK: - Properties
     
@@ -46,7 +46,7 @@ class BuyingIntentButton: UIButton {
     
     // MARK: - Initialization
     
-    init(purposeType: BuyingIntentType) {
+    init(purposeType: PurposeType) {
         super.init(frame: .zero)
         
         setupUI(purposeType)
@@ -59,7 +59,7 @@ class BuyingIntentButton: UIButton {
     
     // MARK: - Functions
     
-    private func setupUI(_ purposeType: BuyingIntentType) {
+    private func setupUI(_ purposeType: PurposeType) {
         var config = UIButton.Configuration.gray()
         config.baseBackgroundColor = .gray2
         config.title = purposeType.rawValue
@@ -82,7 +82,7 @@ class BuyingIntentButton: UIButton {
         
     }
     
-    private func getPurposeImage(_ purposeType: BuyingIntentType) -> UIImage? {
+    private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {
         switch purposeType {
         case .affection:
             UIImage(named: "Affection")

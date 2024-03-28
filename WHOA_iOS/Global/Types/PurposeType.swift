@@ -1,5 +1,5 @@
 //
-//  BuyingIntentType.swift
+//  PurposeType.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/8/24.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// 꽃 구매 목적을 정리한 Enum입니다.
-enum BuyingIntentType: String {
+enum PurposeType: String {
     case affection = "애정표현/고백/기념일"
     case birthday = "생일/생신"
     case gratitude = "감사표현"

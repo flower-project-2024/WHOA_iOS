@@ -1,18 +1,16 @@
 //
-//  FlowerColorPickerModel.swift
+//  PurposeModel.swift
 //  WHOA_iOS
 //
-//  Created by KSH on 2/23/24.
+//  Created by KSH on 2/12/24.
 //
 
-import UIKit
+import Foundation
 
-struct FlowerColorPickerModel {
+struct PurposeModel {
     let purposeType: PurposeType
-    var colors: [UIColor?]?
     
     init(purposeType: PurposeType) {
         self.purposeType = purposeType
     }
-    
 }

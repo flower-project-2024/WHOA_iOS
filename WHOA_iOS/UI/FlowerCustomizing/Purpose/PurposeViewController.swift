@@ -1,5 +1,5 @@
 //
-//  BuyingIntentViewController.swift
+//  PurposeViewController.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/5/24.
@@ -8,11 +8,11 @@
 import UIKit
 import SnapKit
 
-class BuyingIntentViewController: UIViewController {
+class PurposeViewController: UIViewController {
 
     // MARK: - Properties
     
-    private let viewModel: BuyingIntentViewModel
+    private let viewModel: PurposeViewModel
     
     // MARK: - UI
     
@@ -21,39 +21,39 @@ class BuyingIntentViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
     private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
     
-    private let affectionButton = BuyingIntentButton(purposeType: BuyingIntentType.affection)
-    private let birthdayButton = BuyingIntentButton(purposeType: BuyingIntentType.birthday)
-    private let gratitudeButton = BuyingIntentButton(purposeType: BuyingIntentType.gratitude)
-    private let proposeButton = BuyingIntentButton(purposeType: BuyingIntentType.propose)
-    private let partyButton = BuyingIntentButton(purposeType: BuyingIntentType.party)
-    private let employmentButton = BuyingIntentButton(purposeType: BuyingIntentType.employment)
-    private let promotionButton = BuyingIntentButton(purposeType: BuyingIntentType.promotion)
-    private let friendshipButton = BuyingIntentButton(purposeType: BuyingIntentType.friendship)
+    private let affectionButton = PurposeButton(purposeType: PurposeType.affection)
+    private let birthdayButton = PurposeButton(purposeType: PurposeType.birthday)
+    private let gratitudeButton = PurposeButton(purposeType: PurposeType.gratitude)
+    private let proposeButton = PurposeButton(purposeType: PurposeType.propose)
+    private let partyButton = PurposeButton(purposeType: PurposeType.party)
+    private let employmentButton = PurposeButton(purposeType: PurposeType.employment)
+    private let promotionButton = PurposeButton(purposeType: PurposeType.promotion)
+    private let friendshipButton = PurposeButton(purposeType: PurposeType.friendship)
     
-    private lazy var intentButtonHStackView1 = BuyingIntentButtonHStackView(
+    private lazy var purposeButtonHStackView1 = PurposeButtonHStackView(
         button1: affectionButton,
         button2: birthdayButton
     )
-    private lazy var intentButtonHStackView2 = BuyingIntentButtonHStackView(
+    private lazy var purposeButtonHStackView2 = PurposeButtonHStackView(
         button1: gratitudeButton,
         button2: proposeButton
     )
-    private lazy var intentButtonHStackView3 = BuyingIntentButtonHStackView(
+    private lazy var purposeButtonHStackView3 = PurposeButtonHStackView(
         button1: partyButton,
         button2: employmentButton
     )
-    private lazy var intentButtonHStackView4 = BuyingIntentButtonHStackView(
+    private lazy var purposeButtonHStackView4 = PurposeButtonHStackView(
         button1: promotionButton,
         button2: friendshipButton
     )
     
-    private lazy var intentButtonVStackView: UIStackView = {
+    private lazy var purposeButtonVStackView: UIStackView = {
         let stackView = UIStackView()
         [
-            intentButtonHStackView1,
-            intentButtonHStackView2,
-            intentButtonHStackView3,
-            intentButtonHStackView4
+            purposeButtonHStackView1,
+            purposeButtonHStackView2,
+            purposeButtonHStackView3,
+            purposeButtonHStackView4
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -84,7 +84,7 @@ class BuyingIntentViewController: UIViewController {
     
     // MARK: - Initialize
     
-    init(viewModel: BuyingIntentViewModel) {
+    init(viewModel: PurposeViewModel) {
         self.viewModel = viewModel
         
         super.init(nibName: nil, bundle: nil)
@@ -112,7 +112,7 @@ class BuyingIntentViewController: UIViewController {
         view.addSubview(progressHStackView)
         view.addSubview(titleLabel)
         view.addSubview(descriptionLabel)
-        view.addSubview(intentButtonVStackView)
+        view.addSubview(purposeButtonVStackView)
         view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
@@ -120,14 +120,14 @@ class BuyingIntentViewController: UIViewController {
     }
     
     private func setupButtonActions() {
-        let intentButtons = [
+        let purposeButtons = [
             affectionButton, birthdayButton,
             gratitudeButton, proposeButton,
             partyButton, employmentButton,
             promotionButton, friendshipButton,
         ]
         
-        intentButtons.forEach { $0.addTarget(self, action: #selector(intentButtonTapped), for: .touchUpInside) }
+        purposeButtons.forEach { $0.addTarget(self, action: #selector(purposeButtonTapped), for: .touchUpInside) }
         
         nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
@@ -135,8 +135,8 @@ class BuyingIntentViewController: UIViewController {
     // MARK: - Actions
     
     @objc
-    func intentButtonTapped(sender: BuyingIntentButton) {
-        let intentButtons = [
+    func purposeButtonTapped(sender: PurposeButton) {
+        let purposeButtons = [
             affectionButton, birthdayButton,
             gratitudeButton, proposeButton,
             partyButton, employmentButton,
@@ -145,9 +145,9 @@ class BuyingIntentViewController: UIViewController {
         
         sender.isSelected.toggle()
         
-        viewModel.updateButtonState(sender: sender, intentButtons: intentButtons)
-        viewModel.updateIntentTypeSelection(sender: sender, buttonText: sender.titleLabel?.text, setBuyingIntentType: viewModel.setBuyingIntentType)
-        viewModel.updateNextButtonState(intentButtons: intentButtons, nextButton: nextButton)
+        viewModel.updateButtonState(sender: sender, purposeButtons: purposeButtons)
+        viewModel.updatePurposeTypeSelection(sender: sender, buttonText: sender.titleLabel?.text, setPurposeType: viewModel.setPurposeType)
+        viewModel.updateNextButtonState(purposeButtons: purposeButtons, nextButton: nextButton)
     }
     
     @objc
@@ -158,7 +158,7 @@ class BuyingIntentViewController: UIViewController {
 
 // MARK: - AutoLayout
 
-extension BuyingIntentViewController {
+extension PurposeViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(12)
@@ -183,7 +183,7 @@ extension BuyingIntentViewController {
             $0.width.equalTo(256)
         }
         
-        intentButtonVStackView.snp.makeConstraints {
+        purposeButtonVStackView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(21)
             $0.trailing.equalToSuperview().offset(-21)
