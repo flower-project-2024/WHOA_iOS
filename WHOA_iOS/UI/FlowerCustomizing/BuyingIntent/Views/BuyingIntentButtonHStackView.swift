@@ -61,12 +61,7 @@ class BuyingIntentButton: UIButton {
     private func setupUI(_ purposeType: BuyingIntentType) {
         var config = UIButton.Configuration.gray()
         config.baseForegroundColor = .black
-        config.baseBackgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        config.baseBackgroundColor = .gray2
         config.title = purposeType.rawValue
         config.image = getPurposeImage(purposeType)
         config.imagePlacement = .top
@@ -80,12 +75,11 @@ class BuyingIntentButton: UIButton {
     }
     
     private func updateSelection() {
-        layer.borderColor = isSelected ? UIColor.green.cgColor : UIColor.clear.cgColor
-        self.backgroundColor = isSelected ? UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2) : UIColor(red: 248/255, green: 248/255, blue: 248/255, alpha: 1.0)
+        layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
+        self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
     }
     
     private func getPurposeImage(_ purposeType: BuyingIntentType) -> UIImage? {
-        
         switch purposeType {
         case .affection:
             UIImage(named: "Affection")

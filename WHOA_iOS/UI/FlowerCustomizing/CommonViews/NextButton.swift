@@ -31,6 +31,7 @@ class NextButton: UIButton {
     
     private func setupView() {
         self.setTitle("다음", for: .normal)
+        self.titleLabel?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         self.clipsToBounds = true
         self.layer.cornerRadius = 10
         self.isEnabled = false
@@ -39,18 +40,7 @@ class NextButton: UIButton {
     
     private func updateButtonState() {
         self.isEnabled = isActive
-        backgroundColor = self.isEnabled ? .black : UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
-        self.setTitleColor( self.isEnabled ? .white : UIColor(
-            red: 175/255,
-            green: 175/255,
-            blue: 175/255,
-            alpha: 1.0
-        ), for: .normal
-        )
+        self.setTitleColor( isActive ? .white : .gray5, for: .normal)
+        self.backgroundColor = isActive ? .black : .gray3
     }
 }
