@@ -63,6 +63,7 @@
 		54EB17FE2BB4768400717E6F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17FD2BB4768400717E6F /* Palette.swift */; };
 		54EB18012BB4773900717E6F /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18002BB4773900717E6F /* UIColor+.swift */; };
 		54EB18032BB5400F00717E6F /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18022BB5400F00717E6F /* UIFont+.swift */; };
+		54EB18052BB56E5300717E6F /* ColorSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18042BB56E5300717E6F /* ColorSelectionButton.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -157,6 +158,7 @@
 		54EB17FD2BB4768400717E6F /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		54EB18002BB4773900717E6F /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		54EB18022BB5400F00717E6F /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		54EB18042BB56E5300717E6F /* ColorSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionButton.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				5460710D2B8235E10033B598 /* ColorPickerView.swift */,
+				54EB18042BB56E5300717E6F /* ColorSelectionButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
 				54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */,
+				54EB18052BB56E5300717E6F /* ColorSelectionButton.swift in Sources */,
 				548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
