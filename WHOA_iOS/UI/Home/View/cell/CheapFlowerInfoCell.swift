@@ -16,10 +16,10 @@ class CheapFlowerInfoCell: UITableViewCell {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .orange
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 5
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.cornerRadius = 6
+        imageView.layer.borderColor = CGColor(red: 199/255, green: 199/255, blue: 199/255, alpha: 1)
         imageView.layer.borderWidth = 0.5
         return imageView
     }()
@@ -42,7 +42,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Medium", size: 12)
         label.text = "영원한 사랑"
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "Gray07")
         return label
     }()
     
@@ -50,8 +50,14 @@ class CheapFlowerInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
         label.text = "2100원"
-        label.textColor = .darkGray
+        label.textColor = UIColor(named: "Secondary04")
         return label
+    }()
+    
+    let moveToDetailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "ChevronRight")
+        return imageView
     }()
     
     // MARK: - init
@@ -73,35 +79,40 @@ class CheapFlowerInfoCell: UITableViewCell {
         contentView.addSubview(flowerNameLabel)
         contentView.addSubview(flowerLanguageLabel)
         contentView.addSubview(priceLabel)
+        contentView.addSubview(moveToDetailImageView)
         
         // constraints
         flowerImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
+            make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview()
-            make.width.equalTo(60)
-            make.height.equalTo(60)  // 1:1 비율
-            make.bottom.equalToSuperview().inset(10)
+            //make.width.equalTo(70)
+            make.height.equalTo(flowerImageView.snp.width).multipliedBy(1)  // 1:1 비율
         }
         
         rankingLabel.snp.makeConstraints { make in
-            make.leading.equalTo(flowerImageView.snp.trailing).offset(25)
-            make.centerY.equalTo(flowerImageView)
+            make.leading.equalTo(flowerImageView.snp.trailing).offset(15)
+            make.top.equalTo(flowerImageView.snp.top).inset(11.5)
         }
         
         flowerNameLabel.snp.makeConstraints { make in
             make.top.equalTo(rankingLabel.snp.top)
             make.leading.equalTo(rankingLabel.snp.trailing).offset(25)
-            make.centerY.equalTo(rankingLabel)
         }
         
         flowerLanguageLabel.snp.makeConstraints { make in
             make.leading.equalTo(flowerNameLabel.snp.leading)
-            make.top.equalTo(flowerNameLabel.snp.bottom)
+            make.top.equalTo(flowerNameLabel.snp.bottom).offset(6)
         }
         
         priceLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalTo(flowerImageView)
+            make.centerY.equalTo(flowerImageView.snp.centerY)
+            //make.trailing.equalTo(moveToDetailImageView.snp.leading).inset(8)
+        }
+        
+        moveToDetailImageView.snp.makeConstraints { make in
+            make.leading.equalTo(priceLabel.snp.trailing).offset(3)
+            make.trailing.equalToSuperview().inset(3)
+            make.centerY.equalTo(priceLabel.snp.centerY)
         }
     }
     

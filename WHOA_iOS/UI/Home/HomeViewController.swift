@@ -24,21 +24,29 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     var cheapFlowerView = CheapFlowerView()
+    
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
+        searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
+        searchBar.searchTextField.layer.masksToBounds = true
+        searchBar.searchTextField.layer.cornerRadius = 25
+        searchBar.searchTextField.layer.borderColor = UIColor(named: "Gray04")?.cgColor
+        searchBar.searchTextField.layer.borderWidth = 1
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.frame.size.width = searchBar.bounds.width
+        searchBar.searchTextField.frame.size = searchBar.frame.size
+        searchBar.setImage(UIImage(named: "SearchIcon"), for: .search, state: .normal)
         return searchBar
     }()
     
     var cellSize: CGSize = .zero
     var timer: Timer? = Timer()
     
-    let minimumLineSpacing: CGFloat = 10
+    let minimumLineSpacing: CGFloat = 0
     
-    var temporaryData: [UIColor] = [.red, .purple]
+    var collectionViewCellCount: [String] = ["0", "1"]
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -52,6 +60,10 @@ class HomeViewController: UIViewController {
 
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
+        
+        let backgroundImage = getImageWithCustomColor(color: UIColor(named: "Gray03")!, size: CGSize(width: 350, height: 54))
+        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -94,10 +106,10 @@ class HomeViewController: UIViewController {
         carouselView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(230)
+            make.height.equalTo(225)
         }
         cheapFlowerView.snp.makeConstraints { make in
-            make.top.equalTo(carouselView.snp.bottom).offset(20)
+            make.top.equalTo(carouselView.snp.bottom).offset(29)
             make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
             make.bottom.equalToSuperview()
         }
@@ -105,7 +117,7 @@ class HomeViewController: UIViewController {
     
     private func setupCollectionView(){
         // minimumLineSpacing 고려하여 width 값 조절
-        cellSize = CGSize(width: carouselView.bounds.width - (minimumLineSpacing * 4), height: 230)
+        cellSize = CGSize(width: carouselView.bounds.width - (minimumLineSpacing * 4), height: 225)
         carouselView.contentInset = UIEdgeInsets(top: 0,
                                                  left: minimumLineSpacing * 2,
                                                  bottom: 0,
@@ -116,6 +128,7 @@ class HomeViewController: UIViewController {
         carouselView.decelerationRate = .fast
         
         carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
+        carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
     }
     
     private func resetTimer() {
@@ -127,19 +140,23 @@ class HomeViewController: UIViewController {
             let index = Int(round(estimatedIndex))
 
             // 현재가 마지막 아이템이면 첫 인덱스로, 아니면 +1
-            let next = (index + 1 == self.temporaryData.count) ? 0 : index + 1
+            let next = (index + 1 == self.collectionViewCellCount.count) ? 0 : index + 1
             
-            if self.temporaryData.count == 0 { return }
+            if self.collectionViewCellCount.count == 0 { return }
 
             // 다음 지정된 인덱스로 스크롤
             self.carouselView.scrollToItem(at: IndexPath(item: next, section: 0), at: .centeredHorizontally, animated: true)
         })
     }
-
     
-    // MARK: - Actions
-    @objc func decorateButtonTapped(){
-        print("---이 꽃으로 꾸미기---")
+    func getImageWithCustomColor(color: UIColor, size: CGSize) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }
 
@@ -153,15 +170,15 @@ extension HomeViewController : UITableViewDataSource {
     // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
-        cell.flowerImageView.image = UIImage(systemName: "ticket")
+//        cell.flowerImageView.image = UIImage(systemName: "ticket")
         cell.rankingLabel.text = "\(indexPath.row + 1)"
         return cell
     }
     
-    // TableView의 rowHeight속성에 AutometicDimension을 통해 테이블의 row가 유동적이라는 것을 선언
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+//    // TableView의 rowHeight속성에 AutometicDimension을 통해 테이블의 row가 유동적이라는 것을 선언
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
 }
 
 extension HomeViewController : UITableViewDelegate {
@@ -224,8 +241,19 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath)
-        return cell
+        if indexPath.item == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
+            cell.buttonCallbackMethod = { [weak self] in
+                print("Call Back Method")
+                self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+            }
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath)
+            return cell
+        }
+        
     }
 }
 
@@ -245,5 +273,21 @@ extension HomeViewController: UISearchBarDelegate {
         timer?.invalidate()
         timer = nil
         self.navigationController?.pushViewController(FlowerSearchViewController(), animated: true)
+    }
+}
+
+// MARK: - Extension; UILabel (추후 Global 로 빼기)
+// TODO: Global에 추가
+extension UILabel {
+    func setLineSpacing(spacing: CGFloat) {
+        guard let text = text else { return }
+
+        let attributeString = NSMutableAttributedString(string: text)
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = spacing
+        attributeString.addAttribute(.paragraphStyle,
+                                     value: style,
+                                     range: NSRange(location: 0, length: attributeString.length))
+        attributedText = attributeString
     }
 }

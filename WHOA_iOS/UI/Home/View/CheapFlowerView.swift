@@ -12,7 +12,7 @@ class CheapFlowerView: UIView {
     // MARK: - Views
     let cheapFlowerLabel: UILabel = {
         let label = UILabel()
-        label.text = "오늘따라 저렴한 꽃을\n알아보아요"
+        label.text = "이번 주 저렴한 꽃 랭킹"
         label.numberOfLines = 0
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
         return label
@@ -20,9 +20,9 @@ class CheapFlowerView: UIView {
     
     let baseDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "4월 첫째주 기준"
-        label.font = UIFont(name: "Pretendard-Medium", size: 12)
-        label.textColor = .lightGray
+        label.text = "4월 첫째 주 기준"
+        label.font = UIFont(name: "Pretendard-Regular", size: 12)
+        label.textColor = UIColor(named: "Gray08")
         return label
     }()
     
@@ -30,7 +30,7 @@ class CheapFlowerView: UIView {
         let tableView = UITableView()
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = 86
         return tableView
     }()
     
@@ -51,12 +51,12 @@ class CheapFlowerView: UIView {
         }
         
         baseDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(cheapFlowerLabel.snp.bottom).offset(1)
-            make.leading.equalTo(cheapFlowerLabel.snp.leading)
+            make.centerY.equalTo(cheapFlowerLabel.snp.centerY)
+            make.trailing.equalToSuperview()
         }
         
         topThreeTableView.snp.makeConstraints { make in
-            make.top.equalTo(baseDateLabel.snp.bottom).offset(10)
+            make.top.equalTo(cheapFlowerLabel.snp.bottom).offset(12)
             make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
