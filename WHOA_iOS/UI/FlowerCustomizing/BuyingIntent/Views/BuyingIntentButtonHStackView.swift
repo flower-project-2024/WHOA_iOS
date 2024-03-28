@@ -50,6 +50,7 @@ class BuyingIntentButton: UIButton {
         super.init(frame: .zero)
         
         setupUI(purposeType)
+        updateSelection()
     }
     
     required init?(coder: NSCoder) {
@@ -60,16 +61,15 @@ class BuyingIntentButton: UIButton {
     
     private func setupUI(_ purposeType: BuyingIntentType) {
         var config = UIButton.Configuration.gray()
-        config.baseForegroundColor = .black
         config.baseBackgroundColor = .gray2
         config.title = purposeType.rawValue
         config.image = getPurposeImage(purposeType)
         config.imagePlacement = .top
         config.imagePadding = 10
+        config.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
-        self.layer.borderColor = UIColor.clear.cgColor
         self.layer.borderWidth = 1
         self.configuration = config
     }
@@ -77,6 +77,9 @@ class BuyingIntentButton: UIButton {
     private func updateSelection() {
         layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
         self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
+        self.titleLabel?.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard()
+        self.configuration?.baseForegroundColor = isSelected ? .black : .gray8
+        
     }
     
     private func getPurposeImage(_ purposeType: BuyingIntentType) -> UIImage? {

@@ -19,7 +19,7 @@ class BuyingIntentViewController: UIViewController {
     private let exitButton = ExitButton()
     private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
-    private let descriptionLabel = CustomDescriptionLabel(text: "목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
+    private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
     
     private let affectionButton = BuyingIntentButton(purposeType: BuyingIntentType.affection)
     private let birthdayButton = BuyingIntentButton(purposeType: BuyingIntentType.birthday)
@@ -63,8 +63,7 @@ class BuyingIntentViewController: UIViewController {
     
     private let borderLine: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
-        view.layer.shadowRadius = 1
+        view.backgroundColor = .gray2
         return view
     }()
     
@@ -191,9 +190,9 @@ extension BuyingIntentViewController {
         }
         
         borderLine.snp.makeConstraints {
-            $0.top.equalTo(intentButtonVStackView.snp.bottom).offset(50)
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(3)
         }
         
         backButton.snp.makeConstraints {
