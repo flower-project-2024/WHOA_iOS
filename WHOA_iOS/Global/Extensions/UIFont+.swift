@@ -13,7 +13,7 @@ extension UIFont {
         case Black, Bold, ExtraBold, ExtraLight, Light, Medium, Regular, SemiBold, Thin
     }
     
-    static func Pretendard(size: CGFloat = 10, family: Family = .Regular) -> UIFont {
+    static func Pretendard(size: CGFloat = 14, family: Family = .Regular) -> UIFont {
         return UIFont(name: "Pretendard-\(family)", size: size)!
     }
 }
