@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "MinusButton.png",
+      "filename" : "SaveFailure.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "MinusButton@2x.png",
+      "filename" : "SaveFailure@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "MinusButton@3x.png",
+      "filename" : "SaveFailure@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

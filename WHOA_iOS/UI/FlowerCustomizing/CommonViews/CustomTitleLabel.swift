@@ -27,5 +27,7 @@ class CustomTitleLabel: UILabel {
         self.text = text
         self.font = .Pretendard(size: 24, family: .SemiBold)
         self.textColor = .black
+        self.numberOfLines = 0
+        
     }
 }
