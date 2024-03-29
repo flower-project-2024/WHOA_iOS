@@ -13,6 +13,7 @@ extension UIFont {
         case Black, Bold, ExtraBold, ExtraLight, Light, Medium, Regular, SemiBold, Thin
     }
     
+    /// 기본 세팅 size: CGFloat = 14, family: Family = .Regular
     static func Pretendard(size: CGFloat = 14, family: Family = .Regular) -> UIFont {
         return UIFont(name: "Pretendard-\(family)", size: size)!
     }

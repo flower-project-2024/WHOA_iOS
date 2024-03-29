@@ -7,9 +7,16 @@
 
 import UIKit
 
+enum SaveResult {
+  case success
+  case failure
+}
+
 class SaveAlertViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private var saveResult: SaveResult
     
     // MARK: - UI
     
@@ -29,23 +36,20 @@ class SaveAlertViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "저장 완료!"
-        label.font = .systemFont(ofSize: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃다발 요구서를 저장했어요."
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .lightGray
+        label.font = .Pretendard()
+        label.textColor = .gray6
         return label
     }()
     
     private let exitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("마이페이지 가기", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         button.backgroundColor = .black
         button.setTitleColor(.white, for: .normal)
         button.clipsToBounds = true
@@ -53,13 +57,23 @@ class SaveAlertViewController: UIViewController {
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
         return button
     }()
-
+    
+    init(saveResult: SaveResult) {
+        self.saveResult = saveResult
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
+        configUI()
     }
     
     // MARK: - Functions
@@ -76,14 +90,37 @@ class SaveAlertViewController: UIViewController {
         setupAutoLayout()
     }
     
+    private func configUI() {
+        let result = saveResult
+        
+        switch result {
+        case .success:
+            flowerImageView.image = UIImage(named: "SaveSuccess")
+          titleLabel.text = "저장 완료!"
+          descriptionLabel.text = "꽃다발 요구서를 저장했어요."
+          exitButton.setTitle("마이페이지 가기", for: .normal)
+        case .failure:
+            flowerImageView.image = UIImage(named: "SaveFailure")
+            titleLabel.text = "저장 실패"
+            descriptionLabel.text = "네트워크 연결 상태를 확인해 주세요."
+            exitButton.setTitle("다시 시도하기", for: .normal)
+        }
+    }
+    
     // MARK: - Actions
     
     @objc
     private func exitButtonTapped() {
-        let homeVC = HomeViewController()
         
-        homeVC.modalPresentationStyle = .fullScreen
-        present(homeVC, animated: true)
+        switch saveResult {
+        case .success:
+            let homeVC = HomeViewController()
+            
+            homeVC.modalPresentationStyle = .fullScreen
+            present(homeVC, animated: true)
+        case .failure:
+            dismiss(animated: true)
+        }
     }
 }
 
