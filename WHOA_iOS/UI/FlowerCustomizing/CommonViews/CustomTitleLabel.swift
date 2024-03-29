@@ -26,6 +26,6 @@ class CustomTitleLabel: UILabel {
     private func setupView(_ text: String) {
         self.text = text
         self.font = .Pretendard(size: 24, family: .SemiBold)
-        self.numberOfLines = 0
+        self.textColor = .black
     }
 }

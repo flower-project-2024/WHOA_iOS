@@ -225,7 +225,7 @@ extension FlowerColorPickerViewController {
         
         progressHStackView.snp.makeConstraints {
             $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(18.5)
             $0.height.equalTo(12.75)
         }
         

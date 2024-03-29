@@ -38,7 +38,7 @@ class ColorPickerView: UIView {
     private let colorDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "색을 선택해주세요"
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
     
@@ -479,7 +479,7 @@ extension ColorPickerView {
         }
         
         colorPaletteVStack.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp_bottomMargin).offset(40)
+            $0.top.equalTo(segmentControl.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
         }
     }
