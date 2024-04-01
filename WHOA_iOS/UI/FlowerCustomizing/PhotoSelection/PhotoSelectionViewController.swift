@@ -18,22 +18,24 @@ class PhotoSelectionViewController: UIViewController {
     
     private let exitButton = ExitButton()
     private let progressHStackView = CustomProgressHStackView(numerator: 6, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "추가로 사장님께 요구할 사항들을 작성해주세요")
+    private let titleLabel = CustomTitleLabel(text: "추가로 사장님께\n요구할 사항들을 작성해주세요")
     
     private let requirementLabel: UILabel = {
         let label = UILabel()
         label.text = "요구사항"
-        label.font = UIFont(name: "Pretendard", size: 16)
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let requirementTextView: UITextView = {
         let view = UITextView()
-        view.font = UIFont(name: "Pretendard-Regular", size: 16)
+        view.font = .Pretendard()
+        view.textColor = .black
+        view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray5.cgColor
+        view.layer.borderColor = UIColor.gray6.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         return view
     }()
@@ -41,25 +43,26 @@ class PhotoSelectionViewController: UIViewController {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.text = "요구사항을 작성해주세요."
-        label.textColor = .systemGray3
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.textColor = .gray6
+        label.font = .Pretendard()
         return label
     }()
     
     private let photoLabel: UILabel = {
         let label = UILabel()
         label.text = "참고 사진"
-        label.font = UIFont(name: "Pretendard", size: 16)
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
-    private lazy var photoImageView1: UIImageView = {
+    private lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "PhotoIcon")
+        imageView.image = UIImage(systemName: "plus.circle")
+        imageView.tintColor = .black
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .systemGray6
+        imageView.backgroundColor = .gray2
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
         imageView.addGestureRecognizer(tapGesture)
@@ -67,29 +70,76 @@ class PhotoSelectionViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var photoImageView2: UIImageView = {
+    private let photoImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "PhotoIcon")
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .systemGray6
+        imageView.backgroundColor = .gray2
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private lazy var minusImageView1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.isHidden = true
+        imageView.tag = 1
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
-    private lazy var photoImageView3: UIImageView = {
+    private let photoImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "PhotoIcon")
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .systemGray6
+        imageView.backgroundColor = .gray2
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private lazy var minusImageView2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.isHidden = true
+        imageView.tag = 2
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private let photoImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "PhotoIcon")
+        imageView.contentMode = .center
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .gray2
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+    
+    private lazy var minusImageView3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "MinusButton")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.isHidden = true
+        imageView.tag = 3
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -98,6 +148,7 @@ class PhotoSelectionViewController: UIViewController {
     private lazy var photoImageViewHStackView: UIStackView = {
         let stackView = UIStackView()
         [
+            addImageButton,
             photoImageView1,
             photoImageView2,
             photoImageView3
@@ -112,6 +163,12 @@ class PhotoSelectionViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
+    }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray2
+        return view
     }()
     
     private let backButton: UIButton = {
@@ -161,13 +218,60 @@ class PhotoSelectionViewController: UIViewController {
         view.addSubview(photoImageHScrollView)
         photoImageHScrollView.addSubview(photoImageViewHStackView)
         
+        photoImageView1.addSubview(minusImageView1)
+        photoImageView2.addSubview(minusImageView2)
+        photoImageView3.addSubview(minusImageView3)
+        
+        view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
         requirementTextView.delegate = self
     }
     
+    private func resetImageViews() {
+        photoImageView1.image = UIImage(named: "PhotoIcon")
+        photoImageView2.image = UIImage(named: "PhotoIcon")
+        photoImageView3.image = UIImage(named: "PhotoIcon")
+        photoImageView1.contentMode = .center
+        photoImageView2.contentMode = .center
+        photoImageView3.contentMode = .center
+    }
+    
+    private func updateImageViews(with photos: [UIImage?]) {
+      for (index, image) in photos.enumerated() {
+        switch index {
+        case 0:
+          photoImageView1.image = image
+          photoImageView1.contentMode = .scaleAspectFill
+        case 1:
+          photoImageView2.image = image
+          photoImageView2.contentMode = .scaleAspectFill
+        case 2:
+          photoImageView3.image = image
+          photoImageView3.contentMode = .scaleAspectFill
+        default:
+          break
+        }
+      }
+    }
+    private func updateMinusImageViews() {
+        minusImageView1.isHidden = photoImageView1.image == UIImage(named: "PhotoIcon")
+        minusImageView2.isHidden = photoImageView2.image == UIImage(named: "PhotoIcon")
+        minusImageView3.isHidden = photoImageView3.image == UIImage(named: "PhotoIcon")
+    }
+    
     // MARK: - Actions
+    
+    @objc
+    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
+        let idx = sender.view?.tag == 1 ? 0 : sender.view?.tag == 2 ? 1 : 2
+        
+        viewModel.photos.remove(at: idx)
+        resetImageViews()
+        updateImageViews(with: viewModel.getPhotos())
+        updateMinusImageViews()
+    }
     
     @objc
     func photoImageViewTapped() {
@@ -184,12 +288,15 @@ class PhotoSelectionViewController: UIViewController {
                         case 1:
                             self.photoImageView1.image = i.value
                             self.photoImageView1.contentMode = .scaleAspectFill
+                            self.minusImageView1.isHidden = false
                         case 2:
                             self.photoImageView2.image = i.value
                             self.photoImageView2.contentMode = .scaleAspectFill
+                            self.minusImageView2.isHidden = false
                         case 3:
                             self.photoImageView3.image = i.value
                             self.photoImageView3.contentMode = .scaleAspectFill
+                            self.minusImageView3.isHidden = false
                         default:
                             continue
                         }
@@ -208,7 +315,7 @@ class PhotoSelectionViewController: UIViewController {
                         break
                     }
                     
-                    self.viewModel.getPhotos(photos: photos.values.map{$0})
+                    self.viewModel.setupPhotos(photos: photos.values.map{ $0 })
                 }
                 
                 present(vc, animated: true)
@@ -245,7 +352,7 @@ extension PhotoSelectionViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(140)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         requirementLabel.snp.makeConstraints {
@@ -283,7 +390,21 @@ extension PhotoSelectionViewController {
             $0.top.equalTo(photoLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview()
-            $0.bottom.equalTo(navigationHStackView.snp.top).inset(-119)
+            $0.bottom.equalTo(navigationHStackView.snp.top).inset(-97)
+        }
+        
+        [minusImageView1, minusImageView2, minusImageView3].forEach { imageView in
+            imageView.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(5)
+                $0.trailing.equalToSuperview().offset(-5)
+                $0.size.equalTo(16)
+            }
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
         }
         
         backButton.snp.makeConstraints {
@@ -292,21 +413,20 @@ extension PhotoSelectionViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
 
 extension PhotoSelectionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.systemMint.cgColor
+        requirementTextView.layer.borderColor = UIColor.second1.cgColor
         placeholder.isHidden = true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.systemGray5.cgColor
+        requirementTextView.layer.borderColor = UIColor.gray4.cgColor
         
         if textView.text.count == 0 {
             placeholder.isHidden = false

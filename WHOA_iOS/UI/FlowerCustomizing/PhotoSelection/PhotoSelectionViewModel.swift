@@ -12,10 +12,19 @@ class PhotoSelectionViewModel {
     // MARK: - Properties
     
     let authService = MyPhotoAuthService()
-    private var photos = [UIImage?]()
     
-    func getPhotos(photos: [UIImage?]) {
+    var photos = [UIImage?]()
+    
+    func setupPhotos(photos: [UIImage?]) {
         self.photos = photos
+    }
+    
+    func getPhotos() -> [UIImage?] {
+        return photos
+    }
+    
+    func getPhotosCount() -> Int {
+        return photos.count
     }
     
 }
