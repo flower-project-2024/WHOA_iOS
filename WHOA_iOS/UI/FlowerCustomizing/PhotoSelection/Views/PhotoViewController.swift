@@ -42,7 +42,7 @@ class PhotoViewController: UIViewController {
     
     private let exitButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "xmark"), for: .normal)
+        button.setImage(UIImage(named: "Xmark"), for: .normal)
         button.tintColor = .systemGray
         button.setTitleColor(.black, for: .normal)
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
