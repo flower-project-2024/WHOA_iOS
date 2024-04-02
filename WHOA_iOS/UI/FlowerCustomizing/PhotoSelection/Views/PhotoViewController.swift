@@ -23,6 +23,7 @@ class PhotoViewController: UIViewController {
     private let photoService: PhotoService = MyPhotoService()
     private var selectedIndexArray = [Int]() // Index: count
     private var isAscending = false
+    private let photosCount: Int
     
     // album 여러개에 대한 예시는 생략 (UIPickerView와 같은 것을 이용하여 currentAlbumIndex를 바꾸어주면 됨)
     private var albums = [PHFetchResult<PHAsset>]()
@@ -92,6 +93,17 @@ class PhotoViewController: UIViewController {
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.id)
         return collectionView
     }()
+    
+    
+    init(photosCount: Int) {
+        self.photosCount = photosCount
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
@@ -264,7 +276,7 @@ extension PhotoViewController: UICollectionViewDelegate {
             updatingIndexPaths = [indexPath] + selectedIndexArray
                 .map { IndexPath(row: $0, section: 0) }
         } else {
-            if selectedIndexArray.count < 3 {
+            if selectedIndexArray.count < (3 - photosCount) {
                 selectedIndexArray.append(indexPath.item)
                 
                 selectedIndexArray

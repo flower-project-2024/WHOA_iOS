@@ -269,7 +269,7 @@ class PhotoSelectionViewController: UIViewController {
         
         viewModel.photos.remove(at: idx)
         resetImageViews()
-        updateImageViews(with: viewModel.getPhotos())
+        updateImageViews(with: viewModel.getPhotosArray())
         updateMinusImageViews()
     }
     
@@ -280,21 +280,23 @@ class PhotoSelectionViewController: UIViewController {
             
             switch result {
             case .success:
-                let vc = PhotoViewController()
+                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount())
                 vc.modalPresentationStyle = .fullScreen
                 vc.completionHandler = { photos in
-                    for i in photos {
-                        switch i.key {
-                        case 1:
-                            self.photoImageView1.image = i.value
+                    self.viewModel.addPhotos(photos: photos.values.map{ $0 })
+                    
+                    for i in 0..<self.viewModel.getPhotosCount() {
+                        switch i {
+                        case 0:
+                            self.photoImageView1.image = self.viewModel.getPhoto(idx: i)
                             self.photoImageView1.contentMode = .scaleAspectFill
                             self.minusImageView1.isHidden = false
-                        case 2:
-                            self.photoImageView2.image = i.value
+                        case 1:
+                            self.photoImageView2.image = self.viewModel.getPhoto(idx: i)
                             self.photoImageView2.contentMode = .scaleAspectFill
                             self.minusImageView2.isHidden = false
-                        case 3:
-                            self.photoImageView3.image = i.value
+                        case 2:
+                            self.photoImageView3.image = self.viewModel.getPhoto(idx: i)
                             self.photoImageView3.contentMode = .scaleAspectFill
                             self.minusImageView3.isHidden = false
                         default:
@@ -302,11 +304,11 @@ class PhotoSelectionViewController: UIViewController {
                         }
                     }
                     
-                    switch photos.count {
-                    case 2:
+                    switch self.viewModel.getPhotosCount() {
+                    case 1:
                         self.photoImageView3.image = UIImage(named: "PhotoIcon")
                         self.photoImageView3.contentMode = .center
-                    case 1:
+                    case 0:
                         self.photoImageView3.image = UIImage(named: "PhotoIcon")
                         self.photoImageView2.image = UIImage(named: "PhotoIcon")
                         self.photoImageView3.contentMode = .center
@@ -314,11 +316,10 @@ class PhotoSelectionViewController: UIViewController {
                     default:
                         break
                     }
-                    
-                    self.viewModel.setupPhotos(photos: photos.values.map{ $0 })
                 }
                 
                 present(vc, animated: true)
+                
             case .failure:
                 return
             }

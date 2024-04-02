@@ -15,11 +15,19 @@ class PhotoSelectionViewModel {
     
     var photos = [UIImage?]()
     
-    func setupPhotos(photos: [UIImage?]) {
-        self.photos = photos
+    func addPhotos(photos: [UIImage?]) {
+        self.photos.append(contentsOf: photos)
     }
     
-    func getPhotos() -> [UIImage?] {
+    func getPhoto(idx: Int) -> UIImage? {
+        if idx >= photos.count {
+            return nil
+        }
+        
+        return photos[idx]
+    }
+    
+    func getPhotosArray() -> [UIImage?] {
         return photos
     }
     
