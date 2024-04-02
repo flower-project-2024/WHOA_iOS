@@ -13,7 +13,7 @@ class PhotoViewController: UIViewController {
         static let numberOfColumns = 3.0
         static let cellSpace = 1.0
         static let length = (UIScreen.main.bounds.size.width - cellSpace * (numberOfColumns - 1)) / numberOfColumns
-        static let cellSize = CGSize(width: length, height: length)
+        static let cellSize = CGSize(width: length - 4, height: length - 4)
         static let scale = UIScreen.main.scale
     }
     
@@ -22,6 +22,7 @@ class PhotoViewController: UIViewController {
     private let albumService: AlbumService = MyAlbumService()
     private let photoService: PhotoService = MyPhotoService()
     private var selectedIndexArray = [Int]() // Index: count
+    private var isAscending = false
     
     // album 여러개에 대한 예시는 생략 (UIPickerView와 같은 것을 이용하여 currentAlbumIndex를 바꾸어주면 됨)
     private var albums = [PHFetchResult<PHAsset>]()
@@ -49,17 +50,27 @@ class PhotoViewController: UIViewController {
         return button
     }()
     
-    private let submitButton: UIButton = {
+    private let sortButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("최근 항목", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
+        button.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private let triangleImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "arrowtriangle.down.fill")
+        imageView.tintColor = .black
+        return imageView
     }()
     
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.primary, for: .normal)
+        button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -99,7 +110,8 @@ class PhotoViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(exitButton)
-        view.addSubview(submitButton)
+        view.addSubview(sortButton)
+        view.addSubview(triangleImageView)
         view.addSubview(addButton)
         view.addSubview(collectionView)
         
@@ -141,6 +153,12 @@ class PhotoViewController: UIViewController {
     // MARK: - Actions
     
     @objc
+    private func sortButtonTapped() {
+        isAscending.toggle()
+        triangleImageView.image = UIImage(systemName: isAscending ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
+    }
+    
+    @objc
     private func exitButtonTapped() {
         dismiss(animated: true)
     }
@@ -155,23 +173,29 @@ class PhotoViewController: UIViewController {
 extension PhotoViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(21)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(21)
             $0.leading.equalToSuperview().offset(30)
-            $0.size.equalTo(14)
+            $0.size.equalTo(18)
         }
         
-        submitButton.snp.makeConstraints {
-            $0.top.equalTo(exitButton)
+        sortButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(19)
             $0.centerX.equalToSuperview()
         }
         
+        triangleImageView.snp.makeConstraints {
+            $0.centerY.equalTo(sortButton.snp.centerY)
+            $0.leading.equalTo(sortButton.snp.trailing).offset(4)
+            $0.size.equalTo(10)
+        }
+        
         addButton.snp.makeConstraints {
-            $0.top.equalTo(exitButton)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(19)
             $0.trailing.equalToSuperview().inset(24)
         }
         
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(submitButton.snp.bottom).offset(16)
+            $0.top.equalTo(sortButton.snp.bottom).offset(16)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -259,5 +283,18 @@ extension PhotoViewController: UICollectionViewDelegate {
         collectionView.performBatchUpdates {
             collectionView.reloadItems(at: indexPaths)
         }
+    }
+}
+
+extension PhotoViewController: UICollectionViewDelegateFlowLayout {
+    
+    // 행 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    // 열 간격
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
     }
 }
