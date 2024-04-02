@@ -156,6 +156,13 @@ class PhotoViewController: UIViewController {
     private func sortButtonTapped() {
         isAscending.toggle()
         triangleImageView.image = UIImage(systemName: isAscending ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
+        
+        if isAscending {
+               dataSource.sort { $0.phAsset.creationDate ?? Date() < $1.phAsset.creationDate ?? Date() }
+           } else {
+               dataSource.sort { $0.phAsset.creationDate ?? Date() > $1.phAsset.creationDate ?? Date() }
+           }
+           collectionView.reloadData()
     }
     
     @objc
