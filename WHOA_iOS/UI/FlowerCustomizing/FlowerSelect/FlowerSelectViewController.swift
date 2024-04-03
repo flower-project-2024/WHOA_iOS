@@ -21,16 +21,16 @@ class FlowerSelectViewController: UIViewController {
     private let exitButton = ExitButton()
     private let progressHStackView = CustomProgressHStackView(numerator: 3, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "")
-    private let descriptionLabel = CustomDescriptionLabel(text: "최대 3개의 꽃을 선태할 수 있어요", numberOfLines: 1)
+    private let descriptionLabel = CustomDescriptionLabel(text: "최대 3개의 꽃을 선택할 수 있어요", numberOfLines: 1)
     
     private let flowerImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemGray5
+        imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.systemGray5.cgColor
+        imageView.layer.borderColor = UIColor.gray4.cgColor
         return imageView
     }()
     
@@ -49,11 +49,11 @@ class FlowerSelectViewController: UIViewController {
     private let flowerImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemGray5
+        imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.systemGray5.cgColor
+        imageView.layer.borderColor = UIColor.gray4.cgColor
         return imageView
     }()
     
@@ -72,11 +72,11 @@ class FlowerSelectViewController: UIViewController {
     private let flowerImageView3: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .systemGray5
+        imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.systemGray5.cgColor
+        imageView.layer.borderColor = UIColor.gray4.cgColor
         return imageView
     }()
     
@@ -114,13 +114,14 @@ class FlowerSelectViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.systemGray5.cgColor
+        collectionView.layer.borderColor = UIColor.gray3.cgColor
         
         return collectionView
     }()
     
     private lazy var flowerSelectTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .white
         tableView.rowHeight = 120
         tableView.dataSource = self
         tableView.delegate = self
@@ -130,6 +131,12 @@ class FlowerSelectViewController: UIViewController {
             forCellReuseIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier
         )
         return tableView
+    }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray2
+        return view
     }()
     
     private let backButton: BackButton = {
@@ -193,11 +200,13 @@ class FlowerSelectViewController: UIViewController {
         
         view.addSubview(hashTagCollectionView)
         view.addSubview(flowerSelectTableView)
+        
+        view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\"\(tempModel.purposeType.rawValue)\"과 어울리는 꽃 선택"
+        titleLabel.text = "\"\(tempModel.purposeType.rawValue)\"과\n어울리는 꽃 선택"
     }
     
     private func bind() {
@@ -240,7 +249,7 @@ class FlowerSelectViewController: UIViewController {
                 minusImageViews[index]?.isHidden = false
             } else {
                 imageView.image = nil
-                imageView.backgroundColor = .systemGray5
+                imageView.backgroundColor = .gray2
                 minusImageViews[index]?.isHidden = true
             }
         }
@@ -261,17 +270,17 @@ class FlowerSelectViewController: UIViewController {
         switch imageView {
         case minusImageView1:
             flowerImageView1.image = nil
-            flowerImageView1.backgroundColor = .systemGray5
+            flowerImageView1.backgroundColor = .gray2
             minusImageView1.isHidden = true
             indexToRemove = 0
         case minusImageView2:
             flowerImageView2.image = nil
-            flowerImageView2.backgroundColor = .systemGray5
+            flowerImageView2.backgroundColor = .gray2
             minusImageView2.isHidden = true
             indexToRemove = 1
         case minusImageView3:
             flowerImageView3.image = nil
-            flowerImageView3.backgroundColor = .systemGray5
+            flowerImageView3.backgroundColor = .gray2
             minusImageView3.isHidden = true
             indexToRemove = 2
         default:
@@ -304,26 +313,26 @@ class FlowerSelectViewController: UIViewController {
 extension FlowerSelectViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.equalToSuperview().offset(17)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
+            $0.leading.equalToSuperview().offset(22)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.top.equalTo(exitButton.snp.bottom).offset(29)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
             $0.height.equalTo(12.75)
         }
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(200)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(160)
+            $0.trailing.equalToSuperview().inset(20)
         }
         
         flowerImageView1.snp.makeConstraints {
@@ -333,7 +342,6 @@ extension FlowerSelectViewController {
         flowerImageViewHStackView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(202)
         }
         
         minusImageView1.snp.makeConstraints {
@@ -360,7 +368,13 @@ extension FlowerSelectViewController {
         flowerSelectTableView.snp.makeConstraints {
             $0.top.equalTo(hashTagCollectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.bottom.equalTo(borderLine)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
         }
         
         backButton.snp.makeConstraints {
@@ -369,9 +383,8 @@ extension FlowerSelectViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
