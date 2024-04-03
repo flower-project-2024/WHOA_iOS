@@ -17,25 +17,21 @@ class FlowerReplacementViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "circle")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .gray5
         return imageView
     }()
     
     private let colorOrientedLabel: UILabel = {
         let label = UILabel()
         label.text = "색감 위주로 대체해주세요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
+        label.textColor = .black
         return label
     }()
     
     private lazy var colorOrientedView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        view.backgroundColor = .gray2
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
@@ -50,25 +46,21 @@ class FlowerReplacementViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "circle")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .gray5
         return imageView
     }()
     
     private let hashTagOrientedLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말 위주로 대체해주세요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
+        label.textColor = .black
         return label
     }()
     
     private lazy var hashTagOrientedView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        view.backgroundColor = .gray2
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
@@ -120,28 +112,13 @@ class FlowerReplacementViewController: UIViewController {
         selectedImageView: UIImageView,
         selectedLabel: UILabel
     ) {
-        selectedView.backgroundColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 0.2
-        )
-        selectedView.layer.borderColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 1.0
-        ).cgColor
+        selectedView.backgroundColor = .second1.withAlphaComponent(0.2)
+        selectedView.layer.borderColor = UIColor.secondary3.cgColor
         
         selectedImageView.image = UIImage(systemName: "button.programmable")
-        selectedImageView.tintColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 1.0
-        )
+        selectedImageView.tintColor = .secondary3
         
-        selectedLabel.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        selectedLabel.font = .Pretendard(size: 16, family: .SemiBold)
     }
     
     private func unSelectedViewUpdate(
@@ -149,18 +126,13 @@ class FlowerReplacementViewController: UIViewController {
         unSelectedImageView: UIImageView,
         unSelectedLabel: UILabel
     ) {
-        unSelectedView.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        unSelectedView.backgroundColor = .gray2
         unSelectedView.layer.borderColor = UIColor.clear.cgColor
         
         unSelectedImageView.image = UIImage(systemName: "circle")
-        unSelectedImageView.tintColor = .systemGray5
+        unSelectedImageView.tintColor = .gray5
         
-        unSelectedLabel.font = UIFont(name: "Pretendard-Regular", size: 16)
+        unSelectedLabel.font = .Pretendard(size: 16)
         
     }
     
@@ -213,7 +185,7 @@ extension FlowerReplacementViewController {
         }
         
         colorOrientedImageView.snp.makeConstraints {
-            $0.leading.equalTo(colorOrientedView.snp.leading).offset(18)
+            $0.leading.equalTo(colorOrientedView.snp.leading).offset(16)
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
         }
@@ -230,7 +202,7 @@ extension FlowerReplacementViewController {
         }
         
         hashTagOrientedImageView.snp.makeConstraints {
-            $0.leading.equalTo(hashTagOrientedView.snp.leading).offset(18)
+            $0.leading.equalTo(hashTagOrientedView.snp.leading).offset(16)
             $0.centerY.equalToSuperview()
             $0.size.equalTo(24)
         }
