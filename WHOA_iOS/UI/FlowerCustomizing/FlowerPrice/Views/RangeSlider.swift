@@ -195,8 +195,8 @@ class ThumbButton: RoundableButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        self.layer.borderWidth = 1.5
-        self.layer.borderColor = UIColor.systemMint.cgColor
+        self.layer.borderWidth = 2
+        self.layer.borderColor = UIColor.secondary3.cgColor
     }
     required init?(coder: NSCoder) {
         fatalError()
