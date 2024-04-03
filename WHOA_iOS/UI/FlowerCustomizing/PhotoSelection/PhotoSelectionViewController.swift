@@ -340,13 +340,13 @@ class PhotoSelectionViewController: UIViewController {
 extension PhotoSelectionViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.equalToSuperview().offset(17)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
+            $0.leading.equalToSuperview().offset(22)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.top.equalTo(exitButton.snp.bottom).offset(29)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
             $0.height.equalTo(12.75)
         }
         
