@@ -170,11 +170,11 @@ class PhotoViewController: UIViewController {
         triangleImageView.image = UIImage(systemName: isAscending ? "arrowtriangle.up.fill" : "arrowtriangle.down.fill")
         
         if isAscending {
-               dataSource.sort { $0.phAsset.creationDate ?? Date() < $1.phAsset.creationDate ?? Date() }
-           } else {
-               dataSource.sort { $0.phAsset.creationDate ?? Date() > $1.phAsset.creationDate ?? Date() }
-           }
-           collectionView.reloadData()
+            dataSource.sort { $0.phAsset.creationDate ?? Date() < $1.phAsset.creationDate ?? Date() }
+        } else {
+            dataSource.sort { $0.phAsset.creationDate ?? Date() > $1.phAsset.creationDate ?? Date() }
+        }
+        collectionView.reloadData()
     }
     
     @objc
@@ -291,6 +291,7 @@ extension PhotoViewController: UICollectionViewDelegate {
                 
                 updatingIndexPaths = selectedIndexArray.map { IndexPath(row: $0, section: 0) }
             } else {
+                showToast(message: "사진은 최대 3장까지 추가할 수 있습니다.", font: .Pretendard())
                 return
             }
         }
