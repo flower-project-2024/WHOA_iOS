@@ -23,25 +23,21 @@ class PackagingSelectionViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "circle")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .gray5
         return imageView
     }()
     
     private let noLabel: UILabel = {
         let label = UILabel()
         label.text = "아니요, 사장님께 맡길게요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
+        label.textColor = .black
         return label
     }()
     
     private lazy var noView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        view.backgroundColor = .gray2
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
@@ -57,25 +53,21 @@ class PackagingSelectionViewController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "circle")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemGray5
+        imageView.tintColor = .gray5
         return imageView
     }()
     
     private let yesLabel: UILabel = {
         let label = UILabel()
         label.text = "네, 제가 작성할게요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
+        label.textColor = .black
         return label
     }()
     
     private lazy var yesView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        view.backgroundColor = .gray2
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
@@ -89,11 +81,13 @@ class PackagingSelectionViewController: UIViewController {
     
     private let requirementTextView: UITextView = {
         let view = UITextView()
-        view.font = UIFont(name: "Pretendard-Regular", size: 16)
+        view.font = .Pretendard()
+        view.textColor = .black
+        view.backgroundColor = .white
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray5.cgColor
+        view.layer.borderColor = UIColor.gray4.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         view.isHidden = true
         return view
@@ -102,10 +96,16 @@ class PackagingSelectionViewController: UIViewController {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.text = "요구사항을 작성해주세요."
-        label.textColor = .systemGray3
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.textColor = .gray6
+        label.font = .Pretendard()
         label.isHidden = true
         return label
+    }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray2
+        return view
     }()
     
     private let backButton: BackButton = {
@@ -161,6 +161,8 @@ class PackagingSelectionViewController: UIViewController {
         
         view.addSubview(requirementTextView)
         view.addSubview(placeholder)
+        
+        view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
@@ -179,28 +181,13 @@ class PackagingSelectionViewController: UIViewController {
         selectedImageView: UIImageView,
         selectedLabel: UILabel
     ) {
-        selectedView.backgroundColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 0.2
-        )
-        selectedView.layer.borderColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 1.0
-        ).cgColor
+        selectedView.backgroundColor = .second1.withAlphaComponent(0.2)
+        selectedView.layer.borderColor = UIColor.secondary3.cgColor
         
         selectedImageView.image = UIImage(systemName: "button.programmable")
-        selectedImageView.tintColor = UIColor(
-            red: 079/255,
-            green: 234/255,
-            blue: 191/255,
-            alpha: 1.0
-        )
+        selectedImageView.tintColor = .secondary3
         
-        selectedLabel.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        selectedLabel.font = .Pretendard(size: 16, family: .SemiBold)
     }
     
     private func unSelectedViewUpdate(
@@ -208,18 +195,13 @@ class PackagingSelectionViewController: UIViewController {
         unSelectedImageView: UIImageView,
         unSelectedLabel: UILabel
     ) {
-        unSelectedView.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        unSelectedView.backgroundColor = .gray2
         unSelectedView.layer.borderColor = UIColor.clear.cgColor
         
         unSelectedImageView.image = UIImage(systemName: "circle")
-        unSelectedImageView.tintColor = .systemGray5
+        unSelectedImageView.tintColor = .gray5
         
-        unSelectedLabel.font = UIFont(name: "Pretendard-Regular", size: 16)
+        unSelectedLabel.font = .Pretendard(size: 16)
         
     }
     
@@ -340,28 +322,33 @@ extension PackagingSelectionViewController {
             $0.top.leading.equalTo(requirementTextView).offset(20)
         }
         
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
+        }
+        
         backButton.snp.makeConstraints {
             $0.width.equalTo(110)
             $0.height.equalTo(56)
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
 
 extension PackagingSelectionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.systemMint.cgColor
+        requirementTextView.layer.borderColor = UIColor.second1.cgColor
         
         placeholder.isHidden = true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.systemGray5.cgColor
+        requirementTextView.layer.borderColor = UIColor.gray4.cgColor
         
         if textView.text.count == 0 {
             placeholder.isHidden = false
