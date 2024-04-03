@@ -76,6 +76,12 @@ class PhotoViewController: UIViewController {
         return button
     }()
     
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray3
+        return view
+    }()
+    
     private let collectionView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.scrollDirection = .vertical
@@ -125,6 +131,7 @@ class PhotoViewController: UIViewController {
         view.addSubview(sortButton)
         view.addSubview(triangleImageView)
         view.addSubview(addButton)
+        view.addSubview(borderLine)
         view.addSubview(collectionView)
         
         collectionView.dataSource = self
@@ -213,8 +220,14 @@ extension PhotoViewController {
             $0.trailing.equalToSuperview().inset(24)
         }
         
-        collectionView.snp.makeConstraints {
+        borderLine.snp.makeConstraints {
             $0.top.equalTo(sortButton.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(borderLine.snp.bottom).offset(8)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
