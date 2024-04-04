@@ -68,6 +68,7 @@
 		54EB180B2BBD686300717E6F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB180A2BBD686300717E6F /* UIViewController+.swift */; };
 		54EB180E2BBF4C1200717E6F /* FlowerKeywordAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */; };
 		54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */; };
+		54EB18122BBF542C00717E6F /* FlowerSelectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18112BBF542C00717E6F /* FlowerSelectModel.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -167,6 +168,7 @@
 		54EB180A2BBD686300717E6F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerKeywordAPI.swift; sourceTree = "<group>"; };
 		54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerKeywordDTO.swift; sourceTree = "<group>"; };
+		54EB18112BBF542C00717E6F /* FlowerSelectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectModel.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				548C4AE82B8E6B34002F4FCB /* Views */,
 				546071162B87EBB50033B598 /* FlowerSelectViewController.swift */,
 				54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */,
+				54EB18112BBF542C00717E6F /* FlowerSelectModel.swift */,
 			);
 			path = FlowerSelect;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				54EB17F22BAC4CBE00717E6F /* RequestDetailView.swift in Sources */,
 				54EB18032BB5400F00717E6F /* UIFont+.swift in Sources */,
 				54EB180E2BBF4C1200717E6F /* FlowerKeywordAPI.swift in Sources */,
+				54EB18122BBF542C00717E6F /* FlowerSelectModel.swift in Sources */,
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
