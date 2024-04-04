@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
 		085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */; };
 		085738392B72348400AAFAC6 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738312B721A5800AAFAC6 /* Pretendard-ExtraBold.otf */; };
@@ -17,14 +18,22 @@
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
 		085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */; };
+		085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085DEE982BA3404500CC5AC2 /* CustomButton.swift */; };
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
 		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
 		0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */; };
 		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		089062922B77B42B00C856CB /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 089062912B77B42B00C856CB /* image.png */; };
+		089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */; };
+		089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D507D2BB9833100877CE3 /* DecorateButton.swift */; };
+		089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50832BB9A77300877CE3 /* ColorSheetCell.swift */; };
+		08A540192BB133C500710A7D /* ManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A540182BB133C500710A7D /* ManagementView.swift */; };
+		08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5401A2BB1355400710A7D /* ManagementCell.swift */; };
+		08A5401D2BB136D400710A7D /* ManageImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A5401C2BB136D400710A7D /* ManageImage.png */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
+		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
@@ -55,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetHeaderCell.swift; sourceTree = "<group>"; };
 		0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		0857382C2B721A5700AAFAC6 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
@@ -65,14 +75,22 @@
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
+		085DEE982BA3404500CC5AC2 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
 		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
 		0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchResultCell.swift; sourceTree = "<group>"; };
 		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		089062912B77B42B00C856CB /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
+		089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetViewController.swift; sourceTree = "<group>"; };
+		089D507D2BB9833100877CE3 /* DecorateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorateButton.swift; sourceTree = "<group>"; };
+		089D50832BB9A77300877CE3 /* ColorSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetCell.swift; sourceTree = "<group>"; };
+		08A540182BB133C500710A7D /* ManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementView.swift; sourceTree = "<group>"; };
+		08A5401A2BB1355400710A7D /* ManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementCell.swift; sourceTree = "<group>"; };
+		08A5401C2BB136D400710A7D /* ManageImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageImage.png; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
+		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +141,16 @@
 			path = FlowerSearch;
 			sourceTree = "<group>";
 		};
+		08350ABC2BBF227E00D30E6D /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08A5401A2BB1355400710A7D /* ManagementCell.swift */,
+				089D50832BB9A77300877CE3 /* ColorSheetCell.swift */,
+				08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0857382A2B721A2200AAFAC6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -142,12 +170,22 @@
 		085738342B721C5A00AAFAC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				085DEE9A2BA355F700CC5AC2 /* cell */,
 				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
 				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
-				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
-				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
+				085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		085DEE9A2BA355F700CC5AC2 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
+				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
+				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		08877E262B7623990028BD26 /* FlowerDetail */ = {
@@ -163,7 +201,11 @@
 		08877E292B7623F50028BD26 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				08350ABC2BBF227E00D30E6D /* cell */,
 				08877E2C2B7641110028BD26 /* ColorChipButton.swift */,
+				08A540182BB133C500710A7D /* ManagementView.swift */,
+				089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */,
+				089D507D2BB9833100877CE3 /* DecorateButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,6 +315,7 @@
 				08877E262B7623990028BD26 /* FlowerDetail */,
 				085738342B721C5A00AAFAC6 /* View */,
 				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
+				08A5401C2BB136D400710A7D /* ManageImage.png */,
 				089062912B77B42B00C856CB /* image.png */,
 			);
 			path = Home;
@@ -392,6 +435,7 @@
 			files = (
 				089062922B77B42B00C856CB /* image.png in Resources */,
 				0857383C2B72348C00AAFAC6 /* Pretendard-Medium.otf in Resources */,
+				08A5401D2BB136D400710A7D /* ManageImage.png in Resources */,
 				0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */,
 				085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */,
 				085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */,
@@ -425,15 +469,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */,
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
+				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
+				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
 				08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
+				085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */,
 				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
+				08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */,
 				08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */,
 				08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */,
+				08A540192BB133C500710A7D /* ManagementView.swift in Sources */,
+				08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */,
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
