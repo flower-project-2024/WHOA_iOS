@@ -16,8 +16,7 @@ protocol ServableAPI {
 }
 
 extension ServableAPI {
-    // 테스트용 baseURL입니다.
-    var baseURL: String { "https://itunes.apple.com" }
+    var baseURL: String { "http://ec2-3-35-183-117.ap-northeast-2.compute.amazonaws.com" }
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
     var urlRequest: URLRequest {
