@@ -27,216 +27,203 @@ class FlowerDetailViewController: UIViewController {
     private lazy var imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = .lightGray
-        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.pageIndicatorTintColor = UIColor(white: 1, alpha: 0.5)
+        pageControl.currentPageIndicatorTintColor = .white
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
 
-    private let flowerNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "히아신스"
-        label.font = UIFont(name: "Pretendard-Bold", size: 23)
-        return label
-    }()
-    
-    private let flowerDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.text = "무게감 있는 진한 향이 오래도록 퍼져나가, 영원한 사랑을 전하기에 제격이에요."
-        label.font = UIFont(name: "Pretendard-Regular", size: 17)
-        return label
-    }()
-    
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.distribution = .fillEqually
-        return stackView
-    }()
-    
-    private let flowerLanguageStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 40
-        return stackView
-    }()
-    
-    private let flowerLanguageLabel: UILabel = {
-        let label = UILabel()
-        label.text = "꽃말"
-        return label
-    }()
-    
-    private let flowerLanguageContentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "사랑 고백"
-        return label
-    }()
-    
-    private let colorStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 40
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    private let colorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "색상"
-        return label
-    }()
-    
-    private let colorChipStackView: UIStackView = {
+    let flowerNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
+        stackView.alignment = .bottom
         return stackView
     }()
     
-    private let birthFlowerLabel: UILabel = {
+    let flowerKoreanNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "탄생화"
+        label.text = "튤립"
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
         return label
     }()
     
-    private let birthFlowerDateLabel: UILabel = {
+    let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "8월 15일"
-        return label
-    }()
-    
-    private let detailStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 34
-        return stackView
-    }()
-    
-    private let viewTermStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        stackView.alignment = .top
-        return stackView
-    }()
-    
-    private let viewTermImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .red
-        return imageView
-    }()
-    
-    private let viewTermContentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    private let viewTermTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.text = "관상기간"
-        return label
-    }()
-    
-    private let viewTermContentLabel: UILabel = {
-        let label = UILabel()
+        label.text = "Tulip"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.text = "5~14일"
         return label
     }()
     
-    private let waterStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        stackView.alignment = .top
-        return stackView
+    let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
+        return view
     }()
     
-    private let waterImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .green
-        return imageView
-    }()
-    
-    private let waterContentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    private let waterTitleLabel: UILabel = {
+    let flowerDescTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.text = "탈수 잦음"
+        label.text = "시대불문 모두에게 사랑받는 꽃, 튤립"
+        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.textColor = UIColor(named: "Secondary04")
         return label
     }()
     
-    private let waterContentLabel: UILabel = {
+    lazy var flowerDescContentLabel: UILabel = {
         let label = UILabel()
+        label.text = "꽃 이름을 잘 모르는 사람이라도 누구나 아는 꽃이 튤립일지 모른다. 매년 신품종이 잇따라 등장하며 추운 겨울부터 꽃집 앞을 장식한다. 홑꽃형, 겹꽃형, 백합형, 페럿형, 프린지형 등 화형이 다양하며 색상도 풍부하다. 모든 어레인지먼트에 적합한 화재로, 빛이나 온도에 따라 꽃이 벌어졌다가 오므라들기를 반복하며 색다른 이미지를 연출한다. 튤립만으로 일종꽂이해도 좋고, 다양한 종류를 혼합해 유리 화기 등에 꽂아도 근사하다."
+        label.numberOfLines = 2  // 초기 줄 수는 2 (접은 상태)
+        label.setLineSpacing(spacing: 5)
+        label.textAlignment = .justified
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
-        label.numberOfLines = 0
+        label.textColor = UIColor(red: 66/255, green: 66/255, blue: 68/255, alpha: 1)
         return label
     }()
     
-    private let usageStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 16
-        stackView.alignment = .top
-        return stackView
-    }()
-    
-    private let usageImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .blue
-        return imageView
-    }()
-    
-    private let usageContentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    private let usageTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.text = "드라이플라워"
-        return label
-    }()
-    
-    private let usageContentLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.text = "거꾸로 매달아 말리면 드라이플라워로 활용할 수 있어요"
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let decorateButton: UIButton = {
+    let flowerDescToggleButton: UIButton = {
         let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "이 꽃으로 꾸미기"
-        config.attributedTitle?.font = UIFont(name: "Pretendard-Bold", size: 20.0)
-        config.background.backgroundColor = UIColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1.00)
-        config.background.cornerRadius = 10
-        config.contentInsets = .init(top: 15, leading: 15, bottom: 15, trailing: 15)
-        button.configuration = config
+        button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        button.setTitleColor(.gray06, for: .normal)
+        button.setTitleColor(.gray06, for: .selected)
+
+        button.setTitle("설명 보기", for: .normal)
+        button.setImage(UIImage(named: "ChevronDown"), for: .normal)
+        button.setTitle("접기", for: .selected)
+        button.setImage(UIImage(named: "ChevronUp"), for: .selected)
+        button.semanticContentAttribute = .forceRightToLeft
+
+        button.isEnabled = true
+        button.isUserInteractionEnabled = true
+        button.addTarget(self, action: #selector(descButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    let thickBorderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "Gray02")
+        return view
+    }()
+    
+    let infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "정보"
+        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.textColor = UIColor(named: "Primary")
+        return label
+    }()
+    
+    let birthFlowerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    let birthFlowerLabel: UILabel = {
+        let label = UILabel()
+        label.text = "탄생화"
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.textColor = UIColor(named: "Primary")
+        return label
+    }()
+    
+    let birthFlowerDateLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
+        label.text = "8월 15일"
+        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.backgroundColor = UIColor(named: "Gray03")
+        return label
+    }()
+    
+    let borderLine1: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
+        return view
+    }()
+    
+    let flowerLanguageStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    let flowerLanguageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "꽃말"
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.textColor = UIColor(named: "Primary")
+        return label
+    }()
+    
+    let flowerLanguageContentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 6
+        return stackView
+    }()
+    
+    let flowerLanguageContentLabel1: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
+        label.text = "믿는 사랑"
+        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.backgroundColor = UIColor(named: "Gray03")
+        return label
+    }()
+    
+    let flowerLanguageContentLabel2: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
+        label.text = "추억"
+        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.backgroundColor = UIColor(named: "Gray03")
+        return label
+    }()
+    
+    let borderLine2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
+        return view
+    }()
+    
+    let flowerColorStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    let flowerColorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "색상"
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.textColor = UIColor(named: "Primary")
+        return label
+    }()
+    
+    let flowerColorChipHStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 11
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
+    let managementView =  ManagementView()
+    
+    private let bottomFixedView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.masksToBounds = false
+        view.layer.shadowOffset = CGSize(width: 0, height: -1)
+        view.layer.shadowOpacity = 0.08
+        view.layer.shadowColor = UIColor.black.cgColor
+        return view
+    }()
+    
+    private let decorateButton = DecorateButton()
     
     // MARK: - Properties
     var colorButtonList: [ColorChipButton] = []
@@ -250,9 +237,7 @@ class FlowerDetailViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        self.navigationItem.title = "히아신스"
-        self.navigationController?.navigationBar.tintColor = .black
-        self.navigationController?.navigationBar.topItem?.title = ""
+        setupNavigation()
         
         imageScrollView.delegate = self
         outerScrollView.delegate = self
@@ -265,155 +250,198 @@ class FlowerDetailViewController: UIViewController {
         setupConstraints()
         setPageControlCount(imageList.count)
         setScrollViewContent(images: ["1", "2", "3"])  // 스크롤뷰에 이미지 세팅
+        
+        //print(managementView.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)))
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        setupCollectionView()
     }
     
     // MARK: - Functions
+
+    private func setupNavigation(){
+        self.navigationItem.title = "튤립"
+        self.navigationController?.navigationBar.tintColor = .black
+        let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
+        self.navigationItem.leftBarButtonItem = backbutton
+    }
+    
+    private func setupCollectionView(){
+        managementView.collectionView.delegate = self
+        managementView.collectionView.dataSource = self
+        
+        managementView.collectionView.register(ManagementCell.self, forCellWithReuseIdentifier: ManagementCell.identifier)
+//        ManagementView.cellSize = CGSize(width: managementView.collectionView.bounds.width - (minimumLineSpacing * 4), height: 258)
+        
+        managementView.collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                                  left: ManagementView.minimumLineSpacing * 2,
+                                                                  bottom: 0,
+                                                                  right: ManagementView.minimumLineSpacing)
+    }
+    
     private func addSubViews(){
         // add views
         view.addSubview(outerScrollView)
+        view.addSubview(bottomFixedView)
         
         outerScrollView.addSubview(imageScrollView)
         outerScrollView.addSubview(imagePageControl)
-        outerScrollView.addSubview(flowerNameLabel)
-        outerScrollView.addSubview(flowerDescriptionLabel)
-        outerScrollView.addSubview(flowerLanguageLabel)
-        outerScrollView.addSubview(flowerLanguageContentLabel)
-        outerScrollView.addSubview(colorLabel)
-        outerScrollView.addSubview(colorChipStackView)
-        outerScrollView.addSubview(birthFlowerLabel)
-        outerScrollView.addSubview(birthFlowerDateLabel)
-        outerScrollView.addSubview(detailStackView)
-        outerScrollView.addSubview(decorateButton)
-        
-        // add colorChipButtons to colorChipStackView
+        outerScrollView.addSubview(flowerNameStackView)
+        outerScrollView.addSubview(borderLine)
+        outerScrollView.addSubview(flowerDescTitleLabel)
+        outerScrollView.addSubview(flowerDescContentLabel)
+        outerScrollView.addSubview(flowerDescToggleButton)
+        outerScrollView.addSubview(thickBorderLine)
+        outerScrollView.addSubview(infoLabel)
+        outerScrollView.addSubview(birthFlowerStackView)
+        outerScrollView.addSubview(borderLine1)
+        outerScrollView.addSubview(flowerLanguageStackView)
+        outerScrollView.addSubview(borderLine2)
+        outerScrollView.addSubview(flowerColorStackView)
+        outerScrollView.addSubview(managementView)
+
+        // add colorChipButtons to flowerColorChipHStackView
         colorButtonList.forEach({ button in
             button.snp.makeConstraints { make in
-                make.width.equalTo(20)
-                make.height.equalTo(20)
+                make.width.equalTo(27.93)
+                make.height.equalTo(27.93)
             }
             print(button)
-            colorChipStackView.addArrangedSubview(button)
+            flowerColorChipHStackView.addArrangedSubview(button)
         })
         
-        [viewTermStackView, waterStackView, usageStackView].forEach {
-            detailStackView.addArrangedSubview($0)
+        [flowerKoreanNameLabel, flowerEnglishNameLabel].forEach {
+            flowerNameStackView.addArrangedSubview($0)
         }
         
-        [viewTermImageView, viewTermContentStackView].forEach {
-            viewTermStackView.addArrangedSubview($0)
+        [birthFlowerLabel, birthFlowerDateLabel].forEach {
+            birthFlowerStackView.addArrangedSubview($0)
         }
         
-        [waterImageView, waterContentStackView].forEach {
-            waterStackView.addArrangedSubview($0)
+        [flowerLanguageLabel, flowerLanguageContentStackView].forEach {
+            flowerLanguageStackView.addArrangedSubview($0)
         }
         
-        [usageImageView, usageContentStackView].forEach {
-            usageStackView.addArrangedSubview($0)
+        [flowerLanguageContentLabel1, flowerLanguageContentLabel2].forEach {
+            flowerLanguageContentStackView.addArrangedSubview($0)
         }
         
-        [viewTermTitleLabel, viewTermContentLabel].forEach {
-            viewTermContentStackView.addArrangedSubview($0)
+        [flowerColorLabel, flowerColorChipHStackView].forEach{
+            flowerColorStackView.addArrangedSubview($0)
         }
         
-        [waterTitleLabel, waterContentLabel].forEach {
-            waterContentStackView.addArrangedSubview($0)
-        }
-        
-        [usageTitleLabel, usageContentLabel].forEach {
-            usageContentStackView.addArrangedSubview($0)
-        }
+        bottomFixedView.addSubview(decorateButton)
     }
     
     private func setupConstraints(){
         outerScrollView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomFixedView.snp.top)
         }
         
         imageScrollView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.height.equalTo(250)
-            make.leading.trailing.equalToSuperview().inset(50)
+            make.height.equalTo(307)
             make.centerX.equalToSuperview()
-        }
-        
-        flowerNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageScrollView.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(20)
-        }
-        
-        flowerDescriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(flowerNameLabel.snp.bottom).offset(15)
-            make.leading.equalTo(flowerNameLabel.snp.leading)
-            make.trailing.equalToSuperview().inset(20)
-        }
-        
-        flowerLanguageLabel.snp.makeConstraints { make in
-            make.top.equalTo(flowerDescriptionLabel.snp.bottom).offset(15)
-            make.leading.equalTo(flowerDescriptionLabel.snp.leading)
-        }
-        
-        flowerLanguageContentLabel.snp.makeConstraints { make in
-            make.leading.equalTo(flowerLanguageLabel.snp.trailing).offset(40)
-            make.centerY.equalTo(flowerLanguageLabel.snp.centerY)
-        }
-        
-        colorLabel.snp.makeConstraints { make in
-            make.top.equalTo(flowerLanguageLabel.snp.bottom).offset(15)
-            make.leading.equalTo(flowerLanguageLabel.snp.leading)
-        }
-        
-        colorChipStackView.snp.makeConstraints { make in
-            make.leading.equalTo(flowerLanguageContentLabel.snp.leading)
-            make.centerY.equalTo(colorLabel.snp.centerY)
-        }
-        
-        birthFlowerLabel.snp.makeConstraints { make in
-            make.leading.equalTo(colorLabel.snp.leading)
-            make.top.equalTo(colorLabel.snp.bottom).offset(15)
-        }
-        
-        birthFlowerDateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(flowerLanguageContentLabel.snp.leading)
-            make.centerY.equalTo(birthFlowerLabel.snp.centerY)
+            make.leading.trailing.equalToSuperview()
         }
         
         imagePageControl.snp.makeConstraints { make in
-            make.top.equalTo(birthFlowerDateLabel.snp.bottom).offset(20)
+            make.bottom.equalTo(imageScrollView.snp.bottom).inset(21)
             make.centerX.equalToSuperview()
         }
         
-        detailStackView.snp.makeConstraints { make in
-            make.top.equalTo(imagePageControl.snp.bottom).offset(45)
-            make.leading.trailing.equalToSuperview().inset(30)
+        flowerNameStackView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(30)
+            make.top.equalTo(imageScrollView.snp.bottom).offset(28)
         }
         
-        viewTermImageView.snp.makeConstraints { make in
-            make.width.equalTo(43)
-            make.height.equalTo(viewTermImageView.snp.width).multipliedBy(1)
+        borderLine.snp.makeConstraints { make in
+            make.height.equalTo(1)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(flowerNameStackView.snp.bottom).offset(19)
         }
         
-        waterImageView.snp.makeConstraints { make in
-            make.width.equalTo(43)
-            make.height.equalTo(waterImageView.snp.width).multipliedBy(1)
+        flowerDescTitleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(28)
+            make.top.equalTo(borderLine.snp.bottom).offset(19)
         }
         
-        usageImageView.snp.makeConstraints { make in
-            make.width.equalTo(43)
-            make.height.equalTo(usageImageView.snp.width).multipliedBy(1)
+        flowerDescContentLabel.snp.makeConstraints { make in
+            make.leading.equalTo(flowerDescTitleLabel.snp.leading)
+            make.trailing.equalToSuperview().inset(28)
+            make.top.equalTo(flowerDescTitleLabel.snp.bottom).offset(15)
+        }
+        
+        flowerDescToggleButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(28)
+            make.top.equalTo(flowerDescContentLabel.snp.bottom).offset(13)
+        }
+        
+        thickBorderLine.snp.makeConstraints { make in
+            make.height.equalTo(11)
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(flowerDescToggleButton.snp.bottom).offset(28)
+        }
+        
+        infoLabel.snp.makeConstraints { make in
+            make.top.equalTo(thickBorderLine).offset(40)
+            make.leading.equalToSuperview().inset(26)
+        }
+        
+        birthFlowerStackView.snp.makeConstraints { make in
+            make.top.equalTo(infoLabel.snp.bottom).offset(27)
+            make.leading.equalToSuperview().inset(28)
+        }
+        
+        borderLine1.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(1)
+            make.top.equalTo(birthFlowerStackView.snp.bottom).offset(22)
+        }
+        
+        flowerLanguageStackView.snp.makeConstraints { make in
+            make.leading.equalTo(birthFlowerStackView.snp.leading)
+            make.top.equalTo(borderLine1.snp.bottom).offset(22)
+        }
+        
+        borderLine2.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(1)
+            make.top.equalTo(flowerLanguageStackView.snp.bottom).offset(22)
+        }
+        
+        flowerColorStackView.snp.makeConstraints { make in
+            make.top.equalTo(borderLine2.snp.bottom).offset(22)
+            make.leading.equalTo(flowerLanguageStackView.snp.leading)
+            make.trailing.equalToSuperview().inset(22)
+        }
+        
+        managementView.snp.makeConstraints { make in
+            make.top.equalTo(flowerColorStackView.snp.bottom).offset(40)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         decorateButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(25)
-            make.top.equalTo(detailStackView.snp.bottom).offset(103)
-            make.bottom.equalToSuperview().inset(40)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(8)
+        }
+        
+        bottomFixedView.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
     func generateColorChipButtons(){
         for _ in 0...2 {
-            colorButtonList.append(ColorChipButton())
+            colorButtonList.append(ColorChipButton(colorCode: "#EFEFEF"))
         }
     }
     
@@ -450,6 +478,28 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Actions
     @objc func decorateBtnTapped(){
         print("===이 꽃으로 꾸미기===")
+        
+        let colorSheetVC = ColorSheetViewController()
+        
+        colorSheetVC.modalPresentationStyle = .pageSheet
+        if let sheet = colorSheetVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]  // 지원 크기 지정
+            //sheet.delegate = self
+            sheet.prefersGrabberVisible = true  // 상단에 그래버 표시
+            sheet.selectedDetentIdentifier = .medium
+            sheet.largestUndimmedDetentIdentifier = .medium
+        }
+        
+        present(colorSheetVC, animated: true)
+    }
+    
+    @objc func goBack(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func descButtonTapped(){
+        flowerDescToggleButton.isSelected.toggle()
+        flowerDescContentLabel.numberOfLines = flowerDescToggleButton.isSelected ? 0 : 2
     }
 }
 
@@ -460,7 +510,31 @@ extension FlowerDetailViewController: UIScrollViewDelegate {
         let currentPage = Int(scrollView.contentOffset.x/scrollView.frame.size.width)
         imagePageControl.currentPage = currentPage
 //        self.imageNumberLabel.text = "\(imagePageControl.currentPage)/\(imagePageControl.numberOfPages)"
-        // 컬러칩 새로 선택
-        
+    }
+}
+
+extension FlowerDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2  // TODO: api 연결 후 수정
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManagementCell.identifier, for: indexPath) as? ManagementCell else{
+            return UICollectionViewCell()
+        }
+        cell.prepare(image: UIImage(named: "ManageImage.png"))
+        return cell
+    }
+    
+}
+    
+extension FlowerDetailViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return ManagementView.cellSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return ManagementView.minimumLineSpacing
     }
 }
