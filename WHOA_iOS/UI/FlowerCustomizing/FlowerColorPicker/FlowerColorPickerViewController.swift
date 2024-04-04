@@ -192,7 +192,7 @@ class FlowerColorPickerViewController: UIViewController {
     func colorSelectionHStackViewTapped() {
         isChevronUp.toggle()
         chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        colorButtonTopConstraint?.update(offset: isChevronUp ? -21 : 21)
+        colorButtonTopConstraint?.update(offset: isChevronUp ? -30 : 15)
         numberOfColorsButtonHStackView.isHidden = isChevronUp
     }
     
@@ -225,7 +225,7 @@ extension FlowerColorPickerViewController {
         
         progressHStackView.snp.makeConstraints {
             $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(18.5)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
             $0.height.equalTo(12.75)
         }
         

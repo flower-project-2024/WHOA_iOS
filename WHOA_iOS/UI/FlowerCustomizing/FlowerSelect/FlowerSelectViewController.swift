@@ -231,7 +231,9 @@ class FlowerSelectViewController: UIViewController {
     private func setupCollectionView() {
         hashTagCollectionView.delegate = self
         hashTagCollectionView.dataSource = self
-        hashTagCollectionView.register(HashTagCollectionViewCell.self, forCellWithReuseIdentifier: CellIdentifier.hashTagCellIdentifier)
+        hashTagCollectionView.register(
+            HashTagCollectionViewCell.self,
+            forCellWithReuseIdentifier: CellIdentifier.hashTagCellIdentifier)
         hashTagCollectionView.backgroundColor = .white
     }
     
