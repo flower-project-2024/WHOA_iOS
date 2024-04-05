@@ -13,17 +13,19 @@ class FlowerSelectViewModel {
     
     private var flowerKeywordModel: [FlowerKeywordModel] = [] {
         didSet {
-            print(flowerKeywordModel)
+            flowerKeywordModelDidChage?()
         }
     }
     
-    private var flowerImages: [String] = [] {
+    private var selectedFlowerModel: [FlowerKeywordModel] = [] {
         didSet {
-            flowerImagesDidChage?(flowerImages)
+            print(selectedFlowerModel)
+            selectedFlowerModelDidChage?(selectedFlowerModel)
         }
     }
     
-    var flowerImagesDidChage: ((_ flowerImages: [String]) -> Void)?
+    var flowerKeywordModelDidChage: (() -> Void)?
+    var selectedFlowerModelDidChage: ((_ model: [FlowerKeywordModel]) -> Void)?
     
     // MARK: - Functions
     
@@ -50,38 +52,43 @@ class FlowerSelectViewModel {
         return alertController
     }
     
-    func pushFlowerImage(imageString: String?) {
-        guard let image = imageString else { return }
+    func getFlowerKeywordModel(idx: Int) -> FlowerKeywordModel {
+        return flowerKeywordModel[idx]
+    }
+    
+    func getFlowerKeywordModelCount() -> Int {
+        return flowerKeywordModel.count
+    }
+    
+    func pushKeywordModel(model: FlowerKeywordModel) {
+        selectedFlowerModel.append(model)
+    }
+    
+    func popKeywordModel(model: FlowerKeywordModel) {
+        guard let idx = selectedFlowerModel.firstIndex(where: { selectedFlowerModel in
+            selectedFlowerModel.flowerName == model.flowerName
+        }) else { return }
         
-        flowerImages.append(image)
-        print(flowerImages)
+        selectedFlowerModel.remove(at: idx)
     }
     
-    func popFlowerImage(imageString: String?) {
-        guard
-            let image = imageString,
-            let index = flowerImages.firstIndex(of: image)
-        else { return }
-        
-        flowerImages.remove(at: index)
-        print(flowerImages)
+    func getSelectedFlowerModelCount() -> Int {
+        return selectedFlowerModel.count
     }
     
-    func popFlowerImage(index: Int) {
-        flowerImages.remove(at: index)
-        print(flowerImages)
-    }
-    
-    func getFlowerImagesCount() -> Int {
-        return flowerImages.count
-    }
-    
-    func getFlowerImage(at idx : Int) -> String {
-        if idx <= flowerImages.count - 1 {
-            return flowerImages[idx]
+    func getSelectedFlowerModelImagesURL() -> [URL?] {
+        return selectedFlowerModel.map {
+            let url = URL(string: $0.flowerImage) ?? nil
+            return url
         }
-        
-        return ""
+    }
+    
+    func getSelectedFlowerModel(idx: Int) -> FlowerKeywordModel {
+        return flowerKeywordModel[idx]
+    }
+    
+    func findCellIndexPathRow(for flowerName: String) -> Int? {
+        return flowerKeywordModel.firstIndex(where: { $0.flowerName == flowerName })
     }
     
     func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {

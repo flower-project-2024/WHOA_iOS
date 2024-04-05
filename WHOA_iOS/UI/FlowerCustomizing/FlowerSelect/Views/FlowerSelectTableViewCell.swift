@@ -49,7 +49,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let hashTag: tempHashTagLabel = {
         let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.text = "믿는 사랑"
         hashTagLabel.font = .Pretendard(family: .Medium)
         hashTagLabel.textColor = .second3
         hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
@@ -58,7 +57,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let hashTag2: tempHashTagLabel = {
         let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.text = "추억"
         hashTagLabel.font = .Pretendard(family: .Medium)
         hashTagLabel.textColor = .second3
         hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
@@ -134,6 +132,15 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private func updateAppearance(_ isSelected: Bool) {
         addImageButton.image = isSelected ? UIImage(named: "MinusButton") : UIImage(systemName: "plus.app")
+    }
+    
+    func configUI(model: FlowerKeywordModel) {
+        guard let imageURL = URL(string: model.flowerImage) else { return }
+        
+        flowerNameLabel.text = model.flowerName
+        flowerImageView.load(url: imageURL)
+        hashTag.text = model.flowerKeyword[0]
+//        hashTag2.text = model.flowerKeyword[1]
     }
     
     // MARK: - Actions
