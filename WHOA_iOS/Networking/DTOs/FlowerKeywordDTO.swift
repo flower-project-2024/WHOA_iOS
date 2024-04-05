@@ -19,3 +19,15 @@ struct data: Codable {
     let flowerImage: String
     let flowerKeyword: [String]
 }
+
+extension FlowerKeywordDTO {
+    static func convertFlowerKeywordDTOToModel(_ DTO: FlowerKeywordDTO) -> [FlowerKeywordModel] {
+        return DTO.data.map {
+            FlowerKeywordModel(
+                flowerName: $0.flowerName,
+                flowerImage: $0.flowerImage,
+                flowerKeyword: $0.flowerKeyword
+            )
+        }
+    }
+}

@@ -29,4 +29,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 키워드별 꽃 데이터를 받아오는 함수입니다.
+    func fetchFlowerKeyword(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
+    ) {
+        let flowerKeywordAPI = FlowerKeywordAPI()
+        networkService.request(flowerKeywordAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
