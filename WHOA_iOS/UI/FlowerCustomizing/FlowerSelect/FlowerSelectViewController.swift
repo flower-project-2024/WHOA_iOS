@@ -12,7 +12,7 @@ class FlowerSelectViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel = FlowerSelectViewModel()
-    var tempModel: FlowerColorPickerModel
+    var tempModel = FlowerColorPickerModel(purposeType: .affection)
     var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿음", "추억"]
     var tempImage = ["IntentImage", "WhoaLogo", "TempFlower"]
     
@@ -165,8 +165,7 @@ class FlowerSelectViewController: UIViewController {
     
     // MARK: - Initialize
     
-    init(tempModel: FlowerColorPickerModel) {
-        self.tempModel = tempModel
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -181,6 +180,7 @@ class FlowerSelectViewController: UIViewController {
         
         bind()
         setupUI()
+        viewModel.fetchFlowerKeyword(fromCurrentVC: self)
     }
     
     // MARK: - Fuctions
