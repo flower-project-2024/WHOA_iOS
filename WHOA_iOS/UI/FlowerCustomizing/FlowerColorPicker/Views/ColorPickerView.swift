@@ -33,11 +33,12 @@ class ColorPickerView: UIView {
         }
     }
     
-    // MARK: - Properties
+    // MARK: - UI
     
     private let colorDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "색을 선택해주세요"
+        label.textColor = .black
         label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
@@ -89,6 +90,8 @@ class ColorPickerView: UIView {
     
     private lazy var segmentControl: UISegmentedControl = {
         let segmentedControl: UISegmentedControl = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
+        segmentedControl.tintColor = .gray9
+        segmentedControl.backgroundColor = .gray2
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.center = CGPoint(x: self.frame.width/2, y: 400)
         return segmentedControl
@@ -308,11 +311,11 @@ class ColorPickerView: UIView {
     private func changeColorPaletteBasedOnSegment(_ segment: UISegmentedControl) {
         switch segment.selectedSegmentIndex {
         case 0:
-            changePaletteColor(colors: [.red, .orange, .yellow, .green, .blue, .purple, .systemPink, .white])
+            changePaletteColor(colors: [.default1, .default2, .default3, .default4, .default5, .default6, .default7, .default8])
         case 1:
-            changePaletteColor(colors: [.black, .brown, .cyan, .darkGray, .darkText, .gray, .label, .lightGray])
+            changePaletteColor(colors: [.dark1, .dark2, .dark3, .dark4, .dark5, .dark6, .dark7, .dark8])
         case 2:
-            changePaletteColor(colors: [.link, .magenta, .opaqueSeparator, .systemCyan, .systemTeal, .systemMint, .systemIndigo, .clear])
+            changePaletteColor(colors: [.light1, .light2, .light3, .light4, .light5, .light6, .light7, .light8])
         default:
             break
         }

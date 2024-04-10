@@ -18,6 +18,18 @@ class FlowerColorPickerViewController: UIViewController {
     
     // MARK: - UI
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.isScrollEnabled = true
+        return scrollView
+    }()
+    
+    private let scrollContentView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     private let exitButton = ExitButton()
     private let progressHStackView = CustomProgressHStackView(numerator: 2, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "꽃 조합 색")
@@ -26,6 +38,7 @@ class FlowerColorPickerViewController: UIViewController {
     private let colorSelectionLabel: UILabel = {
         let label = UILabel()
         label.text = "조합"
+        label.textColor = .gray9
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -96,11 +109,17 @@ class FlowerColorPickerViewController: UIViewController {
         return stackView
     }()
     
+    private let colorPickerBorderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray2
+        return view
+    }()
+    
     private lazy var colorPickerView = ColorPickerView(viewModel: viewModel, numberOfColors: .단일)
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃집마다 가지고 있는 색들이 달라 선택한 색감에 맞는 꽃으로 대체될 수 있습니다."
+        label.text = "꽃집마다 가지고 있는 색들이 달라\n선택한 색감에 맞는 꽃으로 대체될 수 있습니다."
         label.font = .Pretendard(size: 12, family: .Regular)
         label.textColor = .gray7
         label.textAlignment = .center
@@ -159,7 +178,7 @@ class FlowerColorPickerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        colorPickerView.isHidden = true
+        //        colorPickerView.isHidden = true
     }
     
     // MARK: - Functions
@@ -167,16 +186,23 @@ class FlowerColorPickerViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(colorSelectionHStackView)
-        view.addSubview(numberOfColorsButtonHStackView)
-        view.addSubview(colorPickerView)
-        view.addSubview(noticeLabel)
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(scrollContentView)
+        
+        scrollContentView.addSubview(exitButton)
+        scrollContentView.addSubview(progressHStackView)
+        scrollContentView.addSubview(titleLabel)
+        scrollContentView.addSubview(descriptionLabel)
+        
+        scrollContentView.addSubview(colorSelectionHStackView)
+        scrollContentView.addSubview(colorPickerBorderLine)
+        scrollContentView.addSubview(numberOfColorsButtonHStackView)
+        scrollContentView.addSubview(colorPickerView)
+        
+        scrollContentView.addSubview(noticeLabel)
+        scrollContentView.addSubview(borderLine)
+        scrollContentView.addSubview(navigationHStackView)
         
         setupAutoLayout()
     }
@@ -192,7 +218,7 @@ class FlowerColorPickerViewController: UIViewController {
     func colorSelectionHStackViewTapped() {
         isChevronUp.toggle()
         chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        colorButtonTopConstraint?.update(offset: isChevronUp ? -30 : 15)
+        colorButtonTopConstraint?.update(offset: isChevronUp ? 24 : 100)
         numberOfColorsButtonHStackView.isHidden = isChevronUp
     }
     
@@ -218,14 +244,26 @@ class FlowerColorPickerViewController: UIViewController {
 
 extension FlowerColorPickerViewController {
     private func setupAutoLayout() {
+        scrollView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(4)
+        }
+        
+        scrollContentView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+            $0.width.equalTo(scrollView.frameLayoutGuide)
+            $0.height.equalTo(view.snp.height)
+        }
+        
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
+            $0.top.equalTo(scrollContentView.snp.top).offset(17)
+            $0.leading.equalToSuperview().offset(17)
         }
         
         progressHStackView.snp.makeConstraints {
             $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
+            $0.leading.trailing.equalToSuperview().inset(19.5)
             $0.height.equalTo(12.75)
         }
         
@@ -237,8 +275,6 @@ extension FlowerColorPickerViewController {
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(114)
-            $0.width.equalTo(256)
         }
         
         colorSelectionHStackView.snp.makeConstraints {
@@ -253,15 +289,21 @@ extension FlowerColorPickerViewController {
             $0.height.equalTo(36)
         }
         
+        colorPickerBorderLine.snp.makeConstraints {
+            colorButtonTopConstraint = $0.top.equalTo(colorSelectionHStackView.snp.bottom).offset(24).constraint
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(4)
+        }
+        
         colorPickerView.snp.makeConstraints {
-            colorButtonTopConstraint = $0.top.equalTo(numberOfColorsButtonHStackView.snp_bottomMargin).offset(30).constraint
+            $0.top.equalTo(colorPickerBorderLine.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(noticeLabel.snp_topMargin)
+            $0.height.equalTo(390)
         }
         
         noticeLabel.snp.makeConstraints {
+            $0.bottom.equalTo(borderLine.snp.top).offset(-12)
             $0.leading.trailing.equalToSuperview().inset(85.5)
-            $0.bottom.equalTo(borderLine.snp.top).inset(-12)
         }
         
         borderLine.snp.makeConstraints {
@@ -276,8 +318,9 @@ extension FlowerColorPickerViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.bottom.equalTo(scrollView)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-11.5)
         }
     }
 }
