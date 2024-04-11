@@ -22,7 +22,7 @@ class ColorPickerView: UIView {
     private var flowerColorPickerButtons: [UIButton] = []
     private var colorPaletteButtons: [UIButton] = []
     private var previousSegmentIndex: Int = 0
-    private lazy var selectedFlowerColorPickerButton: UIButton = flowerColorPickerButton
+    private lazy var selectedFlowerColorPickerButton: UIButton = flowerColorPickerButton1
     
     weak var delegate: FlowerColorPickerDelegate?
     
@@ -43,38 +43,38 @@ class ColorPickerView: UIView {
         return label
     }()
     
-    private let flowerColorPickerButton: UIButton = {
+    private let flowerColorPickerButton1: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        button.tintColor = UIColor.systemMint
+        button.backgroundColor = .gray2
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.systemMint.cgColor
-        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.secondary3.cgColor
+        button.layer.borderWidth = 2
+        button.tag = 1
         button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let flowerColorPickerButton2: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.tintColor = UIColor.lightGray
+        button.backgroundColor = .gray2
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.clear.cgColor
+        button.layer.borderWidth = 2
+        button.tag = 2
         button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let flowerColorPickerButton3: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.tintColor = UIColor.lightGray
+        button.backgroundColor = .gray2
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.lightGray.cgColor
-        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.clear.cgColor
+        button.layer.borderWidth = 2
+        button.tag = 3
         button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -86,6 +86,30 @@ class ColorPickerView: UIView {
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         return stackView
+    }()
+    
+    private let checkCircle1: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "checkmark.circle")
+        imageView.tintColor = .secondary3
+        imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        return imageView
+    }()
+    
+    private let checkCircle2: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "checkmark.circle")
+        imageView.tintColor = .gray5
+        imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        return imageView
+    }()
+    
+    private let checkCircle3: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "checkmark.circle")
+        imageView.tintColor = .gray5
+        imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        return imageView
     }()
     
     private lazy var segmentControl: UISegmentedControl = {
@@ -231,6 +255,9 @@ class ColorPickerView: UIView {
     private func setupUI() {
         addSubview(colorDescriptionLabel)
         addSubview(flowerColorPickerButtonHStackView)
+        addSubview(checkCircle1)
+        addSubview(checkCircle2)
+        addSubview(checkCircle3)
         addSubview(segmentControl)
         addSubview(colorPaletteVStack)
         
@@ -256,43 +283,35 @@ class ColorPickerView: UIView {
         ]
         
         flowerColorPickerButtons = [
-            flowerColorPickerButton,
+            flowerColorPickerButton1,
             flowerColorPickerButton2,
             flowerColorPickerButton3
         ]
     }
     
-    private func selectedFlowerColorPickerButtonUI(button: UIButton) {
-        button.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        button.layer.borderColor = UIColor.systemMint.cgColor
-        button.tintColor = .systemMint
-    }
-    
-    private func unSelectedFlowerColorPickerButtonUI(button: UIButton) {
-        button.setImage(UIImage(systemName: "plus.app"), for: .normal)
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.tintColor = .lightGray
-    }
-    
     // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
     private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
-        if selectedFlowerColorPickerButton != selectedButton {
-            selectedFlowerColorPickerButton = selectedButton
-            selectedFlowerColorPickerButtonUI(button: selectedButton)
+        selectedFlowerColorPickerButtonUI(button: selectedButton)
+    }
+    
+    private func selectedFlowerColorPickerButtonUI(button: UIButton) {
+        button.layer.borderColor = UIColor.secondary3.cgColor
+        
+        switch button.tag {
+        case 1:
+            checkCircle1.tintColor = .secondary3
+        case 2:
+            checkCircle2.tintColor = .secondary3
+        case 3:
+            checkCircle3.tintColor = .secondary3
+        default:
+            break
         }
     }
     
-    // 도화지 클릭 시 클릭되지 않은 나머지 도화지들의 UI를 변경해주는 로직
-    private func updateOtherFlowerColorPickerButtons() {
-        for button in flowerColorPickerButtons {
-            if button != selectedFlowerColorPickerButton {
-                if button.backgroundColor != nil {
-                    button.setImage(nil, for: .normal)
-                } else {
-                    unSelectedFlowerColorPickerButtonUI(button: button)
-                }
-            }
-        }
+    private func resetButtonsUI() {
+        flowerColorPickerButtons.forEach { $0.layer.borderColor = UIColor.clear.cgColor }
+        [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray5 }
     }
     
     private func changePaletteColor(colors: [UIColor]) {
@@ -334,12 +353,18 @@ class ColorPickerView: UIView {
         case .단일:
             flowerColorPickerButton2.isHidden = true
             flowerColorPickerButton3.isHidden = true
+            checkCircle2.isHidden = true
+            checkCircle3.isHidden = true
         case .두가지, .포인트:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = true
+            checkCircle2.isHidden = false
+            checkCircle3.isHidden = true
         case .컬러풀한:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = false
+            checkCircle2.isHidden = false
+            checkCircle3.isHidden = false
         }
         configPointColorPickerStyle(numberOfColors)
     }
@@ -379,8 +404,8 @@ class ColorPickerView: UIView {
         
         switch numberOfColors {
         case .단일:
-            if flowerColorPickerButton.backgroundColor != nil {
-                colors = [flowerColorPickerButton.backgroundColor]
+            if flowerColorPickerButton1.backgroundColor != nil {
+                colors = [flowerColorPickerButton1.backgroundColor]
                 viewModel.getColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
@@ -388,9 +413,9 @@ class ColorPickerView: UIView {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
         case .두가지, .포인트:
-            if flowerColorPickerButton.backgroundColor != nil &&
+            if flowerColorPickerButton1.backgroundColor != nil &&
                 flowerColorPickerButton2.backgroundColor != nil {
-                colors = [flowerColorPickerButton.backgroundColor, flowerColorPickerButton2.backgroundColor]
+                colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor]
                 viewModel.getColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
@@ -398,11 +423,11 @@ class ColorPickerView: UIView {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
         case .컬러풀한:
-            if flowerColorPickerButton.backgroundColor != nil &&
+            if flowerColorPickerButton1.backgroundColor != nil &&
                 flowerColorPickerButton2.backgroundColor != nil &&
                 flowerColorPickerButton3.backgroundColor != nil {
                 colors = [
-                    flowerColorPickerButton.backgroundColor,
+                    flowerColorPickerButton1.backgroundColor,
                     flowerColorPickerButton2.backgroundColor,
                     flowerColorPickerButton3.backgroundColor
                 ]
@@ -419,7 +444,7 @@ class ColorPickerView: UIView {
         if numberOfColors == .포인트 {
             flowerColorPickerButtonHStackView.distribution = .fill
             
-            flowerColorPickerButton.snp.makeConstraints {
+            flowerColorPickerButton1.snp.makeConstraints {
                 $0.width.equalTo(flowerColorPickerButtonHStackView.snp.width).multipliedBy(0.318).priority(3)
             }
         } else {
@@ -432,20 +457,10 @@ class ColorPickerView: UIView {
     
     @objc
     func FlowerColorPickerButtonTapped(sender: UIButton) {
-        if sender.backgroundColor != nil {
-            colorPaletteButtons.forEach {
-                if $0.backgroundColor == sender.backgroundColor {
-                    selectedButton = $0
-                    $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
-                    $0.tintColor = .white
-                } else {
-                    selectedButton = nil
-                    $0.setImage(nil, for: .normal)
-                }
-            }
-        }
+        selectedFlowerColorPickerButton = sender
+        
+        resetButtonsUI()
         updateSelectedFlowerColorPickerButton(with: sender)
-        updateOtherFlowerColorPickerButtons()
     }
     
     @objc
@@ -476,8 +491,23 @@ extension ColorPickerView {
             $0.height.equalTo(96)
         }
         
+        checkCircle1.snp.makeConstraints {
+            $0.centerX.equalTo(flowerColorPickerButton1.snp.centerX)
+            $0.top.equalTo(flowerColorPickerButton1.snp.bottom).offset(4)
+        }
+        
+        checkCircle2.snp.makeConstraints {
+            $0.centerX.equalTo(flowerColorPickerButton2.snp.centerX)
+            $0.top.equalTo(flowerColorPickerButton1.snp.bottom).offset(4)
+        }
+        
+        checkCircle3.snp.makeConstraints {
+            $0.centerX.equalTo(flowerColorPickerButton3.snp.centerX)
+            $0.top.equalTo(flowerColorPickerButton1.snp.bottom).offset(4)
+        }
+        
         segmentControl.snp.makeConstraints {
-            $0.top.equalTo(flowerColorPickerButton.snp_bottomMargin).offset(30)
+            $0.top.equalTo(checkCircle1.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
         }
         
