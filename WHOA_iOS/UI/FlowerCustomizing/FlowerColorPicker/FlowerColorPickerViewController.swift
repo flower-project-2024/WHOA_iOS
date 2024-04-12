@@ -178,7 +178,7 @@ class FlowerColorPickerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        //        colorPickerView.isHidden = true
+        colorPickerView.isHidden = true
     }
     
     // MARK: - Functions
@@ -253,7 +253,7 @@ extension FlowerColorPickerViewController {
         scrollContentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
-            $0.height.equalTo(view.snp.height)
+            $0.height.equalTo(850)
         }
         
         exitButton.snp.makeConstraints {
@@ -298,16 +298,16 @@ extension FlowerColorPickerViewController {
         colorPickerView.snp.makeConstraints {
             $0.top.equalTo(colorPickerBorderLine.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(390)
+            $0.height.equalTo(310)
         }
         
         noticeLabel.snp.makeConstraints {
-            $0.bottom.equalTo(borderLine.snp.top).offset(-12)
+            $0.top.equalTo(colorPickerView.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(85.5)
         }
         
         borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.top.equalTo(noticeLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(3)
         }
@@ -318,7 +318,7 @@ extension FlowerColorPickerViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(scrollView)
+            $0.top.equalTo(borderLine.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
         }

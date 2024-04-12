@@ -22,12 +22,13 @@ class ColorPickerView: UIView {
     private var flowerColorPickerButtons: [UIButton] = []
     private var colorPaletteButtons: [UIButton] = []
     private var previousSegmentIndex: Int = 0
-    private lazy var selectedFlowerColorPickerButton: UIButton = flowerColorPickerButton1
+    private lazy var selectedFlowerColorPickerButton: UIButton? = flowerColorPickerButton1
     
     weak var delegate: FlowerColorPickerDelegate?
     
     var numberOfColors: NumberOfColorsType {
         didSet {
+            changedNumberOfColors()
             flowerColorPickerButtonCount(numberOfColors: numberOfColors)
             updateNextButtonState()
         }
@@ -265,6 +266,17 @@ class ColorPickerView: UIView {
         setupSegmentControl()
     }
     
+    private func changedNumberOfColors() {
+        clearFlowerColorPickerButtons()
+        clearColorPaletteButtons()
+        deleteColors()
+        
+        selectedFlowerColorPickerButton = nil
+        selectedButton = nil
+        selectedColor = nil
+        
+    }
+    
     private func setupSegmentControl() {
         self.segmentControl.addTarget(self, action: #selector(didChangeValue(segment:)), for: .valueChanged)
         didChangeValue(segment: self.segmentControl)
@@ -289,6 +301,10 @@ class ColorPickerView: UIView {
         ]
     }
     
+    private func deleteColors() {
+        flowerColorPickerButtons.forEach { $0.backgroundColor = .gray2 }
+    }
+    
     // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
     private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
         selectedFlowerColorPickerButtonUI(button: selectedButton)
@@ -309,7 +325,7 @@ class ColorPickerView: UIView {
         }
     }
     
-    private func resetButtonsUI() {
+    private func clearFlowerColorPickerButtons() {
         flowerColorPickerButtons.forEach { $0.layer.borderColor = UIColor.clear.cgColor }
         [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray5 }
     }
@@ -383,9 +399,9 @@ class ColorPickerView: UIView {
         sender.setImage(UIImage(systemName: "checkmark"), for: .normal)
         sender.tintColor = .white
         
-        selectedFlowerColorPickerButton.setImage(nil, for: .normal)
-        selectedFlowerColorPickerButton.layer.borderColor = .none
-        selectedFlowerColorPickerButton.backgroundColor = sender.backgroundColor
+        selectedFlowerColorPickerButton?.setImage(nil, for: .normal)
+        selectedFlowerColorPickerButton?.layer.borderColor = .none
+        selectedFlowerColorPickerButton?.backgroundColor = sender.backgroundColor
         previousSegmentIndex = segmentControl.selectedSegmentIndex
     }
     
@@ -394,9 +410,9 @@ class ColorPickerView: UIView {
         sender.isSelected = false
         sender.setImage(nil, for: .normal)
         
-        selectedFlowerColorPickerButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        selectedFlowerColorPickerButton.layer.borderColor = UIColor.systemMint.cgColor
-        selectedFlowerColorPickerButton.backgroundColor = nil
+        selectedFlowerColorPickerButton?.setImage(UIImage(systemName: "checkmark"), for: .normal)
+        selectedFlowerColorPickerButton?.layer.borderColor = UIColor.systemMint.cgColor
+        selectedFlowerColorPickerButton?.backgroundColor = nil
     }
     
     private func updateNextButtonState() {
@@ -459,7 +475,7 @@ class ColorPickerView: UIView {
     func FlowerColorPickerButtonTapped(sender: UIButton) {
         selectedFlowerColorPickerButton = sender
         
-        resetButtonsUI()
+        clearFlowerColorPickerButtons()
         updateSelectedFlowerColorPickerButton(with: sender)
     }
     
