@@ -124,7 +124,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton1: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .red
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -133,7 +132,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton2: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .orange
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -142,7 +140,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton3: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .yellow
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -151,7 +148,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton4: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .green
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -174,7 +170,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton5: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .blue
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -183,7 +178,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton6: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .systemPink
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -192,7 +186,6 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton7: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .purple
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
@@ -201,11 +194,10 @@ class ColorPickerView: UIView {
     
     private let colorPaletteButton8: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .white
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderColor = UIColor.gray4.cgColor
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -330,6 +322,21 @@ class ColorPickerView: UIView {
         [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray5 }
     }
     
+    func updatePaletteButtonCheckImage(with sender: UIButton) {
+        if sender.backgroundColor != nil {
+            colorPaletteButtons.forEach {
+                if $0.backgroundColor == sender.backgroundColor {
+                    let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
+                    $0.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
+                    selectedButton = $0
+                } else {
+                    selectedButton = nil
+                    $0.setImage(nil, for: .normal)
+                }
+            }
+        }
+    }
+    
     private func changePaletteColor(colors: [UIColor]) {
         for i in 0..<colorPaletteButtons.count {
             colorPaletteButtons[i].backgroundColor = colors[i]
@@ -358,9 +365,9 @@ class ColorPickerView: UIView {
     
     private func restoreSelectedButton(_ segment: UISegmentedControl) {
         if segment.selectedSegmentIndex == previousSegmentIndex && selectedButton != nil {
+            let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
+            selectedButton?.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
             selectedButton?.isSelected = true
-            selectedButton?.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            selectedButton?.tintColor = .white
         }
     }
     
@@ -466,7 +473,6 @@ class ColorPickerView: UIView {
         }
     }
     
-    
     // MARK: - Actions
     
     @objc
@@ -475,6 +481,7 @@ class ColorPickerView: UIView {
         
         clearFlowerColorPickerButtons()
         updateSelectedFlowerColorPickerButton(with: sender)
+        updatePaletteButtonCheckImage(with: sender)
     }
     
     @objc
