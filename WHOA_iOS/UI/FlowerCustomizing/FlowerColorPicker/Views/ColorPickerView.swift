@@ -412,13 +412,13 @@ class ColorPickerView: UIView {
         selectedFlowerColorPickerButton?.backgroundColor = sender.backgroundColor
     }
     
-    private func resetButtonSelection(_ sender: UIButton) {
-        selectedButton = nil
-        sender.isSelected = false
-        sender.setImage(nil, for: .normal)
-        
-        selectedFlowerColorPickerButton?.backgroundColor = .gray2
-    }
+//    private func resetButtonSelection(_ sender: UIButton) {
+//        selectedButton = nil
+//        sender.isSelected = false
+//        sender.setImage(nil, for: .normal)
+//        
+//        selectedFlowerColorPickerButton?.backgroundColor = .gray2
+//    }
     
     private func updateNextButtonState() {
         var colors: [UIColor?]
@@ -493,7 +493,7 @@ class ColorPickerView: UIView {
     
     @objc
     func colorPaletteButtonTapped(_ sender: UIButton) {
-        selectedButton != sender ? handleColorSelection(sender) : resetButtonSelection(sender)
+        handleColorSelection(sender)
         updateOtherColorPaletteButtons(sender)
         updateNextButtonState()
     }
