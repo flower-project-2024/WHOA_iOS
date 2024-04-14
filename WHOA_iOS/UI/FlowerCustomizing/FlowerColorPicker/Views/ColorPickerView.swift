@@ -18,11 +18,11 @@ class ColorPickerView: UIView {
     
     private var viewModel: FlowerColorPickerViewModel
     private var selectedButton: UIButton?
-    private var selectedColor: UIColor?
-    private var flowerColorPickerButtons: [UIButton] = []
-    private var colorPaletteButtons: [UIButton] = []
     private var previousSegmentIndex: Int = 0
     private lazy var selectedFlowerColorPickerButton: UIButton? = flowerColorPickerButton1
+    
+    private var flowerColorPickerButtons: [UIButton] = []
+    private var colorPaletteButtons: [UIButton] = []
     
     weak var delegate: FlowerColorPickerDelegate?
     
@@ -265,8 +265,6 @@ class ColorPickerView: UIView {
         
         selectedFlowerColorPickerButton = nil
         selectedButton = nil
-        selectedColor = nil
-        
     }
     
     private func setupSegmentControl() {
@@ -493,6 +491,8 @@ class ColorPickerView: UIView {
     
     @objc
     func colorPaletteButtonTapped(_ sender: UIButton) {
+        guard selectedFlowerColorPickerButton != nil else { return }
+        
         handleColorSelection(sender)
         updateOtherColorPaletteButtons(sender)
         updateNextButtonState()
