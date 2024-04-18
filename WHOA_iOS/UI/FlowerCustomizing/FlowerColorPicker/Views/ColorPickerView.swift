@@ -403,7 +403,8 @@ class ColorPickerView: UIView {
         selectedButton = sender
         sender.isSelected = true
         
-        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
+        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray1.withAlphaComponent(0.5) : UIColor.paletteCheckButton
+        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, btnColor, btnColor])
         sender.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
         
         selectedFlowerColorPickerButton?.backgroundColor = sender.backgroundColor
