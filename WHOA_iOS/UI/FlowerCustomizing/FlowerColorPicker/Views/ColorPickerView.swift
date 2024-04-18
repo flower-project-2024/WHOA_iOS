@@ -89,11 +89,30 @@ class ColorPickerView: UIView {
         return stackView
     }()
     
+    private let pointLabel: UILabel = {
+        let label = UILabel()
+        label.text = "포인트컬러"
+        label.textColor = .gray7
+        label.font = .Pretendard(size: 12, family: .SemiBold)
+        label.isHidden = true
+        return label
+    }()
+    
+    private let baseLabel: UILabel = {
+        let label = UILabel()
+        label.text = "베이스컬러"
+        label.textColor = .gray7
+        label.font = .Pretendard(size: 12, family: .SemiBold)
+        label.isHidden = true
+        return label
+    }()
+    
     private let checkCircle1: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "checkmark.circle")
         imageView.tintColor = .secondary3
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -102,6 +121,7 @@ class ColorPickerView: UIView {
         imageView.image = UIImage(systemName: "checkmark.circle")
         imageView.tintColor = .gray5
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -110,7 +130,32 @@ class ColorPickerView: UIView {
         imageView.image = UIImage(systemName: "checkmark.circle")
         imageView.tintColor = .gray5
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
+        imageView.contentMode = .scaleAspectFit
         return imageView
+    }()
+    
+    private lazy var pointStackview: UIStackView = {
+        let stackView = UIStackView()
+        [
+            pointLabel,
+            checkCircle1
+        ].forEach { stackView.addArrangedSubview($0)}
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 4
+        return stackView
+    }()
+    
+    private lazy var baseStackview: UIStackView = {
+        let stackView = UIStackView()
+        [
+            baseLabel,
+            checkCircle2
+        ].forEach { stackView.addArrangedSubview($0)}
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.spacing = 4
+        return stackView
     }()
     
     private lazy var segmentControl: UISegmentedControl = {
@@ -258,8 +303,8 @@ class ColorPickerView: UIView {
     private func setupUI() {
         addSubview(colorDescriptionLabel)
         addSubview(flowerColorPickerButtonHStackView)
-        addSubview(checkCircle1)
-        addSubview(checkCircle2)
+        addSubview(pointStackview)
+        addSubview(baseStackview)
         addSubview(checkCircle3)
         addSubview(segmentControl)
         addSubview(colorPaletteVStack)
@@ -380,13 +425,16 @@ class ColorPickerView: UIView {
     }
     
     private func flowerColorPickerButtonCount(numberOfColors: NumberOfColorsType) {
+        pointLabel.isHidden = true
+        baseLabel.isHidden = true
+        
         switch numberOfColors {
         case .단일:
             flowerColorPickerButton2.isHidden = true
             flowerColorPickerButton3.isHidden = true
             checkCircle2.isHidden = true
             checkCircle3.isHidden = true
-        case .두가지, .포인트:
+        case .두가지:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = true
             checkCircle2.isHidden = false
@@ -396,6 +444,13 @@ class ColorPickerView: UIView {
             flowerColorPickerButton3.isHidden = false
             checkCircle2.isHidden = false
             checkCircle3.isHidden = false
+        case .포인트:
+            flowerColorPickerButton2.isHidden = false
+            flowerColorPickerButton3.isHidden = true
+            checkCircle2.isHidden = false
+            checkCircle3.isHidden = true
+            pointLabel.isHidden = false
+            baseLabel.isHidden = false
         }
         configPointColorPickerStyle(numberOfColors)
     }
@@ -515,12 +570,12 @@ extension ColorPickerView {
             $0.height.equalTo(96)
         }
         
-        checkCircle1.snp.makeConstraints {
+        pointStackview.snp.makeConstraints {
             $0.centerX.equalTo(flowerColorPickerButton1.snp.centerX)
             $0.top.equalTo(flowerColorPickerButton1.snp.bottom).offset(4)
         }
         
-        checkCircle2.snp.makeConstraints {
+        baseStackview.snp.makeConstraints {
             $0.centerX.equalTo(flowerColorPickerButton2.snp.centerX)
             $0.top.equalTo(flowerColorPickerButton1.snp.bottom).offset(4)
         }
