@@ -535,6 +535,10 @@ extension ColorPickerView {
             $0.leading.trailing.equalToSuperview()
         }
         
+        colorPaletteButton1.snp.makeConstraints {
+            $0.height.equalTo(40)
+        }
+        
         colorPaletteVStack.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()

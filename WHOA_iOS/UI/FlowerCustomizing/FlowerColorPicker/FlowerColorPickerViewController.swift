@@ -253,7 +253,7 @@ extension FlowerColorPickerViewController {
         scrollContentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
-            $0.height.equalTo(850)
+            $0.height.equalTo(870)
         }
         
         exitButton.snp.makeConstraints {
@@ -298,7 +298,7 @@ extension FlowerColorPickerViewController {
         colorPickerView.snp.makeConstraints {
             $0.top.equalTo(colorPickerBorderLine.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(310)
+            $0.height.equalTo(330)
         }
         
         noticeLabel.snp.makeConstraints {
