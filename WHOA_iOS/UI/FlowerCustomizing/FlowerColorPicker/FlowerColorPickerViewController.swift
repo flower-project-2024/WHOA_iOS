@@ -303,7 +303,7 @@ extension FlowerColorPickerViewController {
         
         noticeLabel.snp.makeConstraints {
             $0.top.equalTo(colorPickerView.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(85.5)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         borderLine.snp.makeConstraints {

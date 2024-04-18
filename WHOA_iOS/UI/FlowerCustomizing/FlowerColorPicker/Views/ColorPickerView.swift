@@ -115,10 +115,20 @@ class ColorPickerView: UIView {
     
     private lazy var segmentControl: UISegmentedControl = {
         let segmentedControl: UISegmentedControl = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
-        segmentedControl.tintColor = .gray9
-        segmentedControl.backgroundColor = .gray2
-        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.center = CGPoint(x: self.frame.width/2, y: 400)
+        segmentedControl.selectedSegmentIndex = 0
+        
+        let font = UIFont.Pretendard(family: .SemiBold)
+        segmentedControl.setTitleTextAttributes(
+            [NSAttributedString.Key.foregroundColor: UIColor.gray6,
+             NSAttributedString.Key.font: font],
+            for: .normal)
+        segmentedControl.setTitleTextAttributes(
+            [NSAttributedString.Key.foregroundColor: UIColor.gray9,
+             NSAttributedString.Key.font: font],
+            for: .selected)
+        segmentedControl.backgroundColor = .gray2
+        segmentedControl.selectedSegmentTintColor = .gray1
         return segmentedControl
     }()
     
