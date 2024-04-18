@@ -17,8 +17,8 @@ class ColorPickerView: UIView {
     // MARK: - Properties
     
     private var viewModel: FlowerColorPickerViewModel
+    
     private var selectedButton: UIButton?
-    private var previousSegmentIndex: Int = 0
     private lazy var selectedFlowerColorPickerButton: UIButton? = flowerColorPickerButton1
     
     private var flowerColorPickerButtons: [UIButton] = []
@@ -297,13 +297,9 @@ class ColorPickerView: UIView {
     
     // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
     private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
-        selectedFlowerColorPickerButtonUI(button: selectedButton)
-    }
-    
-    private func selectedFlowerColorPickerButtonUI(button: UIButton) {
-        button.layer.borderColor = UIColor.secondary3.cgColor
+        selectedButton.layer.borderColor = UIColor.secondary3.cgColor
         
-        switch button.tag {
+        switch selectedButton.tag {
         case 1:
             checkCircle1.tintColor = .secondary3
         case 2:
@@ -320,17 +316,21 @@ class ColorPickerView: UIView {
         [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray5 }
     }
     
-    func updatePaletteButtonCheckImage(with sender: UIButton) {
-        if sender.backgroundColor != nil {
-            colorPaletteButtons.forEach {
-                if $0.backgroundColor == sender.backgroundColor {
-                    let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
-                    $0.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
-                    selectedButton = $0
-                } else {
-                    selectedButton = nil
-                    $0.setImage(nil, for: .normal)
-                }
+    func updatePaletteButtonCheckImage(with sender: UIButton?) {
+        guard let backgroundColor = sender?.backgroundColor else {
+            return
+        }
+        
+        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray1.withAlphaComponent(0.5) : UIColor.paletteCheckButton
+        
+        colorPaletteButtons.forEach {
+            if $0.backgroundColor == backgroundColor {
+                let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, btnColor, btnColor])
+                $0.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
+                selectedButton = $0
+            } else {
+                selectedButton = nil
+                $0.setImage(nil, for: .normal)
             }
         }
     }
@@ -362,7 +362,7 @@ class ColorPickerView: UIView {
     }
     
     private func restoreSelectedButton(_ segment: UISegmentedControl) {
-        if segment.selectedSegmentIndex == previousSegmentIndex && selectedButton != nil {
+        if selectedButton != nil {
             let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
             selectedButton?.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
             selectedButton?.isSelected = true
@@ -401,7 +401,6 @@ class ColorPickerView: UIView {
     
     private func handleColorSelection(_ sender: UIButton) {
         selectedButton = sender
-        previousSegmentIndex = segmentControl.selectedSegmentIndex
         sender.isSelected = true
         
         let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
@@ -409,14 +408,6 @@ class ColorPickerView: UIView {
         
         selectedFlowerColorPickerButton?.backgroundColor = sender.backgroundColor
     }
-    
-//    private func resetButtonSelection(_ sender: UIButton) {
-//        selectedButton = nil
-//        sender.isSelected = false
-//        sender.setImage(nil, for: .normal)
-//        
-//        selectedFlowerColorPickerButton?.backgroundColor = .gray2
-//    }
     
     private func updateNextButtonState() {
         var colors: [UIColor?]
@@ -487,6 +478,7 @@ class ColorPickerView: UIView {
         clearColorPaletteButtons()
         changeColorPaletteBasedOnSegment(segment)
         restoreSelectedButton(segment)
+        updatePaletteButtonCheckImage(with: self.selectedFlowerColorPickerButton)
     }
     
     @objc
