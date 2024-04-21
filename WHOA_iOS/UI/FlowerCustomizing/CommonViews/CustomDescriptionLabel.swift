@@ -28,6 +28,5 @@ class CustomDescriptionLabel: UILabel {
         self.font = .Pretendard(size: 16, family: .Regular)
         self.textColor = .gray7
         self.numberOfLines = numberOfLines
-        self.font = UIFont(name: "Pretendard-Regular", size: 16)
     }
 }
