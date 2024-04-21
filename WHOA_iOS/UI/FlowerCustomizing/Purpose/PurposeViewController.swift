@@ -21,14 +21,14 @@ class PurposeViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
     private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
     
-    private let affectionButton = PurposeButton(purposeType: PurposeType.affection)
-    private let birthdayButton = PurposeButton(purposeType: PurposeType.birthday)
-    private let gratitudeButton = PurposeButton(purposeType: PurposeType.gratitude)
-    private let proposeButton = PurposeButton(purposeType: PurposeType.propose)
-    private let partyButton = PurposeButton(purposeType: PurposeType.party)
-    private let employmentButton = PurposeButton(purposeType: PurposeType.employment)
-    private let promotionButton = PurposeButton(purposeType: PurposeType.promotion)
-    private let friendshipButton = PurposeButton(purposeType: PurposeType.friendship)
+    private let affectionButton = PurposeButton(purposeType: .affection)
+    private let birthdayButton = PurposeButton(purposeType: .birthday)
+    private let gratitudeButton = PurposeButton(purposeType: .gratitude)
+    private let proposeButton = PurposeButton(purposeType: .propose)
+    private let partyButton = PurposeButton(purposeType: .party)
+    private let employmentButton = PurposeButton(purposeType: .employment)
+    private let promotionButton = PurposeButton(purposeType: .promotion)
+    private let friendshipButton = PurposeButton(purposeType: .friendship)
     
     private lazy var purposeButtonHStackView1 = PurposeButtonHStackView(
         button1: affectionButton,
