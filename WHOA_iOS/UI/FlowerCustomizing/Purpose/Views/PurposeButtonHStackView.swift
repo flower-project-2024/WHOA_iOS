@@ -78,8 +78,7 @@ class PurposeButton: UIButton {
         layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
         self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
         self.titleLabel?.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard()
-        self.configuration?.baseForegroundColor = isSelected ? .black : .gray8
-        
+        self.configuration?.baseForegroundColor = isSelected ? .primary : .gray8
     }
     
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {

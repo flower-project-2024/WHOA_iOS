@@ -16,71 +16,7 @@ class PurposeViewController: UIViewController {
     
     // MARK: - UI
     
-    private let exitButton = ExitButton()
-    private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
-    private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진 꽃들을 추천해드릴게요", numberOfLines: 2)
-    
-    private let affectionButton = PurposeButton(purposeType: .affection)
-    private let birthdayButton = PurposeButton(purposeType: .birthday)
-    private let gratitudeButton = PurposeButton(purposeType: .gratitude)
-    private let proposeButton = PurposeButton(purposeType: .propose)
-    private let partyButton = PurposeButton(purposeType: .party)
-    private let employmentButton = PurposeButton(purposeType: .employment)
-    private let promotionButton = PurposeButton(purposeType: .promotion)
-    private let friendshipButton = PurposeButton(purposeType: .friendship)
-    
-    private lazy var purposeButtonHStackView1 = PurposeButtonHStackView(
-        button1: affectionButton,
-        button2: birthdayButton
-    )
-    private lazy var purposeButtonHStackView2 = PurposeButtonHStackView(
-        button1: gratitudeButton,
-        button2: proposeButton
-    )
-    private lazy var purposeButtonHStackView3 = PurposeButtonHStackView(
-        button1: partyButton,
-        button2: employmentButton
-    )
-    private lazy var purposeButtonHStackView4 = PurposeButtonHStackView(
-        button1: promotionButton,
-        button2: friendshipButton
-    )
-    
-    private lazy var purposeButtonVStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            purposeButtonHStackView1,
-            purposeButtonHStackView2,
-            purposeButtonHStackView3,
-            purposeButtonHStackView4
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 12
-        return stackView
-    }()
-    
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
-    
-    private let backButton = BackButton(isActive: false)
-    private let nextButton = NextButton()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let purposeView: PurposeView = PurposeView()
     
     // MARK: - Initialize
     
@@ -108,28 +44,22 @@ class PurposeViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(purposeButtonVStackView)
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
+        view.addSubview(purposeView)
         
         setupAutoLayout()
     }
     
     private func setupButtonActions() {
         let purposeButtons = [
-            affectionButton, birthdayButton,
-            gratitudeButton, proposeButton,
-            partyButton, employmentButton,
-            promotionButton, friendshipButton,
+            purposeView.affectionButton, purposeView.birthdayButton,
+            purposeView.gratitudeButton, purposeView.proposeButton,
+            purposeView.partyButton, purposeView.employmentButton,
+            purposeView.promotionButton, purposeView.friendshipButton,
         ]
         
         purposeButtons.forEach { $0.addTarget(self, action: #selector(purposeButtonTapped), for: .touchUpInside) }
         
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        purposeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Actions
@@ -137,17 +67,17 @@ class PurposeViewController: UIViewController {
     @objc
     func purposeButtonTapped(sender: PurposeButton) {
         let purposeButtons = [
-            affectionButton, birthdayButton,
-            gratitudeButton, proposeButton,
-            partyButton, employmentButton,
-            promotionButton, friendshipButton,
+            purposeView.affectionButton, purposeView.birthdayButton,
+            purposeView.gratitudeButton, purposeView.proposeButton,
+            purposeView.partyButton, purposeView.employmentButton,
+            purposeView.promotionButton, purposeView.friendshipButton,
         ]
         
         sender.isSelected.toggle()
         
         viewModel.updateButtonState(sender: sender, purposeButtons: purposeButtons)
         viewModel.updatePurposeTypeSelection(sender: sender, buttonText: sender.titleLabel?.text, setPurposeType: viewModel.setPurposeType)
-        viewModel.updateNextButtonState(purposeButtons: purposeButtons, nextButton: nextButton)
+        viewModel.updateNextButtonState(purposeButtons: purposeButtons, nextButton: purposeView.nextButton)
     }
     
     @objc
@@ -160,48 +90,9 @@ class PurposeViewController: UIViewController {
 
 extension PurposeViewController {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(114)
-        }
-        
-        purposeButtonVStackView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(21)
-            $0.trailing.equalToSuperview().offset(-21)
-        }
-        
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        purposeView.snp.makeConstraints {
+            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
