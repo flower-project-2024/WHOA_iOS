@@ -38,6 +38,8 @@ class PurposeButton: UIButton {
     
     // MARK: - Properties
     
+    var purposeType: PurposeType
+    
     override var isSelected: Bool {
         didSet {
             updateSelection()
@@ -47,6 +49,7 @@ class PurposeButton: UIButton {
     // MARK: - Initialization
     
     init(purposeType: PurposeType) {
+        self.purposeType = purposeType
         super.init(frame: .zero)
         
         setupUI(purposeType)

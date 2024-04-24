@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 class PurposeViewController: UIViewController {
@@ -13,6 +14,7 @@ class PurposeViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI
     
@@ -35,6 +37,7 @@ class PurposeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
         setupButtonActions()
     }
@@ -49,6 +52,15 @@ class PurposeViewController: UIViewController {
         setupAutoLayout()
     }
     
+    private func bind() {
+        viewModel.$nextButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] enabled in
+                self?.purposeView.nextButton.isActive = enabled
+            }
+            .store(in: &cancellables)
+    }
+    
     private func setupButtonActions() {
         let purposeButtons = [
             purposeView.affectionButton, purposeView.birthdayButton,
@@ -58,7 +70,6 @@ class PurposeViewController: UIViewController {
         ]
         
         purposeButtons.forEach { $0.addTarget(self, action: #selector(purposeButtonTapped), for: .touchUpInside) }
-        
         purposeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
     }
     
@@ -76,13 +87,18 @@ class PurposeViewController: UIViewController {
         sender.isSelected.toggle()
         
         viewModel.updateButtonState(sender: sender, purposeButtons: purposeButtons)
-        viewModel.updatePurposeTypeSelection(sender: sender, buttonText: sender.titleLabel?.text, setPurposeType: viewModel.setPurposeType)
-        viewModel.updateNextButtonState(purposeButtons: purposeButtons, nextButton: purposeView.nextButton)
+        viewModel.setPurposeType(sender.purposeType)
     }
     
     @objc
     func nextButtonTapped() {
-        viewModel.goToNextVC(fromCurrentVC: self, animated: true)
+        guard let purposeType = viewModel.getPurposeType() else { return }
+        
+        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: FlowerColorPickerViewModel(purposeType: purposeType))
+        
+        flowerColorPickerVC.modalPresentationStyle = .fullScreen
+        
+        present(flowerColorPickerVC, animated: true)
     }
 }
 

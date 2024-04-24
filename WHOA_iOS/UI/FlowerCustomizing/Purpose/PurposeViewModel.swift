@@ -5,7 +5,7 @@
 //  Created by KSH on 2/11/24.
 //
 
-import UIKit
+import Foundation
 import Combine
 
 class PurposeViewModel {
@@ -13,11 +13,13 @@ class PurposeViewModel {
     // MARK: - Properties
     
     private var purposeModel: PurposeModel?
+    @Published var nextButtonEnabled: Bool = false
     
     // MARK: - Fuctions
     
     func setPurposeType(_ selectedType: PurposeType) {
         purposeModel = PurposeModel(purposeType: selectedType)
+        updateNextButtonState()
     }
     
     func getPurposeType() -> PurposeType? {
@@ -25,30 +27,11 @@ class PurposeViewModel {
     }
     
     func updateButtonState(sender: PurposeButton, purposeButtons: [PurposeButton]) {
-        purposeButtons.forEach { if $0 != sender { $0.isSelected = false } }
+        purposeButtons.forEach { $0.isSelected = ($0 == sender) }
+        updateNextButtonState()
     }
 
-    func updateNextButtonState(purposeButtons: [PurposeButton], nextButton: NextButton) {
-        nextButton.isActive = purposeButtons.allSatisfy { !$0.isSelected } ? false : true
+    private func updateNextButtonState() {
+        nextButtonEnabled = purposeModel != nil
     }
-    
-    func updatePurposeTypeSelection(sender: PurposeButton, buttonText: String?, setPurposeType: (PurposeType) -> Void) {
-        guard
-            let buttonText = buttonText,
-            let purposeType = PurposeType(rawValue: buttonText)
-        else { return }
-        
-        setPurposeType(purposeType)
-    }
-    
-    
-    func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        guard let purposeType = getPurposeType() else { return }
-        
-        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: FlowerColorPickerViewModel(purposeType: purposeType))
-        flowerColorPickerVC.modalPresentationStyle = .fullScreen
-        
-        fromCurrentVC.present(flowerColorPickerVC, animated: true)
-    }
-    
 }
