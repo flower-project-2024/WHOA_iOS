@@ -22,7 +22,7 @@ class FlowerColorPickerViewModel {
     func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
         guard let tempModel = flowerColorPickerModel else { return }
         
-        let flowerSelectVC = FlowerSelectViewController(tempModel: tempModel)
+        let flowerSelectVC = FlowerSelectViewController()
         flowerSelectVC.modalPresentationStyle = .fullScreen
         
         fromCurrentVC.present(flowerSelectVC, animated: true)
