@@ -19,6 +19,7 @@
 		5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */; };
 		5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA722BD5C12A006AA160 /* PurposeView.swift */; };
 		5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */; };
+		5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
 		542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */; };
 		542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */; };
@@ -123,6 +124,7 @@
 		5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryModel.swift; sourceTree = "<group>"; };
 		5413AA722BD5C12A006AA160 /* PurposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeView.swift; sourceTree = "<group>"; };
 		5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewModel.swift; sourceTree = "<group>"; };
+		5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesType.swift; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitAlertViewController.swift; sourceTree = "<group>"; };
 		542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewModel.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 			children = (
 				54FD0F842B74C13B00F964C3 /* PurposeType.swift */,
 				546071122B863BB70033B598 /* NumberOfColorsType.swift */,
+				5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				54EB17D62BA1D24100717E6F /* AlbumService.swift in Sources */,
 				54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */,
+				5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,
 				5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */,
 				54EB17DE2BA1D4B200717E6F /* PhotoService.swift in Sources */,
