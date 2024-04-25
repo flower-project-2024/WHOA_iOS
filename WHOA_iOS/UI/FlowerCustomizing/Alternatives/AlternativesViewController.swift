@@ -7,9 +7,9 @@
 
 import UIKit
 
-class FlowerReplacementViewController: UIViewController {
+class AlternativesViewController: UIViewController {
     
-    // MARK: - Initialize
+    // MARK: - UI
     
     private let titleLabel = CustomTitleLabel(text: "선택한 꽃들이 없다면?")
     
@@ -177,7 +177,7 @@ class FlowerReplacementViewController: UIViewController {
     }
 }
 
-extension FlowerReplacementViewController {
+extension AlternativesViewController {
     private func setupAutoLayout() {
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(60)

@@ -43,7 +43,7 @@
 		54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */; };
 		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
-		54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */; };
+		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
 		54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */; };
 		54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17CB2B9D83E200717E6F /* RangeSlider.swift */; };
 		54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */; };
@@ -148,7 +148,7 @@
 		54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingSelectionViewModel.swift; sourceTree = "<group>"; };
 		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
-		54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerReplacementViewController.swift; sourceTree = "<group>"; };
+		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
 		54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewController.swift; sourceTree = "<group>"; };
 		54EB17CB2B9D83E200717E6F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSelectionViewController.swift; path = WHOA_iOS/UI/FlowerCustomizing/PhotoSelection/PhotoSelectionViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -349,12 +349,12 @@
 			path = PackagingSelection;
 			sourceTree = "<group>";
 		};
-		54E9816C2B90A656000669DB /* FlowerReplacement */ = {
+		54E9816C2B90A656000669DB /* Alternatives */ = {
 			isa = PBXGroup;
 			children = (
-				54E9816E2B90A6EB000669DB /* FlowerReplacementViewController.swift */,
+				54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */,
 			);
-			path = FlowerReplacement;
+			path = Alternatives;
 			sourceTree = "<group>";
 		};
 		54EB17C72B9D836400717E6F /* FlowerPrice */ = {
@@ -551,7 +551,7 @@
 				54FD0F6A2B701B2000F964C3 /* Purpose */,
 				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 				546071152B87EAE30033B598 /* FlowerSelect */,
-				54E9816C2B90A656000669DB /* FlowerReplacement */,
+				54E9816C2B90A656000669DB /* Alternatives */,
 				54D6B7E22B9CA9D900628FF7 /* PackagingSelection */,
 				54EB17C72B9D836400717E6F /* FlowerPrice */,
 				54EB17CD2B9F1C5300717E6F /* PhotoSelection */,
@@ -798,7 +798,7 @@
 				5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */,
 				54EB17DE2BA1D4B200717E6F /* PhotoService.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */,
-				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,
+				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
 				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
