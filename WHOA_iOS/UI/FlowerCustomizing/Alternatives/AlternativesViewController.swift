@@ -13,66 +13,23 @@ class AlternativesViewController: UIViewController {
     
     private let titleLabel = CustomTitleLabel(text: "선택한 꽃들이 없다면?")
     
-    private let colorOrientedImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray5
-        return imageView
+    private let colorOrientedButton: SpacebarButton = {
+        let button = SpacebarButton(title: AlternativesType.colorOriented.rawValue)
+        button.addTarget(self, action: #selector(spacebarButtonTapped), for: .touchUpInside)
+        return button
     }()
     
-    private let colorOrientedLabel: UILabel = {
-        let label = UILabel()
-        label.text = "색감 위주로 대체해주세요"
-        label.font = .Pretendard(size: 16)
-        label.textColor = .black
-        return label
+    private let hashTagOrientedButton: SpacebarButton = {
+        let button = SpacebarButton(title: AlternativesType.hashTagOriented.rawValue)
+        button.addTarget(self, action: #selector(spacebarButtonTapped), for: .touchUpInside)
+        return button
     }()
     
-    private lazy var colorOrientedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.clear.cgColor
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(colorOrientedViewTapped))
-        view.addGestureRecognizer(tapGesture)
-        return view
+    private let nextButton: NextButton = {
+        let button = NextButton()
+        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        return button
     }()
-    
-    private let hashTagOrientedImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray5
-        return imageView
-    }()
-    
-    private let hashTagOrientedLabel: UILabel = {
-        let label = UILabel()
-        label.text = "꽃말 위주로 대체해주세요"
-        label.font = .Pretendard(size: 16)
-        label.textColor = .black
-        return label
-    }()
-    
-    private lazy var hashTagOrientedView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.clear.cgColor
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hashTagOrientedViewTapped))
-        view.addGestureRecognizer(tapGesture)
-        return view
-    }()
-    
-    private let nextButton = NextButton()
-    
     
     // MARK: - Lifecycle
     
@@ -89,92 +46,48 @@ class AlternativesViewController: UIViewController {
         
         view.addSubview(titleLabel)
         
-        view.addSubview(colorOrientedView)
-        colorOrientedView.addSubview(colorOrientedImageView)
-        colorOrientedView.addSubview(colorOrientedLabel)
-        
-        view.addSubview(hashTagOrientedView)
-        hashTagOrientedView.addSubview(hashTagOrientedImageView)
-        hashTagOrientedView.addSubview(hashTagOrientedLabel)
+        view.addSubview(colorOrientedButton)
+        view.addSubview(hashTagOrientedButton)
         
         view.addSubview(nextButton)
         
+        
         setupAutoLayout()
-        setupButtonActions()
     }
     
-    private func setupButtonActions() {
-        nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-    }
-    
-    private func selectedViewUpdate(
-        selectedView: UIView,
-        selectedImageView: UIImageView,
-        selectedLabel: UILabel
-    ) {
-        selectedView.backgroundColor = .second1.withAlphaComponent(0.2)
-        selectedView.layer.borderColor = UIColor.secondary3.cgColor
-        
-        selectedImageView.image = UIImage(systemName: "button.programmable")
-        selectedImageView.tintColor = .secondary3
-        
-        selectedLabel.font = .Pretendard(size: 16, family: .SemiBold)
-    }
-    
-    private func unSelectedViewUpdate(
-        unSelectedView: UIView,
-        unSelectedImageView: UIImageView,
-        unSelectedLabel: UILabel
-    ) {
-        unSelectedView.backgroundColor = .gray2
-        unSelectedView.layer.borderColor = UIColor.clear.cgColor
-        
-        unSelectedImageView.image = UIImage(systemName: "circle")
-        unSelectedImageView.tintColor = .gray5
-        
-        unSelectedLabel.font = .Pretendard(size: 16)
-        
+    private func updateNextButtonState() {
+        if colorOrientedButton.isSelected || hashTagOrientedButton.isSelected {
+            nextButton.isActive = true
+        } else {
+            nextButton.isActive = false
+        }
     }
     
     // MARK: - Actions
     
     @objc
-    func colorOrientedViewTapped(_ sender: UIView) {
-        selectedViewUpdate(
-            selectedView: colorOrientedView,
-            selectedImageView: colorOrientedImageView,
-            selectedLabel: colorOrientedLabel)
+    private func spacebarButtonTapped(_ sender: UIButton) {
+        guard let button = sender as? SpacebarButton,
+              let title = button.titleLabel?.text
+        else { return }
         
-        unSelectedViewUpdate(
-            unSelectedView: hashTagOrientedView,
-            unSelectedImageView: hashTagOrientedImageView,
-            unSelectedLabel: hashTagOrientedLabel
-        )
+        button.isSelected.toggle()
+        button.configuration = button.configure(title: title, isSelected: button.isSelected)
         
-        nextButton.isActive = true
-    }
-    
-    @objc
-    func hashTagOrientedViewTapped(_ sender: UIView) {
-        selectedViewUpdate(
-            selectedView: hashTagOrientedView,
-            selectedImageView: hashTagOrientedImageView,
-            selectedLabel: hashTagOrientedLabel
-        )
+        let otherButton = (button === hashTagOrientedButton) ?
+        colorOrientedButton : hashTagOrientedButton
         
-        unSelectedViewUpdate(
-            unSelectedView: colorOrientedView,
-            unSelectedImageView: colorOrientedImageView,
-            unSelectedLabel: colorOrientedLabel
-        )
+        otherButton.isSelected = false
+        otherButton.configuration = button.configure(title: otherButton.titleLabel?.text ?? "", isSelected: false)
         
-        nextButton.isActive = true
+        updateNextButtonState()
     }
     
     @objc
     func nextButtonTapped() {
         print("다음이동")
     }
+    
 }
 
 extension AlternativesViewController {
@@ -184,42 +97,20 @@ extension AlternativesViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
         }
         
-        colorOrientedImageView.snp.makeConstraints {
-            $0.leading.equalTo(colorOrientedView.snp.leading).offset(16)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
-        }
-        
-        colorOrientedLabel.snp.makeConstraints {
-            $0.leading.equalTo(colorOrientedImageView.snp.trailing).offset(8)
-            $0.centerY.equalToSuperview()
-        }
-        
-        colorOrientedView.snp.makeConstraints {
+        colorOrientedButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
-        hashTagOrientedImageView.snp.makeConstraints {
-            $0.leading.equalTo(hashTagOrientedView.snp.leading).offset(16)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
-        }
-        
-        hashTagOrientedLabel.snp.makeConstraints {
-            $0.leading.equalTo(hashTagOrientedImageView.snp.trailing).offset(8)
-            $0.centerY.equalToSuperview()
-        }
-        
-        hashTagOrientedView.snp.makeConstraints {
-            $0.top.equalTo(colorOrientedView.snp.bottom).offset(12)
+        hashTagOrientedButton.snp.makeConstraints {
+            $0.top.equalTo(colorOrientedButton.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(hashTagOrientedView.snp.bottom).offset(98)
+            $0.top.equalTo(hashTagOrientedButton.snp.bottom).offset(98)
             $0.leading.trailing.equalToSuperview().inset(18)
             $0.height.equalTo(56)
         }
