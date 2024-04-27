@@ -14,13 +14,13 @@ class AlternativesViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "선택한 꽃들이 없다면?")
     
     private let colorOrientedButton: SpacebarButton = {
-        let button = SpacebarButton(title: AlternativesType.colorOriented.rawValue)
+        let button = SpacebarButton(title: "\(AlternativesType.colorOriented.rawValue)로 대체해주세요")
         button.addTarget(self, action: #selector(spacebarButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let hashTagOrientedButton: SpacebarButton = {
-        let button = SpacebarButton(title: AlternativesType.hashTagOriented.rawValue)
+        let button = SpacebarButton(title: "\(AlternativesType.hashTagOriented.rawValue)로 대체해주세요")
         button.addTarget(self, action: #selector(spacebarButtonTapped), for: .touchUpInside)
         return button
     }()
