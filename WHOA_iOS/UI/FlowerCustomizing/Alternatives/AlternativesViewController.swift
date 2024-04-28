@@ -9,6 +9,10 @@ import UIKit
 
 class AlternativesViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    let viewModel = AlternativesViewModel()
+    
     // MARK: - UI
     
     private let titleLabel = CustomTitleLabel(text: "선택한 꽃들이 없다면?")
@@ -36,6 +40,7 @@ class AlternativesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
     }
     
@@ -55,32 +60,39 @@ class AlternativesViewController: UIViewController {
         setupAutoLayout()
     }
     
-    private func updateNextButtonState() {
-        if colorOrientedButton.isSelected || hashTagOrientedButton.isSelected {
-            nextButton.isActive = true
-        } else {
-            nextButton.isActive = false
-        }
+    func bind() {
+        viewModel.$isColorButtonSelected
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isSelected in
+                self?.colorOrientedButton.configuration =
+                self?.colorOrientedButton.configure(isSelected: isSelected)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$isHashTagButtonSelected
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isSelected in
+                self?.hashTagOrientedButton.configuration =
+                self?.hashTagOrientedButton.configure(isSelected: isSelected)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$isNextButtonEnabled
+            .receive(on: RunLoop.main)
+            .assign(to: \.isActive, on: nextButton)
+            .store(in: &viewModel.cancellables)
     }
     
     // MARK: - Actions
     
     @objc
     private func spacebarButtonTapped(_ sender: UIButton) {
-        guard let button = sender as? SpacebarButton,
-              let title = button.titleLabel?.text
-        else { return }
+        guard let button = sender as? SpacebarButton else { return }
         
-        button.isSelected.toggle()
-        button.configuration = button.configure(title: title, isSelected: button.isSelected)
+        let isHashTagButton = button === hashTagOrientedButton
         
-        let otherButton = (button === hashTagOrientedButton) ?
-        colorOrientedButton : hashTagOrientedButton
-        
-        otherButton.isSelected = false
-        otherButton.configuration = button.configure(title: otherButton.titleLabel?.text ?? "", isSelected: false)
-        
-        updateNextButtonState()
+           viewModel.isHashTagButtonSelected = isHashTagButton ? !viewModel.isHashTagButtonSelected : false
+           viewModel.isColorButtonSelected = !isHashTagButton ? !viewModel.isColorButtonSelected : false
     }
     
     @objc
