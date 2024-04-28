@@ -23,7 +23,8 @@ class SpacebarButton: UIButton {
     // MARK: - Functions
     
     private func configureButton(_ title: String) {
-        self.configuration = configure(title: title, isSelected: false)
+        self.titleLabel?.text = title
+        self.configuration = configure(isSelected: false)
         self.contentHorizontalAlignment = .leading
         
         self.layer.cornerRadius = 8
@@ -32,14 +33,14 @@ class SpacebarButton: UIButton {
         self.layer.borderColor = UIColor.clear.cgColor
     }
     
-    func configure(title: String, isSelected: Bool) -> UIButton.Configuration {
+    func configure(isSelected: Bool) -> UIButton.Configuration {
         var config = UIButton.Configuration.filled()
         config.titleAlignment = .leading
         config.baseBackgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
         config.baseForegroundColor = .primary
         
         // Title
-        var attString = AttributedString(title)
+        var attString = AttributedString(self.titleLabel?.text ?? "")
         attString.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard(size: 16)
         config.attributedTitle = attString
         
