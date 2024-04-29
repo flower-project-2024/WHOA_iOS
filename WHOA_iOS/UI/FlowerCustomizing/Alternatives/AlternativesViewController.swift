@@ -61,24 +61,23 @@ class AlternativesViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.$isColorButtonSelected
-            .receive(on: RunLoop.main)
-            .sink { [weak self] isSelected in
-                self?.colorOrientedButton.configuration =
-                self?.colorOrientedButton.configure(isSelected: isSelected)
-            }
-            .store(in: &viewModel.cancellables)
+        viewModel.$selectedButtonType
+                .receive(on: RunLoop.main)
+                .sink { [weak self] selectedType in
+                    guard let self = self else { return }
+                    self.colorOrientedButton.isSelected = selectedType == .colorOriented
+                    self.hashTagOrientedButton.isSelected = selectedType == .hashTagOriented
+
+                    self.colorOrientedButton.configuration = self.colorOrientedButton.configure(isSelected: self.colorOrientedButton.isSelected)
+                    self.hashTagOrientedButton.configuration = self.hashTagOrientedButton.configure(isSelected: self.hashTagOrientedButton.isSelected)
+                }
+                .store(in: &viewModel.cancellables)
         
-        viewModel.$isHashTagButtonSelected
+        viewModel.$alternativesModel
             .receive(on: RunLoop.main)
-            .sink { [weak self] isSelected in
-                self?.hashTagOrientedButton.configuration =
-                self?.hashTagOrientedButton.configure(isSelected: isSelected)
+            .map { alternatives in
+                return alternatives != nil
             }
-            .store(in: &viewModel.cancellables)
-        
-        viewModel.$isNextButtonEnabled
-            .receive(on: RunLoop.main)
             .assign(to: \.isActive, on: nextButton)
             .store(in: &viewModel.cancellables)
     }
@@ -89,10 +88,13 @@ class AlternativesViewController: UIViewController {
     private func spacebarButtonTapped(_ sender: UIButton) {
         guard let button = sender as? SpacebarButton else { return }
         
-        let isHashTagButton = button === hashTagOrientedButton
+        if button === hashTagOrientedButton {
+               viewModel.selectedButtonType = .hashTagOriented
+           } else if button === colorOrientedButton {
+               viewModel.selectedButtonType = .colorOriented
+           }
         
-           viewModel.isHashTagButtonSelected = isHashTagButton ? !viewModel.isHashTagButtonSelected : false
-           viewModel.isColorButtonSelected = !isHashTagButton ? !viewModel.isColorButtonSelected : false
+        viewModel.getAlternatives()
     }
     
     @objc

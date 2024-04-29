@@ -12,19 +12,17 @@ class AlternativesViewModel {
     
     // MARK: - Properties
     
-    @Published var isNextButtonEnabled: Bool = false
-    
-    @Published var isColorButtonSelected: Bool = false
-    @Published var isHashTagButtonSelected: Bool = false
+    @Published var alternativesModel: AlternativesModel?
+    @Published var selectedButtonType: AlternativesType?
     
     var cancellables = Set<AnyCancellable>()
     
-    init() {
-        $isColorButtonSelected
-            .combineLatest($isHashTagButtonSelected)
-            .map{ colorButtonSelected, hashTagButtonSelected in
-                return colorButtonSelected || hashTagButtonSelected
-            }
-            .assign(to: &$isNextButtonEnabled)
+    func getAlternatives() {
+        guard let type = selectedButtonType else {
+            alternativesModel = nil
+            return
+        }
+        
+        alternativesModel = AlternativesModel(AlternativesType: type)
     }
 }
