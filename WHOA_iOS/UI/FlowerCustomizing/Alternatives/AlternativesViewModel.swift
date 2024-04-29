@@ -17,12 +17,8 @@ class AlternativesViewModel {
     
     var cancellables = Set<AnyCancellable>()
     
-    func getAlternatives() {
-        guard let type = selectedButtonType else {
-            alternativesModel = nil
-            return
-        }
-        
-        alternativesModel = AlternativesModel(AlternativesType: type)
+    func getAlternatives(alternatives: AlternativesType) {
+        selectedButtonType = alternatives
+        alternativesModel = AlternativesModel(AlternativesType: alternatives)
     }
 }
