@@ -20,13 +20,13 @@ class PackagingSelectionViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "원하는 포장지 종류가 있나요?")
     
     private let managerAssignButton: SpacebarButton = {
-        let button = SpacebarButton(title: "아니요, 사장님께 맡길게요")
+        let button = SpacebarButton(title: "아니요, \(PackagingAssignType.managerAssign.rawValue)")
         button.addTarget(self, action: #selector(assignButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let myselfAssignButton: SpacebarButton = {
-        let button = SpacebarButton(title: "네, 제가 작성할게요")
+        let button = SpacebarButton(title: "네, \(PackagingAssignType.myselfAssign.rawValue)")
         button.addTarget(self, action: #selector(assignButtonTapped), for: .touchUpInside)
         return button
     }()
