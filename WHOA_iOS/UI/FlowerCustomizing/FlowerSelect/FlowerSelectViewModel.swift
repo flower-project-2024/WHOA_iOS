@@ -92,7 +92,7 @@ class FlowerSelectViewModel {
     }
     
     func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        let flowerReplacementVC = FlowerReplacementViewController()
+        let flowerReplacementVC = AlternativesViewController()
         flowerReplacementVC.sheetPresentationController?.detents = [.medium()]
         
         fromCurrentVC.present(flowerReplacementVC, animated: true)

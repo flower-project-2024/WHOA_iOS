@@ -19,64 +19,16 @@ class PackagingSelectionViewController: UIViewController {
     private let progressHStackView = CustomProgressHStackView(numerator: 4, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "원하는 포장지 종류가 있나요?")
     
-    private let noImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray5
-        return imageView
+    private let managerAssignButton: SpacebarButton = {
+        let button = SpacebarButton(title: "아니요, 사장님께 맡길게요")
+        button.addTarget(self, action: #selector(assignButtonTapped), for: .touchUpInside)
+        return button
     }()
     
-    private let noLabel: UILabel = {
-        let label = UILabel()
-        label.text = "아니요, 사장님께 맡길게요"
-        label.font = .Pretendard(size: 16)
-        label.textColor = .black
-        return label
-    }()
-    
-    private lazy var noView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.clear.cgColor
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(noViewTapped))
-        view.addGestureRecognizer(tapGesture)
-        view.isUserInteractionEnabled = true
-        return view
-    }()
-    
-    private let yesImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle")
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .gray5
-        return imageView
-    }()
-    
-    private let yesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "네, 제가 작성할게요"
-        label.font = .Pretendard(size: 16)
-        label.textColor = .black
-        return label
-    }()
-    
-    private lazy var yesView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.clear.cgColor
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(noViewTapped))
-        view.addGestureRecognizer(tapGesture)
-        view.isUserInteractionEnabled = true
-        return view
+    private let myselfAssignButton: SpacebarButton = {
+        let button = SpacebarButton(title: "네, 제가 작성할게요")
+        button.addTarget(self, action: #selector(assignButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     private let requirementTextView: UITextView = {
@@ -151,13 +103,8 @@ class PackagingSelectionViewController: UIViewController {
         view.addSubview(progressHStackView)
         view.addSubview(titleLabel)
         
-        view.addSubview(noView)
-        noView.addSubview(noImageView)
-        noView.addSubview(noLabel)
-        
-        view.addSubview(yesView)
-        yesView.addSubview(yesImageView)
-        yesView.addSubview(yesLabel)
+        view.addSubview(managerAssignButton)
+        view.addSubview(myselfAssignButton)
         
         view.addSubview(requirementTextView)
         view.addSubview(placeholder)
@@ -176,76 +123,14 @@ class PackagingSelectionViewController: UIViewController {
         }
     }
     
-    private func selectedViewUpdate(
-        selectedView: UIView,
-        selectedImageView: UIImageView,
-        selectedLabel: UILabel
-    ) {
-        selectedView.backgroundColor = .second1.withAlphaComponent(0.2)
-        selectedView.layer.borderColor = UIColor.secondary3.cgColor
-        
-        selectedImageView.image = UIImage(systemName: "button.programmable")
-        selectedImageView.tintColor = .secondary3
-        
-        selectedLabel.font = .Pretendard(size: 16, family: .SemiBold)
-    }
-    
-    private func unSelectedViewUpdate(
-        unSelectedView: UIView,
-        unSelectedImageView: UIImageView,
-        unSelectedLabel: UILabel
-    ) {
-        unSelectedView.backgroundColor = .gray2
-        unSelectedView.layer.borderColor = UIColor.clear.cgColor
-        
-        unSelectedImageView.image = UIImage(systemName: "circle")
-        unSelectedImageView.tintColor = .gray5
-        
-        unSelectedLabel.font = .Pretendard(size: 16)
-        
-    }
-    
     // MARK: - Actions
     
     @objc
-    func noViewTapped(_ sender: UITapGestureRecognizer) {
-        guard let view = sender.view else { return }
+    private func assignButtonTapped(_ sender: UIButton) {
+//        let Alternatives: AlternativesType = sender === hashTagOrientedButton ?
+//            .hashTagOriented : .colorOriented
         
-        if view == noView {
-            selectedViewUpdate(
-                selectedView: noView,
-                selectedImageView: noImageView,
-                selectedLabel: noLabel)
-            
-            unSelectedViewUpdate(
-                unSelectedView: yesView,
-                unSelectedImageView: yesImageView,
-                unSelectedLabel: yesLabel
-            )
-            
-            requirementTextView.isHidden = true
-            placeholder.isHidden = true
-            nextButton.isActive = true
-        } else {
-            selectedViewUpdate(
-                selectedView: yesView,
-                selectedImageView: yesImageView,
-                selectedLabel: yesLabel
-            )
-            
-            unSelectedViewUpdate(
-                unSelectedView: noView,
-                unSelectedImageView: noImageView,
-                unSelectedLabel: noLabel
-            )
-            
-            requirementTextView.isHidden = false
-            
-            if viewModel.savedText.count == 0 {
-                nextButton.isActive = false
-                placeholder.isHidden = false
-            }
-        }
+//        viewModel.getAlternatives(alternatives: Alternatives)
     }
     
     @objc
@@ -278,42 +163,20 @@ extension PackagingSelectionViewController {
             $0.trailing.equalToSuperview().inset(91)
         }
         
-        noImageView.snp.makeConstraints {
-            $0.leading.equalTo(noView.snp.leading).offset(18)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
-        }
-        
-        noLabel.snp.makeConstraints {
-            $0.leading.equalTo(noImageView.snp.trailing).offset(8)
-            $0.centerY.equalToSuperview()
-        }
-        
-        noView.snp.makeConstraints {
+        managerAssignButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
-        yesImageView.snp.makeConstraints {
-            $0.leading.equalTo(yesView.snp.leading).offset(18)
-            $0.centerY.equalToSuperview()
-            $0.size.equalTo(24)
-        }
-        
-        yesLabel.snp.makeConstraints {
-            $0.leading.equalTo(yesImageView.snp.trailing).offset(8)
-            $0.centerY.equalToSuperview()
-        }
-        
-        yesView.snp.makeConstraints {
-            $0.top.equalTo(noView.snp.bottom).offset(12)
+        myselfAssignButton.snp.makeConstraints {
+            $0.top.equalTo(managerAssignButton.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
         requirementTextView.snp.makeConstraints {
-            $0.top.equalTo(yesView.snp.bottom).offset(16)
+            $0.top.equalTo(myselfAssignButton.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(120)
         }
