@@ -418,7 +418,7 @@ class FlowerDetailViewController: UIViewController {
         flowerColorStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine2.snp.bottom).offset(22)
             make.leading.equalTo(flowerLanguageStackView.snp.leading)
-            make.trailing.equalToSuperview().inset(22)
+            make.trailing.equalToSuperview().inset(15)
         }
         
         managementView.snp.makeConstraints { make in
@@ -440,7 +440,7 @@ class FlowerDetailViewController: UIViewController {
     }
     
     func generateColorChipButtons(){
-        for _ in 0...2 {
+        for _ in 0...8 {
             colorButtonList.append(ColorChipButton(colorCode: "#EFEFEF"))
         }
     }
@@ -455,7 +455,7 @@ class FlowerDetailViewController: UIViewController {
         
         for index in 0..<images.count {
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "image.png")
+            imageView.image = UIImage(named: "FlowerImage.png")
             imageView.backgroundColor = .green
             imageView.contentMode = .scaleAspectFit
 

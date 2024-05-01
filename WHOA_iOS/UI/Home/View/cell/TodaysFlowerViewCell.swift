@@ -75,7 +75,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .black
+        imageView.image = UIImage(named: "FlowerImage.png")
         imageView.clipsToBounds = true
         return imageView
     }()

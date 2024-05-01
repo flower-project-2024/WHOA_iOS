@@ -16,7 +16,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .orange
+        imageView.image = UIImage(named: "FlowerImage.png")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = CGColor(red: 199/255, green: 199/255, blue: 199/255, alpha: 1)
@@ -56,7 +56,9 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     let moveToDetailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "ChevronRight")
+        let image = UIImage(named: "ChevronRight")?.withRenderingMode(.alwaysTemplate)
+        imageView.image = image
+        imageView.tintColor = UIColor(named: "Gray07")
         return imageView
     }()
     
@@ -110,7 +112,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         }
         
         moveToDetailImageView.snp.makeConstraints { make in
-            make.leading.equalTo(priceLabel.snp.trailing).offset(3)
+            make.leading.equalTo(priceLabel.snp.trailing).offset(8)
             make.trailing.equalToSuperview().inset(3)
             make.centerY.equalTo(priceLabel.snp.centerY)
         }
