@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "FlowerDeco.png",
+      "filename" : "HomeIllust.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "FlowerDeco@2x.png",
+      "filename" : "HomeIllust@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "FlowerDeco@3x.png",
+      "filename" : "HomeIllust@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
