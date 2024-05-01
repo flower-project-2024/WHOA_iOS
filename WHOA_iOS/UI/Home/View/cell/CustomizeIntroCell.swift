@@ -47,38 +47,10 @@ class CustomizeIntroCell: UICollectionViewCell {
         return label
     }()
     
-//    private let customizeIntroHashTagLabel: HashTagCustomLabel = {
-//        let label = HashTagCustomLabel()
-//        label.text = "커스터마이징 탭"
-//        label.font = UIFont(name: "Pretendard-SemiBold", size: 12)
-//        label.textColor = UIColor(named: "Secondary05")
-//        label.backgroundColor = UIColor(named: "Secondary03")
-//        return label
-//    }()
-//    
-//    private let customYoursLabel: UILabel = {
-//        let label = UILabel()
-//        label.numberOfLines = 2
-//        label.text = "나만의 꽃다발을\n커스터마이징 해보세요!"
-//        label.font = UIFont(name: "Pretendard-Bold", size: 20)
-//        label.setLineSpacing(spacing: 5)
-//        return label
-//    }()
-    
-//    private let customizeDescriptionLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "의미를 담은 특별한 꽃다발을 원한다면\n꽃다발 커스터마이징 서비스가 있어요.\n상황과 꽃말에 따라 개성 넘치는 꽃다발\n을 제작해 보세요!"
-//        label.numberOfLines = 4
-//        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-//        label.textColor = UIColor(named: "Primary")
-//        label.setLineSpacing(spacing: 5)
-//        return label
-//    }()
-    
     let flowerDecoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "FlowerDeco")
+        imageView.image = UIImage(named: "HomeIllust")
         return imageView
     }()
     
@@ -107,7 +79,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     private func addViews(){
         addSubview(customizeStackView)
-//        addSubview(flowerDecoImageView)
+        addSubview(flowerDecoImageView)
         addSubview(customizeButton)
         
         [customizeLabel, bouqetWithWhoaLabel, descriptionLabel].forEach {
@@ -125,10 +97,10 @@ class CustomizeIntroCell: UICollectionViewCell {
             make.top.equalTo(customizeStackView.snp.bottom).offset(23)
         }
         
-//        flowerDecoImageView.snp.makeConstraints { make in
-//            make.top.equalToSuperview().inset(18)
-//            make.trailing.equalToSuperview().inset(11.5)
+        flowerDecoImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
 //            make.leading.equalTo(customizeStackView.snp.trailing).offset(15)
-//        }
+        }
     }
 }
