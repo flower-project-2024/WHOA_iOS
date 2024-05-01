@@ -71,7 +71,6 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
-        //cell.requestTitleLabel.text = savedRequestList[indexPath.item]
         cell.writtenDateLabel.text = "2024.01.12"
         
         cell.selectionStyle = .none
@@ -86,7 +85,6 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("cell selected")
         self.navigationController?.pushViewController(RequestDetailViewController(requestTitle: savedRequestList[indexPath.item]), animated: true)
         return
     }

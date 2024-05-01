@@ -14,21 +14,6 @@ class RequestDetailViewController: UIViewController {
 //    private var viewModel: RequestDetailViewModel!
     
     // MARK: - Views
-//    private let backButton: UIButton = {
-//        let button = UIButton()
-//        button.setImage(UIImage(named: "xmark"), for: .normal)
-//        button.isEnabled = true
-//        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-//        return button
-//    }()
-    
-    lazy var viewTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = requestTitle
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 18)
-        label.textAlignment = .justified
-        return label
-    }()
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -137,8 +122,6 @@ class RequestDetailViewController: UIViewController {
     // MARK: - Actions
     
     @objc func saveAsImageButtonTapped(){
-        print("이미지로 저장 액션 함수 시작")
-        
         ImageSaver().saveAsImage(requestDetailView.transfromToImage()!, target: self) {
             let customAlertVC = CustomAlertViewController(requestTitle: self.requestTitle, alertType: .requestSaveAlert, currentVC: self)
             customAlertVC.modalPresentationStyle = .overFullScreen

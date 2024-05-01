@@ -8,6 +8,7 @@
 import UIKit
 
 class FlowerTypeView: UIView {
+    
     // MARK: - Views
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()

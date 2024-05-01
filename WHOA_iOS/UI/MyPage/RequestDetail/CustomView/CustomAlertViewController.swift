@@ -46,7 +46,6 @@ class CustomAlertViewController: UIViewController {
             attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
             label.attributedText = attributedText
         }
-        print("---custom alert vc, titleLabel: \(fullTitle)")
         
         return label
     }()
@@ -122,7 +121,6 @@ class CustomAlertViewController: UIViewController {
         self.requestTitle = requestTitle
         self.alertType = alertType
         self.myPageVC = myPageVC
-        print("---custom alert vc, requestTitle:\(requestTitle), alertType: \(alertType)")
     }
     
     override func viewDidLoad() {
@@ -152,7 +150,6 @@ class CustomAlertViewController: UIViewController {
         }
         
         titleLabel.snp.makeConstraints { make in
-            //make.horizontalEdges.equalToSuperview().inset(50)
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().inset(70)
         }
@@ -164,7 +161,6 @@ class CustomAlertViewController: UIViewController {
         
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(50)
-//            make.centerX.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(24)
             make.bottom.equalToSuperview().inset(24)
         }
@@ -172,20 +168,18 @@ class CustomAlertViewController: UIViewController {
     
     // MARK: - Actions
     @objc func cancelBtnTapped(){
-        print("===요구서 삭제/수정 취소===")
         dismiss(animated: false)
     }
     
     @objc func confirmBtnTapped(){
-        print("===요구서 삭제/수정 확인===")
         dismiss(animated: false)
         
         if alertType == AlertType.modify {
             //TODO: 구매 목적 페이지로 이동..
-            let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
-            buyingIntentVC.modalPresentationStyle = .fullScreen
-            
-            myPageVC!.present(buyingIntentVC, animated: true)
+//            let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
+//            buyingIntentVC.modalPresentationStyle = .fullScreen
+//            
+//            myPageVC!.present(buyingIntentVC, animated: true)
         }
         else if alertType == .delete {
             // TODO: 요구서 삭제 api 요청

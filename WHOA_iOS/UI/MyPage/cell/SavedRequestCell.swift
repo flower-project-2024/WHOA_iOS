@@ -19,14 +19,12 @@ class SavedRequestCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        //imageView.layer.masksToBounds = true
         imageView.backgroundColor = .blue
         return imageView
     }()
     
     private let detailView: UIView = {
         let view = UIView()
-        //view.clipsToBounds = true
         view.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1) // gray02
         return view
     }()
@@ -34,7 +32,6 @@ class SavedRequestCell: UITableViewCell {
     lazy var requestTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Medium", size: 16)
-        //label.text = requestTitle
         label.numberOfLines = 1
         return label
     }()
@@ -56,16 +53,12 @@ class SavedRequestCell: UITableViewCell {
     
     lazy var modifyButton: RequestCustomButton = {
         let button = RequestCustomButton(title: "수정")
-        //button.configuration?.attributedTitle = AttributedString.init("수정")
-        //button.setTitle("수정", for: .normal)
         button.addTarget(self, action: #selector(modifyBtnTapped), for: .touchUpInside)
         return button
     }()
     
     lazy var deleteButton: RequestCustomButton = {
         let button = RequestCustomButton(title: "삭제")
-        //button.configuration?.title = "삭제"
-        //button.setTitle("삭제", for: .normal)
         button.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         return button
     }()
@@ -101,8 +94,6 @@ class SavedRequestCell: UITableViewCell {
         
         detailView.addSubview(requestTitleLabel)
         detailView.addSubview(writtenDateLabel)
-//        detailView.addSubview(modifyButton)
-//        detailView.addSubview(deleteButton)
         detailView.addSubview(buttonStackView)
         
         buttonStackView.addArrangedSubview(modifyButton)
@@ -148,7 +139,6 @@ class SavedRequestCell: UITableViewCell {
     
     // MARK: - Actions
     @objc func modifyBtnTapped(){
-        print("===요구서 수정===")
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         
         customAlertVC.modalPresentationStyle = .overFullScreen
@@ -156,7 +146,6 @@ class SavedRequestCell: UITableViewCell {
     }
     
     @objc func deleteBtnTapped(){
-        print("===요구서 삭제===")
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
         
         customAlertVC.modalPresentationStyle = .overFullScreen
