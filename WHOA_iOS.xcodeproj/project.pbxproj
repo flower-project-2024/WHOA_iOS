@@ -19,6 +19,7 @@
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
 		5411BA382BE0DEA5002A85F0 /* PackagingAssignType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */; };
 		5411BA3A2BE11DD8002A85F0 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA392BE11DD8002A85F0 /* UITextView+.swift */; };
+		5411BA3C2BE27795002A85F0 /* PackagingSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA3B2BE27795002A85F0 /* PackagingSelectionModel.swift */; };
 		5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */; };
 		5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA722BD5C12A006AA160 /* PurposeView.swift */; };
 		5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */; };
@@ -129,6 +130,7 @@
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
 		5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingAssignType.swift; sourceTree = "<group>"; };
 		5411BA392BE11DD8002A85F0 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
+		5411BA3B2BE27795002A85F0 /* PackagingSelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingSelectionModel.swift; sourceTree = "<group>"; };
 		5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryModel.swift; sourceTree = "<group>"; };
 		5413AA722BD5C12A006AA160 /* PurposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeView.swift; sourceTree = "<group>"; };
 		5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewModel.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 			children = (
 				54D6B7E32B9CAA7200628FF7 /* PackagingSelectionViewController.swift */,
 				54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */,
+				5411BA3B2BE27795002A85F0 /* PackagingSelectionModel.swift */,
 			);
 			path = PackagingSelection;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,
+				5411BA3C2BE27795002A85F0 /* PackagingSelectionModel.swift in Sources */,
 				54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */,
 				54EB17DC2BA1D48F00717E6F /* PhotoAuthService.swift in Sources */,
 				54EB180B2BBD686300717E6F /* UIViewController+.swift in Sources */,
