@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 
 class CheapFlowerView: UIView {
+    
     // MARK: - Views
     let cheapFlowerLabel: UILabel = {
         let label = UILabel()
@@ -31,6 +32,7 @@ class CheapFlowerView: UIView {
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
         tableView.separatorStyle = .none
         tableView.rowHeight = 86
+        tableView.isScrollEnabled = false
         return tableView
     }()
     
