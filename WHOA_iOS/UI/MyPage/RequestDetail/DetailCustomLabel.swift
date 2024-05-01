@@ -7,6 +7,9 @@
 
 import UIKit
 
+/**
+ * home에서 만든 hashtag custom label과 똑같음!
+ */
 class DetailCustomLabel: UILabel {
     private var padding = UIEdgeInsets(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0)
     
