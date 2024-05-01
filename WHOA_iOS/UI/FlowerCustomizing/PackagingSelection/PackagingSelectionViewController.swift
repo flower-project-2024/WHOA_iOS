@@ -31,7 +31,7 @@ class PackagingSelectionViewController: UIViewController {
         return button
     }()
     
-    private let requirementTextView: UITextView = {
+    private lazy var requirementTextView: UITextView = {
         let view = UITextView()
         view.font = .Pretendard()
         view.textColor = .black
@@ -42,6 +42,7 @@ class PackagingSelectionViewController: UIViewController {
         view.layer.borderColor = UIColor.gray4.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         view.isHidden = true
+        view.delegate = self
         return view
     }()
     
@@ -50,7 +51,6 @@ class PackagingSelectionViewController: UIViewController {
         label.text = "요구사항을 작성해주세요."
         label.textColor = .gray6
         label.font = .Pretendard()
-        label.isHidden = true
         return label
     }()
     
@@ -107,30 +107,45 @@ class PackagingSelectionViewController: UIViewController {
         view.addSubview(myselfAssignButton)
         
         view.addSubview(requirementTextView)
-        view.addSubview(placeholder)
+        requirementTextView.addSubview(placeholder)
         
         view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
-        
-        requirementTextView.delegate = self
     }
     
     private func bind() {
-        viewModel.savedTextDidChanged = { [weak self] savedText in
-            self?.nextButton.isActive = savedText.count > 0 ? true : false
-        }
+        viewModel.$packagingSelectionModel
+            .receive(on: RunLoop.main)
+            .sink { [weak self] model in
+                self?.updateUI(with: model)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$isNextButtonActive
+            .receive(on: RunLoop.main)
+            .assign(to: \.isActive, on: nextButton)
+            .store(in: &viewModel.cancellables)
+    }
+    
+    private func updateUI(with model: PackagingSelectionModel) {
+        managerAssignButton.isSelected = model.packagingAssignButtonType == .managerAssign
+        myselfAssignButton.isSelected = model.packagingAssignButtonType == .myselfAssign
+        requirementTextView.isHidden = model.packagingAssignButtonType != .myselfAssign
+        
+        managerAssignButton.configuration = managerAssignButton.configure(isSelected: managerAssignButton.isSelected)
+        myselfAssignButton.configuration = myselfAssignButton.configure(isSelected: myselfAssignButton.isSelected)
     }
     
     // MARK: - Actions
     
     @objc
     private func assignButtonTapped(_ sender: UIButton) {
-//        let Alternatives: AlternativesType = sender === hashTagOrientedButton ?
-//            .hashTagOriented : .colorOriented
+        let assignType: PackagingAssignType = sender === managerAssignButton ?
+            .managerAssign : .myselfAssign
         
-//        viewModel.getAlternatives(alternatives: Alternatives)
+        viewModel.getPackagingAssign(packagingAssign: assignType)
     }
     
     @objc
@@ -182,7 +197,7 @@ extension PackagingSelectionViewController {
         }
         
         placeholder.snp.makeConstraints {
-            $0.top.leading.equalTo(requirementTextView).offset(20)
+            $0.top.leading.equalToSuperview().offset(20)
         }
         
         borderLine.snp.makeConstraints {
@@ -223,7 +238,6 @@ extension PackagingSelectionViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.savedText = textView.text
-        print(viewModel.savedText)
+        viewModel.updateText(textView.text)
     }
 }
