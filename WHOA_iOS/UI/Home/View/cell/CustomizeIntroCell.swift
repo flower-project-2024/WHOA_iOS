@@ -100,7 +100,6 @@ class CustomizeIntroCell: UICollectionViewCell {
         flowerDecoImageView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.trailing.equalToSuperview()
-//            make.leading.equalTo(customizeStackView.snp.trailing).offset(15)
         }
     }
 }

@@ -87,7 +87,6 @@ class CheapFlowerInfoCell: UITableViewCell {
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview()
-            //make.width.equalTo(70)
             make.height.equalTo(flowerImageView.snp.width).multipliedBy(1)  // 1:1 비율
         }
         
@@ -108,7 +107,6 @@ class CheapFlowerInfoCell: UITableViewCell {
         
         priceLabel.snp.makeConstraints { make in
             make.centerY.equalTo(flowerImageView.snp.centerY)
-            //make.trailing.equalTo(moveToDetailImageView.snp.leading).inset(8)
         }
         
         moveToDetailImageView.snp.makeConstraints { make in

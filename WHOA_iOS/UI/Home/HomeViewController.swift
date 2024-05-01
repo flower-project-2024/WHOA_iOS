@@ -170,7 +170,6 @@ extension HomeViewController : UITableViewDataSource {
     // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
-//        cell.flowerImageView.image = UIImage(systemName: "ticket")
         cell.rankingLabel.text = "\(indexPath.row + 1)"
         return cell
     }

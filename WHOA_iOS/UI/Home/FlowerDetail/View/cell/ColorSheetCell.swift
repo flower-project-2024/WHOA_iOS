@@ -63,17 +63,6 @@ class ColorSheetCell: UICollectionViewCell {
     
     // MARK: - Initialization
     
-//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        
-//        layer.cornerRadius = 8
-//        backgroundColor = UIColor(named: "Gray02")
-//        layer.masksToBounds = true
-//        
-//        addViews()
-//        setupConstraints()
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -89,29 +78,8 @@ class ColorSheetCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        
-//        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0))
-//    }
-    
     // MARK: - Helpers
-    
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        if selected {
-//            contentView.layer.borderWidth = 1
-//            contentView.backgroundColor = UIColor(hexCode: "D5F9EF")
-//            contentView.layer.borderColor = UIColor.secondary02.cgColor
-//        }
-//        else {
-//            contentView.layer.borderWidth = 0
-//            contentView.layer.borderColor = .none
-//            contentView.backgroundColor = .gray02
-//        }
-//    }
-    
+        
     func setupData(colorCode: String, colorDescription: String) {
         colorChipView.backgroundColor = UIColor.init(hexCode: colorCode)
         colorDescriptionLabel.text = colorDescription
@@ -130,7 +98,6 @@ class ColorSheetCell: UICollectionViewCell {
     private func setupConstraints(){
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            //make.top.bottom.equalToSuperview().inset(17)
             make.centerY.equalToSuperview()
         }
         

@@ -45,6 +45,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "튤립"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
+        label.textColor = UIColor(named: "Primary")
         return label
     }()
     
@@ -52,6 +53,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Tulip"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.textColor = UIColor(named: "Primary")
         return label
     }()
     
@@ -249,9 +251,7 @@ class FlowerDetailViewController: UIViewController {
         addSubViews()
         setupConstraints()
         setPageControlCount(imageList.count)
-        setScrollViewContent(images: ["1", "2", "3"])  // 스크롤뷰에 이미지 세팅
-        
-        //print(managementView.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)))
+        setScrollViewContent(images: imageList)  // 스크롤뷰에 이미지 세팅
     }
     
     override func viewDidLayoutSubviews() {
@@ -456,12 +456,7 @@ class FlowerDetailViewController: UIViewController {
         for index in 0..<images.count {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "FlowerImage.png")
-            imageView.backgroundColor = .green
             imageView.contentMode = .scaleAspectFit
-
-            print("=== imageScrollView frame ===")
-            print(imageScrollView.frame)
-            print(imageScrollView.bounds.width)
             
             let xPosition = imageScrollView.frame.width * CGFloat(index)
             
@@ -477,8 +472,6 @@ class FlowerDetailViewController: UIViewController {
     }
     // MARK: - Actions
     @objc func decorateBtnTapped(){
-        print("===이 꽃으로 꾸미기===")
-        
         let colorSheetVC = ColorSheetViewController()
         
         colorSheetVC.modalPresentationStyle = .pageSheet
@@ -509,7 +502,6 @@ extension FlowerDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPage = Int(scrollView.contentOffset.x/scrollView.frame.size.width)
         imagePageControl.currentPage = currentPage
-//        self.imageNumberLabel.text = "\(imagePageControl.currentPage)/\(imagePageControl.numberOfPages)"
     }
 }
 

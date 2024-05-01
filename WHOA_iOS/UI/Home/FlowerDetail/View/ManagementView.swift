@@ -8,6 +8,7 @@
 import UIKit
 
 class ManagementView: UIView {
+    
     // MARK: - Properties
     static var cellSize = CGSize(width: 200, height: 258)
     static let minimumLineSpacing: CGFloat = 12.0
@@ -17,6 +18,7 @@ class ManagementView: UIView {
         let label = UILabel()
         label.text = "이렇게 관리해주세요!"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.textColor = UIColor(named: "Primary")
         return label
     }()
     
@@ -31,7 +33,6 @@ class ManagementView: UIView {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-    //    view.scrollIndicatorInsets = UIEdgeInsets(top: -2, left: 0, bottom: 0, right: 4)
         collectionView.contentInset = .zero
         collectionView.backgroundColor = .clear
         collectionView.clipsToBounds = true

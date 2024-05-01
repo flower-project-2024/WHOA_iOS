@@ -138,8 +138,10 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     func addAttributeToFlowerName(name: String){
         let array = name.split(separator: "\n")
         let attributeText = NSMutableAttributedString(string: name)
-        let range = (name as NSString).range(of: String(array[1]))
-        attributeText.addAttribute(.foregroundColor, value: UIColor(named: "Secondary04")!, range: range)
+        let range0 = (name as NSString).range(of: String(array[0]))
+        let range1 = (name as NSString).range(of: String(array[1]))
+        attributeText.addAttribute(.foregroundColor, value: UIColor(named: "Primary")!, range: range0)
+        attributeText.addAttribute(.foregroundColor, value: UIColor(named: "Secondary04")!, range: range1)
         flowerNameLabel.attributedText = attributeText
     }
 }

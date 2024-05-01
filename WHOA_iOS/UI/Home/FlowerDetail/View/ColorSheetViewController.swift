@@ -120,7 +120,6 @@ extension ColorSheetViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("selected at \(indexPath.row)")
         selectedColorIndex = indexPath.row
     }
     

@@ -28,7 +28,6 @@ class CustomButton: UIButton {
         
         // 오늘의 추천 꽃 버튼인 경우
         if buttonType == .todaysFlower {
-//            config.image?.withTintColor(UIColor(named: "Gray01")!)
             config.baseBackgroundColor = UIColor(named: "Primary")
             config.baseForegroundColor = UIColor(named: "Gray01")
         }

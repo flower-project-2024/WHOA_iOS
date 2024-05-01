@@ -23,6 +23,7 @@ class ManagementCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "탈수 잦음"
         label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.textColor = UIColor(named: "Primary")
         return label
     }()
     
@@ -31,25 +32,16 @@ class ManagementCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.textColor = UIColor(named: "Primary")
         label.setLineSpacing(spacing: 5)
         return label
     }()
     
     // MARK: - Initialization
     
-//    init(/*title: String, content: String*/){
-//        super.init(frame: .zero)
-//        
-////        managementTitleLabel.text = title
-////        managementContentLabel.text = content
-//        
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("collectionviewcell: \(frame)")
         
-        //self.backgroundColor = .green
         layer.masksToBounds = true
         layer.cornerRadius = 6
         layer.borderWidth = 1
