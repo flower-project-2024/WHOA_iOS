@@ -227,6 +227,9 @@ class RequestDetailView: UIView {
         super.init(frame: frame)
         
         backgroundColor = .white
+        layer.borderColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1).cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 10
         addViews()
         setupConstraints()
     }
@@ -284,19 +287,19 @@ class RequestDetailView: UIView {
     
     private func setupConstraints(){
         buyingIntentStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(30)
-            make.leading.equalToSuperview().inset(45)
+            make.top.equalToSuperview().inset(28)
+            make.leading.equalToSuperview().inset(24)
         }
         
         borderLine1.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(17)
             make.top.equalTo(buyingIntentStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         flowerColorStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine1.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalTo(buyingIntentStackView)
         }
         
         flowerColorChipView1.snp.makeConstraints { make in
@@ -315,59 +318,59 @@ class RequestDetailView: UIView {
         }
         
         borderLine2.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(borderLine1)
             make.top.equalTo(flowerColorStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         flowerTypeStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine2.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalTo(flowerColorStackView)
         }
         
         borderLine3.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(borderLine2)
             make.top.equalTo(flowerTypeStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         alternativesStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine3.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalTo(flowerTypeStackView)
         }
         
         borderLine4.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(borderLine3)
             make.top.equalTo(alternativesStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         wrappingStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine4.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalTo(alternativesStackView)
         }
         
         borderLine5.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(borderLine4)
             make.top.equalTo(wrappingStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         priceStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine5.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
+            make.leading.equalTo(wrappingStackView)
         }
         
         borderLine6.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalTo(borderLine5)
             make.top.equalTo(priceStackView.snp.bottom).offset(20)
             make.height.equalTo(1)
         }
         
         additionalRequirementStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine6.snp.bottom).offset(20)
-            make.leading.equalToSuperview().inset(45)
-            make.bottom.equalToSuperview().inset(32)
+            make.leading.equalTo(priceStackView)
+            make.bottom.equalToSuperview().inset(28)
         }
         
         referenceImageView1.snp.makeConstraints { make in

@@ -26,7 +26,7 @@ class RequestDetailViewController: UIViewController {
         let label = UILabel()
         label.text = requestTitle
         label.font = UIFont(name: "Pretendard-SemiBold", size: 18)
-        label.textAlignment = .left
+        label.textAlignment = .justified
         return label
     }()
     
@@ -65,22 +65,14 @@ class RequestDetailViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         self.requestTitle = requestTitle
-//        self.viewModel = viewModel
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //    init(viewModel: RequestDetailViewModel) {
-//        self.viewModel = viewModel
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,14 +86,18 @@ class RequestDetailViewController: UIViewController {
     // MARK: - Helpers
     private func setupNavigation(){
         navigationController?.navigationBar.tintColor = .black
-//        self.navigationItem.title = requestTitle
-//        self.navigationController?.navigationBar.topItem?.title = ""
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 18)!]
+        self.navigationItem.title = requestTitle
+        self.navigationController?.navigationBar.topItem?.title = ""
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 18)!]
         
+        //TODO: xmark -> chevron right으로 수정해야 함!
         let backbutton = UIBarButtonItem(image: UIImage(named: "xmark"), style: .done, target: self, action: #selector(goBack))
+        
+        // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-//        self.navigationItem.leftBarButtonItem = backbutton
-        self.navigationItem.leftBarButtonItems = [backbutton, UIBarButtonItem(customView: viewTitleLabel)]
+        self.navigationItem.leftBarButtonItem = backbutton
     }
     
     private func addViews(){
@@ -127,13 +123,13 @@ class RequestDetailViewController: UIViewController {
         }
         
         requestDetailView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
         }
         
         saveAsImageButton.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(requestDetailView.snp.bottom)
+            make.top.equalTo(requestDetailView.snp.bottom).offset(28)
             make.bottom.equalToSuperview().inset(10)
         }
     }
@@ -159,3 +155,6 @@ class RequestDetailViewController: UIViewController {
 extension RequestDetailViewController: UIScrollViewDelegate {
     
 }
+
+// MARK: - Extension; UIGestureRecognizer
+extension RequestDetailViewController: UIGestureRecognizerDelegate {}
