@@ -9,7 +9,9 @@ import UIKit
 
 class FlowerPriceViewController: UIViewController {
     
-    // MARK: - Initialize
+    // MARK: - Properties
+    
+    private let viewModel = FlowerPriceViewModel()
     
     // MARK: - UI
     
@@ -74,6 +76,7 @@ class FlowerPriceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
     }
     
@@ -95,7 +98,14 @@ class FlowerPriceViewController: UIViewController {
     }
     
     private func bind() {
-        
+        viewModel.$flowerPriceModel
+            .receive(on: RunLoop.main)
+            .print()
+            .sink { [weak self] model in
+                self?.valueLabel.text =
+                "\(model.minPrice.decimalFormattedString()) ~ \(model.maxPrice.decimalFormattedString())원"
+            }
+            .store(in: &viewModel.cancellables)
     }
     
     // MARK: - Actions
@@ -104,20 +114,7 @@ class FlowerPriceViewController: UIViewController {
     private func changeValue() {
         nextButton.isActive = true
         rangeSlider.trackTintColor = .second1
-        
-        let maxNumber = self.rangeSlider.upper
-        let minNumber = self.rangeSlider.lower
-        
-        let roundedmaxNumber = Int(floor(Double(maxNumber) / 1000.0) * 1000)
-        let roundedminNumber = Int(floor(Double(minNumber) / 1000.0) * 1000)
-        
-        let formatter = NumberFormatter()
-        
-        formatter.numberStyle = .decimal
-        guard let formattedMaxNumber = formatter.string(from: NSNumber(value: roundedmaxNumber / 1000 * 1000)) else { return }
-        guard let formattedMinNumber = formatter.string(from: NSNumber(value: roundedminNumber / 1000 * 1000)) else { return }
-        
-        self.valueLabel.text = "\(formattedMinNumber) ~ \(formattedMaxNumber)원"
+        viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
       }
     
     @objc
@@ -157,7 +154,8 @@ extension FlowerPriceViewController {
         
         rangeSlider.snp.makeConstraints {
             $0.top.equalTo(valueLabel.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(21)
         }
         
