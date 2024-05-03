@@ -11,16 +11,14 @@ class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
-    var customizingSummaryModel: CustomizingSummaryModel = CustomizingSummaryModel(
-        purpose: .friendship,
-        numberOfColors: .두가지,
-        colors: ["FF0000", "FFFFFF"],
-        flowers: [flowers(photo: "", flowerName: "장미", hashTag: ["사랑", "믿음"])],
-        alternative: "색감 위주",
-        packaging: "사장님께 맡길게요",
-        price: "20,000~30,000원",
-        requirement: "적당히 만들어주세요",
-        requirementPhoto: []
-    )
+    var customizingSummaryModel: CustomizingSummaryModel =
+    CustomizingSummaryModel(purpose: .birthday,
+                            numberOfColors: .두가지,
+                            colors: ["FF0000", "FFFFFF"],
+                            flowers: [Flower(photo: "", name: "장미", hashTag: ["사랑", "믿음"])],
+                            alternative: .colorOriented,
+                            assign: Assign(packagingAssignType: .myselfAssign, text: "분홍분홍하게"),
+                            priceRange: "20000 ~ 100000",
+                            requirement: Requirement(text: "싱싱한걸로", photos: []))
     
 }

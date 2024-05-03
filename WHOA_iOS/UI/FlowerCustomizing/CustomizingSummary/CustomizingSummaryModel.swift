@@ -11,28 +11,38 @@ struct CustomizingSummaryModel {
     let purpose: PurposeType
     let numberOfColors: NumberOfColorsType
     let colors: [String]
-    let flowers: [flowers]
-    let alternative: String
-    let packaging: String
-    let price: String
-    let requirement: String
-    let requirementPhoto: [String]
+    let flowers: [Flower]
+    let alternative: AlternativesType
+    let assign: Assign
+    let priceRange: String
+    let requirement: Requirement?
     
-    init(purpose: PurposeType, numberOfColors: NumberOfColorsType, colors: [String], flowers: [flowers], alternative: String, packaging: String, price: String, requirement: String, requirementPhoto: [String]) {
+    init(purpose: PurposeType, numberOfColors: NumberOfColorsType,
+         colors: [String], flowers: [Flower], alternative: AlternativesType,
+         assign: Assign, priceRange: String, requirement: Requirement?) {
         self.purpose = purpose
         self.numberOfColors = numberOfColors
         self.colors = colors
         self.flowers = flowers
         self.alternative = alternative
-        self.packaging = packaging
-        self.price = price
+        self.assign = assign
+        self.priceRange = priceRange
         self.requirement = requirement
-        self.requirementPhoto = requirementPhoto
     }
 }
 
-struct flowers {
+struct Flower {
     let photo: String
-    let flowerName: String
+    let name: String
     let hashTag: [String]
+}
+
+struct Assign {
+    let packagingAssignType: PackagingAssignType
+    let text: String
+}
+
+struct Requirement {
+    let text: String?
+    let photos: [String?]
 }
