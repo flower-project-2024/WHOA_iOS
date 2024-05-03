@@ -14,7 +14,7 @@ class ManagementView: UIView {
     static let minimumLineSpacing: CGFloat = 12.0
     
     // MARK: - Views
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "이렇게 관리해주세요!"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)

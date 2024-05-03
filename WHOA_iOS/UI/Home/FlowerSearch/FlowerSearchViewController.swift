@@ -9,7 +9,7 @@ import UIKit
 
 class FlowerSearchViewController: UIViewController {
     // MARK: - Views
-    lazy var searchTableView: UITableView = {
+    private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
@@ -19,7 +19,7 @@ class FlowerSearchViewController: UIViewController {
         return tableView
     }()
     
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         //searchBar.placeholder = "어떤 꽃을 찾으시나요?"
         //searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)

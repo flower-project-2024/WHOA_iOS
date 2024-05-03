@@ -33,7 +33,7 @@ class ColorSheetCell: UICollectionViewCell {
     
     // MARK: - Views
     
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -42,7 +42,7 @@ class ColorSheetCell: UICollectionViewCell {
         return stackView
     }()
     
-    lazy var colorChipView: UIView = {
+    private lazy var colorChipView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.clipsToBounds = true
@@ -51,7 +51,7 @@ class ColorSheetCell: UICollectionViewCell {
         return view
     }()
     
-    lazy var colorDescriptionLabel: UILabel = {
+    private lazy var colorDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "사랑의 고백"
         label.textColor = UIColor(named: "Primary")
@@ -83,8 +83,6 @@ class ColorSheetCell: UICollectionViewCell {
     func setupData(colorCode: String, colorDescription: String) {
         colorChipView.backgroundColor = UIColor.init(hexCode: colorCode)
         colorDescriptionLabel.text = colorDescription
-        print("cell: \(isUserInteractionEnabled)")
-        print("contentview: \(contentView.isUserInteractionEnabled)")
     }
     
     private func addViews(){

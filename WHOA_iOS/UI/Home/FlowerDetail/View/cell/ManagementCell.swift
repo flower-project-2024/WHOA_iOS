@@ -12,14 +12,14 @@ class ManagementCell: UICollectionViewCell {
     static let identifier = "ManagementColletionViewCell"
     
     // MARK: - Views
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "ManageImage.png")
         return imageView
     }()
     
-    lazy var managementTitleLabel: UILabel = {
+    private lazy var managementTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "탈수 잦음"
         label.font = UIFont(name: "Pretendard-Bold", size: 16)
@@ -27,7 +27,7 @@ class ManagementCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var managementContentLabel: UILabel = {
+    private lazy var managementContentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"

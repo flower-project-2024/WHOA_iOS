@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     // MARK: - Views
-    lazy var carouselView: UICollectionView = {
+    private lazy var carouselView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumLineSpacing = 0
         flowlayout.minimumInteritemSpacing = 0
@@ -23,9 +23,9 @@ class HomeViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    var cheapFlowerView = CheapFlowerView()
+    private var cheapFlowerView = CheapFlowerView()
     
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
         searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -41,12 +41,10 @@ class HomeViewController: UIViewController {
         return searchBar
     }()
     
-    var cellSize: CGSize = .zero
-    var timer: Timer? = Timer()
-    
-    let minimumLineSpacing: CGFloat = 0
-    
-    var collectionViewCellCount: [String] = ["0", "1"]
+    private var cellSize: CGSize = .zero
+    private var timer: Timer? = Timer()
+    private let minimumLineSpacing: CGFloat = 0
+    private var collectionViewCellCount: [String] = ["0", "1"]
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -149,7 +147,7 @@ class HomeViewController: UIViewController {
         })
     }
     
-    func getImageWithCustomColor(color: UIColor, size: CGSize) -> UIImage {
+    private func getImageWithCustomColor(color: UIColor, size: CGSize) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()

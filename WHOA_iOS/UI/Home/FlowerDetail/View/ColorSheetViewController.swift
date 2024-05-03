@@ -23,7 +23,7 @@ class ColorSheetViewController: UIViewController {
     
     // MARK: - Views
     
-    lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 0

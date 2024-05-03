@@ -13,7 +13,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     static let identifier = "AppInfoCell"
     
     // MARK: - Views
-    let customizeStackView: UIStackView = {
+    private let customizeStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 6
@@ -21,7 +21,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         return stackView
     }()
     
-    let customizeLabel: UILabel = {
+    private let customizeLabel: UILabel = {
         let label = UILabel()
         label.text = "커스터마이징 탭"
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
@@ -29,7 +29,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         return label
     }()
     
-    let bouqetWithWhoaLabel: UILabel = {
+    private let bouqetWithWhoaLabel: UILabel = {
         let label = UILabel()
         label.text = "WHOA로 만드는\n나만의 꽃다발"
         label.numberOfLines = 2
@@ -39,7 +39,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말을 담아 내 마음을 전해보세요"
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
@@ -47,14 +47,14 @@ class CustomizeIntroCell: UICollectionViewCell {
         return label
     }()
     
-    let flowerDecoImageView: UIImageView = {
+    private let flowerDecoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "HomeIllust")
         return imageView
     }()
     
-    let customizeButton: CustomButton = {
+    private let customizeButton: CustomButton = {
         let button = CustomButton(buttonType: .customizing)
         return button
     }()

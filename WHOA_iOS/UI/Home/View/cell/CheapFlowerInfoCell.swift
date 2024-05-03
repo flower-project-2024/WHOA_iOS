@@ -13,7 +13,8 @@ class CheapFlowerInfoCell: UITableViewCell {
     static let identifier = "CheapFlowerInfoCell"
         
     // MARK: - Views
-    let flowerImageView: UIImageView = {
+    
+    private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "FlowerImage.png")
@@ -31,14 +32,14 @@ class CheapFlowerInfoCell: UITableViewCell {
         return label
     }()
     
-    let flowerNameLabel: UILabel = {
+    private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         label.text = "히아신스"
         return label
     }()
     
-    let flowerLanguageLabel: UILabel = {
+    private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Medium", size: 12)
         label.text = "영원한 사랑"
@@ -46,7 +47,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         return label
     }()
     
-    let priceLabel: UILabel = {
+    private let priceLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
         label.text = "2100원"
@@ -54,7 +55,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         return label
     }()
     
-    let moveToDetailImageView: UIImageView = {
+    private let moveToDetailImageView: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(named: "ChevronRight")?.withRenderingMode(.alwaysTemplate)
         imageView.image = image

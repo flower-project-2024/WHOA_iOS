@@ -11,7 +11,7 @@ import SnapKit
 class CheapFlowerView: UIView {
     
     // MARK: - Views
-    let cheapFlowerLabel: UILabel = {
+    private let cheapFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "이번 주 저렴한 꽃 랭킹"
         label.numberOfLines = 0
@@ -19,7 +19,7 @@ class CheapFlowerView: UIView {
         return label
     }()
     
-    let baseDateLabel: UILabel = {
+    private let baseDateLabel: UILabel = {
         let label = UILabel()
         label.text = "4월 첫째 주 기준"
         label.font = UIFont(name: "Pretendard-Regular", size: 12)

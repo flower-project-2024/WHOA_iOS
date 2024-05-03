@@ -33,7 +33,7 @@ class FlowerDetailViewController: UIViewController {
         return pageControl
     }()
 
-    let flowerNameStackView: UIStackView = {
+    private let flowerNameStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 8
@@ -41,7 +41,7 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
-    let flowerKoreanNameLabel: UILabel = {
+    private let flowerKoreanNameLabel: UILabel = {
         let label = UILabel()
         label.text = "튤립"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
@@ -49,7 +49,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let flowerEnglishNameLabel: UILabel = {
+    private let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Tulip"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
@@ -57,13 +57,13 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let borderLine: UIView = {
+    private let borderLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
         return view
     }()
     
-    let flowerDescTitleLabel: UILabel = {
+    private let flowerDescTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "시대불문 모두에게 사랑받는 꽃, 튤립"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
@@ -71,7 +71,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    lazy var flowerDescContentLabel: UILabel = {
+    private lazy var flowerDescContentLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃 이름을 잘 모르는 사람이라도 누구나 아는 꽃이 튤립일지 모른다. 매년 신품종이 잇따라 등장하며 추운 겨울부터 꽃집 앞을 장식한다. 홑꽃형, 겹꽃형, 백합형, 페럿형, 프린지형 등 화형이 다양하며 색상도 풍부하다. 모든 어레인지먼트에 적합한 화재로, 빛이나 온도에 따라 꽃이 벌어졌다가 오므라들기를 반복하며 색다른 이미지를 연출한다. 튤립만으로 일종꽂이해도 좋고, 다양한 종류를 혼합해 유리 화기 등에 꽂아도 근사하다."
         label.numberOfLines = 2  // 초기 줄 수는 2 (접은 상태)
@@ -82,7 +82,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let flowerDescToggleButton: UIButton = {
+    private let flowerDescToggleButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         button.setTitleColor(.gray06, for: .normal)
@@ -100,13 +100,13 @@ class FlowerDetailViewController: UIViewController {
         return button
     }()
     
-    let thickBorderLine: UIView = {
+    private let thickBorderLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(named: "Gray02")
         return view
     }()
     
-    let infoLabel: UILabel = {
+    private let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "정보"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
@@ -114,7 +114,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let birthFlowerStackView: UIStackView = {
+    private let birthFlowerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -122,7 +122,7 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
-    let birthFlowerLabel: UILabel = {
+    private let birthFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "탄생화"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
@@ -130,7 +130,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let birthFlowerDateLabel: HashTagCustomLabel = {
+    private let birthFlowerDateLabel: HashTagCustomLabel = {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "8월 15일"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -138,13 +138,13 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let borderLine1: UIView = {
+    private let borderLine1: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
         return view
     }()
     
-    let flowerLanguageStackView: UIStackView = {
+    private let flowerLanguageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -152,7 +152,7 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
-    let flowerLanguageLabel: UILabel = {
+    private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
@@ -160,14 +160,14 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let flowerLanguageContentStackView: UIStackView = {
+    private let flowerLanguageContentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 6
         return stackView
     }()
     
-    let flowerLanguageContentLabel1: HashTagCustomLabel = {
+    private let flowerLanguageContentLabel1: HashTagCustomLabel = {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "믿는 사랑"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -175,7 +175,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let flowerLanguageContentLabel2: HashTagCustomLabel = {
+    private let flowerLanguageContentLabel2: HashTagCustomLabel = {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "추억"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -183,13 +183,13 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let borderLine2: UIView = {
+    private let borderLine2: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 239/255, alpha: 1)
         return view
     }()
     
-    let flowerColorStackView: UIStackView = {
+    private let flowerColorStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 16
@@ -197,7 +197,7 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
-    let flowerColorLabel: UILabel = {
+    private let flowerColorLabel: UILabel = {
         let label = UILabel()
         label.text = "색상"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
@@ -205,7 +205,7 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    let flowerColorChipHStackView: UIStackView = {
+    private let flowerColorChipHStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 11
@@ -213,7 +213,7 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
-    let managementView =  ManagementView()
+    private let managementView =  ManagementView()
     
     private let bottomFixedView: UIView = {
         let view = UIView()
@@ -309,7 +309,6 @@ class FlowerDetailViewController: UIViewController {
                 make.width.equalTo(27.93)
                 make.height.equalTo(27.93)
             }
-            print(button)
             flowerColorChipHStackView.addArrangedSubview(button)
         })
         
@@ -439,17 +438,17 @@ class FlowerDetailViewController: UIViewController {
         }
     }
     
-    func generateColorChipButtons(){
+    private func generateColorChipButtons(){
         for _ in 0...8 {
             colorButtonList.append(ColorChipButton(colorCode: "#EFEFEF"))
         }
     }
     
-    func setPageControlCount(_ pages: Int) {
+    private func setPageControlCount(_ pages: Int) {
         imagePageControl.numberOfPages = pages
     }
     
-    func setScrollViewContent(images: [String]) { // scrolliVew에 imageView 추가하는 함수
+    private func setScrollViewContent(images: [String]) { // scrolliVew에 imageView 추가하는 함수
         view.setNeedsLayout()  // 정확한 크기를 얻기 위해
         view.layoutIfNeeded()
         
