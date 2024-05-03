@@ -20,7 +20,7 @@ class MyPageViewController: UIViewController {
         return label
     }()
     
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
@@ -46,7 +46,6 @@ class MyPageViewController: UIViewController {
     private func setupNavigation(){
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: viewTitleLabel)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.barTintColor = .white  // TODO: white or not?
     }
     
     private func addViews(){

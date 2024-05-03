@@ -51,13 +51,13 @@ class SavedRequestCell: UITableViewCell {
         return stackView
     }()
     
-    lazy var modifyButton: RequestCustomButton = {
+    private lazy var modifyButton: RequestCustomButton = {
         let button = RequestCustomButton(title: "수정")
         button.addTarget(self, action: #selector(modifyBtnTapped), for: .touchUpInside)
         return button
     }()
     
-    lazy var deleteButton: RequestCustomButton = {
+    private lazy var deleteButton: RequestCustomButton = {
         let button = RequestCustomButton(title: "삭제")
         button.addTarget(self, action: #selector(deleteBtnTapped), for: .touchUpInside)
         return button

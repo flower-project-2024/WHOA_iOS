@@ -15,7 +15,7 @@ class RequestDetailViewController: UIViewController {
     
     // MARK: - Views
     
-    lazy var scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.delegate = self
         scrollView.showsHorizontalScrollIndicator = false

@@ -19,7 +19,7 @@ class CustomAlertViewController: UIViewController {
     // MARK: - Properties
     private var requestTitle: String?
     private var alertType: AlertType?
-    private var myPageVC: MyPageViewController?
+    private var myPageVC: UIViewController?
     
     // MARK: - Views
     private let alertView: UIView = {
@@ -30,7 +30,7 @@ class CustomAlertViewController: UIViewController {
         return view
     }()
     
-    lazy var titleLabel: UILabel = { [self] in
+    private lazy var titleLabel: UILabel = { [self] in
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
         var fullTitle = ""
@@ -42,7 +42,7 @@ class CustomAlertViewController: UIViewController {
         else{
             fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
-            let range = (fullTitle as NSString).range(of: requestTitle!)
+            let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
             attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
             label.attributedText = attributedText
         }
@@ -50,7 +50,7 @@ class CustomAlertViewController: UIViewController {
         return label
     }()
     
-    lazy var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
         
@@ -84,7 +84,7 @@ class CustomAlertViewController: UIViewController {
         return button
     }()
     
-    lazy var confirmButton: UIButton = {
+    private lazy var confirmButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)  // primary
@@ -120,7 +120,7 @@ class CustomAlertViewController: UIViewController {
 
         self.requestTitle = requestTitle
         self.alertType = alertType
-        self.myPageVC = myPageVC
+        self.myPageVC = currentVC
     }
     
     override func viewDidLoad() {
