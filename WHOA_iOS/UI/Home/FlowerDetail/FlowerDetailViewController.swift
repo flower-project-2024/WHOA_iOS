@@ -230,6 +230,7 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Properties
     var colorButtonList: [ColorChipButton] = []
     var imageList: [String] = []
+    var tempName = "튤립"
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -238,9 +239,7 @@ class FlowerDetailViewController: UIViewController {
         imageList = ["1", "2", "3"]
         
         view.backgroundColor = .white
-        
-        setupNavigation()
-        
+                
         imageScrollView.delegate = self
         outerScrollView.delegate = self
         
@@ -248,6 +247,8 @@ class FlowerDetailViewController: UIViewController {
         
         generateColorChipButtons()
         
+        setupNavigation()
+
         addSubViews()
         setupConstraints()
         setPageControlCount(imageList.count)
@@ -263,10 +264,17 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Functions
 
     private func setupNavigation(){
-        self.navigationItem.title = "튤립"
-        self.navigationController?.navigationBar.tintColor = .black
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "Primary")
+        self.navigationItem.title = tempName
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 18)!]
+        
         let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = backbutton
+
+        // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     private func setupCollectionView(){
@@ -529,3 +537,5 @@ extension FlowerDetailViewController: UICollectionViewDelegateFlowLayout {
         return ManagementView.minimumLineSpacing
     }
 }
+
+extension FlowerDetailViewController: UIGestureRecognizerDelegate {}
