@@ -32,6 +32,13 @@ class FlowerDetailViewController: UIViewController {
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
+    
+    private let titleView: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Pretendard-SemiBold", size: 18)
+        label.textColor = UIColor(named: "Primary")
+        return label
+    }()
 
     private let flowerNameStackView: UIStackView = {
         let stackView = UIStackView()
@@ -265,9 +272,9 @@ class FlowerDetailViewController: UIViewController {
 
     private func setupNavigation(){
         self.navigationController?.navigationBar.tintColor = UIColor(named: "Primary")
-        self.navigationItem.title = tempName
+        titleView.text = tempName
+        self.navigationItem.titleView = titleView
         self.navigationController?.navigationBar.topItem?.title = ""
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 18)!]
         
         let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = backbutton
