@@ -14,7 +14,7 @@ class ColorSheetViewController: UIViewController {
     var tempData = ["F3142C", "FF8AD0", "FFD5EC", "FF8A49", "FFEA2C", "FDFFF8", "AD65F4", "ABE472", "251F1F"]
     var selectedColorIndex: Int? {
         didSet {
-            decorateButton.configuration?.background.backgroundColor = UIColor(named: "Primary")
+            decorateButton.configuration?.background.backgroundColor = UIColor.primary
             decorateButton.configuration?.baseForegroundColor = .white
             decorateButton.isEnabled = true
         }
@@ -58,8 +58,8 @@ class ColorSheetViewController: UIViewController {
     private let decorateButton: DecorateButton = {
         let button = DecorateButton()
         // 초기에 비활성화된 상태
-        button.configuration?.background.backgroundColor = UIColor(named: "Gray03")
-        button.configuration?.baseForegroundColor = UIColor(named: "Gray05")
+        button.configuration?.background.backgroundColor = UIColor.gray03
+        button.configuration?.baseForegroundColor = UIColor.gray05
         button.isEnabled = false
         return button
     }()

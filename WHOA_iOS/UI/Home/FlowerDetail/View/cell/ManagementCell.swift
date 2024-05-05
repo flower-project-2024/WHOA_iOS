@@ -23,7 +23,7 @@ class ManagementCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "탈수 잦음"
         label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -32,7 +32,7 @@ class ManagementCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         label.setLineSpacing(spacing: 5)
         return label
     }()
@@ -45,8 +45,8 @@ class ManagementCell: UICollectionViewCell {
         layer.masksToBounds = true
         layer.cornerRadius = 6
         layer.borderWidth = 1
-        layer.borderColor = UIColor(named: "Gray03")?.cgColor
-        backgroundColor = UIColor(named: "Gray01")
+        layer.borderColor = UIColor.gray03.cgColor
+        backgroundColor = UIColor.gray01
         
         addViews()
         setupConstraints()

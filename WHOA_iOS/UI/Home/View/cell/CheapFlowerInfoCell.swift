@@ -28,6 +28,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     let rankingLabel: UILabel =  {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.textColor = UIColor.primary
         label.text = "1"
         return label
     }()
@@ -35,6 +36,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.textColor = UIColor.primary
         label.text = "히아신스"
         return label
     }()
@@ -43,7 +45,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Medium", size: 12)
         label.text = "영원한 사랑"
-        label.textColor = UIColor(named: "Gray07")
+        label.textColor = UIColor.gray07
         return label
     }()
     
@@ -51,15 +53,15 @@ class CheapFlowerInfoCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
         label.text = "2100원"
-        label.textColor = UIColor(named: "Secondary04")
+        label.textColor = UIColor.secondary04
         return label
     }()
     
     private let moveToDetailImageView: UIImageView = {
         let imageView = UIImageView()
-        let image = UIImage(named: "ChevronRight")?.withRenderingMode(.alwaysTemplate)
+        let image = UIImage.chevronRight.withRenderingMode(.alwaysTemplate)
         imageView.image = image
-        imageView.tintColor = UIColor(named: "Gray07")
+        imageView.tintColor = UIColor.gray07
         return imageView
     }()
     

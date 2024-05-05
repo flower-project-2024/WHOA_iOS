@@ -25,7 +25,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "오늘의 추천 꽃"
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -48,7 +48,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "#유희"
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor(named: "Gray06")
+        label.textColor = UIColor.gray06
         return label
     }()
     
@@ -56,7 +56,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "#단아함"
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor(named: "Gray06")
+        label.textColor = UIColor.gray06
         return label
     }()
     
@@ -64,7 +64,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "#겸손한 사랑"
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor(named: "Gray06")
+        label.textColor = UIColor.gray06
         return label
     }()
     
@@ -86,8 +86,8 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor(named: "Gray02")
-        self.layer.borderColor = UIColor(named: "Gray03")?.cgColor
+        self.backgroundColor = UIColor.gray02
+        self.layer.borderColor = UIColor.gray03.cgColor
         self.layer.borderWidth = 1
         
         addAttributeToFlowerName(name: "봄 향기를 품은 꽃\n히아신스")
@@ -142,8 +142,14 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let attributeText = NSMutableAttributedString(string: name)
         let range0 = (name as NSString).range(of: String(array[0]))
         let range1 = (name as NSString).range(of: String(array[1]))
-        attributeText.addAttribute(.foregroundColor, value: UIColor(named: "Primary")!, range: range0)
-        attributeText.addAttribute(.foregroundColor, value: UIColor(named: "Secondary04")!, range: range1)
+        attributeText.addAttribute(.foregroundColor, value: UIColor.primary, range: range0)
+        attributeText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range1)
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 5
+        attributeText.addAttribute(.paragraphStyle,
+                                   value: style,
+                                   range: NSRange(location: 0, length: attributeText.length))
         flowerNameLabel.attributedText = attributeText
     }
 }

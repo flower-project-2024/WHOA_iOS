@@ -14,7 +14,7 @@ class FlowerSearchResultCell: UITableViewCell {
     // MARK: - Views
     private let searchImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SearchIcon")
+        imageView.image = UIImage.searchIcon
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

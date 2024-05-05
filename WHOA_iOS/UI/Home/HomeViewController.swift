@@ -31,13 +31,13 @@ class HomeViewController: UIViewController {
         searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
         searchBar.searchTextField.layer.masksToBounds = true
         searchBar.searchTextField.layer.cornerRadius = 25
-        searchBar.searchTextField.layer.borderColor = UIColor(named: "Gray04")?.cgColor
+        searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
         searchBar.searchTextField.layer.borderWidth = 1
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.frame.size.width = searchBar.bounds.width
         searchBar.searchTextField.frame.size = searchBar.frame.size
-        searchBar.setImage(UIImage(named: "SearchIcon"), for: .search, state: .normal)
+        searchBar.setImage(UIImage.searchIcon, for: .search, state: .normal)
         return searchBar
     }()
     
@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
         
-        let backgroundImage = getImageWithCustomColor(color: UIColor(named: "Gray03")!, size: CGSize(width: 350, height: 54))
+        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
         searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
         
     }
@@ -88,7 +88,7 @@ class HomeViewController: UIViewController {
     
     private func setupNavigation(){
         // 내비게이션 바에 로고 이미지
-        let logoImageView = UIImageView(image: UIImage(named: "WhoaLogo.png"))
+        let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
         
         // 네비게이션 바 줄 없애기
@@ -241,7 +241,6 @@ extension HomeViewController: UICollectionViewDataSource {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
             cell.buttonCallbackMethod = { [weak self] in
-                print("Call Back Method")
                 self?.timer?.invalidate()
                 self?.timer = nil
                 self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)

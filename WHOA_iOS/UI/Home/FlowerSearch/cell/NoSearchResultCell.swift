@@ -16,13 +16,14 @@ class NoSearchResultCell: UITableViewCell {
     private let noResultImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "NoSearchResultIcon")
+        imageView.image = UIImage.noSearchResultIcon
         return imageView
     }()
     
     private let noResultLabel: UILabel = {
         let label = UILabel()
         label.text = "검색 결과가 없어요"
+        label.textColor = UIColor.primary
         label.font = UIFont(name: "Pretendard-Bold", size: 16)
         return label
     }()
@@ -30,6 +31,7 @@ class NoSearchResultCell: UITableViewCell {
     private let tryAgainLabel: UILabel = {
         let label = UILabel()
         label.text = "다른 이름으로 검색해보세요."
+        label.textColor = UIColor.primary
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
         return label
     }()

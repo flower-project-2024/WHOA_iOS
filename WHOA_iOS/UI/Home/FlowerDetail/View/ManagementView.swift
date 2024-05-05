@@ -18,7 +18,7 @@ class ManagementView: UIView {
         let label = UILabel()
         label.text = "이렇게 관리해주세요!"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -45,7 +45,7 @@ class ManagementView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(named: "Gray02")
+        backgroundColor = UIColor.gray02
         
         addViews()
         setupConstraints()

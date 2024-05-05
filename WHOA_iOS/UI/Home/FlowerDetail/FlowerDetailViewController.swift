@@ -36,7 +36,7 @@ class FlowerDetailViewController: UIViewController {
     private let titleView: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Pretendard-SemiBold", size: 18)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = .primary
         return label
     }()
 
@@ -52,7 +52,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "튤립"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -60,7 +60,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Tulip"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -74,7 +74,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "시대불문 모두에게 사랑받는 꽃, 튤립"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
-        label.textColor = UIColor(named: "Secondary04")
+        label.textColor = UIColor.secondary04
         return label
     }()
     
@@ -92,13 +92,13 @@ class FlowerDetailViewController: UIViewController {
     private let flowerDescToggleButton: UIButton = {
         let button = UIButton()
         button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        button.setTitleColor(.gray06, for: .normal)
-        button.setTitleColor(.gray06, for: .selected)
+        button.setTitleColor(UIColor.gray06, for: .normal)
+        button.setTitleColor(UIColor.gray06, for: .selected)
 
         button.setTitle("설명 보기", for: .normal)
-        button.setImage(UIImage(named: "ChevronDown"), for: .normal)
+        button.setImage(UIImage.chevronDown, for: .normal)
         button.setTitle("접기", for: .selected)
-        button.setImage(UIImage(named: "ChevronUp"), for: .selected)
+        button.setImage(UIImage.chevronUp, for: .selected)
         button.semanticContentAttribute = .forceRightToLeft
 
         button.isEnabled = true
@@ -109,7 +109,7 @@ class FlowerDetailViewController: UIViewController {
     
     private let thickBorderLine: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "Gray02")
+        view.backgroundColor = UIColor.gray02
         return view
     }()
     
@@ -117,7 +117,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "정보"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -133,7 +133,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "탄생화"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -141,7 +141,7 @@ class FlowerDetailViewController: UIViewController {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "8월 15일"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(named: "Gray03")
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -163,7 +163,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "꽃말"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     
@@ -178,7 +178,7 @@ class FlowerDetailViewController: UIViewController {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "믿는 사랑"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(named: "Gray03")
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -186,7 +186,7 @@ class FlowerDetailViewController: UIViewController {
         let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
         label.text = "추억"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(named: "Gray03")
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -208,7 +208,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "색상"
         label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         return label
     }()
     

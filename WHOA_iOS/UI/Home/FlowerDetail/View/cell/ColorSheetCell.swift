@@ -19,12 +19,12 @@ class ColorSheetCell: UICollectionViewCell {
             if isSelected {
                 colorDescriptionLabel.font = UIFont(name: "Pretendard-SemiBold", size: 16)
                 backgroundColor = UIColor(red: 213/255, green: 249/255, blue: 239/255, alpha: 1)
-                layer.borderColor = UIColor(named: "Secondary03")?.cgColor
+                layer.borderColor = UIColor.secondary03.cgColor
                 layer.borderWidth = 1
             }
             else {
                 colorDescriptionLabel.font = UIFont(name: "Pretendard-Regular", size: 16)
-                backgroundColor = UIColor(named: "Gray02")
+                backgroundColor = UIColor.gray02
                 layer.borderColor = .none
                 layer.borderWidth = .zero
             }
@@ -54,7 +54,7 @@ class ColorSheetCell: UICollectionViewCell {
     private lazy var colorDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "사랑의 고백"
-        label.textColor = UIColor(named: "Primary")
+        label.textColor = UIColor.primary
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
         label.isUserInteractionEnabled = false
         return label
@@ -68,7 +68,7 @@ class ColorSheetCell: UICollectionViewCell {
         
         layer.cornerRadius = 8
         contentView.layer.masksToBounds = false
-        backgroundColor = UIColor(named: "Gray02")
+        backgroundColor = UIColor.gray02
         
         addViews()
         setupConstraints()

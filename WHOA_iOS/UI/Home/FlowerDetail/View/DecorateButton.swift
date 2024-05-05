@@ -15,7 +15,7 @@ class DecorateButton: UIButton {
         var config = UIButton.Configuration.filled()
         config.title = "이 꽃으로 꾸미기"
         config.attributedTitle?.font = UIFont(name: "Pretendard-SemiBold", size: 16.0)
-        config.background.backgroundColor = UIColor(named: "Primary")
+        config.background.backgroundColor = UIColor.primary
         config.background.cornerRadius = 10
         config.contentInsets = .init(top: 17, leading: 15, bottom: 17, trailing: 15)
         

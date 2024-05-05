@@ -22,21 +22,21 @@ class CustomButton: UIButton {
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 26.5, bottom: 10, trailing: 26.5)
         config.attributedTitle = AttributedString.init(buttonType.rawValue)
         config.attributedTitle?.font = UIFont(name: "Pretendard-Bold", size: 13)
-        config.image = UIImage(named: "ChevronRight")?.withRenderingMode(.alwaysTemplate)
+        config.image = UIImage.chevronRight.withRenderingMode(.alwaysTemplate)
         config.imagePlacement = .trailing
         config.imagePadding = 11
         
         // 오늘의 추천 꽃 버튼인 경우
         if buttonType == .todaysFlower {
-            config.baseBackgroundColor = UIColor(named: "Primary")
-            config.baseForegroundColor = UIColor(named: "Gray01")
+            config.baseBackgroundColor = UIColor.primary
+            config.baseForegroundColor = UIColor.gray01
         }
         
         // 커스터마이징 버튼인 경우
         else if buttonType == .customizing {
-            config.image?.withTintColor(UIColor(named: "Primary")!)
-            config.baseBackgroundColor = UIColor(named: "Secondary03")
-            config.baseForegroundColor = UIColor(named: "Primary")
+            config.image?.withTintColor(UIColor.primary)
+            config.baseBackgroundColor = UIColor.secondary03
+            config.baseForegroundColor = UIColor.primary
         }
                         
         self.configuration = config

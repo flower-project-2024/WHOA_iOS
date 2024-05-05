@@ -25,7 +25,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "커스터마이징 탭"
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
-        label.textColor = UIColor(named: "Secondary03")
+        label.textColor = UIColor.secondary03
         return label
     }()
     
@@ -34,7 +34,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         label.text = "WHOA로 만드는\n나만의 꽃다발"
         label.numberOfLines = 2
         label.font = UIFont(name: "Pretendard-Bold", size: 24)
-        label.textColor = UIColor(named: "Gray01")
+        label.textColor = UIColor.gray01
         label.setLineSpacing(spacing: 5)
         return label
     }()
@@ -43,14 +43,14 @@ class CustomizeIntroCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "꽃말을 담아 내 마음을 전해보세요"
         label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor(named: "Gray05")
+        label.textColor = UIColor.gray05
         return label
     }()
     
     private let flowerDecoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "HomeIllust")
+        imageView.image = UIImage.homeIllust
         return imageView
     }()
     
@@ -63,8 +63,8 @@ class CustomizeIntroCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor(named: "Gray09")
-        self.layer.borderColor = UIColor(named: "Primary")?.cgColor
+        self.backgroundColor = UIColor.gray09
+        self.layer.borderColor = UIColor.primary.cgColor
         self.layer.borderWidth = 1
         
         addViews()

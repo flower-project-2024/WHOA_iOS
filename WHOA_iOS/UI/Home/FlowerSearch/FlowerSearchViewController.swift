@@ -25,14 +25,14 @@ class FlowerSearchViewController: UIViewController {
         //searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
         searchBar.searchTextField.layer.masksToBounds = true
         searchBar.searchTextField.layer.cornerRadius = 19
-        searchBar.searchTextField.layer.borderColor = UIColor(named: "Gray04")?.cgColor
+        searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
         searchBar.searchTextField.layer.borderWidth = 1
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
         searchBar.frame.size.width = searchBar.bounds.width
         searchBar.searchTextField.frame.size = searchBar.frame.size
-        searchBar.setImage(UIImage(named: "SearchIcon"), for: .search, state: .normal)
-        searchBar.setImage(UIImage(named: "SearchCancel"), for: .clear, state: .normal)
+        searchBar.setImage(UIImage.searchIcon, for: .search, state: .normal)
+        searchBar.setImage(UIImage.searchCancel, for: .clear, state: .normal)
         
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.backgroundColor = .white
@@ -44,7 +44,7 @@ class FlowerSearchViewController: UIViewController {
                 
                 textField.attributedPlaceholder = placeholderAttributedText
                 textField.font = font
-                textField.textColor = UIColor(named: "Gray08")
+                textField.textColor = UIColor.gray08
                 textField.defaultTextAttributes = attributes
             }
             
@@ -70,10 +70,10 @@ class FlowerSearchViewController: UIViewController {
         self.navigationItem.titleView = searchBar
         self.navigationController?.navigationBar.tintColor = .black
         self.navigationController?.navigationBar.topItem?.title = ""
-        let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
+        let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = backbutton
         
-        let backgroundImage = getImageWithCustomColor(color: UIColor(named: "Gray03")!, size: CGSize(width: 350, height: 40))
+        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 40))
         searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
         
         addViews()
