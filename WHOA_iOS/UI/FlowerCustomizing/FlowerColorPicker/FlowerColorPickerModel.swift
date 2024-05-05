@@ -8,11 +8,5 @@
 import UIKit
 
 struct FlowerColorPickerModel {
-    let purposeType: PurposeType
     var colors: [UIColor?]?
-    
-    init(purposeType: PurposeType) {
-        self.purposeType = purposeType
-    }
-    
 }

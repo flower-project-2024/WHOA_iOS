@@ -247,7 +247,7 @@ extension FlowerColorPickerViewController {
         scrollView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(4)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-4)
         }
         
         scrollContentView.snp.makeConstraints {

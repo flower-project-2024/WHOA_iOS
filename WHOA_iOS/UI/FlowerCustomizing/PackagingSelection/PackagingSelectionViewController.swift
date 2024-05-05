@@ -155,7 +155,8 @@ class PackagingSelectionViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        print("다음이동")
+        let vc = FlowerPriceViewController()
+        present(vc, animated: false)
     }
 }
 

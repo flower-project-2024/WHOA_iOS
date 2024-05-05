@@ -12,7 +12,6 @@ class FlowerSelectViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel = FlowerSelectViewModel()
-    var tempModel = FlowerColorPickerModel(purposeType: .affection)
     var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿음", "추억"]
     
     // MARK: - UI
@@ -205,7 +204,7 @@ class FlowerSelectViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\"\(tempModel.purposeType.rawValue)\"과\n어울리는 꽃 선택"
+        titleLabel.text = "\"\(PurposeType.affection)\"과\n어울리는 꽃 선택"
     }
     
     private func bind() {

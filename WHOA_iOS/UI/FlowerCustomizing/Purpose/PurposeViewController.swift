@@ -94,7 +94,7 @@ class PurposeViewController: UIViewController {
     func nextButtonTapped() {
         guard let purposeType = viewModel.getPurposeType() else { return }
         
-        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: FlowerColorPickerViewModel(purposeType: purposeType))
+        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: FlowerColorPickerViewModel())
         
         flowerColorPickerVC.modalPresentationStyle = .fullScreen
         
