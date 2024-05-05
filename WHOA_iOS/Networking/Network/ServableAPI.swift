@@ -16,7 +16,7 @@ protocol ServableAPI {
 }
 
 extension ServableAPI {
-    var baseURL: String { "http://ec2-3-35-183-117.ap-northeast-2.compute.amazonaws.com" }
+    var baseURL: String { "http://3.35.183.117:8080" }
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
     var urlRequest: URLRequest {
