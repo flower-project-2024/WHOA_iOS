@@ -6,50 +6,26 @@
 //
 
 import UIKit
+import Combine
 
 class FlowerSelectViewModel {
     
     // MARK: - Properties
     
-    private var flowerKeywordModel: [FlowerKeywordModel] = [] {
-        didSet {
-            flowerKeywordModelDidChage?()
-        }
-    }
+    @Published var flowerKeywordModel: [FlowerKeywordModel] = []
+    @Published var selectedFlowerModel: [FlowerKeywordModel] = []
     
-    private var selectedFlowerModel: [FlowerKeywordModel] = [] {
-        didSet {
-            print(selectedFlowerModel)
-            selectedFlowerModelDidChage?(selectedFlowerModel)
-        }
-    }
-    
-    var flowerKeywordModelDidChage: (() -> Void)?
-    var selectedFlowerModelDidChage: ((_ model: [FlowerKeywordModel]) -> Void)?
+    var cancellables = Set<AnyCancellable>()
     
     // MARK: - Functions
     
-    func fetchFlowerKeyword(fromCurrentVC: UIViewController) {
-        NetworkManager.shared.fetchFlowerKeyword(keywordId: "0") { result in
-            switch result {
-            case .success(let models):
-                self.flowerKeywordModel = models
-            case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-                
-                DispatchQueue.main.async { [unowned self] in
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
-            }
+    func fetchFlowerKeyword(
+        keywordId: String,
+        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
+    ) {
+        NetworkManager.shared.fetchFlowerKeyword(keywordId: keywordId) { result in
+            completion(result)
         }
-    }
-    
-    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
     
     func getFlowerKeywordModel(idx: Int) -> FlowerKeywordModel {

@@ -178,7 +178,7 @@ class FlowerSelectViewController: UIViewController {
         
         bind()
         setupUI()
-        viewModel.fetchFlowerKeyword(fromCurrentVC: self)
+        fetchData()
     }
     
     // MARK: - Fuctions
@@ -208,31 +208,66 @@ class FlowerSelectViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.flowerKeywordModelDidChage = { [weak self] in
-            DispatchQueue.main.async {
+        viewModel.$flowerKeywordModel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
                 self?.flowerSelectTableView.reloadData()
             }
-        }
+            .store(in: &viewModel.cancellables)
         
-        viewModel.selectedFlowerModelDidChage = { [weak self] model in
-            let imageViews = [
-                self?.flowerImageView1,
-                self?.flowerImageView2,
-                self?.flowerImageView3
-            ]
-            let minusImageViews = [
-                self?.minusImageView1,
-                self?.minusImageView2,
-                self?.minusImageView3
-            ]
-            
-            guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
-            print(selectedImages)
-            
-            self?.updateFlowerImageViews(imagesURL: selectedImages, imageViews: imageViews, minusImageViews: minusImageViews)
-            
-            self?.nextButton.isActive = model.count > 0 ? true : false
+        viewModel.$selectedFlowerModel
+            .print()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] model in
+                let imageViews = [
+                    self?.flowerImageView1,
+                    self?.flowerImageView2,
+                    self?.flowerImageView3
+                ]
+                let minusImageViews = [
+                    self?.minusImageView1,
+                    self?.minusImageView2,
+                    self?.minusImageView3
+                ]
+                
+                guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
+                print(selectedImages)
+                
+                self?.updateFlowerImageViews(imagesURL: selectedImages, imageViews: imageViews, minusImageViews: minusImageViews)
+                
+                self?.nextButton.isActive = model.count > 0 ? true : false
+            }
+            .store(in: &viewModel.cancellables)
+    }
+    
+    private func fetchData() {
+        viewModel.fetchFlowerKeyword(keywordId: "0") { [weak self] result in
+            switch result {
+            case .success(let models):
+                self?.handleSuccess(models)
+            case .failure(let error):
+                self?.handleFailure(error)
+            }
         }
+    }
+    
+    private func handleSuccess(_ models: [FlowerKeywordModel]) {
+        viewModel.flowerKeywordModel = models
+    }
+    
+    private func handleFailure(_ error: NetworkError) {
+        let networkAlertController = self.networkErrorAlert(error)
+        DispatchQueue.main.async { [unowned self] in
+            self.present(networkAlertController, animated: true)
+        }
+    }
+    
+    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
+        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        
+        return alertController
     }
     
     private func setupCollectionView() {
