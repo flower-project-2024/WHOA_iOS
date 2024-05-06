@@ -10,8 +10,10 @@ import Foundation
 struct FlowerKeywordAPI: ServableAPI {
     typealias Response = FlowerKeywordDTO
     
-    var path: String { "/api/flower/keyword/0" }
-    var params: [String : String] {
-        [:]
-    }
+    var keywordId: String
+    
+    var method: HTTPMethod { .get }
+    var headers: [String : String]? { nil }
+    var path: String { "/api/flower/keyword/" }
+    var params: String { keywordId }
 }
