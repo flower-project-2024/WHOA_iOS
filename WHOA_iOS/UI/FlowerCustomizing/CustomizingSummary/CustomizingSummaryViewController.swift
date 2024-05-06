@@ -11,6 +11,8 @@ class CustomizingSummaryViewController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel: CustomizingSummaryViewModel
+    
     // MARK: - UI
     
     private let scrollView: UIScrollView = {
@@ -38,7 +40,7 @@ class CustomizingSummaryViewController: UIViewController {
         return view
     }()
     
-    private let customSummaryView: UIView = CustomSummaryView()
+    private lazy var customSummaryView: UIView = CustomSummaryView(model: viewModel.customizingSummaryModel)
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -64,6 +66,19 @@ class CustomizingSummaryViewController: UIViewController {
         stackView.spacing = 9
         return stackView
     }()
+    
+
+    // MARK: - Initialize
+    
+    init(viewModel: CustomizingSummaryViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     

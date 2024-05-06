@@ -54,10 +54,11 @@ class CustomSummaryView: UIView {
     
     // MARK: Initializer
     
-    init() {
+    init(model: CustomizingSummaryModel) {
         super.init(frame: .zero)
         
         setupUI()
+        config(model: model)
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +77,10 @@ class CustomSummaryView: UIView {
         
         setupAutoLayout()
         requestNameTextField.delegate = self
+    }
+    
+    func config(model: CustomizingSummaryModel) {
+        requestDetailView.config(model: model)
     }
     
     // MARK: - Actions

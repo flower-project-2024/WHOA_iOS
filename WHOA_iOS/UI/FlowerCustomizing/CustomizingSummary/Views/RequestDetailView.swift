@@ -11,7 +11,7 @@ import UIKit
 
 class FlowerTypeView: UIView {
     // MARK: - Views
-    private let flowerImageView: UIImageView = {
+    let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "WhoaLogo")
@@ -29,7 +29,7 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerNameLabel: UILabel = {
+    let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "과꽃"
         label.font = UIFont(name: "Pretendard-Medium", size: 16)
@@ -43,7 +43,7 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerLanguageTagLabel1: DetailCustomLabel = {
+    let flowerLanguageTagLabel1: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "믿는 사랑"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -51,7 +51,7 @@ class FlowerTypeView: UIView {
         return label
     }()
     
-    private let flowerLanguageTagLabel2: DetailCustomLabel = {
+    let flowerLanguageTagLabel2: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "추억"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -132,7 +132,7 @@ class DetailCustomLabel: UILabel {
         var contentSize = super.intrinsicContentSize
         contentSize.height += padding.top + padding.bottom
         contentSize.width += padding.left + padding.right
-
+        
         return contentSize
     }
 }
@@ -407,6 +407,30 @@ class RequestDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func config(model: CustomizingSummaryModel) {
+        buyingIntentContentLabel.text = model.purpose.rawValue
+        
+        flowerColorContentLabel.text = model.numberOfColors.rawValue
+        flowerColorChipView1.backgroundColor = UIColor(hex: model.colors[0])
+        flowerColorChipView2.backgroundColor = UIColor(hex: model.colors[1])
+        
+        //        flowerTypeView1.flowerImageView.image = model.Flowers[0].photo
+        flowerTypeView1.flowerNameLabel.text = model.flowers[0].name
+        flowerTypeView1.flowerLanguageTagLabel1.text = model.flowers[0].hashTag[0]
+        flowerTypeView1.flowerLanguageTagLabel2.text = model.flowers[0].hashTag[1]
+        //        flowerTypeView2.flowerImageView.image = model.Flowers[1].photo
+//        flowerTypeView2.flowerNameLabel.text = model.Flowers[1].flowerName
+//        flowerTypeView2.flowerLanguageTagLabel1.text = model.Flowers[1].hashTag[0]
+//        flowerTypeView2.flowerLanguageTagLabel2.text = model.Flowers[1].hashTag[1]
+        
+        alternativesContentLabel.text = model.alternative.rawValue
+        
+        priceContentLabel.text = model.priceRange
+        
+        additionalRequirementContentLabel.text = model.requirement?.text
+        // 요구사항 사진 추가 필요
+    }
+    
     // MARK: -Helpers
     private func addViews(){
         addSubview(buyingIntentStackView)
@@ -438,7 +462,7 @@ class RequestDetailView: UIView {
         wrappingStackView.addArrangedSubview(wrappingTitleLabel)
         wrappingStackView.addArrangedSubview(wrappingContentLabel)
         addSubview(borderLine5)
-     
+        
         addSubview(priceStackView)
         priceStackView.addArrangedSubview(priceTitleLabel)
         priceStackView.addArrangedSubview(priceContentLabel)
@@ -477,7 +501,7 @@ class RequestDetailView: UIView {
         }
         
         starIcon.snp.makeConstraints { make in
-//            make.center.equalToSuperview()
+            //            make.center.equalToSuperview()
             make.edges.equalToSuperview().inset(9)
         }
         
