@@ -20,8 +20,8 @@ class NetwokringTestViewController: UIViewController {
         */
         
         // 4. 내 VC에 함수 실행
-        NetworkManager.shared.fetchNetworkingTest { result in
-            print(result)
-        }
+//        NetworkManager.shared.fetchNetworkingTest { result in
+//            print(result)
+//        }
     }
 }

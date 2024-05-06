@@ -204,7 +204,7 @@ class FlowerSelectViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\"\(PurposeType.affection)\"과\n어울리는 꽃 선택"
+        titleLabel.text = "\(PurposeType.affection.rawValue)과\n어울리는 꽃 선택"
     }
     
     private func bind() {
