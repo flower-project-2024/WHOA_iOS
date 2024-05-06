@@ -8,6 +8,15 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    private let viewModel = CheapFlowerRankingModel()
+    private var cellSize: CGSize = .zero
+    private var timer: Timer? = Timer()
+    private let minimumLineSpacing: CGFloat = 0
+    private var collectionViewCellCount: [String] = ["0", "1"]
+    
     // MARK: - Views
     private lazy var carouselView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
@@ -22,7 +31,6 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    // MARK: - Properties
     private var cheapFlowerView = CheapFlowerView()
     
     private lazy var searchBar: UISearchBar = {
@@ -41,16 +49,15 @@ class HomeViewController: UIViewController {
         return searchBar
     }()
     
-    private var cellSize: CGSize = .zero
-    private var timer: Timer? = Timer()
-    private let minimumLineSpacing: CGFloat = 0
-    private var collectionViewCellCount: [String] = ["0", "1"]
-    
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        bind()
+        viewModel.fetchCheapFlowerRanking()
     
         addViews()
         setupNavigation()
@@ -80,6 +87,7 @@ class HomeViewController: UIViewController {
     }
 
     // MARK: - Helper
+    
     private func addViews(){
         view.addSubview(searchBar)
         view.addSubview(carouselView)
@@ -156,19 +164,31 @@ class HomeViewController: UIViewController {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    private func bind(){
+        viewModel.cheapFlowerRankingsDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.cheapFlowerView.topThreeTableView.reloadData()
+                self?.cheapFlowerView.setBaseDateLabel(viewModel: self!.viewModel)
+            }
+        }
+    }
 }
 
 // MARK: - Extensions; TableView
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.getCheapFlowerModelCount()
     }
     
     // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
         cell.rankingLabel.text = "\(indexPath.row + 1)"
+        
+        let model = viewModel.getCheapFlowerModel(index: indexPath.row)
+        cell.configure(model: model)
         return cell
     }
     

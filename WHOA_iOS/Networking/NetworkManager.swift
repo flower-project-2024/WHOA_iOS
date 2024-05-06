@@ -29,4 +29,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 저렴한 꽃 랭킹을 조회하는 함수입니다.
+    func fetchCheapFlowerRanking(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[CheapFlowerModel], NetworkError>) -> Void
+    ){
+        let cheapFlowerRankingAPI = CheapFlowerRankingAPI()
+        networkService.request(cheapFlowerRankingAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(CheapFlowerRankingDTO.convertCheapFlowerRankingDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

@@ -77,6 +77,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     }
     
     // MARK: - functions
+    
     private func setupConstraints(){
         // add view
         contentView.addSubview(flowerImageView)
@@ -117,6 +118,12 @@ class CheapFlowerInfoCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(3)
             make.centerY.equalTo(priceLabel.snp.centerY)
         }
+    }
+    
+    func configure(model: CheapFlowerModel){
+        flowerNameLabel.text = model.flowerRankingName
+        flowerLanguageLabel.text = model.flowerRankingLanguage
+        priceLabel.text = "\(model.flowerRankingPrice)원"
     }
     
 }
