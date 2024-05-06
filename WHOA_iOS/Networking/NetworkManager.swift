@@ -15,15 +15,31 @@ final class NetworkManager {
     private init() {}
     
     /// 앨범들을 조회하는 함수입니다.
-    func fetchNetworkingTest(
+//    func fetchNetworkingTest(
+//        _ networkService: NetworkServable = NetworkService(),
+//        completion: @escaping (Result<TestDTO, NetworkError>) -> Void
+//    ) {
+//        let testAPI = TestAPI()
+//        networkService.request(testAPI) { result in
+//            switch result {
+//            case .success(let DTO):
+//                completion(.success(DTO))
+//            case .failure(let error):
+//                completion(.failure(error))
+//            }
+//        }
+//    }
+    
+    /// 요구서 전체를 조회하는 함수입니다.
+    func fetchAllBouquets(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<TestDTO, NetworkError>) -> Void
+        completion: @escaping (Result<[BouquetModel], NetworkError>) -> Void
     ) {
-        let testAPI = TestAPI()
-        networkService.request(testAPI) { result in
+        let bouquetAllAPI = BouquetAllAPI()
+        networkService.request(bouquetAllAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(DTO))
+                completion(.success(BouquetAllDTO.convertBouquetAllDTOToModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }

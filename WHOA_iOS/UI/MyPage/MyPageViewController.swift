@@ -8,8 +8,10 @@
 import UIKit
 
 class MyPageViewController: UIViewController {
+    
     // MARK: - Properties
-    let savedRequestList: [String] = ["꽃다발 요구서1", "꽃다발 요구서2", "꽃다발 요구서3"]
+    
+    private let viewModel = BouquetListModel()
     
     // MARK: - Views
     private let viewTitleLabel: UILabel = {
@@ -36,6 +38,9 @@ class MyPageViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        bind()
+        viewModel.fetchAllBouquets()
+        
         setupNavigation()
         addViews()
         setupConstraints()
@@ -60,22 +65,30 @@ class MyPageViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
     }
+    
+    private func bind(){
+        viewModel.bouquetModelListDidChage = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
 }
 
 // MARK: - Extension; TableView
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedRequestList.count
+        return viewModel.getBouquetModelCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
-        cell.writtenDateLabel.text = "2024.01.12"
-        
         cell.selectionStyle = .none
         
+        let model = viewModel.getBouquetModel(index: indexPath.row)
+        cell.writtenDateLabel.text = "2024.01.12" // TODO: 서버에서 날짜 보내주도록 수정된 다음에 수정!!
         cell.myPageVC = self
-        cell.setTitle(title: savedRequestList[indexPath.item])
+        cell.configure(model: model)
         return cell
     }
     
@@ -84,8 +97,9 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(RequestDetailViewController(requestTitle: savedRequestList[indexPath.item]), animated: true)
-        return
+        print("selected \(indexPath.item)")
+//        self.navigationController?.pushViewController(RequestDetailViewController(requestTitle: savedRequestList[indexPath.item]), animated: true)
+//        return
     }
     
 }
