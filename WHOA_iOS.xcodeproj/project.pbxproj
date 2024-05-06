@@ -267,39 +267,47 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+        085738342B721C5A00AAFAC6 /* View */ = {
+            isa = PBXGroup;
+            children = (
+                085DEE9A2BA355F700CC5AC2 /* cell */,
+                085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
+                08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
+                085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
+            );
+            path = View;
+            sourceTree = "<group>";
+        };
+        085DEE9A2BA355F700CC5AC2 /* cell */ = {
+            isa = PBXGroup;
+            children = (
+                08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
+                08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
+                08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
+            );
+            path = cell;
+            sourceTree = "<group>";
+        };
 		0886DA612B957BA6003779CE /* RequestDetail */ = {
 			isa = PBXGroup;
 			children = (
-				085DEE9A2BA355F700CC5AC2 /* cell */,
-				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
-				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
-				085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
+                0887F62A2B867D4D00727F14 /* CustomView */,
+                08C0ADF02BA979B30099EFE5 /* View */,
+                0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
+                0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
+                0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
+                0886DA682B962E3B003779CE /* FlowerTypeView.swift */,
 			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		085DEE9A2BA355F700CC5AC2 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
-				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
-				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
-				0887F62A2B867D4D00727F14 /* CustomView */,
-				08C0ADF02BA979B30099EFE5 /* View */,
-				0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
-				0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
-				0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
-				0886DA682B962E3B003779CE /* FlowerTypeView.swift */,
-			);
-			path = RequestDetail;
+            path = RequestDetail;
 			sourceTree = "<group>";
 		};
 		0887F6242B86777F00727F14 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				0886DA612B957BA6003779CE /* RequestDetail */,
-				0887F6272B867B9D00727F14 /* cell */,
-				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
+                0886DA612B957BA6003779CE /* RequestDetail */,
+                0887F6272B867B9D00727F14 /* cell */,
+                0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
+                0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -330,6 +338,10 @@
 				08A540182BB133C500710A7D /* ManagementView.swift */,
 				089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */,
 				089D507D2BB9833100877CE3 /* DecorateButton.swift */,
+            );
+            path = View;
+            sourceTree = "<group>";
+        };
 		0887F62A2B867D4D00727F14 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +375,8 @@
 				0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */,
 			);
 			path = cell;
+            sourceTree = "<group>";
+        };
 		08C0ADF72BA9B9250099EFE5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
