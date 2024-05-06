@@ -30,7 +30,7 @@ class FlowerSelectViewModel {
     // MARK: - Functions
     
     func fetchFlowerKeyword(fromCurrentVC: UIViewController) {
-        NetworkManager.shared.fetchFlowerKeyword { result in
+        NetworkManager.shared.fetchFlowerKeyword(keywordId: "0") { result in
             switch result {
             case .success(let models):
                 self.flowerKeywordModel = models
