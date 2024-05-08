@@ -47,7 +47,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let hashTag: tempHashTagLabel = {
+    private let hashTag1: tempHashTagLabel = {
         let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
         hashTagLabel.font = .Pretendard(family: .Medium)
         hashTagLabel.textColor = .second3
@@ -63,11 +63,20 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return hashTagLabel
     }()
     
+    private let hashTag3: tempHashTagLabel = {
+        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+        hashTagLabel.font = .Pretendard(family: .Medium)
+        hashTagLabel.textColor = .second3
+        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
+        return hashTagLabel
+    }()
+    
     private lazy var hashTagHStackView: UIStackView = {
         let stackView = UIStackView()
         [
-            hashTag,
-            hashTag2
+            hashTag1,
+            hashTag2,
+            hashTag3
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -139,8 +148,19 @@ class FlowerSelectTableViewCell: UITableViewCell {
         
         flowerNameLabel.text = model.flowerName
         flowerImageView.load(url: imageURL)
-        hashTag.text = model.flowerKeyword[0]
-//        hashTag2.text = model.flowerKeyword[1]
+
+        for i in model.flowerKeyword.indices {
+            switch i {
+            case 0:
+                hashTag1.text = model.flowerKeyword[i]
+            case 1:
+                hashTag2.text = model.flowerKeyword[i]
+            case 2:
+                hashTag3.text = model.flowerKeyword[i]
+            default:
+                break
+            }
+        }
     }
     
     // MARK: - Actions
