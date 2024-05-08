@@ -13,3 +13,11 @@ struct CheapFlowerModel {
     let flowerRankingDate: String
     let flowerRankingImg: String
 }
+
+struct TodaysFlowerModel {
+    var flowerId: Int?
+    var flowerName: String?
+    var flowerDescription: String?
+    var flowerImage: String?
+    var flowerExpressions: [String]?
+}

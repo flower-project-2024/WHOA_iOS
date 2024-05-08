@@ -29,9 +29,19 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var flowerDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name:"Pretendard-Bold", size: 24.0)
+        label.text = "봄 향기를 품은 꽃"
+        label.textColor = UIColor.primary
+        return label
+    }()
+    
     private lazy var flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+//        label.numberOfLines = 2
+        label.textColor = UIColor.secondary04
+        label.text = "히아신스"
         label.font = UIFont(name: "Pretendard-Bold", size: 24.0)
         return label
     }()
@@ -76,7 +86,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named: "FlowerImage.png")
         imageView.clipsToBounds = true
         return imageView
@@ -90,7 +100,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         self.layer.borderColor = UIColor.gray03.cgColor
         self.layer.borderWidth = 1
         
-        addAttributeToFlowerName(name: "봄 향기를 품은 꽃\n히아신스")
+        //addAttributeToFlowerName(name: "봄 향기를 품은 꽃\n히아신스")
         addViews()
         setupConstraints()
     }
@@ -111,6 +121,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         addSubview(todaysFlowerButton)
 
         todaysFlowerStackView.addArrangedSubview(todaysFlowerLabel)
+        todaysFlowerStackView.addArrangedSubview(flowerDescriptionLabel)
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
         todaysFlowerStackView.addArrangedSubview(flowerLanguageStackView)
         
@@ -151,5 +162,23 @@ class TodaysFlowerViewCell: UICollectionViewCell {
                                    value: style,
                                    range: NSRange(location: 0, length: attributeText.length))
         flowerNameLabel.attributedText = attributeText
+    }
+    
+    func configure(_ model: TodaysFlowerModel){
+        flowerNameLabel.text = model.flowerName
+        flowerDescriptionLabel.text = model.flowerDescription
+        if let imagePath = model.flowerImage {
+            let url = URL(string: imagePath)
+            print(url)
+            DispatchQueue.global().async { [weak self] in
+                if let data = try? Data(contentsOf: url!) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.flowerImageView.image = image
+                        }
+                    }
+                }
+            }
+        }
     }
 }

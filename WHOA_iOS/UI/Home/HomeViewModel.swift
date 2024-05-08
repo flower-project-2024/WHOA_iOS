@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheapFlowerRankingModel {
+class HomeViewModel {
     
     // MARK: - Properties
     
@@ -17,7 +17,14 @@ class CheapFlowerRankingModel {
         }
     }
     
+    private var todaysFlower: TodaysFlowerModel = TodaysFlowerModel() {
+        didSet {
+            todaysFlowerDidChange?()
+        }
+    }
+    
     var cheapFlowerRankingsDidChange: (() -> Void)?
+    var todaysFlowerDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -45,5 +52,25 @@ class CheapFlowerRankingModel {
     
     func getCheapFlowerModelCount() -> Int {
         return cheapFlowerRankings.count
+    }
+    
+    func fetchTodaysFlowerModel(month: Int, date: Int) {
+        NetworkManager.shared.fetchTodaysFlower(month: month, date: date, completion: { result in
+            switch result {
+            case .success(let model):
+                self.todaysFlower = model
+            case .failure(let error):
+                print(error)
+            }
+        })
+    }
+    
+    func getTodaysFlower() -> TodaysFlowerModel{
+        print(todaysFlower)
+        return todaysFlower
+    }
+    
+    func getTodaysFlowerCount() -> Int {
+        return 1
     }
 }

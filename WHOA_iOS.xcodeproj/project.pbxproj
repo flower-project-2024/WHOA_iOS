@@ -11,6 +11,8 @@
 		08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */; };
 		08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E992BE9103400F58A34 /* HomeModel.swift */; };
 		08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E9B2BE9141D00F58A34 /* HomeViewModel.swift */; };
+		08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */; };
+		08149EA02BE94E1A00F58A34 /* TodaysFlowerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */; };
 		08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */; };
 		08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08572A192B8CF950002F045F /* CustomAlertViewController.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
@@ -122,6 +124,8 @@
 		08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingDTO.swift; sourceTree = "<group>"; };
 		08149E992BE9103400F58A34 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		08149E9B2BE9141D00F58A34 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerDTO.swift; sourceTree = "<group>"; };
+		08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerAPI.swift; sourceTree = "<group>"; };
 		08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetHeaderCell.swift; sourceTree = "<group>"; };
 		08572A192B8CF950002F045F /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -456,6 +460,7 @@
 			children = (
 				5460712C2B88C5670033B598 /* TestAPI.swift */,
 				08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */,
+				08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -465,6 +470,7 @@
 			children = (
 				5460712F2B88C5960033B598 /* TestDTO.swift */,
 				08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */,
+				08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -851,6 +857,7 @@
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
+				08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */,
 				08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
 				08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */,
@@ -895,6 +902,7 @@
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,
+				08149EA02BE94E1A00F58A34 /* TodaysFlowerAPI.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
 				08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */,
 				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,

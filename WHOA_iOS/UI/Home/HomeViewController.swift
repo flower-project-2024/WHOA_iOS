@@ -11,7 +11,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = CheapFlowerRankingModel()
+    private let viewModel = HomeViewModel()
     private var cellSize: CGSize = .zero
     private var timer: Timer? = Timer()
     private let minimumLineSpacing: CGFloat = 0
@@ -57,6 +57,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
+        viewModel.fetchTodaysFlowerModel(month: 3, date: 1)  // TODO: 서버에 데이터 다 들어오면 오늘 날짜로 수정!
         viewModel.fetchCheapFlowerRanking()
     
         addViews()
@@ -172,6 +173,12 @@ class HomeViewController: UIViewController {
                 self?.cheapFlowerView.setBaseDateLabel(viewModel: self!.viewModel)
             }
         }
+        
+        viewModel.todaysFlowerDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.carouselView.reloadData()
+            }
+        }
     }
 }
 
@@ -254,12 +261,14 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return viewModel.getTodaysFlowerCount() + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
+            cell.configure(viewModel.getTodaysFlower())
+            
             cell.buttonCallbackMethod = { [weak self] in
                 self?.timer?.invalidate()
                 self?.timer = nil

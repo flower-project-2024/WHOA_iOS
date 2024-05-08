@@ -45,4 +45,22 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 오늘의 꽃을 조회하는 함수입니다
+    func fetchTodaysFlower(
+        month: Int,
+        date: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<TodaysFlowerModel, NetworkError>) -> Void
+    ){
+        let todaysFlowerAPI = TodaysFlowerAPI(date: date, month: month)
+        networkService.request(todaysFlowerAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(TodaysFlowerDTO.convertTodaysFlowerDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
