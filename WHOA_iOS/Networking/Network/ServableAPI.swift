@@ -21,10 +21,7 @@ extension ServableAPI {
     var baseURL: String { "http://3.35.183.117:8080" }
     var urlRequest: URLRequest {
         let urlString = baseURL + path + params
-        
-        guard let url = URL(string: urlString) else {
-            fatalError("Invalid URL")
-        }
+        let url = URL(string: urlString)!
 
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
