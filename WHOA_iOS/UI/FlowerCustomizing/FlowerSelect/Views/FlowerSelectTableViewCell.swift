@@ -24,7 +24,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "TempFlower")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -167,7 +167,6 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     @objc
     func addImageButtonTapped() {
-        isAddImageButtonSelected.toggle()
         addImageButtonClicked?()
     }
 }

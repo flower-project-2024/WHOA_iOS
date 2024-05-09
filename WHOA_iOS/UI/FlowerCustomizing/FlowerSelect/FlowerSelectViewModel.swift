@@ -5,7 +5,7 @@
 //  Created by KSH on 2/29/24.
 //
 
-import UIKit
+import Foundation
 import Combine
 
 class FlowerSelectViewModel {
@@ -28,6 +28,7 @@ class FlowerSelectViewModel {
         }
     }
     
+    // FlowerKeywordModel
     func getFlowerKeywordModel(idx: Int) -> FlowerKeywordModel {
         return flowerKeywordModel[idx]
     }
@@ -42,12 +43,12 @@ class FlowerSelectViewModel {
     
     func popKeywordModel(model: FlowerKeywordModel) {
         guard let idx = selectedFlowerModel.firstIndex(where: { selectedFlowerModel in
-            selectedFlowerModel.flowerName == model.flowerName
-        }) else { return }
+            selectedFlowerModel == model }) else { return }
         
         selectedFlowerModel.remove(at: idx)
     }
     
+    // SelectedFlowerModel
     func getSelectedFlowerModelCount() -> Int {
         return selectedFlowerModel.count
     }
@@ -60,17 +61,16 @@ class FlowerSelectViewModel {
     }
     
     func getSelectedFlowerModel(idx: Int) -> FlowerKeywordModel {
-        return flowerKeywordModel[idx]
+        return selectedFlowerModel[idx]
     }
     
-    func findCellIndexPathRow(for flowerName: String) -> Int? {
-        return flowerKeywordModel.firstIndex(where: { $0.flowerName == flowerName })
-    }
+    func popSelectedFlowerModel(at index: Int) {
+            if index >= 0 && index < selectedFlowerModel.count {
+                selectedFlowerModel.remove(at: index)
+            }
+        }
     
-    func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        let flowerReplacementVC = AlternativesViewController()
-        flowerReplacementVC.sheetPresentationController?.detents = [.medium()]
-        
-        fromCurrentVC.present(flowerReplacementVC, animated: true)
+    func findCellIndexPathRow(for model: FlowerKeywordModel) -> Int? {
+        return flowerKeywordModel.firstIndex(where: { $0 == model })
     }
 }

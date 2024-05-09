@@ -23,7 +23,7 @@ class FlowerSelectViewController: UIViewController {
     
     private let flowerImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
@@ -46,7 +46,7 @@ class FlowerSelectViewController: UIViewController {
     
     private let flowerImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
@@ -69,7 +69,7 @@ class FlowerSelectViewController: UIViewController {
     
     private let flowerImageView3: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .gray2
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
@@ -216,26 +216,12 @@ class FlowerSelectViewController: UIViewController {
             .store(in: &viewModel.cancellables)
         
         viewModel.$selectedFlowerModel
-            .print()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
-                let imageViews = [
-                    self?.flowerImageView1,
-                    self?.flowerImageView2,
-                    self?.flowerImageView3
-                ]
-                let minusImageViews = [
-                    self?.minusImageView1,
-                    self?.minusImageView2,
-                    self?.minusImageView3
-                ]
-                
                 guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
-                print(selectedImages)
                 
-                self?.updateFlowerImageViews(imagesURL: selectedImages, imageViews: imageViews, minusImageViews: minusImageViews)
-                
-                self?.nextButton.isActive = model.count > 0 ? true : false
+                self?.updateFlowerImageViews(with: selectedImages)
+                self?.nextButton.isActive = !model.isEmpty
             }
             .store(in: &viewModel.cancellables)
     }
@@ -244,18 +230,18 @@ class FlowerSelectViewController: UIViewController {
         viewModel.fetchFlowerKeyword(keywordId: "0") { [weak self] result in
             switch result {
             case .success(let models):
-                self?.handleSuccess(models)
+                self?.fetchSuccess(models)
             case .failure(let error):
-                self?.handleFailure(error)
+                self?.fetchFailure(error)
             }
         }
     }
     
-    private func handleSuccess(_ models: [FlowerKeywordModel]) {
+    private func fetchSuccess(_ models: [FlowerKeywordModel]) {
         viewModel.flowerKeywordModel = models
     }
     
-    private func handleFailure(_ error: NetworkError) {
+    private func fetchFailure(_ error: NetworkError) {
         let networkAlertController = self.networkErrorAlert(error)
         DispatchQueue.main.async { [unowned self] in
             self.present(networkAlertController, animated: true)
@@ -279,22 +265,27 @@ class FlowerSelectViewController: UIViewController {
         hashTagCollectionView.backgroundColor = .white
     }
     
-    private func updateFlowerImageViews(
-        imagesURL: [URL?],
-        imageViews: [UIImageView?],
-        minusImageViews: [UIImageView?]
-    ) {
-        for (index, imageView) in imageViews.enumerated() {
-            guard let imageView = imageView else { continue }
-            
-            if index < imagesURL.count, let url = imagesURL[index] {
-                imageView.load(url: url)
-                imageView.backgroundColor = .clear
-                minusImageViews[index]?.isHidden = false
-            } else {
-                imageView.image = nil
-                imageView.backgroundColor = .gray2
-                minusImageViews[index]?.isHidden = true
+    private func updateFlowerImageViews(with urls: [URL?]) {
+        let flowerImageViews = [
+            self.flowerImageView1,
+            self.flowerImageView2,
+            self.flowerImageView3
+        ]
+        let minusImageViews = [
+            self.minusImageView1,
+            self.minusImageView2,
+            self.minusImageView3
+        ]
+        
+        for (imageView, minusView) in zip(flowerImageViews, minusImageViews) {
+            imageView.image = nil
+            minusView.isHidden = true
+        }
+        
+        for i in urls.indices {
+            if let url = urls[i] {
+                flowerImageViews[i].load(url: url)
+                minusImageViews[i].isHidden = false
             }
         }
     }
@@ -305,36 +296,24 @@ class FlowerSelectViewController: UIViewController {
     func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
         guard let imageView = sender.view as? UIImageView else { return }
         
-        var indexToRemove: Int?
-        switch imageView {
-        case minusImageView1:
-            flowerImageView1.image = nil
-            flowerImageView1.backgroundColor = .gray2
-            minusImageView1.isHidden = true
-            indexToRemove = 0
-        case minusImageView2:
-            flowerImageView2.image = nil
-            flowerImageView2.backgroundColor = .gray2
-            minusImageView2.isHidden = true
-            indexToRemove = 1
-        case minusImageView3:
-            flowerImageView3.image = nil
-            flowerImageView3.backgroundColor = .gray2
-            minusImageView3.isHidden = true
-            indexToRemove = 2
-        default:
-            break
-        }
+        let flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
+        let imageViews = [minusImageView1, minusImageView2, minusImageView3]
         
-        if let indexToRemove = indexToRemove {
-            guard
-                let indexPath = viewModel.findCellIndexPathRow(for: viewModel.getFlowerKeywordModel(idx: indexToRemove).flowerName),
-                let cell = flowerSelectTableView.cellForRow(at: [0,indexPath]) as? FlowerSelectTableViewCell
-            else { return }
-            
+        guard let indexToRemove = imageViews.firstIndex(of: imageView) else { return }
+        
+        flowerImageViews[indexToRemove].image = nil
+        imageViews[indexToRemove].isHidden = true
+        
+        updateTableViewButtonUI(at: indexToRemove)
+        viewModel.popSelectedFlowerModel(at: indexToRemove)
+    }
+    
+    func updateTableViewButtonUI(at index: Int) {
+        let model = viewModel.getSelectedFlowerModel(idx: index)
+        guard let indexPath = viewModel.findCellIndexPathRow(for: model) else { return }
+        
+        if let cell = flowerSelectTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectTableViewCell {
             cell.isAddImageButtonSelected = false
-            
-            viewModel.popKeywordModel(model: viewModel.getSelectedFlowerModel(idx: indexToRemove))
         }
     }
     
@@ -345,7 +324,10 @@ class FlowerSelectViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        viewModel.goToNextVC(fromCurrentVC: self, animated: true)
+        let flowerReplacementVC = AlternativesViewController()
+        flowerReplacementVC.sheetPresentationController?.detents = [.medium()]
+        
+        present(flowerReplacementVC, animated: true)
     }
 }
 
@@ -451,11 +433,19 @@ extension FlowerSelectViewController: UICollectionViewDataSource, UICollectionVi
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 36)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         
         return CGSize(width: collectionView.frame.width / 7 - 2, height: collectionView.frame.height / 1.5)
     }
@@ -464,23 +454,35 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UITableViewDataSource
 
 extension FlowerSelectViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return viewModel.getFlowerKeywordModelCount()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier, for: indexPath) as? FlowerSelectTableViewCell else { return UITableViewCell() }
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier,
+            for: indexPath
+        ) as? FlowerSelectTableViewCell else { return UITableViewCell() }
+        
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         let model = viewModel.getFlowerKeywordModel(idx: indexPath.row)
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         cell.configUI(model: model)
         
         cell.addImageButtonClicked = { [weak self] in
             guard let self = self else { return }
             
-            if cell.isAddImageButtonSelected && self.viewModel.getSelectedFlowerModelCount() < 3 {
+            if !cell.isAddImageButtonSelected && self.viewModel.getSelectedFlowerModelCount() < 3 {
+                cell.isAddImageButtonSelected = true
                 self.viewModel.pushKeywordModel(model: model)
             } else {
+                cell.isAddImageButtonSelected = false
                 self.viewModel.popKeywordModel(model: model)
             }
         }
@@ -493,6 +495,6 @@ extension FlowerSelectViewController: UITableViewDataSource {
 
 extension FlowerSelectViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        flowerSelectTableView.deselectRow(at: indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }
