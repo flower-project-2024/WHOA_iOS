@@ -12,8 +12,8 @@ class FlowerSelectViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel = FlowerSelectViewModel()
-    var tempHashTag = ["전체", "사랑", "감사", "기쁨", "우정", "존경", "믿음", "추억"]
-    
+    var tempHashTag = ["전체", "사랑", "행운", "믿음", "추억", "존경", "믿음", "우정"]
+
     // MARK: - UI
     
     private let exitButton = ExitButton()
@@ -208,14 +208,14 @@ class FlowerSelectViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$flowerKeywordModel
+        viewModel.$filteredModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.flowerSelectTableView.reloadData()
             }
             .store(in: &viewModel.cancellables)
         
-        viewModel.$selectedFlowerModel
+        viewModel.$selectedFlowerModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
                 guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
@@ -238,7 +238,8 @@ class FlowerSelectViewController: UIViewController {
     }
     
     private func fetchSuccess(_ models: [FlowerKeywordModel]) {
-        viewModel.flowerKeywordModel = models
+        viewModel.flowerKeywordModels = models
+        viewModel.filteredModels = models
     }
     
     private func fetchFailure(_ error: NetworkError) {
@@ -304,16 +305,16 @@ class FlowerSelectViewController: UIViewController {
         flowerImageViews[indexToRemove].image = nil
         imageViews[indexToRemove].isHidden = true
         
-        updateTableViewButtonUI(at: indexToRemove)
+        updateTableViewButtonUI(at: indexToRemove, isSelected: false)
         viewModel.popSelectedFlowerModel(at: indexToRemove)
     }
     
-    func updateTableViewButtonUI(at index: Int) {
+    func updateTableViewButtonUI(at index: Int, isSelected: Bool) {
         let model = viewModel.getSelectedFlowerModel(idx: index)
         guard let indexPath = viewModel.findCellIndexPathRow(for: model) else { return }
         
         if let cell = flowerSelectTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectTableViewCell {
-            cell.isAddImageButtonSelected = false
+            cell.isAddImageButtonSelected = isSelected
         }
     }
     
@@ -410,15 +411,14 @@ extension FlowerSelectViewController {
     }
 }
 
-// MARK: - UICollectionViewDelegate
-
-extension FlowerSelectViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tempHashTag.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.hashTagCellIdentifier, for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
+extension FlowerSelectViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: CellIdentifier.hashTagCellIdentifier,
+            for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
         
         if indexPath.row == 0 {
             cell.isSelected = true
@@ -427,6 +427,25 @@ extension FlowerSelectViewController: UICollectionViewDataSource, UICollectionVi
         
         cell.setupHashTag(text: tempHashTag[indexPath.row])
         return cell
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let title = tempHashTag[indexPath.row]
+        viewModel.filterModels(with: title)
+    }
+    
+}
+// MARK: - UICollectionViewDelegate
+
+extension FlowerSelectViewController: UICollectionViewDelegate {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return tempHashTag.count
     }
 }
 
@@ -458,7 +477,7 @@ extension FlowerSelectViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return viewModel.getFlowerKeywordModelCount()
+        return viewModel.getFilterdModelsCount()
     }
     
     func tableView(
@@ -472,8 +491,10 @@ extension FlowerSelectViewController: UITableViewDataSource {
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
-        let model = viewModel.getFlowerKeywordModel(idx: indexPath.row)
+        let model = viewModel.getFilterdModel(idx: indexPath.row)
         cell.configUI(model: model)
+        
+        cell.isAddImageButtonSelected = viewModel.selectedFlowerModels.contains(where: { $0 == model })
         
         cell.addImageButtonClicked = { [weak self] in
             guard let self = self else { return }
@@ -494,7 +515,10 @@ extension FlowerSelectViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension FlowerSelectViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
 }

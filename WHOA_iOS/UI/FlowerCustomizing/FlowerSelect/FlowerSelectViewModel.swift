@@ -12,8 +12,9 @@ class FlowerSelectViewModel {
     
     // MARK: - Properties
     
-    @Published var flowerKeywordModel: [FlowerKeywordModel] = []
-    @Published var selectedFlowerModel: [FlowerKeywordModel] = []
+    var flowerKeywordModels: [FlowerKeywordModel] = []
+    @Published var filteredModels: [FlowerKeywordModel] = []
+    @Published var selectedFlowerModels: [FlowerKeywordModel] = []
     
     var cancellables = Set<AnyCancellable>()
     
@@ -28,49 +29,55 @@ class FlowerSelectViewModel {
         }
     }
     
-    // FlowerKeywordModel
-    func getFlowerKeywordModel(idx: Int) -> FlowerKeywordModel {
-        return flowerKeywordModel[idx]
-    }
-    
-    func getFlowerKeywordModelCount() -> Int {
-        return flowerKeywordModel.count
-    }
-    
-    func pushKeywordModel(model: FlowerKeywordModel) {
-        selectedFlowerModel.append(model)
-    }
-    
     func popKeywordModel(model: FlowerKeywordModel) {
-        guard let idx = selectedFlowerModel.firstIndex(where: { selectedFlowerModel in
+        guard let idx = selectedFlowerModels.firstIndex(where: { selectedFlowerModel in
             selectedFlowerModel == model }) else { return }
         
-        selectedFlowerModel.remove(at: idx)
+        selectedFlowerModels.remove(at: idx)
     }
     
     // SelectedFlowerModel
     func getSelectedFlowerModelCount() -> Int {
-        return selectedFlowerModel.count
+        return selectedFlowerModels.count
     }
     
     func getSelectedFlowerModelImagesURL() -> [URL?] {
-        return selectedFlowerModel.map {
+        return selectedFlowerModels.map {
             let url = URL(string: $0.flowerImage) ?? nil
             return url
         }
     }
     
+    func pushKeywordModel(model: FlowerKeywordModel) {
+        selectedFlowerModels.append(model)
+    }
+    
     func getSelectedFlowerModel(idx: Int) -> FlowerKeywordModel {
-        return selectedFlowerModel[idx]
+        return selectedFlowerModels[idx]
     }
     
     func popSelectedFlowerModel(at index: Int) {
-            if index >= 0 && index < selectedFlowerModel.count {
-                selectedFlowerModel.remove(at: index)
+            if index >= 0 && index < selectedFlowerModels.count {
+                selectedFlowerModels.remove(at: index)
             }
         }
     
     func findCellIndexPathRow(for model: FlowerKeywordModel) -> Int? {
-        return flowerKeywordModel.firstIndex(where: { $0 == model })
+        return filteredModels.firstIndex(where: { $0 == model })
+    }
+    
+    // FilteredModels
+    func filterModels(with hasTag: String) {
+        filteredModels = hasTag == "전체" ?
+        flowerKeywordModels :
+        flowerKeywordModels.filter { $0.flowerKeyword.contains(hasTag) }
+    }
+    
+    func getFilterdModelsCount() -> Int {
+        return filteredModels.count
+    }
+    
+    func getFilterdModel(idx: Int) -> FlowerKeywordModel {
+        return filteredModels[idx]
     }
 }
