@@ -12,17 +12,17 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     override var isSelected: Bool {
-            didSet {
-                updateAppearance()
-            }
+        didSet {
+            updateAppearance()
         }
+    }
     
     // MARK: - UI
     
     let hashTagTitle: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.textColor = UIColor.systemGray2
+        label.font = .Pretendard()
+        label.textColor = .gray8
         return label
     }()
     
@@ -41,9 +41,9 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     
     private func setupUI() {
-        contentView.layer.borderColor = UIColor.systemGray5.cgColor
-        contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 20
+        contentView.layer.borderColor = UIColor.gray4.cgColor
+        contentView.layer.borderWidth = 1
         
         addSubview(hashTagTitle)
         
@@ -55,9 +55,9 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateAppearance() {
-        hashTagTitle.font = isSelected ? UIFont(name: "Pretendard-SemiBold", size: 16) : UIFont(name: "Pretendard-Regular", size: 16)
-        hashTagTitle.textColor = isSelected ? .black : .systemGray2
-        contentView.layer.borderColor = isSelected ? UIColor.systemMint.cgColor : UIColor.systemGray5.cgColor
+        contentView.layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.gray4.cgColor
+        hashTagTitle.font = isSelected ? .Pretendard(family: .SemiBold) : .Pretendard()
+        hashTagTitle.textColor = isSelected ? .primary : .gray8
     }
 }
 

@@ -9,18 +9,21 @@ import UIKit
 
 class FlowerPriceViewController: UIViewController {
     
-    // MARK: - Initialize
+    // MARK: - Properties
+    
+    private let viewModel = FlowerPriceViewModel()
     
     // MARK: - UI
     
     private let exitButton = ExitButton()
     private let progressHStackView = CustomProgressHStackView(numerator: 5, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "원하는 가격대 범위를 설정해주세요")
+    private let titleLabel = CustomTitleLabel(text: "원하는 가격대 범위를\n설정해주세요")
     
     private let valueLabel: UILabel = {
         let label = UILabel()
         label.text = "0 ~ 150000원"
-        label.font = UIFont(name: "Pretendard-Bold", size: 22)
+        label.font = .Pretendard(size: 20, family: .Bold)
+        label.textColor = .black
         label.numberOfLines = 0
         return label
       }()
@@ -31,11 +34,17 @@ class FlowerPriceViewController: UIViewController {
         slider.maxValue = 150000
         slider.lower = 0
         slider.upper = 150000
-        slider.trackColor = .systemGray5
-        slider.trackTintColor = .systemGray5
+        slider.trackColor = .gray2
+        slider.trackTintColor = .gray2
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
       }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .gray2
+        return view
+    }()
     
     private let backButton: BackButton = {
         let button = BackButton(isActive: true)
@@ -67,6 +76,7 @@ class FlowerPriceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
     }
     
@@ -81,13 +91,21 @@ class FlowerPriceViewController: UIViewController {
         view.addSubview(valueLabel)
         view.addSubview(rangeSlider)
         
+        view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
     }
     
     private func bind() {
-        
+        viewModel.$flowerPriceModel
+            .receive(on: RunLoop.main)
+            .print()
+            .sink { [weak self] model in
+                self?.valueLabel.text =
+                "\(model.minPrice.decimalFormattedString()) ~ \(model.maxPrice.decimalFormattedString())원"
+            }
+            .store(in: &viewModel.cancellables)
     }
     
     // MARK: - Actions
@@ -95,21 +113,8 @@ class FlowerPriceViewController: UIViewController {
     @objc
     private func changeValue() {
         nextButton.isActive = true
-        rangeSlider.trackTintColor = .systemMint
-        
-        let maxNumber = self.rangeSlider.upper
-        let minNumber = self.rangeSlider.lower
-        
-        let roundedmaxNumber = Int(floor(Double(maxNumber) / 1000.0) * 1000)
-        let roundedminNumber = Int(floor(Double(minNumber) / 1000.0) * 1000)
-        
-        let formatter = NumberFormatter()
-        
-        formatter.numberStyle = .decimal
-        guard let formattedMaxNumber = formatter.string(from: NSNumber(value: roundedmaxNumber / 1000 * 1000)) else { return }
-        guard let formattedMinNumber = formatter.string(from: NSNumber(value: roundedminNumber / 1000 * 1000)) else { return }
-        
-        self.valueLabel.text = "\(formattedMinNumber) ~ \(formattedMaxNumber)원"
+        rangeSlider.trackTintColor = .second1
+        viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
       }
     
     @objc
@@ -126,13 +131,13 @@ class FlowerPriceViewController: UIViewController {
 extension FlowerPriceViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.equalToSuperview().offset(17)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
+            $0.leading.equalToSuperview().offset(22)
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.top.equalTo(exitButton.snp.bottom).offset(29)
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
             $0.height.equalTo(12.75)
         }
         
@@ -149,9 +154,15 @@ extension FlowerPriceViewController {
         
         rangeSlider.snp.makeConstraints {
             $0.top.equalTo(valueLabel.snp.bottom).offset(20)
-            $0.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
             $0.height.equalTo(21)
-            $0.width.equalTo(370)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3)
         }
         
         backButton.snp.makeConstraints {
@@ -160,9 +171,8 @@ extension FlowerPriceViewController {
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }
