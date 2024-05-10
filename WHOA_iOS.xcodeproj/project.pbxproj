@@ -21,10 +21,17 @@
 		085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */; };
 		085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085DEE982BA3404500CC5AC2 /* CustomButton.swift */; };
 		0864AE912BE1F82D00F89488 /* FlowerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0864AE902BE1F82D00F89488 /* FlowerImage.png */; };
+		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
+		0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA642B957C87003779CE /* RequestDetailViewModel.swift */; };
+		0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA662B9580FE003779CE /* DetailCustomLabel.swift */; };
+		0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA682B962E3B003779CE /* FlowerTypeView.swift */; };
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
 		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
 		0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */; };
+		0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6252B8677BF00727F14 /* MyPageViewController.swift */; };
+		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
+		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
 		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */; };
 		089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D507D2BB9833100877CE3 /* DecorateButton.swift */; };
@@ -32,22 +39,15 @@
 		08A540192BB133C500710A7D /* ManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A540182BB133C500710A7D /* ManagementView.swift */; };
 		08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5401A2BB1355400710A7D /* ManagementCell.swift */; };
 		08A5401D2BB136D400710A7D /* ManageImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A5401C2BB136D400710A7D /* ManageImage.png */; };
-		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
-		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
-		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
-		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
-		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
-		0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA642B957C87003779CE /* RequestDetailViewModel.swift */; };
-		0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA662B9580FE003779CE /* DetailCustomLabel.swift */; };
-		0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA682B962E3B003779CE /* FlowerTypeView.swift */; };
-		0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6252B8677BF00727F14 /* MyPageViewController.swift */; };
-		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
-		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
 		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
 		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
+		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
+		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
+		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
+		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
 		5411BA382BE0DEA5002A85F0 /* PackagingAssignType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */; };
 		5411BA3A2BE11DD8002A85F0 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA392BE11DD8002A85F0 /* UITextView+.swift */; };
@@ -64,13 +64,10 @@
 		542DD3F02B794B1000DBFCCC /* PurposeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EF2B794B1000DBFCCC /* PurposeModel.swift */; };
 		5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460710D2B8235E10033B598 /* ColorPickerView.swift */; };
 		546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071122B863BB70033B598 /* NumberOfColorsType.swift */; };
-		5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */; };
 		546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071232B88C22F0033B598 /* HTTPMethods.swift */; };
 		546071262B88C2740033B598 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071252B88C2740033B598 /* NetworkError.swift */; };
 		546071282B88C2C30033B598 /* ServableAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071272B88C2C30033B598 /* ServableAPI.swift */; };
 		5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071292B88C4D30033B598 /* NetworkService.swift */; };
-		5460712D2B88C5670033B598 /* TestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460712C2B88C5670033B598 /* TestAPI.swift */; };
-		546071302B88C5960033B598 /* TestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460712F2B88C5960033B598 /* TestDTO.swift */; };
 		546071322B88C6A30033B598 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071312B88C6A30033B598 /* NetworkManager.swift */; };
 		546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071332B88D7490033B598 /* FlowerColorPickerModel.swift */; };
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
@@ -102,7 +99,6 @@
 		54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* UIButton+.swift */; };
 		54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */; };
 		54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */; };
-		54EB17F22BAC4CBE00717E6F /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F12BAC4CBE00717E6F /* RequestDetailView.swift */; };
 		54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */; };
 		54EB17FC2BB46F2200717E6F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54EB17FB2BB46F2200717E6F /* Color.xcassets */; };
 		54EB17FE2BB4768400717E6F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17FD2BB4768400717E6F /* Palette.swift */; };
@@ -167,10 +163,17 @@
 		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
 		085DEE982BA3404500CC5AC2 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0864AE902BE1F82D00F89488 /* FlowerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlowerImage.png; sourceTree = "<group>"; };
+		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
+		0886DA642B957C87003779CE /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
+		0886DA662B9580FE003779CE /* DetailCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCustomLabel.swift; sourceTree = "<group>"; };
+		0886DA682B962E3B003779CE /* FlowerTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerTypeView.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
 		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
 		0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchResultCell.swift; sourceTree = "<group>"; };
+		0887F6252B8677BF00727F14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
+		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
 		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetViewController.swift; sourceTree = "<group>"; };
 		089D507D2BB9833100877CE3 /* DecorateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorateButton.swift; sourceTree = "<group>"; };
@@ -178,22 +181,15 @@
 		08A540182BB133C500710A7D /* ManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementView.swift; sourceTree = "<group>"; };
 		08A5401A2BB1355400710A7D /* ManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementCell.swift; sourceTree = "<group>"; };
 		08A5401C2BB136D400710A7D /* ManageImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageImage.png; sourceTree = "<group>"; };
-		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
-		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
-		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
-		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
-		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
-		0886DA642B957C87003779CE /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
-		0886DA662B9580FE003779CE /* DetailCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCustomLabel.swift; sourceTree = "<group>"; };
-		0886DA682B962E3B003779CE /* FlowerTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerTypeView.swift; sourceTree = "<group>"; };
-		0887F6252B8677BF00727F14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
-		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
 		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
+		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
+		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
+		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
 		5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingAssignType.swift; sourceTree = "<group>"; };
 		5411BA392BE11DD8002A85F0 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -211,13 +207,10 @@
 		5460710D2B8235E10033B598 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		546071122B863BB70033B598 /* NumberOfColorsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfColorsType.swift; sourceTree = "<group>"; };
 		546071162B87EBB50033B598 /* FlowerSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewController.swift; sourceTree = "<group>"; };
-		5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetwokringTestViewController.swift; sourceTree = "<group>"; };
 		546071232B88C22F0033B598 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		546071252B88C2740033B598 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		546071272B88C2C30033B598 /* ServableAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServableAPI.swift; sourceTree = "<group>"; };
 		546071292B88C4D30033B598 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		5460712C2B88C5670033B598 /* TestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPI.swift; sourceTree = "<group>"; };
-		5460712F2B88C5960033B598 /* TestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDTO.swift; sourceTree = "<group>"; };
 		546071312B88C6A30033B598 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		546071332B88D7490033B598 /* FlowerColorPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerModel.swift; sourceTree = "<group>"; };
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -248,7 +241,6 @@
 		54EB17E92BA9ED5700717E6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewController.swift; sourceTree = "<group>"; };
 		54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSummaryView.swift; sourceTree = "<group>"; };
-		54EB17F12BAC4CBE00717E6F /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAlertViewController.swift; sourceTree = "<group>"; };
 		54EB17FB2BB46F2200717E6F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		54EB17FD2BB4768400717E6F /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -345,57 +337,38 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-        085738342B721C5A00AAFAC6 /* View */ = {
-            isa = PBXGroup;
-            children = (
-                085DEE9A2BA355F700CC5AC2 /* cell */,
-                085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
-                08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
-                085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
-            );
-            path = View;
-            sourceTree = "<group>";
-        };
-        085DEE9A2BA355F700CC5AC2 /* cell */ = {
-            isa = PBXGroup;
-            children = (
-                08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
-                08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
-                08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
-            );
-            path = cell;
-            sourceTree = "<group>";
-        };
+		085738342B721C5A00AAFAC6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				085DEE9A2BA355F700CC5AC2 /* cell */,
+				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
+				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
+				085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		085DEE9A2BA355F700CC5AC2 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
+				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
+				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0886DA612B957BA6003779CE /* RequestDetail */ = {
 			isa = PBXGroup;
 			children = (
-                0887F62A2B867D4D00727F14 /* CustomView */,
-                08C0ADF02BA979B30099EFE5 /* View */,
-                0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
-                0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
-                0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
-                0886DA682B962E3B003779CE /* FlowerTypeView.swift */,
+				0887F62A2B867D4D00727F14 /* CustomView */,
+				08C0ADF02BA979B30099EFE5 /* View */,
+				0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
+				0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
+				0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
+				0886DA682B962E3B003779CE /* FlowerTypeView.swift */,
 			);
-            path = RequestDetail;
-			sourceTree = "<group>";
-		};
-		0887F6242B86777F00727F14 /* MyPage */ = {
-			isa = PBXGroup;
-			children = (
-                0886DA612B957BA6003779CE /* RequestDetail */,
-                0887F6272B867B9D00727F14 /* cell */,
-                0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
-                0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */,
-			);
-			path = MyPage;
-			sourceTree = "<group>";
-		};
-		0887F6272B867B9D00727F14 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				0887F6282B867BAE00727F14 /* SavedRequestCell.swift */,
-			);
-			path = cell;
+			path = RequestDetail;
 			sourceTree = "<group>";
 		};
 		08877E262B7623990028BD26 /* FlowerDetail */ = {
@@ -416,10 +389,28 @@
 				08A540182BB133C500710A7D /* ManagementView.swift */,
 				089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */,
 				089D507D2BB9833100877CE3 /* DecorateButton.swift */,
-            );
-            path = View;
-            sourceTree = "<group>";
-        };
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0887F6242B86777F00727F14 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				0886DA612B957BA6003779CE /* RequestDetail */,
+				0887F6272B867B9D00727F14 /* cell */,
+				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		0887F6272B867B9D00727F14 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				0887F6282B867BAE00727F14 /* SavedRequestCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		0887F62A2B867D4D00727F14 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +422,13 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		089062902B77A66B00C856CB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		08C0ADF02BA979B30099EFE5 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,11 +437,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		089062902B77A66B00C856CB /* ViewModel */ = {
+		08C0ADF72BA9B9250099EFE5 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
 			);
-			path = ViewModel;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		08F7B29F2B823DD100DFD4F7 /* cell */ = {
@@ -453,14 +452,6 @@
 				0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */,
 			);
 			path = cell;
-            sourceTree = "<group>";
-        };
-		08C0ADF72BA9B9250099EFE5 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
@@ -494,14 +485,6 @@
 			path = FlowerSelect;
 			sourceTree = "<group>";
 		};
-		5460711C2B88BA500033B598 /* NetwokringTest */ = {
-			isa = PBXGroup;
-			children = (
-				5460711A2B88BA1F0033B598 /* NetwokringTestViewController.swift */,
-			);
-			path = NetwokringTest;
-			sourceTree = "<group>";
-		};
 		546071212B88C1860033B598 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -527,7 +510,6 @@
 		5460712B2B88C5550033B598 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				5460712C2B88C5670033B598 /* TestAPI.swift */,
 				54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */,
 			);
 			path = APIs;
@@ -536,7 +518,6 @@
 		5460712E2B88C57C0033B598 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
-				5460712F2B88C5960033B598 /* TestDTO.swift */,
 				54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */,
 			);
 			path = DTOs;
@@ -646,7 +627,6 @@
 			isa = PBXGroup;
 			children = (
 				54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */,
-				54EB17F12BAC4CBE00717E6F /* RequestDetailView.swift */,
 				54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */,
 			);
 			path = Views;
@@ -757,7 +737,6 @@
 			isa = PBXGroup;
 			children = (
 				0887F6242B86777F00727F14 /* MyPage */,
-				5460711C2B88BA500033B598 /* NetwokringTest */,
 				54FD0F762B73CF2B00F964C3 /* Common */,
 				54FD0F622B6FFC1C00F964C3 /* Home */,
 				54FD0F692B70198500F964C3 /* FlowerCustomizing */,
@@ -1031,7 +1010,6 @@
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
-				5460712D2B88C5670033B598 /* TestAPI.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
@@ -1067,8 +1045,7 @@
 				5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,
 				08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */,
-				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,
-
+				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
 				5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */,
 				54EB17DE2BA1D4B200717E6F /* PhotoService.swift in Sources */,
 				54D856602BDD40750099D818 /* AlternativesViewModel.swift in Sources */,
@@ -1080,7 +1057,7 @@
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
 				08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */,
 				0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */,
-				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
+				542DD3F02B794B1000DBFCCC /* PurposeModel.swift in Sources */,
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */,
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
@@ -1102,7 +1079,6 @@
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */,
 				5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */,
-				54EB17F22BAC4CBE00717E6F /* RequestDetailView.swift in Sources */,
 				54EB18032BB5400F00717E6F /* UIFont+.swift in Sources */,
 				54EB180E2BBF4C1200717E6F /* FlowerKeywordAPI.swift in Sources */,
 				54EB18122BBF542C00717E6F /* FlowerSelectModel.swift in Sources */,
@@ -1112,7 +1088,6 @@
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				54D5BAFD2BE3F66A00C538E1 /* FlowerPriceViewModel.swift in Sources */,
-				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */,
@@ -1122,7 +1097,6 @@
 				54EB17DC2BA1D48F00717E6F /* PhotoAuthService.swift in Sources */,
 				54EB180B2BBD686300717E6F /* UIViewController+.swift in Sources */,
 				54EB18072BB5884500717E6F /* UIScrollView+.swift in Sources */,
-				546071302B88C5960033B598 /* TestDTO.swift in Sources */,
 				54EB17FE2BB4768400717E6F /* Palette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
