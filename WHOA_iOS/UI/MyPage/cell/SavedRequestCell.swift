@@ -136,10 +136,11 @@ class SavedRequestCell: UITableViewCell {
         
         requestTitleLabel.text = model.bouquetTitle
         bouquetId = model.bouquetId
+        writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
         
-        if !model.bouquetImage.isEmpty {
+        if !model.bouquetImgPaths.isEmpty {
             DispatchQueue.global().async { [weak self] in
-                if let data = try? Data(contentsOf: URL(string: model.bouquetImage[0])!) {
+                if let data = try? Data(contentsOf: URL(string: model.bouquetImgPaths[0])!) {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
                             self?.flowerImageView.image = image

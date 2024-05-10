@@ -12,5 +12,5 @@ struct BouquetAllAPI: ServableAPI {
     
     var path: String { "/api/bouquet/all" }
     var params: [String : String] {[:]}
-    var headers: [String : String] { ["MEMBER_ID" : "1"] }
+    var headers: [String : String]? { ["MEMBER_ID" : "1"] }
 }

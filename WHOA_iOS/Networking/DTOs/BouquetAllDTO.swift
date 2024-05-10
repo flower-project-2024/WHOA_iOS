@@ -17,6 +17,7 @@ struct BouquetAllDTO: Codable {
 struct Bouquet: Codable {
     let bouquetId: Int
     let bouquetName: String
+    let createdAt: String
     let imgPaths: [String]
 }
 
@@ -26,7 +27,8 @@ extension BouquetAllDTO {
             BouquetModel(
                 bouquetId: $0.bouquetId,
                 bouquetTitle: $0.bouquetName,
-                bouquetImage: $0.imgPaths
+                bouquetCreatedAt: $0.createdAt,
+                bouquetImgPaths: $0.imgPaths
             )
         }
     }

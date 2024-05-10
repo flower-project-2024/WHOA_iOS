@@ -8,5 +8,6 @@
 struct BouquetModel {
     let bouquetId: Int
     let bouquetTitle: String
-    let bouquetImage: [String]
+    let bouquetCreatedAt: String
+    let bouquetImgPaths: [String]
 }

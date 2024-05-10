@@ -21,18 +21,17 @@ class BouquetListModel {
     
     // MARK: - Functions
     
-    func fetchAllBouquets(){
+    func fetchAllBouquets(fromCurrentVC: UIViewController){
         NetworkManager.shared.fetchAllBouquets { result in
             switch result {
             case .success(let model):
                 self.bouquetModelList = model
             case .failure(let error):
-                print("요구서 리스트 요청 실패")
-                //                let networkAlertController = self.networkErrorAlert(error)
-                //
-                //                DispatchQueue.main.async { [unowned self] in
-                //                    fromCurrentVC.present(networkAlertController, animated: true)
-                //                }
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async {
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
             }
         }
     }
@@ -45,5 +44,13 @@ class BouquetListModel {
     // 요구서 개수 리턴
     func getBouquetModelCount() -> Int {
         return bouquetModelList.count
+    }
+    
+    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        
+        return alertController
     }
 }

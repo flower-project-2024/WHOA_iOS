@@ -39,7 +39,7 @@ class MyPageViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchAllBouquets()
+        viewModel.fetchAllBouquets(fromCurrentVC: self)
         
         setupNavigation()
         addViews()
@@ -86,7 +86,6 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         let model = viewModel.getBouquetModel(index: indexPath.row)
-        cell.writtenDateLabel.text = "2024.01.12" // TODO: 서버에서 날짜 보내주도록 수정된 다음에 수정!!
         cell.myPageVC = self
         cell.configure(model: model)
         return cell
