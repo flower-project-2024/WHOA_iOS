@@ -13,7 +13,7 @@ import UIKit
 class FlowerTypeView: UIView {
     
     // MARK: - Views
-    private let flowerImageView: UIImageView = {
+    let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(named: "WhoaLogo")
@@ -31,7 +31,7 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerNameLabel: UILabel = {
+    let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "과꽃"
         label.font = UIFont(name: "Pretendard-Medium", size: 16)
@@ -45,7 +45,7 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerLanguageTagLabel1: DetailCustomLabel = {
+    let flowerLanguageTagLabel1: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "믿는 사랑"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
@@ -53,7 +53,7 @@ class FlowerTypeView: UIView {
         return label
     }()
     
-    private let flowerLanguageTagLabel2: DetailCustomLabel = {
+    let flowerLanguageTagLabel2: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "추억"
         label.font = UIFont(name: "Pretendard-Regular", size: 14)
