@@ -11,13 +11,13 @@ struct FlowerKeywordDTO: Codable {
     let timestamp: String
     let success: Bool
     let status: Int
-    let data: [data]
-}
-
-struct data: Codable {
-    let flowerName: String
-    let flowerImage: String
-    let flowerKeyword: String
+    let data: [Data]
+    
+    struct Data: Codable {
+        let flowerName: String
+        let flowerImage: String
+        let flowerKeyword: String
+    }
 }
 
 extension FlowerKeywordDTO {
