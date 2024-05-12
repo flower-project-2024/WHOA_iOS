@@ -50,6 +50,10 @@
 		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
+		08DA470B2BF0ABBE00956555 /* FlowerSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA470A2BF0ABBE00956555 /* FlowerSearchAPI.swift */; };
+		08DA470D2BF0ABD000956555 /* FlowerSearchDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA470C2BF0ABD000956555 /* FlowerSearchDTO.swift */; };
+		08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA470E2BF0AD6400956555 /* FlowerSearchModel.swift */; };
+		08DA47112BF0B24800956555 /* FlowerSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA47102BF0B24800956555 /* FlowerSearchViewModel.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
@@ -163,6 +167,10 @@
 		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
+		08DA470A2BF0ABBE00956555 /* FlowerSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchAPI.swift; sourceTree = "<group>"; };
+		08DA470C2BF0ABD000956555 /* FlowerSearchDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchDTO.swift; sourceTree = "<group>"; };
+		08DA470E2BF0AD6400956555 /* FlowerSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchModel.swift; sourceTree = "<group>"; };
+		08DA47102BF0B24800956555 /* FlowerSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewModel.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
@@ -249,6 +257,8 @@
 			children = (
 				08F7B29F2B823DD100DFD4F7 /* cell */,
 				08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */,
+				08DA470E2BF0AD6400956555 /* FlowerSearchModel.swift */,
+				08DA47102BF0B24800956555 /* FlowerSearchViewModel.swift */,
 			);
 			path = FlowerSearch;
 			sourceTree = "<group>";
@@ -461,6 +471,7 @@
 				5460712C2B88C5670033B598 /* TestAPI.swift */,
 				08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */,
 				08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */,
+				08DA470A2BF0ABBE00956555 /* FlowerSearchAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -471,6 +482,7 @@
 				5460712F2B88C5960033B598 /* TestDTO.swift */,
 				08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */,
 				08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */,
+				08DA470C2BF0ABD000956555 /* FlowerSearchDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -875,6 +887,7 @@
 				08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */,
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
+				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,
@@ -900,12 +913,14 @@
 				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
+				08DA470B2BF0ABBE00956555 /* FlowerSearchAPI.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
 				546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */,
 				08149EA02BE94E1A00F58A34 /* TodaysFlowerAPI.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* BuyingIntentViewModel.swift in Sources */,
 				08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */,
 				54E9816F2B90A6EB000669DB /* FlowerReplacementViewController.swift in Sources */,
+				08DA47112BF0B24800956555 /* FlowerSearchViewModel.swift in Sources */,
 				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
@@ -915,6 +930,7 @@
 				0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* BuyingIntentModel.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
+				08DA470D2BF0ABD000956555 /* FlowerSearchDTO.swift in Sources */,
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
 				548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,

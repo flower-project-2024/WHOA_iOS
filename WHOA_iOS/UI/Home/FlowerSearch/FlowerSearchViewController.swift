@@ -54,7 +54,8 @@ class FlowerSearchViewController: UIViewController {
     
     // MARK: - Properties
     
-    lazy var filteredItems: [String] = []
+    private let viewModel = FlowerSearchViewModel()
+    lazy var filteredItems: [FlowerSearchModel] = []
     let tempData: [String] = [
         "히아신스", "아네모네", "아마란서스", "아마릴리스", "아이리스", "장미", "튤립", "그냥 꽃"
     ]
@@ -64,6 +65,10 @@ class FlowerSearchViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bind()
+        viewModel.fetchFlowersForSearch()
+        
         searchBar.delegate = self
         
         self.navigationItem.hidesSearchBarWhenScrolling = false
@@ -87,6 +92,7 @@ class FlowerSearchViewController: UIViewController {
     }
     
     // MARK: - Helpers
+    
     private func addViews(){
         view.addSubview(searchTableView)
     }
@@ -106,6 +112,12 @@ class FlowerSearchViewController: UIViewController {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    private func bind(){
+        viewModel.flowerSearchListDidChange = {
+        
+        }
+    }
 }
 
 // MARK: - Extension; TableView
@@ -122,20 +134,20 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
         if isFiltering {
             // 검색 결과 있을 때
             if !filteredItems.isEmpty {
-                let filteredText = filteredItems[indexPath.row]
+                let filteredFlowerSearchModel = filteredItems[indexPath.row]
                 
-                let attributeString = NSMutableAttributedString(string: filteredText)
+                let attributeString = NSMutableAttributedString(string: filteredFlowerSearchModel.flowerName)
                 
                 /* 검색된 텍스트와 일치하는 부분 다른 색으로 처리 */
                 var textFirstIndex: Int = 0  // 검색중인 키워드가 가장 처음 나온 인덱스
                 
                 // 검색 중인 키워드가 가장 처음으로 일치하는 문자열의 범위 구하기
-                if let textFirstRange = filteredText.range(of: "\(searchedText)", options: .caseInsensitive) {
+                if let textFirstRange = filteredFlowerSearchModel.flowerName.range(of: "\(searchedText)", options: .caseInsensitive) {
                     // 거리(인덱스) 구해서 저장
-                    textFirstIndex = filteredText.distance(from: filteredText.startIndex, to: textFirstRange.lowerBound)
+                    textFirstIndex = filteredFlowerSearchModel.flowerName.distance(from: filteredFlowerSearchModel.flowerName.startIndex, to: textFirstRange.lowerBound)
                     
                     attributeString.addAttribute(.foregroundColor, value: UIColor(red: 46/255, green: 225/255, blue: 176/255, alpha: 1), range: NSRange(location: textFirstIndex, length: searchedText.count))
-                    cell.resultLabel.attributedText = attributeString
+                    cell.configure(id: filteredFlowerSearchModel.flowerId, attributedFlowerName: attributeString)
                 }
             }
             // 검색 결과 없을 때의 셀
@@ -164,7 +176,7 @@ extension FlowerSearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedText = searchBar.text ?? ""
-        self.filteredItems = self.tempData.filter { $0.localizedCaseInsensitiveContains(searchedText) }
+        self.filteredItems = viewModel.getFilteredFlowers(searchedText: searchedText)
         self.searchTableView.reloadData()
     }
 }

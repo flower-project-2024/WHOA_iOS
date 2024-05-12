@@ -63,4 +63,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 꽃 검색을 위한 꽃 정보를 조회하는 함수입니다.
+    func fetchFlowersForSearch(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FlowerSearchModel], NetworkError>) -> Void
+    ){
+        let flowerSearchAPI = FlowerSearchAPI()
+        networkService.request(flowerSearchAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(FlowerSearchDTO.convertFlowerSearchDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

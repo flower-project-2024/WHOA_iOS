@@ -8,8 +8,11 @@
 import UIKit
 
 class FlowerSearchResultCell: UITableViewCell {
+    
     // MARK: - Properties
+    
     static let identifier: String = "FlowerSearchResultCell"
+    private var flowerId: Int = 0
     
     // MARK: - Views
     private let searchImageView: UIImageView = {
@@ -38,6 +41,7 @@ class FlowerSearchResultCell: UITableViewCell {
     }
     
     // MARK: - Helpers
+    
     private func addViews(){
         addSubview(searchImageView)
         addSubview(resultLabel)
@@ -55,5 +59,10 @@ class FlowerSearchResultCell: UITableViewCell {
             make.leading.equalTo(searchImageView.snp.trailing).offset(8)
             make.centerY.equalTo(searchImageView.snp.centerY)
         }
+    }
+    
+    func configure(id: Int, attributedFlowerName: NSMutableAttributedString){
+        flowerId = id
+        resultLabel.attributedText = attributedFlowerName
     }
 }
