@@ -17,7 +17,7 @@ class MyPageViewController: UIViewController {
     private let viewTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "저장된 요구서"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.font = UIFont.Pretendard(size: 20, family: .SemiBold)
         label.textAlignment = .left
         return label
     }()

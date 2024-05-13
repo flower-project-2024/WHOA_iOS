@@ -32,7 +32,7 @@ class CustomAlertViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = { [self] in
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = UIFont.Pretendard(size: 20, family: .Bold)
         var fullTitle = ""
         
         // 이미지 저장 팝업인 경우만 attribute 필요 없음
@@ -52,7 +52,7 @@ class CustomAlertViewController: UIViewController {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
         
         if alertType == .delete {
             label.text = "삭제하면 복구할 수 없습니다."
@@ -75,7 +75,7 @@ class CustomAlertViewController: UIViewController {
         config.baseBackgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1) // gray02
         config.background.cornerRadius = 10
         config.attributedTitle = "아니요"
-        config.attributedTitle?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         config.baseForegroundColor = UIColor(red: 102/255, green: 102/255, blue: 103/255, alpha: 1)  // gray08
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 39, bottom: 13, trailing: 39)
         
@@ -97,7 +97,7 @@ class CustomAlertViewController: UIViewController {
             config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
         }
         
-        config.attributedTitle?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         config.baseForegroundColor = .white   // gray01
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 41, bottom: 13, trailing: 41)
         

@@ -26,20 +26,20 @@ class SavedRequestCell: UITableViewCell {
     
     private let detailView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1) // gray02
+        view.backgroundColor = UIColor.gray02
         return view
     }()
     
     lazy var requestTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Medium", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .Medium)
         label.numberOfLines = 1
         return label
     }()
     
     lazy var writtenDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.text = "2024-01-01"
         label.textColor = UIColor(red: 144/255, green: 144/255, blue: 144/255, alpha: 1)
         return label
@@ -71,7 +71,7 @@ class SavedRequestCell: UITableViewCell {
         
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = CGColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1) //gray03
+        contentView.layer.borderColor = UIColor.gray03.cgColor
         contentView.layer.masksToBounds = true
         addViews()
         setupConstraints()
