@@ -11,9 +11,9 @@ struct FlowerKeywordDTO: Codable {
     let timestamp: String
     let success: Bool
     let status: Int
-    let data: [Data]
+    let data: [FlowerKeywordData]
     
-    struct Data: Codable {
+    struct FlowerKeywordData: Codable {
         let flowerName: String
         let flowerImage: String
         let flowerKeyword: String
