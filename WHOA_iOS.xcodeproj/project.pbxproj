@@ -534,6 +534,7 @@
 		548C4AE52B8E691D002F4FCB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				54EB17D32BA1D20B00717E6F /* Photo */,
 				548C4AE62B8E694A002F4FCB /* Constants.swift */,
 				54EB17FD2BB4768400717E6F /* Palette.swift */,
 			);
@@ -697,7 +698,6 @@
 			children = (
 				54FD0F5E2B6FD48900F964C3 /* App */,
 				546071212B88C1860033B598 /* Networking */,
-				54EB17D32BA1D20B00717E6F /* Photo */,
 				54FD0F612B6FD60700F964C3 /* UI */,
 				54FD0F822B74C0DB00F964C3 /* Global */,
 				54FD0F602B6FD52E00F964C3 /* Resources */,
