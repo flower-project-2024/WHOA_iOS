@@ -239,6 +239,30 @@ class RequestDetailView: UIView {
     }
     
     // MARK: -Helpers
+    func config(model: CustomizingSummaryModel) {
+        buyingIntentContentLabel.text = model.purpose.rawValue
+        
+        flowerColorContentLabel.text = model.numberOfColors.rawValue
+        flowerColorChipView1.backgroundColor = UIColor(hex: model.colors[0])
+        flowerColorChipView2.backgroundColor = UIColor(hex: model.colors[1])
+        
+        //        flowerTypeView1.flowerImageView.image = model.Flowers[0].photo
+        flowerTypeView1.flowerNameLabel.text = model.flowers[0].name
+        flowerTypeView1.flowerLanguageTagLabel1.text = model.flowers[0].hashTag[0]
+        flowerTypeView1.flowerLanguageTagLabel2.text = model.flowers[0].hashTag[1]
+        //        flowerTypeView2.flowerImageView.image = model.Flowers[1].photo
+//        flowerTypeView2.flowerNameLabel.text = model.Flowers[1].flowerName
+//        flowerTypeView2.flowerLanguageTagLabel1.text = model.Flowers[1].hashTag[0]
+//        flowerTypeView2.flowerLanguageTagLabel2.text = model.Flowers[1].hashTag[1]
+        
+        alternativesContentLabel.text = model.alternative.rawValue
+        
+        priceContentLabel.text = model.priceRange
+        
+        additionalRequirementContentLabel.text = model.requirement?.text
+        // 요구사항 사진 추가 필요
+    }
+    
     private func addViews(){
         addSubview(buyingIntentStackView)
         buyingIntentStackView.addArrangedSubview(buyingIntentTitleLabel)

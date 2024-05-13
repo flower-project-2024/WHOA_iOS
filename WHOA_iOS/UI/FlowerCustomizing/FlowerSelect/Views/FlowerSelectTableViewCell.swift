@@ -24,21 +24,22 @@ class FlowerSelectTableViewCell: UITableViewCell {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "TempFlower")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "튤립"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.textColor = .primary
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "plus.app")
-        imageView.tintColor = .black
+        imageView.tintColor = .gray9
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
@@ -46,29 +47,36 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let hashTag: tempHashTagLabel = {
+    private let hashTag1: tempHashTagLabel = {
         let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.text = "믿는 사랑"
-        hashTagLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
-        hashTagLabel.textColor = .systemMint
-        hashTagLabel.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+        hashTagLabel.font = .Pretendard(family: .Medium)
+        hashTagLabel.textColor = .second3
+        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
         return hashTagLabel
     }()
     
     private let hashTag2: tempHashTagLabel = {
         let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.text = "추억"
-        hashTagLabel.font = UIFont(name: "Pretendard-Medium", size: 14)
-        hashTagLabel.textColor = .systemMint
-        hashTagLabel.backgroundColor = UIColor(red: 079/255, green: 234/255, blue: 191/255, alpha: 0.2)
+        hashTagLabel.font = .Pretendard(family: .Medium)
+        hashTagLabel.textColor = .second3
+        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
+        return hashTagLabel
+    }()
+    
+    private let hashTag3: tempHashTagLabel = {
+        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
+        hashTagLabel.font = .Pretendard(family: .Medium)
+        hashTagLabel.textColor = .second3
+        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
         return hashTagLabel
     }()
     
     private lazy var hashTagHStackView: UIStackView = {
         let stackView = UIStackView()
         [
-            hashTag,
-            hashTag2
+            hashTag1,
+            hashTag2,
+            hashTag3
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -79,12 +87,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private let flowerDescriptionView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(
-            red: 248/255,
-            green: 248/255,
-            blue: 248/255,
-            alpha: 1.0
-        )
+        view.backgroundColor = .gray2
         return view
     }()
     
@@ -120,17 +123,18 @@ class FlowerSelectTableViewCell: UITableViewCell {
     // MARK: - Functions
     
     private func setupUI() {
+        backgroundColor = .white
+        contentView.layer.cornerRadius = 10
+        contentView.layer.masksToBounds = true
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.gray3.cgColor
+        
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)
         flowerDescriptionView.addSubview(addImageButton)
         flowerDescriptionView.addSubview(hashTagHStackView)
         
         contentView.addSubview(fullHStackView)
-        
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.systemGray5.cgColor
         
         setupAutoLayout()
     }
@@ -139,18 +143,36 @@ class FlowerSelectTableViewCell: UITableViewCell {
         addImageButton.image = isSelected ? UIImage(named: "MinusButton") : UIImage(systemName: "plus.app")
     }
     
+    func configUI(model: FlowerKeywordModel) {
+        guard let imageURL = URL(string: model.flowerImage) else { return }
+        
+        flowerNameLabel.text = model.flowerName
+        flowerImageView.load(url: imageURL)
+
+        for i in model.flowerKeyword.indices {
+            switch i {
+            case 0:
+                hashTag1.text = model.flowerKeyword[i]
+            case 1:
+                hashTag2.text = model.flowerKeyword[i]
+            case 2:
+                hashTag3.text = model.flowerKeyword[i]
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: - Actions
     
     @objc
     func addImageButtonTapped() {
-        isAddImageButtonSelected.toggle()
         addImageButtonClicked?()
     }
 }
 
 extension FlowerSelectTableViewCell {
     private func setupAutoLayout() {
-        
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
             $0.width.equalTo(148)

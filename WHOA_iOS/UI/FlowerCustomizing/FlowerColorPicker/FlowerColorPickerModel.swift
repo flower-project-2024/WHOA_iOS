@@ -8,11 +8,5 @@
 import UIKit
 
 struct FlowerColorPickerModel {
-    let intentType: BuyingIntentType
     var colors: [UIColor?]?
-    
-    init(intentType: BuyingIntentType) {
-        self.intentType = intentType
-    }
-    
 }

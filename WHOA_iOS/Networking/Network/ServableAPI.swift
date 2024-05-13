@@ -9,29 +9,25 @@ import Foundation
 
 // 같은 API 제공자에게서 여러개의 API를 요청할 때 도메인 등의 중복 값들을 생략가능
 // path, parameter, 도메인 주소까지 커스텀 가능
-protocol ServableAPI {
-    associatedtype Response: Decodable
-    var path: String { get }
-    var params: [String: String] { get }
-    var headers: [String : String]? { get }
-}
 
 extension ServableAPI {
     // 테스트용 baseURL입니다.
     var baseURL: String { "http://3.35.183.117:8080" }
     var method: HTTPMethod { .get }
     //var headers: [String : String]? { nil }
-    var urlRequest: URLRequest {
-        var urlComponents = URLComponents(string: baseURL + path)!
-        let queryItems = params.map { (key: String, value: String) in
-            URLQueryItem(name: key, value: value)
-        }
-        urlComponents.queryItems = queryItems
+    var params: String { get }
+}
 
-        var request = URLRequest(url: urlComponents.url!)
+extension ServableAPI {
+    var baseURL: String { "http://3.35.183.117:8080" }
+    var urlRequest: URLRequest {
+        let urlString = baseURL + path + params
+        let url = URL(string: urlString)!
+
+        var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
 
-        if let headers {
+        if let headers = headers {
             headers.forEach { (key: String, value: String) in
                 request.addValue(value, forHTTPHeaderField: key)
             }
