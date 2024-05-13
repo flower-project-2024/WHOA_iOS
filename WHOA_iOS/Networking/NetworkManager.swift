@@ -14,6 +14,17 @@ final class NetworkManager {
     
     private init() {}
     
+    /// 요구서 전체를 조회하는 함수입니다.
+    func fetchAllBouquets(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[BouquetModel], NetworkError>) -> Void
+    ) {
+        let bouquetAllAPI = BouquetAllAPI()
+        networkService.request(bouquetAllAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(BouquetAllDTO.convertBouquetAllDTOToModel(DTO: DTO)))
+
     /// 키워드별 꽃 데이터를 받아오는 함수입니다.
     /// - Parameters:
     /// - keywordId: String, ex) 0 - 전체, 1 - 사랑 등등

@@ -13,6 +13,7 @@ class SavedRequestCell: UITableViewCell {
     
     var requestTitle: String?
     var myPageVC: MyPageViewController?
+    private var bouquetId: Int?
     
     // MARK: - Views
     private let flowerImageView: UIImageView = {
@@ -130,11 +131,24 @@ class SavedRequestCell: UITableViewCell {
         }
     }
     
-    func setTitle(title: String){
-        self.requestTitle = title
+    func configure(model: BouquetModel){
+        self.requestTitle = model.bouquetTitle
         
-        // title label 텍스트 설정
-        requestTitleLabel.text = title
+        requestTitleLabel.text = model.bouquetTitle
+        bouquetId = model.bouquetId
+        writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
+        
+        if !model.bouquetImgPaths.isEmpty {
+            DispatchQueue.global().async { [weak self] in
+                if let data = try? Data(contentsOf: URL(string: model.bouquetImgPaths[0])!) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.flowerImageView.image = image
+                        }
+                    }
+                }
+            }
+        }
     }
     
     // MARK: - Actions
