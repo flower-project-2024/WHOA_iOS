@@ -24,6 +24,11 @@ final class NetworkManager {
             switch result {
             case .success(let DTO):
                 completion(.success(BouquetAllDTO.convertBouquetAllDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 
     /// 키워드별 꽃 데이터를 받아오는 함수입니다.
     /// - Parameters:
