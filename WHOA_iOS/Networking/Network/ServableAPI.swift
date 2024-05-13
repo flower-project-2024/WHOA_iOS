@@ -11,14 +11,20 @@ import Foundation
 // path, parameter, 도메인 주소까지 커스텀 가능
 protocol ServableAPI {
     associatedtype Response: Decodable
-    var method: HTTPMethod { get }
-    var headers: [String : String]? { get }
     var path: String { get }
     var params: String { get }
+    var method: HTTPMethod { get }
+    var headers: [String : String]? { get }
+    var requestBody: Encodable? { get }
 }
 
 extension ServableAPI {
     var baseURL: String { "http://3.35.183.117:8080" }
+    var params: String { "" }
+    var method: HTTPMethod { .get }
+    var headers: [String : String]? { nil }
+    var requestBody: Encodable? { nil }
+    
     var urlRequest: URLRequest {
         let urlString = baseURL + path + params
         let url = URL(string: urlString)!
@@ -31,6 +37,10 @@ extension ServableAPI {
                 request.addValue(value, forHTTPHeaderField: key)
             }
         }
+        
+        if let requestBody = requestBody, let jsonData = try? JSONEncoder().encode(requestBody) {
+                    request.httpBody = jsonData
+                }
 
         return request
     }
