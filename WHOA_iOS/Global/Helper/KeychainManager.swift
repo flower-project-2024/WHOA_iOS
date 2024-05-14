@@ -37,7 +37,7 @@ class KeychainManager: KeychainAccessible {
         // 새 데이터 추가
         let status = SecItemAdd(query as CFDictionary, nil)
         guard status == errSecSuccess else {
-            print("Error saving to Keychain: \(status)")
+            print("키체인에 MemberId를 저장하는 중에 오류가 발생했습니다‼️: \(status)")
             return
         }
     }
@@ -54,7 +54,7 @@ class KeychainManager: KeychainAccessible {
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &item)
         guard status == errSecSuccess, let data = item as? Data, let memberId = String(data: data, encoding: .utf8) else {
-            print("Error retrieving from Keychain: \(status)")
+            print("키체인에서 MemberId를 검색하는 중에 오류가 발생했습니다‼️: \(status)")
             return nil
         }
         return memberId
@@ -69,10 +69,10 @@ class KeychainManager: KeychainAccessible {
 
             let status = SecItemDelete(query as CFDictionary)
             if status == errSecSuccess {
-                print("MemberId successfully deleted from Keychain.")
+                print("MemberId가 키체인에서 삭제되었습니다‼️")
                 return true
             } else {
-                print("Failed to delete MemberId from Keychain. Status: \(status)")
+                print("키체인에서 MemberId를 삭제하지 못했습니다‼️ \(status)")
                 return false
             }
         }
