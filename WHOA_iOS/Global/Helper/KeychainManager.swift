@@ -59,4 +59,21 @@ class KeychainManager: KeychainAccessible {
         }
         return memberId
     }
+    
+    func deleteMemberId() -> Bool {
+            let query: [String: Any] = [
+                kSecClass as String: kSecClassGenericPassword,
+                kSecAttrService as String: service,
+                kSecAttrAccount as String: account
+            ]
+
+            let status = SecItemDelete(query as CFDictionary)
+            if status == errSecSuccess {
+                print("MemberId successfully deleted from Keychain.")
+                return true
+            } else {
+                print("Failed to delete MemberId from Keychain. Status: \(status)")
+                return false
+            }
+        }
 }
