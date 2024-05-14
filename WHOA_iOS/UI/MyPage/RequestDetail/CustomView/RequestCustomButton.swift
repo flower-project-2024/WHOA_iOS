@@ -19,7 +19,7 @@ class RequestCustomButton: UIButton {
         config.baseBackgroundColor = .white
         config.background.strokeWidth = 1
         config.attributedTitle = AttributedString.init(title)
-        config.attributedTitle?.font = UIFont(name: "Pretendard-Medium", size: 14)
+        config.attributedTitle?.font = UIFont.Pretendard(size: 14, family: .Medium)
         config.baseForegroundColor = .black
         
         self.configuration = config

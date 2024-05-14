@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0833EF782BE52E600024FB2C /* BouquetAllDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */; };
+		0833EF7A2BE534C40024FB2C /* BouquetAllAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF792BE534C40024FB2C /* BouquetAllAPI.swift */; };
+		0833EF7C2BE55AD40024FB2C /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */; };
+		0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF7D2BE55B9F0024FB2C /* MyPageModel.swift */; };
 		08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */; };
 		08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08572A192B8CF950002F045F /* CustomAlertViewController.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
@@ -111,6 +115,10 @@
 		54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */; };
 		54EB18122BBF542C00717E6F /* FlowerSelectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18112BBF542C00717E6F /* FlowerSelectModel.swift */; };
 		54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18142BC018C900717E6F /* UIImageView+.swift */; };
+		54F695942BF15007009E3E4D /* MemberRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */; };
+		54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */; };
+		54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */; };
+		54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -149,6 +157,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetAllDTO.swift; sourceTree = "<group>"; };
+		0833EF792BE534C40024FB2C /* BouquetAllAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetAllAPI.swift; sourceTree = "<group>"; };
+		0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		0833EF7D2BE55B9F0024FB2C /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
 		08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetHeaderCell.swift; sourceTree = "<group>"; };
 		08572A192B8CF950002F045F /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
@@ -253,6 +265,10 @@
 		54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerKeywordDTO.swift; sourceTree = "<group>"; };
 		54EB18112BBF542C00717E6F /* FlowerSelectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectModel.swift; sourceTree = "<group>"; };
 		54EB18142BC018C900717E6F /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterDTO.swift; sourceTree = "<group>"; };
+		54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterAPI.swift; sourceTree = "<group>"; };
+		54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterRequestDTO.swift; sourceTree = "<group>"; };
+		54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -399,6 +415,8 @@
 				0886DA612B957BA6003779CE /* RequestDetail */,
 				0887F6272B867B9D00727F14 /* cell */,
 				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
+				0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */,
+				0833EF7D2BE55B9F0024FB2C /* MyPageModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -510,7 +528,9 @@
 		5460712B2B88C5550033B598 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				0833EF792BE534C40024FB2C /* BouquetAllAPI.swift */,
 				54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */,
+				54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -518,6 +538,8 @@
 		5460712E2B88C57C0033B598 /* DTOs */ = {
 			isa = PBXGroup;
 			children = (
+				0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */,
+				54F695992BF1C60C009E3E4D /* MemberRegister */,
 				54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */,
 			);
 			path = DTOs;
@@ -526,8 +548,10 @@
 		548C4AE52B8E691D002F4FCB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				54EB17D32BA1D20B00717E6F /* Photo */,
 				548C4AE62B8E694A002F4FCB /* Constants.swift */,
 				54EB17FD2BB4768400717E6F /* Palette.swift */,
+				54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -655,6 +679,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		54F695992BF1C60C009E3E4D /* MemberRegister */ = {
+			isa = PBXGroup;
+			children = (
+				54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */,
+				54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */,
+			);
+			path = MemberRegister;
+			sourceTree = "<group>";
+		};
 		54FD0F222B6FCE2D00F964C3 = {
 			isa = PBXGroup;
 			children = (
@@ -680,7 +713,6 @@
 			children = (
 				54FD0F5E2B6FD48900F964C3 /* App */,
 				546071212B88C1860033B598 /* Networking */,
-				54EB17D32BA1D20B00717E6F /* Photo */,
 				54FD0F612B6FD60700F964C3 /* UI */,
 				54FD0F822B74C0DB00F964C3 /* Global */,
 				54FD0F602B6FD52E00F964C3 /* Resources */,
@@ -995,6 +1027,8 @@
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
 				08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */,
+				54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */,
+				54F695942BF15007009E3E4D /* MemberRegisterDTO.swift in Sources */,
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */,
 				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
@@ -1025,14 +1059,18 @@
 				54FD0F6C2B701B9C00F964C3 /* PurposeViewController.swift in Sources */,
 				5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* PurposeButtonHStackView.swift in Sources */,
+				54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */,
 				548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */,
+				0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */,
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
+				0833EF782BE52E600024FB2C /* BouquetAllDTO.swift in Sources */,
 				548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */,
 				54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */,
+				54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
@@ -1053,6 +1091,7 @@
 				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
 				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
 				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
+				0833EF7C2BE55AD40024FB2C /* MyPageViewModel.swift in Sources */,
 				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
 				08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */,
@@ -1072,6 +1111,7 @@
 				54EB18052BB56E5300717E6F /* ColorSelectionButton.swift in Sources */,
 				548C4AED2B8E98F6002F4FCB /* FlowerSelectTableViewCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
+				0833EF7A2BE534C40024FB2C /* BouquetAllAPI.swift in Sources */,
 				0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */,
@@ -1261,7 +1301,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1296,7 +1336,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
