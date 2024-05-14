@@ -114,6 +114,7 @@
 		54F695942BF15007009E3E4D /* MemberRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */; };
 		54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */; };
 		54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */; };
+		54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -259,6 +260,7 @@
 		54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterDTO.swift; sourceTree = "<group>"; };
 		54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterAPI.swift; sourceTree = "<group>"; };
 		54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterRequestDTO.swift; sourceTree = "<group>"; };
+		54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				54EB17D32BA1D20B00717E6F /* Photo */,
 				548C4AE62B8E694A002F4FCB /* Constants.swift */,
 				54EB17FD2BB4768400717E6F /* Palette.swift */,
+				54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1053,6 +1056,7 @@
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */,
 				54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */,
+				54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
@@ -1281,7 +1285,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1316,7 +1320,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
