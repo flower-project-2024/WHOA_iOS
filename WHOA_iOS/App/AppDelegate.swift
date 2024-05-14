@@ -9,28 +9,74 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        
+        if !isFirstLaunch {
+            print("첫 시작")
+            initializeAppConfig()
+        }
+        
         return true
     }
-
+    
     // MARK: UISceneSession Lifecycle
-
+    
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-
+    
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    
+    // MARK: - Functions
+    
+    private func initializeAppConfig() {
+        guard KeychainManager.shared.loadMemberId() == nil else { return }
+        registerMember()
+    }
+    
+    private func registerMember() {
+        let memberRegisterRequestDTO = MemberRegisterRequestDTO(deviceId: UIDevice.current.identifierForVendor?.uuidString ?? "")
+        
+        NetworkManager.shared.postMemberRegister(memberRegisterRequestDTO: memberRegisterRequestDTO) { [weak self] result in
+            switch result {
+            case .success(let memberRegisterDTO):
+                self?.handleMemberRegistrationSuccess(memberRegisterDTO)
+                UserDefaults.standard.set(true, forKey: "isFirstLaunch")
+                UserDefaults.standard.synchronize()
+            case .failure(let error):
+                self?.networkErrorAlert(error)
+            }
+        }
+    }
+    
+    private func handleMemberRegistrationSuccess(_ memberResponse: MemberRegisterDTO) {
+        switch memberResponse.data {
+        case .register(let registerData):
+            let memberId = String(registerData.id)
+            KeychainManager.shared.saveMemberId(memberId)
+        case .duplicate(let duplicateData):
+            print("\(duplicateData.message)")
+        }
+    }
+    
+    private func networkErrorAlert(_ error: NetworkError) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: "네트워크 에러 발생했습니다‼️", message: error.localizedDescription, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "다시시도", style: .default) { _ in
+                self.registerMember()
+            }
+            
+            alertController.addAction(confirmAction)
+            
+            if let window = self.window, let rootVC = window.rootViewController {
+                rootVC.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
