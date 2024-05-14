@@ -48,4 +48,20 @@ final class NetworkManager {
             }
         }
     }
+    
+    func postMemberRegister(
+        memberRegisterRequestDTO: MemberRegisterRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MemberRegisterDTO, NetworkError>) -> Void
+    ) {
+        let memberRegisterAPI = MemberRegisterAPI(requestDTO: memberRegisterRequestDTO)
+        networkService.request(memberRegisterAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
