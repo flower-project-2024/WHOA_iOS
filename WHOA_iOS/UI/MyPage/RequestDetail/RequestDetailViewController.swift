@@ -28,7 +28,7 @@ class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let requestDetailView = RequestDetailView()
+    private let requestDetailView = RequestDetailView(requestDetailType: .myPage)
     
     private let saveAsImageButton: UIButton = {
         let button = UIButton()

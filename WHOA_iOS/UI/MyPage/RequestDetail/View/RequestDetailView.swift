@@ -8,7 +8,46 @@
 import UIKit
 
 class RequestDetailView: UIView {
+    
+    // MARK: - Properties
+    
+    let requestDetailType: RequestDetailType
+    
     // MARK: - Views
+    
+    let requestNameTextField: UITextField = {
+        let textField = UITextField()
+        textField.frame.size.height = 40
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 6
+        textField.layer.masksToBounds = true
+        textField.isEnabled = false
+        textField.isHidden = true
+        return textField
+    }()
+    
+    let requestNameTextFieldPlaceholder: UILabel = {
+        let label = UILabel()
+        label.text = "꽃다발 요구서1"
+        label.textColor = .gray8
+        label.font = .Pretendard()
+        return label
+    }()
+    
+    lazy var editButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Edit"), for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
+    private let borderLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.isHidden = true
+        return view
+    }()
+    
     private let buyingIntentStackView = RequestDetailStackView()
     
     private let buyingIntentTitleLabel: UILabel = {
@@ -223,8 +262,9 @@ class RequestDetailView: UIView {
     }()
     
     // MARK: -Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(requestDetailType: RequestDetailType) {
+        self.requestDetailType = requestDetailType
+        super.init(frame: .zero)
         
         backgroundColor = .white
         layer.borderColor = UIColor(red: 177/255, green: 177/255, blue: 177/255, alpha: 1).cgColor
@@ -232,6 +272,7 @@ class RequestDetailView: UIView {
         layer.cornerRadius = 10
         addViews()
         setupConstraints()
+        setupCustomDetailUI()
     }
     
     required init?(coder: NSCoder) {
@@ -263,7 +304,20 @@ class RequestDetailView: UIView {
         // 요구사항 사진 추가 필요
     }
     
+    private func setupCustomDetailUI() {
+        if requestDetailType == .custom {
+            requestNameTextField.isHidden = false
+            editButton.isHidden = false
+            borderLine.isHidden = false
+        }
+    }
+    
     private func addViews(){
+        addSubview(requestNameTextField)
+        requestNameTextField.addSubview(requestNameTextFieldPlaceholder)
+        addSubview(editButton)
+        addSubview(borderLine)
+        
         addSubview(buyingIntentStackView)
         buyingIntentStackView.addArrangedSubview(buyingIntentTitleLabel)
         buyingIntentStackView.addArrangedSubview(buyingIntentContentLabel)
@@ -310,8 +364,34 @@ class RequestDetailView: UIView {
     }
     
     private func setupConstraints(){
+        requestNameTextField.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(25)
+            $0.leading.equalToSuperview().offset(24)
+            $0.trailing.equalToSuperview().inset(20)
+        }
+        
+        requestNameTextFieldPlaceholder.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(12)
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.centerY.equalTo(requestNameTextField.snp.centerY)
+            $0.trailing.equalTo(requestNameTextField.snp.trailing).offset(-12)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.leading.trailing.equalTo(borderLine1)
+            $0.top.equalTo(requestNameTextField.snp.bottom).offset(16)
+            $0.height.equalTo(1)
+        }
+        
         buyingIntentStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(28)
+            if requestDetailType == .custom {
+                make.top.equalTo(borderLine.snp.bottom).offset(28)
+            } else {
+                make.top.equalToSuperview().inset(28)
+            }
             make.leading.equalToSuperview().inset(24)
         }
         
