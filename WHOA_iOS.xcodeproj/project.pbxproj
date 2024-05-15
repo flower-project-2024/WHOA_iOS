@@ -102,7 +102,6 @@
 		54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */; };
 		54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* UIButton+.swift */; };
 		54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */; };
-		54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */; };
 		54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */; };
 		54EB17FC2BB46F2200717E6F /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54EB17FB2BB46F2200717E6F /* Color.xcassets */; };
 		54EB17FE2BB4768400717E6F /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17FD2BB4768400717E6F /* Palette.swift */; };
@@ -252,7 +251,6 @@
 		54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		54EB17E92BA9ED5700717E6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewController.swift; sourceTree = "<group>"; };
-		54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSummaryView.swift; sourceTree = "<group>"; };
 		54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAlertViewController.swift; sourceTree = "<group>"; };
 		54EB17FB2BB46F2200717E6F /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		54EB17FD2BB4768400717E6F /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -650,7 +648,6 @@
 		54EB17EE2BAB2ED400717E6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				54EB17EF2BAB515100717E6F /* CustomSummaryView.swift */,
 				54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */,
 			);
 			path = Views;
@@ -1049,7 +1046,6 @@
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
-				54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */,
 				54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */,
 				54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */,
 				54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */,
