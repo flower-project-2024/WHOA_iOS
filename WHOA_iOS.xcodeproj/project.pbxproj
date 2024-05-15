@@ -118,6 +118,7 @@
 		54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */; };
 		54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */; };
 		54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */; };
+		54F6959E2BF535D5009E3E4D /* RequestDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6959D2BF535D5009E3E4D /* RequestDetailType.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
 		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
@@ -267,6 +268,7 @@
 		54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterAPI.swift; sourceTree = "<group>"; };
 		54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterRequestDTO.swift; sourceTree = "<group>"; };
 		54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		54F6959D2BF535D5009E3E4D /* RequestDetailType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailType.swift; sourceTree = "<group>"; };
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -865,6 +867,7 @@
 				546071122B863BB70033B598 /* NumberOfColorsType.swift */,
 				5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */,
 				5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */,
+				54F6959D2BF535D5009E3E4D /* RequestDetailType.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1060,6 +1063,7 @@
 				0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */,
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
+				54F6959E2BF535D5009E3E4D /* RequestDetailType.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
