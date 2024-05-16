@@ -33,6 +33,8 @@ class CustomizingSummaryViewController: UIViewController {
     
     private let requestDetailView = RequestDetailView(requestDetailType: .custom)
     
+    private let borderLine = ShadowBorderLine()
+    
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
         button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -78,6 +80,7 @@ class CustomizingSummaryViewController: UIViewController {
         
         setupUI()
         setupTapGesture()
+        requestDetailView.config(model: viewModel.customizingSummaryModel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +102,7 @@ class CustomizingSummaryViewController: UIViewController {
         
         scrollContentView.addSubview(requestDetailView)
         
+        scrollContentView.addSubview(borderLine)
         scrollContentView.addSubview(navigationHStackView)
         
         setupAutoLayout()
@@ -177,6 +181,12 @@ extension CustomizingSummaryViewController {
             $0.top.equalTo(titleLabel.snp.bottom).offset(37)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(navigationHStackView.snp.top).offset(-42)
+        }
+        
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {

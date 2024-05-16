@@ -165,11 +165,7 @@ class PhotoSelectionViewController: UIViewController {
         return scrollView
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -405,7 +401,7 @@ extension PhotoSelectionViewController {
         borderLine.snp.makeConstraints {
             $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {
