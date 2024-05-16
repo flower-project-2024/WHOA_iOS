@@ -135,6 +135,7 @@ extension PurposeView {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(21)
             $0.trailing.equalToSuperview().offset(-21)
+            $0.height.lessThanOrEqualToSuperview().multipliedBy(0.5)
         }
         
         borderLine.snp.makeConstraints {
