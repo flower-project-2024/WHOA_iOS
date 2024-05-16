@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 import SnapKit
 
 class PurposeViewController: UIViewController {
@@ -14,7 +13,6 @@ class PurposeViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
-    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI
     
@@ -42,6 +40,10 @@ class PurposeViewController: UIViewController {
         setupButtonActions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+      navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     // MARK: - Functions
     
     private func setupUI() {
@@ -53,12 +55,13 @@ class PurposeViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$nextButtonEnabled
+        viewModel.$purposeModel
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] enabled in
-                self?.purposeView.nextButton.isActive = enabled
+            .sink { [weak self] model in
+                guard let self = self else { return }
+                self.purposeView.nextButton.isActive = self.viewModel.updateNextButtonState()
             }
-            .store(in: &cancellables)
+            .store(in: &viewModel.cancellables)
     }
     
     private func setupButtonActions() {
