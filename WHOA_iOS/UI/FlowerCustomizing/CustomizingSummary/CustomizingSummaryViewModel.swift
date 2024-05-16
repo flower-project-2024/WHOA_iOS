@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 class CustomizingSummaryViewModel {
     
     // MARK: - Properties
+    
+    @Published var requestName = "꽃다발 요구서1"
     
     var customizingSummaryModel: CustomizingSummaryModel =
     CustomizingSummaryModel(purpose: .birthday,

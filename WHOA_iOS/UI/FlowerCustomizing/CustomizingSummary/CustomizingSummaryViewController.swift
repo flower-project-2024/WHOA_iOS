@@ -31,16 +31,7 @@ class CustomizingSummaryViewController: UIViewController {
     private let progressHStackView = CustomProgressHStackView(numerator: 7, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "이렇게 요구서를 저장할까요?")
     
-    private let contentView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray.cgColor
-        return view
-    }()
-    
-    private lazy var customSummaryView: UIView = CustomSummaryView(model: viewModel.customizingSummaryModel)
+    private let requestDetailView = RequestDetailView(requestDetailType: .custom)
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -86,7 +77,14 @@ class CustomizingSummaryViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupTapGesture()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+      navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -99,12 +97,36 @@ class CustomizingSummaryViewController: UIViewController {
         scrollContentView.addSubview(progressHStackView)
         scrollContentView.addSubview(titleLabel)
         
-        scrollContentView.addSubview(contentView)
-        contentView.addSubview(customSummaryView)
+        scrollContentView.addSubview(requestDetailView)
         
         scrollContentView.addSubview(navigationHStackView)
         
         setupAutoLayout()
+        
+        requestDetailView.requestNameTextField.delegate = self
+        scrollView.delegate = self
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
+        requestDetailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    }
+    
+    // MARK: - Actions
+    
+    @objc func dismissKeyboard() {
+        requestDetailView.requestNameTextField.isEnabled = false
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = requestDetailView.requestNameTextField.text == "" ? false : true
+        view.endEditing(true)
+    }
+    
+    @objc
+    private func editButtonTapped() {
+        requestDetailView.requestNameTextField.isEnabled = true
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = true
+        requestDetailView.requestNameTextField.becomeFirstResponder()
     }
     
     @objc
@@ -151,16 +173,10 @@ extension CustomizingSummaryViewController {
             $0.trailing.equalToSuperview().inset(97)
         }
         
-        contentView.snp.makeConstraints {
+        requestDetailView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(37)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(navigationHStackView.snp.top).offset(-42)
-        }
-        
-        customSummaryView.snp.makeConstraints {
-            $0.top.equalTo(contentView).offset(25)
-            $0.leading.trailing.bottom.equalTo(contentView)
-            $0.height.equalTo(1000)
         }
         
         backButton.snp.makeConstraints {
@@ -173,5 +189,28 @@ extension CustomizingSummaryViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomizingSummaryViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        requestDetailView.requestNameTextField.isEnabled = false
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = textField.text == "" ? false : true
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            viewModel.requestName = text
+        }
+    }
+}
+
+extension CustomizingSummaryViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dismissKeyboard()
     }
 }
