@@ -55,9 +55,6 @@ class HomeViewController: UIViewController {
         addViews()
         setupNavigation()
         setupConstraints()
-
-        cheapFlowerView.topThreeTableView.dataSource = self
-        cheapFlowerView.topThreeTableView.delegate = self
         
         let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
         searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
@@ -68,6 +65,7 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         setupCollectionView()
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -92,8 +90,8 @@ class HomeViewController: UIViewController {
         self.navigationItem.titleView = logoImageView
         
         // 네비게이션 바 줄 없애기
-        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
-        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
+//        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
+//        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
     }
     
     private func setupConstraints(){
@@ -109,7 +107,7 @@ class HomeViewController: UIViewController {
         cheapFlowerView.snp.makeConstraints { make in
             make.top.equalTo(carouselView.snp.bottom).offset(29)
             make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
     
@@ -127,6 +125,11 @@ class HomeViewController: UIViewController {
         
         carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
         carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
+    }
+    
+    private func setupTableView(){
+        cheapFlowerView.topThreeTableView.dataSource = self
+        cheapFlowerView.topThreeTableView.delegate = self
     }
     
     private func resetTimer() {
@@ -183,7 +186,9 @@ extension HomeViewController : UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         timer?.invalidate()
         timer = nil
-        navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+        let vc = FlowerDetailViewController()
+        vc.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -240,10 +245,12 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
-            cell.buttonCallbackMethod = { [weak self] in
-                self?.timer?.invalidate()
-                self?.timer = nil
-                self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+            cell.buttonCallbackMethod = { [self] in
+                timer?.invalidate()
+                timer = nil
+                let vc = FlowerDetailViewController()
+                vc.hidesBottomBarWhenPushed = true
+                navigationController?.pushViewController(vc, animated: true)
             }
             return cell
         }
@@ -270,7 +277,9 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         timer?.invalidate()
         timer = nil
-        self.navigationController?.pushViewController(FlowerSearchViewController(), animated: true)
+        let searchVC = FlowerSearchViewController()
+        searchVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(searchVC, animated: true)
     }
 }
 
