@@ -84,7 +84,9 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(RequestDetailViewController(requestTitle: savedRequestList[indexPath.item]), animated: true)
+        let vc = RequestDetailViewController(requestTitle: savedRequestList[indexPath.item])
+        vc.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
         return
     }
     
