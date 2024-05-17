@@ -8,5 +8,13 @@
 import Foundation
 
 struct PostCustomBouquetDTO: Codable {
+    let timestamp: String
+    let success: Bool
+    let status: Int
+    let data: BouquetIdData
+}
+
+struct BouquetIdData: Codable {
     let bouquetId: Int
 }
+
