@@ -48,8 +48,8 @@ final class NetworkManager {
     
     /// 오늘의 꽃을 조회하는 함수입니다
     func fetchTodaysFlower(
-        month: Int,
-        date: Int,
+        month: String,
+        date: String,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<TodaysFlowerModel, NetworkError>) -> Void
     ){

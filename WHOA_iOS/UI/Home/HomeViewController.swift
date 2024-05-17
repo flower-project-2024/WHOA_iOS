@@ -57,7 +57,8 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchTodaysFlowerModel(month: 3, date: 1)  // TODO: 서버에 데이터 다 들어오면 오늘 날짜로 수정!
+        /*getTodaysDate()*/
+        viewModel.fetchTodaysFlowerModel(["3", "1"])  // TODO: 서버에 데이터 다 들어오면 오늘 날짜로 수정!
         viewModel.fetchCheapFlowerRanking()
     
         addViews()
@@ -180,6 +181,26 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+    private func getTodaysDate() -> [String] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
+        let splitArray = currentDate.split(separator: "-")
+        var returnArray = ["", ""]
+        
+        // 월, 날짜가 한 자리 수인 경우 앞에 0을 제거해야 함
+        for i in 0...1{
+            if splitArray[i].prefix(1) == "0" {
+                returnArray[i] = String(splitArray[i].suffix(1))
+            }
+            else {
+                returnArray[i] = String(splitArray[i])
+            }
+        }
+        print(returnArray)
+        return returnArray
+    }
 }
 
 // MARK: - Extensions; TableView
@@ -210,7 +231,7 @@ extension HomeViewController : UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         timer?.invalidate()
         timer = nil
-        navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+        //navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
     }
 }
 
@@ -272,7 +293,7 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.buttonCallbackMethod = { [weak self] in
                 self?.timer?.invalidate()
                 self?.timer = nil
-                self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+                //self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
             }
             return cell
         }

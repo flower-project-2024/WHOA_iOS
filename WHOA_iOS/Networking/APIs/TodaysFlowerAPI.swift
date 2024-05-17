@@ -10,8 +10,8 @@ import Foundation
 struct TodaysFlowerAPI: ServableAPI {
     typealias Response = TodaysFlowerDTO
     
-    var date: Int
-    var month: Int
+    var date: String
+    var month: String
     var path: String { "/api/flower/recommand/\(month)/\(date)" }
     var params: [String : String] { [:] }
 }

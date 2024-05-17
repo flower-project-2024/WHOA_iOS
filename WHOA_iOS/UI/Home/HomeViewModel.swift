@@ -54,8 +54,8 @@ class HomeViewModel {
         return cheapFlowerRankings.count
     }
     
-    func fetchTodaysFlowerModel(month: Int, date: Int) {
-        NetworkManager.shared.fetchTodaysFlower(month: month, date: date, completion: { result in
+    func fetchTodaysFlowerModel(_ dateArray: [String]) {
+        NetworkManager.shared.fetchTodaysFlower(month: dateArray[0], date: dateArray[1], completion: { result in
             switch result {
             case .success(let model):
                 self.todaysFlower = model
