@@ -87,10 +87,10 @@
 		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
-		54EA0E6B2BF5E398007B8F5A /* CustomizingPostDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6A2BF5E398007B8F5A /* CustomizingPostDTO.swift */; };
-		54EA0E6E2BF5E732007B8F5A /* CustomizingPostRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6D2BF5E732007B8F5A /* CustomizingPostRequestDTO.swift */; };
+		54EA0E6B2BF5E398007B8F5A /* PostCustomBouquetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6A2BF5E398007B8F5A /* PostCustomBouquetDTO.swift */; };
+		54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6D2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift */; };
 		54EA0E702BF6183B007B8F5A /* ShadowBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */; };
-		54EA0E722BF779C6007B8F5A /* CustomizingPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E712BF779C6007B8F5A /* CustomizingPostAPI.swift */; };
+		54EA0E722BF779C6007B8F5A /* PostCustomBouquetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E712BF779C6007B8F5A /* PostCustomBouquetAPI.swift */; };
 		54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */; };
 		54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17CB2B9D83E200717E6F /* RangeSlider.swift */; };
 		54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */; };
@@ -242,10 +242,10 @@
 		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
-		54EA0E6A2BF5E398007B8F5A /* CustomizingPostDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingPostDTO.swift; sourceTree = "<group>"; };
-		54EA0E6D2BF5E732007B8F5A /* CustomizingPostRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingPostRequestDTO.swift; sourceTree = "<group>"; };
+		54EA0E6A2BF5E398007B8F5A /* PostCustomBouquetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomBouquetDTO.swift; sourceTree = "<group>"; };
+		54EA0E6D2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomBouquetRequestDTO.swift; sourceTree = "<group>"; };
 		54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBorderLine.swift; sourceTree = "<group>"; };
-		54EA0E712BF779C6007B8F5A /* CustomizingPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingPostAPI.swift; sourceTree = "<group>"; };
+		54EA0E712BF779C6007B8F5A /* PostCustomBouquetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomBouquetAPI.swift; sourceTree = "<group>"; };
 		54EB17C92B9D83C500717E6F /* FlowerPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewController.swift; sourceTree = "<group>"; };
 		54EB17CB2B9D83E200717E6F /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoSelectionViewController.swift; path = WHOA_iOS/UI/FlowerCustomizing/PhotoSelection/PhotoSelectionViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -539,7 +539,7 @@
 				0833EF792BE534C40024FB2C /* BouquetAllAPI.swift */,
 				54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */,
 				54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */,
-				54EA0E712BF779C6007B8F5A /* CustomizingPostAPI.swift */,
+				54EA0E712BF779C6007B8F5A /* PostCustomBouquetAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -599,8 +599,8 @@
 		54EA0E6C2BF5E439007B8F5A /* BouquetCustomizing */ = {
 			isa = PBXGroup;
 			children = (
-				54EA0E6A2BF5E398007B8F5A /* CustomizingPostDTO.swift */,
-				54EA0E6D2BF5E732007B8F5A /* CustomizingPostRequestDTO.swift */,
+				54EA0E6A2BF5E398007B8F5A /* PostCustomBouquetDTO.swift */,
+				54EA0E6D2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift */,
 			);
 			path = BouquetCustomizing;
 			sourceTree = "<group>";
@@ -1085,9 +1085,9 @@
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
 				54F6959E2BF535D5009E3E4D /* RequestDetailType.swift in Sources */,
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
-				54EA0E6B2BF5E398007B8F5A /* CustomizingPostDTO.swift in Sources */,
+				54EA0E6B2BF5E398007B8F5A /* PostCustomBouquetDTO.swift in Sources */,
 				08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */,
-				54EA0E722BF779C6007B8F5A /* CustomizingPostAPI.swift in Sources */,
+				54EA0E722BF779C6007B8F5A /* PostCustomBouquetAPI.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,
 				0833EF782BE52E600024FB2C /* BouquetAllDTO.swift in Sources */,
 				548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */,
@@ -1150,7 +1150,7 @@
 				5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */,
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
-				54EA0E6E2BF5E732007B8F5A /* CustomizingPostRequestDTO.swift in Sources */,
+				54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */,
 				54D5BAFD2BE3F66A00C538E1 /* FlowerPriceViewModel.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,

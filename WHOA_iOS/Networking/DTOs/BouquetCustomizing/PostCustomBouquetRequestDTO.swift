@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CustomizingPostRequestDTO: Codable {
+struct PostCustomBouquetRequestDTO: Codable {
     let bouquetName: String
     let purpose: String
     let colorType: String

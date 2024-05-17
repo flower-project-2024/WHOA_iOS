@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct CustomizingPostAPI: ServableAPI {
-    typealias Response = CustomizingPostDTO
+struct PostCustomBouquetAPI: ServableAPI {
+    typealias Response = PostCustomBouquetDTO
     
-    let requestDTO: CustomizingPostRequestDTO
+    let requestDTO: PostCustomBouquetRequestDTO
     let memberID: String
     
     var method: HTTPMethod { .post }
