@@ -45,22 +45,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkManager.shared.postMemberRegister(memberRegisterRequestDTO: memberRegisterRequestDTO) { [weak self] result in
             switch result {
             case .success(let memberRegisterDTO):
-                self?.handleMemberRegistrationSuccess(memberRegisterDTO)
+                let memberId = String(memberRegisterDTO.data.id)
+                KeychainManager.shared.saveMemberId(memberId)
+                
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.synchronize()
             case .failure(let error):
                 self?.networkErrorAlert(error)
             }
-        }
-    }
-    
-    private func handleMemberRegistrationSuccess(_ memberResponse: MemberRegisterDTO) {
-        switch memberResponse.data {
-        case .register(let registerData):
-            let memberId = String(registerData.id)
-            KeychainManager.shared.saveMemberId(memberId)
-        case .duplicate(let duplicateData):
-            print("\(duplicateData.message)")
         }
     }
     
