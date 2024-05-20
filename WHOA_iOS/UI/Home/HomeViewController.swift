@@ -58,8 +58,9 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .white
         
-//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-//        print(launchedBefore)
+        // TODO: 앱 최초 실행 시에만 툴팁 띄우기
+//        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+//        print("isFirstLaunch: \(isFirstLaunch)")
     
         addViews()
         setupNavigation()
@@ -150,7 +151,7 @@ class HomeViewController: UIViewController {
         
         tooltipView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 5)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 8)
         }
         
 //        print("tooltipView.frame.height: \(tooltipView.frame.height)")
