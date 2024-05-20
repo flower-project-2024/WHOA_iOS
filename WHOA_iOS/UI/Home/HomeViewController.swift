@@ -8,7 +8,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    
     // MARK: - Views
+    
     private lazy var carouselView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumLineSpacing = 0
@@ -21,6 +23,8 @@ class HomeViewController: UIViewController {
         collectionView.backgroundColor = .clear
         return collectionView
     }()
+    
+    private var tooltipView = ToolTipView()
     
     // MARK: - Properties
     private var cheapFlowerView = CheapFlowerView()
@@ -46,11 +50,16 @@ class HomeViewController: UIViewController {
     private let minimumLineSpacing: CGFloat = 0
     private var collectionViewCellCount: [String] = ["0", "1"]
     
+    var tooltipIsClosed = false
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+//        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+//        print(launchedBefore)
     
         addViews()
         setupNavigation()
@@ -58,7 +67,6 @@ class HomeViewController: UIViewController {
         
         let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
         searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,8 +74,11 @@ class HomeViewController: UIViewController {
         
         setupCollectionView()
         setupTableView()
+        if(!tooltipIsClosed){
+            setupToolTipView()
+        }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         resetTimer()
     }
@@ -132,6 +143,28 @@ class HomeViewController: UIViewController {
         cheapFlowerView.topThreeTableView.delegate = self
     }
     
+    private func setupToolTipView(){
+        view.addSubview(tooltipView)
+        
+        tooltipView.parentVC = self
+        
+        tooltipView.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 5)
+        }
+        
+//        print("tooltipView.frame.height: \(tooltipView.frame.height)")
+        tooltipView.layoutIfNeeded()
+//        print("tooltipView.frame.height: \(tooltipView.frame.height)")
+//        print("tooltipView.bounds.size: \(tooltipView.bounds.size)")
+        let tipStartX = tooltipView.bounds.width / 2 - 13/2
+        let tipStartY = tooltipView.bounds.height
+        tooltipView.drawTip(tipStartX: tipStartX,
+                            tipStartY: tipStartY,
+                            tipWidth: 13,
+                            tipHeight: 12)
+    }
+    
     private func resetTimer() {
         timer?.invalidate()
         timer = nil
@@ -158,6 +191,35 @@ class HomeViewController: UIViewController {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    private func drawTip(
+        tipStartX: CGFloat,
+        tipStartY: CGFloat,
+        tipWidth: CGFloat,
+        tipHeight: CGFloat) {
+
+        let path = CGMutablePath()
+
+        let tipWidthCenter = tipWidth / 2.0
+        let endXWidth = tipStartX + tipWidth
+
+        path.move(to: CGPoint(x: tipStartX, y: tipStartY))
+        path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY+tipHeight))
+        path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
+        path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
+
+        let shape = CAShapeLayer()
+        shape.path = path
+        shape.fillColor = UIColor.primary.cgColor
+
+        self.view.layer.insertSublayer(shape, at: 0)
+    }
+    
+    func removeToolTipView(){
+        tooltipIsClosed = true
+        tooltipView.removeFromSuperview()
+//        tooltipView = 
     }
 }
 

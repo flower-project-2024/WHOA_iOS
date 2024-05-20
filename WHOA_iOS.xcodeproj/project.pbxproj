@@ -44,6 +44,7 @@
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
 		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
+		08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF322BF70D5B005CBECA /* ToolTipView.swift */; };
 		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
@@ -152,6 +153,7 @@
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
+		08D0CF322BF70D5B005CBECA /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		08478E3A2BEBAFE6003970B9 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				08D0CF2F2BF6F8BE005CBECA /* ToolTip */,
 				08478E3B2BEBB005003970B9 /* TabBarViewController.swift */,
 			);
 			path = TabBar;
@@ -383,6 +386,14 @@
 				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		08D0CF2F2BF6F8BE005CBECA /* ToolTip */ = {
+			isa = PBXGroup;
+			children = (
+				08D0CF322BF70D5B005CBECA /* ToolTipView.swift */,
+			);
+			path = ToolTip;
 			sourceTree = "<group>";
 		};
 		08F7B29F2B823DD100DFD4F7 /* cell */ = {
@@ -916,6 +927,7 @@
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				5460711B2B88BA1F0033B598 /* NetwokringTestViewController.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,
 				54E9816B2B90A5CC000669DB /* FlowerSelectViewModel.swift in Sources */,
