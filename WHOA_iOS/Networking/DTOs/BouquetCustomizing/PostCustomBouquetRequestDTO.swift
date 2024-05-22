@@ -12,7 +12,7 @@ struct PostCustomBouquetRequestDTO: Codable {
     let purpose: String
     let colorType: String
     let colorName: String
-    let pointColor: String? = nil
+    let pointColor: String?
     let flowerType: String
     let wrappingType: String
     let price: String
