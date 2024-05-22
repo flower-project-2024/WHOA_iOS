@@ -64,13 +64,13 @@ class TabBarViewController: UITabBarController {
         tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, x: 0, y: -2, blur: 6)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        var tabFrame = self.tabBar.frame
-        tabFrame.size.height = 92
-        tabFrame.origin.y = self.view.frame.size.height - 92
-        self.tabBar.frame = tabFrame
-    }
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        var tabFrame = self.tabBar.frame
+//        tabFrame.size.height = 92
+//        tabFrame.origin.y = self.view.frame.size.height - 92
+//        self.tabBar.frame = tabFrame
+//    }
 }
 
 // MARK: - Extension
