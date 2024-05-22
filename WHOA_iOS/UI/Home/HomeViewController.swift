@@ -151,7 +151,7 @@ class HomeViewController: UIViewController {
         
         tooltipView.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 8)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 12) // tip 높이 + 탭바의 커스터마이징 이미지의 inset 값 + 그림자로 안보이는 정도
         }
         
 //        print("tooltipView.frame.height: \(tooltipView.frame.height)")
