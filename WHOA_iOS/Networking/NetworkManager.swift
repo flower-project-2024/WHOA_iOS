@@ -49,6 +49,7 @@ final class NetworkManager {
         }
     }
     
+    /// UUID로 멤버를 등록하는 함수입니다.
     func postMemberRegister(
         memberRegisterRequestDTO: MemberRegisterRequestDTO,
         _ networkService: NetworkServable = NetworkService(),
@@ -56,6 +57,27 @@ final class NetworkManager {
     ) {
         let memberRegisterAPI = MemberRegisterAPI(requestDTO: memberRegisterRequestDTO)
         networkService.request(memberRegisterAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 꽃다발 명세서를 POST하는 함수입니다.
+    /// - Parameters:
+    /// - Headers - memberID: 멤버 아이디
+    /// - Body - postCustomBouquetRequestDTO: 명세서 내용
+    func postCustomBouquet(
+        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
+        memberID: String,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<PostCustomBouquetDTO, NetworkError>) -> Void
+    ) {
+        let postCustomBouquetAPI = PostCustomBouquetAPI(requestDTO: postCustomBouquetRequestDTO, memberID: memberID)
+        networkService.request(postCustomBouquetAPI) { result in
             switch result {
             case .success(let DTO):
                 completion(.success(DTO))
