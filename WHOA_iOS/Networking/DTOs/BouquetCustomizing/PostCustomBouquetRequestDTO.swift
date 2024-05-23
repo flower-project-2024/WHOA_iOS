@@ -16,5 +16,5 @@ struct PostCustomBouquetRequestDTO: Codable {
     let flowerType: String
     let wrappingType: String
     let price: String
-    let requirement: String
+    let requirement: String?
 }

@@ -46,3 +46,36 @@ struct Requirement {
     let text: String?
     let photos: [String?]
 }
+
+extension CustomizingSummaryModel {
+    static func convertModelToCustomBouquetRequestDTO(requestName: String, _ DTO: CustomizingSummaryModel) -> PostCustomBouquetRequestDTO {
+        let isPointColor = DTO.numberOfColors == .pointColor
+        let isMyself = DTO.assign.packagingAssignType == .myselfAssign
+
+        let colorName: String
+        let pointColor: String?
+        let wrappingType: String
+        
+        if isPointColor {
+            colorName = DTO.colors[1...].joined(separator: ", ")
+            pointColor = DTO.colors[0]
+        } else {
+            colorName = DTO.colors.joined(separator: ", ")
+            pointColor = nil
+        }
+        
+        wrappingType = isMyself ? DTO.assign.text : DTO.assign.packagingAssignType.rawValue
+        
+        return PostCustomBouquetRequestDTO(
+                bouquetName: requestName,
+                purpose: DTO.purpose.rawValue,
+                colorType: DTO.numberOfColors.toDTOString(),
+                colorName: colorName,
+                pointColor: pointColor,
+                flowerType: DTO.flowers.map{ $0.name }.joined(separator: ", "),
+                wrappingType: wrappingType,
+                price: DTO.priceRange,
+                requirement: DTO.requirement?.text
+                )
+    }
+}
