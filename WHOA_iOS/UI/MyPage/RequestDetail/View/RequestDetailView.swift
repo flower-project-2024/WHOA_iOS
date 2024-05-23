@@ -17,6 +17,7 @@ class RequestDetailView: UIView {
     
     let requestNameTextField: UITextField = {
         let textField = UITextField()
+        textField.backgroundColor = .gray03
         textField.frame.size.height = 40
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 6
@@ -53,6 +54,7 @@ class RequestDetailView: UIView {
     private let buyingIntentTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "구매 목적"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -60,6 +62,7 @@ class RequestDetailView: UIView {
     private let buyingIntentContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "생일/생신"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -79,6 +82,7 @@ class RequestDetailView: UIView {
     private let flowerColorTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃 색감"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -86,6 +90,7 @@ class RequestDetailView: UIView {
     private let flowerColorContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "포인트컬러"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -130,6 +135,7 @@ class RequestDetailView: UIView {
     private let flowerTypeTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃 종류"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -151,6 +157,7 @@ class RequestDetailView: UIView {
     private let alternativesTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "대체"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -158,6 +165,7 @@ class RequestDetailView: UIView {
     private let alternativesContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "색감 위주"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -170,6 +178,7 @@ class RequestDetailView: UIView {
     private let wrappingTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "포장지"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -177,6 +186,7 @@ class RequestDetailView: UIView {
     private let wrappingContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "사장님께 맡길게요"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -189,6 +199,7 @@ class RequestDetailView: UIView {
     private let priceTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "가격"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -196,6 +207,7 @@ class RequestDetailView: UIView {
     private let priceContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "20,000~30,000원"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -208,6 +220,7 @@ class RequestDetailView: UIView {
     private let additionalRequirementTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "추가 요구사항과 참고사진"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -215,6 +228,7 @@ class RequestDetailView: UIView {
     private let additionalRequirementContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "이쁘게 잘 만들어주세요! 감사합니다 :)"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label

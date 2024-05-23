@@ -34,6 +34,7 @@ class FlowerTypeView: UIView {
     let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "과꽃"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 16, family: .Medium)
         return label
     }()
@@ -48,6 +49,7 @@ class FlowerTypeView: UIView {
     let flowerLanguageTagLabel1: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "믿는 사랑"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
@@ -56,6 +58,7 @@ class FlowerTypeView: UIView {
     let flowerLanguageTagLabel2: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "추억"
+        label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
         return label
