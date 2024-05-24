@@ -174,7 +174,6 @@ extension CustomizingSummaryViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(97)
         }
         
         requestDetailView.snp.makeConstraints {
