@@ -96,7 +96,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = RequestDetailViewController(requestTitle: savedRequestList[indexPath.item])
+        let vc = RequestDetailViewController(requestTitle: "저장된 요구서2")
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         return

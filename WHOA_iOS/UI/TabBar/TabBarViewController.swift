@@ -26,7 +26,7 @@ class TabBarViewController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.gray07
         tabBar.layer.masksToBounds = false
         
-        let customizingVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
+        let customizingVC = PurposeViewController(viewModel: PurposeViewModel())
         
         let homeNavVC = UINavigationController(rootViewController: HomeViewController())
         let customizingNavVC = UINavigationController(rootViewController: customizingVC)
