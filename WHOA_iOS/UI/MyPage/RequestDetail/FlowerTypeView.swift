@@ -13,13 +13,13 @@ import UIKit
 class FlowerTypeView: UIView {
     
     // MARK: - Views
-    private let flowerImageView: UIImageView = {
+    let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "WhoaLogo")
+        imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
-        imageView.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1).cgColor  // gray04
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
         return imageView
     }()
@@ -31,10 +31,10 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerNameLabel: UILabel = {
+    let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.text = "과꽃"
-        label.font = UIFont(name: "Pretendard-Medium", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .Medium)
         return label
     }()
     
@@ -45,19 +45,19 @@ class FlowerTypeView: UIView {
         return stackView
     }()
     
-    private let flowerLanguageTagLabel1: DetailCustomLabel = {
+    let flowerLanguageTagLabel1: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "믿는 사랑"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
-    private let flowerLanguageTagLabel2: DetailCustomLabel = {
+    let flowerLanguageTagLabel2: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "추억"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     

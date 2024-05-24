@@ -6,16 +6,38 @@
 //
 
 import Foundation
+import Combine
 
 class PackagingSelectionViewModel {
     
     // MARK: - Properties
     
-    var savedText: String = "" {
-        didSet {
-            savedTextDidChanged?(savedText)
-        }
+    @Published var packagingSelectionModel = PackagingSelectionModel(packagingAssignButtonType: nil, text: "")
+    @Published var isNextButtonActive = false
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    
+    // MARK: - Initialization
+    
+    init() {
+        $packagingSelectionModel
+            .print()
+            .map { model -> Bool in
+                return model.packagingAssignButtonType == .managerAssign ?
+                true : !model.text.isEmpty
+            }
+            .assign(to: \.isNextButtonActive, on: self)
+            .store(in: &cancellables)
     }
     
-    var savedTextDidChanged: ((_ savedText: String) -> Void)?
+    // MARK: - Functions
+    
+    func updateText(_ text: String) {
+        packagingSelectionModel.text = text
+    }
+    
+    func getPackagingAssign(packagingAssign: PackagingAssignType) {
+        packagingSelectionModel.packagingAssignButtonType = packagingAssign
+    }
 }

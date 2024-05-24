@@ -14,15 +14,15 @@ class RequestDetailView: UIView {
     private let buyingIntentTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "구매 목적"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let buyingIntentContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "생일/생신"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -40,15 +40,15 @@ class RequestDetailView: UIView {
     private let flowerColorTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃 색감"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let flowerColorContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "포인트컬러"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -64,7 +64,7 @@ class RequestDetailView: UIView {
     private let starIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "StarIcon")
+        imageView.image = UIImage.starIcon
         return imageView
     }()
     
@@ -91,7 +91,7 @@ class RequestDetailView: UIView {
     private let flowerTypeTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃 종류"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
@@ -112,15 +112,15 @@ class RequestDetailView: UIView {
     private let alternativesTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "대체"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let alternativesContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "색감 위주"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -131,15 +131,15 @@ class RequestDetailView: UIView {
     private let wrappingTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "포장지"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let wrappingContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "사장님께 맡길게요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -150,15 +150,15 @@ class RequestDetailView: UIView {
     private let priceTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "가격"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let priceContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "20,000~30,000원"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -169,15 +169,15 @@ class RequestDetailView: UIView {
     private let additionalRequirementTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "추가 요구사항과 참고사진"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let additionalRequirementContentLabel: DetailCustomLabel = {
         let label = DetailCustomLabel()
         label.text = "이쁘게 잘 만들어주세요! 감사합니다 :)"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)  // gray03
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
         return label
     }()
     
@@ -192,10 +192,10 @@ class RequestDetailView: UIView {
     private let referenceImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "WhoaLogo")
+        imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
-        imageView.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1).cgColor  // gray04
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
         return imageView
     }()
@@ -203,10 +203,10 @@ class RequestDetailView: UIView {
     private let referenceImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "WhoaLogo")
+        imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
-        imageView.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1).cgColor  // gray04
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
         return imageView
     }()
@@ -214,10 +214,10 @@ class RequestDetailView: UIView {
     private let referenceImageView3: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "WhoaLogo")
+        imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
-        imageView.layer.borderColor = UIColor(red: 233/255, green: 233/255, blue: 235/255, alpha: 1).cgColor  // gray04
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
         return imageView
     }()
@@ -239,6 +239,30 @@ class RequestDetailView: UIView {
     }
     
     // MARK: -Helpers
+    func config(model: CustomizingSummaryModel) {
+        buyingIntentContentLabel.text = model.purpose.rawValue
+        
+        flowerColorContentLabel.text = model.numberOfColors.rawValue
+        flowerColorChipView1.backgroundColor = UIColor(hex: model.colors[0])
+        flowerColorChipView2.backgroundColor = UIColor(hex: model.colors[1])
+        
+        //        flowerTypeView1.flowerImageView.image = model.Flowers[0].photo
+        flowerTypeView1.flowerNameLabel.text = model.flowers[0].name
+        flowerTypeView1.flowerLanguageTagLabel1.text = model.flowers[0].hashTag[0]
+        flowerTypeView1.flowerLanguageTagLabel2.text = model.flowers[0].hashTag[1]
+        //        flowerTypeView2.flowerImageView.image = model.Flowers[1].photo
+//        flowerTypeView2.flowerNameLabel.text = model.Flowers[1].flowerName
+//        flowerTypeView2.flowerLanguageTagLabel1.text = model.Flowers[1].hashTag[0]
+//        flowerTypeView2.flowerLanguageTagLabel2.text = model.Flowers[1].hashTag[1]
+        
+        alternativesContentLabel.text = model.alternative.rawValue
+        
+        priceContentLabel.text = model.priceRange
+        
+        additionalRequirementContentLabel.text = model.requirement?.text
+        // 요구사항 사진 추가 필요
+    }
+    
     private func addViews(){
         addSubview(buyingIntentStackView)
         buyingIntentStackView.addArrangedSubview(buyingIntentTitleLabel)
