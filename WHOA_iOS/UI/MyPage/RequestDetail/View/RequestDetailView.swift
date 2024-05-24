@@ -407,6 +407,10 @@ class RequestDetailView: UIView {
         
         alternativesContentLabel.text = model.alternative.rawValue
         
+        if model.assign.packagingAssignType == .myselfAssign {
+            wrappingContentLabel.text = model.assign.text
+        }
+        
         priceContentLabel.text = model.priceRange
         
         additionalRequirementContentLabel.text = model.requirement?.text
