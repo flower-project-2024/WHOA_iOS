@@ -14,11 +14,4 @@ class FlowerColorPickerViewModel {
     func getColors(colors: [UIColor?]) {
         flowerColorPickerModel?.colors = colors
     }
-    
-    func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        let flowerSelectVC = FlowerSelectViewController()
-        flowerSelectVC.modalPresentationStyle = .fullScreen
-        
-        fromCurrentVC.present(flowerSelectVC, animated: true)
-    }
 }
