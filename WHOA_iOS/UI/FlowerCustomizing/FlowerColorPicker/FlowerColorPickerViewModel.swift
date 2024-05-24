@@ -5,13 +5,13 @@
 //  Created by KSH on 2/11/24.
 //
 
-import UIKit
+import Foundation
 
 class FlowerColorPickerViewModel {
     
     private var flowerColorPickerModel: FlowerColorPickerModel?
     
-    func getColors(colors: [UIColor?]) {
+    func getColors(colors: [String]) {
         flowerColorPickerModel?.colors = colors
     }
 }

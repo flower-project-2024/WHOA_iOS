@@ -476,12 +476,12 @@ class ColorPickerView: UIView {
     }
     
     private func updateNextButtonState() {
-        var colors: [UIColor?]
+        var colors: [String]
         
         switch numberOfColors {
         case .oneColor:
             if flowerColorPickerButton1.backgroundColor != .gray2 {
-                colors = [flowerColorPickerButton1.backgroundColor]
+                colors = [flowerColorPickerButton1.backgroundColor].compactMap { $0?.toHexString() }
                 viewModel.getColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
@@ -491,7 +491,7 @@ class ColorPickerView: UIView {
         case .twoColor, .pointColor:
             if flowerColorPickerButton1.backgroundColor != .gray2 &&
                 flowerColorPickerButton2.backgroundColor != .gray2 {
-                colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor]
+                colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor].compactMap { $0?.toHexString() }
                 viewModel.getColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
@@ -506,7 +506,7 @@ class ColorPickerView: UIView {
                     flowerColorPickerButton1.backgroundColor,
                     flowerColorPickerButton2.backgroundColor,
                     flowerColorPickerButton3.backgroundColor
-                ]
+                ].compactMap { $0?.toHexString() }
                 viewModel.getColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)

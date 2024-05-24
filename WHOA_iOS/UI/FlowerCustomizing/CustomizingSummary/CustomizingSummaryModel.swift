@@ -39,7 +39,7 @@ struct Flower {
 
 struct Assign {
     let packagingAssignType: PackagingAssignType
-    let text: String
+    let text: String?
 }
 
 struct Requirement {
@@ -64,7 +64,7 @@ extension CustomizingSummaryModel {
             pointColor = nil
         }
         
-        wrappingType = isMyself ? DTO.assign.text : DTO.assign.packagingAssignType.rawValue
+        wrappingType = isMyself ? DTO.assign.text ?? "" : DTO.assign.packagingAssignType.rawValue
         
         return PostCustomBouquetRequestDTO(
                 bouquetName: requestName,
