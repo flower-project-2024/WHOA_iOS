@@ -15,7 +15,7 @@ struct CustomizingSummaryModel {
     let alternative: AlternativesType
     let assign: Assign
     let priceRange: String
-    let requirement: Requirement?
+    var requirement: Requirement?
     
     init(purpose: PurposeType, numberOfColors: NumberOfColorsType,
          colors: [String], flowers: [Flower], alternative: AlternativesType,
@@ -44,7 +44,7 @@ struct Assign {
 
 struct Requirement {
     let text: String?
-    let photos: [String?]
+    var photosBase64Strings: [String?]
 }
 
 extension CustomizingSummaryModel {

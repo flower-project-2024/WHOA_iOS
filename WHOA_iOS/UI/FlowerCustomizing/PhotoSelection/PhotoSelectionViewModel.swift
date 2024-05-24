@@ -14,6 +14,7 @@ class PhotoSelectionViewModel {
     let authService = MyPhotoAuthService()
     
     var photos = [UIImage?]()
+    var photosBase64Strings: [String] = []
     
     func addPhotos(photos: [UIImage?]) {
         self.photos.append(contentsOf: photos)
@@ -33,6 +34,17 @@ class PhotoSelectionViewModel {
     
     func getPhotosCount() -> Int {
         return photos.count
+    }
+    
+    func convertPhotosToBase64() {
+        photosBase64Strings.removeAll()
+        
+        for photo in photos {
+            if let data = photo?.pngData() {
+                let base64 = data.base64EncodedString()
+                photosBase64Strings.append(base64)
+            }
+        }
     }
     
 }

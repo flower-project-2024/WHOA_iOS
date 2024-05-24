@@ -331,7 +331,13 @@ class PhotoSelectionViewController: UIViewController {
     
     @objc
     private func nextButtonTapped() {
-        print("다음이동")
+        viewModel.convertPhotosToBase64()
+        
+        let viewModel = CustomizingSummaryViewModel()
+        viewModel.customizingSummaryModel.requirement?.photosBase64Strings = self.viewModel.photosBase64Strings
+        
+        let vc = CustomizingSummaryViewController(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
