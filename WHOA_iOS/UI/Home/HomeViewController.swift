@@ -68,16 +68,27 @@ class HomeViewController: UIViewController {
         
         let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
         searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
+        
+        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+        print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
+        if(!tooltipIsClosed || isFirstLaunch){
+            print("==setting tool tip view==")
+            setupToolTipView()
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+//        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
+//        print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
+        
         setupCollectionView()
         setupTableView()
-        if(!tooltipIsClosed){
-            setupToolTipView()
-        }
+//        if(!tooltipIsClosed || isFirstLaunch){
+//            print("==setting tool tip view==")
+//            setupToolTipView()
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
