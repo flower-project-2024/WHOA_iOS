@@ -23,6 +23,7 @@ class PhotoSelectionViewController: UIViewController {
     private let requirementLabel: UILabel = {
         let label = UILabel()
         label.text = "요구사항"
+        label.textColor = .black
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -51,6 +52,7 @@ class PhotoSelectionViewController: UIViewController {
     private let photoLabel: UILabel = {
         let label = UILabel()
         label.text = "참고 사진"
+        label.textColor = .black
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -380,14 +382,14 @@ extension PhotoSelectionViewController {
         }
         
         photoImageViewHStackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(photoImageHScrollView)
+            $0.edges.equalTo(photoImageHScrollView)
+            $0.height.equalTo(photoImageHScrollView)
         }
         
         photoImageHScrollView.snp.makeConstraints {
             $0.top.equalTo(photoLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview()
-            $0.bottom.equalTo(navigationHStackView.snp.top).inset(-97)
         }
         
         [minusImageView1, minusImageView2, minusImageView3].forEach { imageView in
