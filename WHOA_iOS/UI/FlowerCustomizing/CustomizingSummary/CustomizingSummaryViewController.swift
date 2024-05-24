@@ -135,7 +135,7 @@ class CustomizingSummaryViewController: UIViewController {
     
     @objc
     private func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc

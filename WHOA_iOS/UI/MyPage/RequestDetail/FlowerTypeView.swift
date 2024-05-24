@@ -61,6 +61,7 @@ class FlowerTypeView: UIView {
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
+        label.isHidden = true
         return label
     }()
     

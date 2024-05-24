@@ -109,6 +109,7 @@ class RequestDetailView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage.starIcon
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -125,6 +126,16 @@ class RequestDetailView: UIView {
         view.backgroundColor = .yellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.isHidden = true
+        return view
+    }()
+    
+    private let flowerColorChipView3: UIView = {
+        let view = UIView()
+        view.backgroundColor = .yellow
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 16
+        view.isHidden = true
         return view
     }()
     
@@ -147,6 +158,13 @@ class RequestDetailView: UIView {
     
     private let flowerTypeView2: FlowerTypeView = {
         let view = FlowerTypeView()
+        view.isHidden = true
+        return view
+    }()
+    
+    private let flowerTypeView3: FlowerTypeView = {
+        let view = FlowerTypeView()
+        view.isHidden = true
         return view
     }()
     
@@ -250,6 +268,7 @@ class RequestDetailView: UIView {
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -261,6 +280,7 @@ class RequestDetailView: UIView {
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -272,6 +292,7 @@ class RequestDetailView: UIView {
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = UIColor.gray04.cgColor
         imageView.layer.borderWidth = 1
+        imageView.isHidden = true
         return imageView
     }()
     
@@ -298,24 +319,123 @@ class RequestDetailView: UIView {
         buyingIntentContentLabel.text = model.purpose.rawValue
         
         flowerColorContentLabel.text = model.numberOfColors.rawValue
-        flowerColorChipView1.backgroundColor = UIColor(hex: model.colors[0])
-        flowerColorChipView2.backgroundColor = UIColor(hex: model.colors[1])
         
-        //        flowerTypeView1.flowerImageView.image = model.Flowers[0].photo
-        flowerTypeView1.flowerNameLabel.text = model.flowers[0].name
-        flowerTypeView1.flowerLanguageTagLabel1.text = model.flowers[0].hashTag[0]
-        flowerTypeView1.flowerLanguageTagLabel2.text = model.flowers[0].hashTag[1]
-        //        flowerTypeView2.flowerImageView.image = model.Flowers[1].photo
-//        flowerTypeView2.flowerNameLabel.text = model.Flowers[1].flowerName
-//        flowerTypeView2.flowerLanguageTagLabel1.text = model.Flowers[1].hashTag[0]
-//        flowerTypeView2.flowerLanguageTagLabel2.text = model.Flowers[1].hashTag[1]
+        switch model.numberOfColors {
+        case .oneColor:
+            flowerColorChipView1.backgroundColor = UIColor(hex: model.colors.first ?? "")
+        case .twoColor:
+            flowerColorChipView1.backgroundColor = UIColor(hex: model.colors.first ?? "")
+            flowerColorChipView2.backgroundColor = UIColor(hex: model.colors.last ?? "")
+            flowerColorChipView2.isHidden = false
+        case .colorful:
+            flowerColorChipView1.backgroundColor = UIColor(hex: model.colors.first ?? "")
+            flowerColorChipView2.backgroundColor = UIColor(hex: model.colors[1])
+            flowerColorChipView3.backgroundColor = UIColor(hex: model.colors.last ?? "")
+            flowerColorChipView2.isHidden = false
+            flowerColorChipView3.isHidden = false
+        case .pointColor:
+            flowerColorChipView1.backgroundColor = UIColor(hex: model.colors.first ?? "")
+            flowerColorChipView2.backgroundColor = UIColor(hex: model.colors.last ?? "")
+            flowerColorChipView2.isHidden = false
+            starIcon.isHidden = false
+        }
+        
+        for i in model.flowers.indices {
+            switch i {
+            case 0:
+                flowerTypeView1.flowerNameLabel.text = model.flowers[0].name
+                
+                for j in model.flowers[0].hashTag.indices {
+                    switch j {
+                    case 0:
+                        flowerTypeView1.flowerLanguageTagLabel1.text = model.flowers[0].hashTag[j]
+                    case 1:
+                        flowerTypeView1.flowerLanguageTagLabel2.text = model.flowers[0].hashTag[j]
+                        flowerTypeView1.flowerLanguageTagLabel2.isHidden = false
+                    default:
+                        break
+                    }
+                }
+                
+                if let imageURL = URL(string: model.flowers[0].photo) {
+                    print(imageURL)
+                    flowerTypeView1.flowerImageView.load(url: imageURL)
+                }
+            case 1:
+                flowerTypeView2.isHidden = false
+                flowerTypeView2.flowerNameLabel.text = model.flowers[1].name
+                
+                for j in model.flowers[1].hashTag.indices {
+                    switch j {
+                    case 0:
+                        flowerTypeView2.flowerLanguageTagLabel1.text = model.flowers[1].hashTag[j]
+                    case 1:
+                        flowerTypeView2.flowerLanguageTagLabel2.text = model.flowers[1].hashTag[j]
+                        flowerTypeView1.flowerLanguageTagLabel2.isHidden = false
+                    default:
+                        break
+                    }
+                }
+                
+                if let imageURL = URL(string: model.flowers[1].photo) {
+                    flowerTypeView2.flowerImageView.load(url: imageURL)
+                }
+            case 2:
+                flowerTypeView2.isHidden = false
+                flowerTypeView3.flowerNameLabel.text = model.flowers[2].name
+                
+                for j in model.flowers[2].hashTag.indices {
+                    switch j {
+                    case 0:
+                        flowerTypeView3.flowerLanguageTagLabel1.text = model.flowers[2].hashTag[j]
+                    case 1:
+                        flowerTypeView3.flowerLanguageTagLabel2.text = model.flowers[2].hashTag[j]
+                        flowerTypeView1.flowerLanguageTagLabel2.isHidden = false
+                    default:
+                        break
+                    }
+                }
+                
+                if let imageURL = URL(string: model.flowers[2].photo) {
+                    flowerTypeView3.flowerImageView.load(url: imageURL)
+                }
+                
+            default:
+                break
+            }
+        }
         
         alternativesContentLabel.text = model.alternative.rawValue
         
         priceContentLabel.text = model.priceRange
         
         additionalRequirementContentLabel.text = model.requirement?.text
-        // 요구사항 사진 추가 필요
+
+        for i in 0..<(model.requirement?.photosBase64Strings.count ?? 0) {
+            switch i {
+            case 0:
+                referenceImageView1.isHidden = false
+                if let data = Data(base64Encoded: model.requirement?.photosBase64Strings[i] ?? "", options: .ignoreUnknownCharacters) {
+                    let decodedImg = UIImage(data: data)
+                    referenceImageView1.image = decodedImg
+                }
+            case 1:
+                referenceImageView2.isHidden = false
+                if let data = Data(base64Encoded: model.requirement?.photosBase64Strings[i] ?? "", options: .ignoreUnknownCharacters) {
+                    let decodedImg = UIImage(data: data)
+                    referenceImageView2.image = decodedImg
+                }
+            case 2:
+                referenceImageView3.isHidden = false
+                if let data = Data(base64Encoded: model.requirement?.photosBase64Strings[i] ?? "", options: .ignoreUnknownCharacters) {
+                    let decodedImg = UIImage(data: data)
+                    referenceImageView3.image = decodedImg
+                }
+            default:
+                break
+            }
+        }
+        
     }
     
     private func setupCustomDetailUI() {
@@ -343,6 +463,7 @@ class RequestDetailView: UIView {
         flowerColorStackView.addArrangedSubview(flowerColorChipStackView)
         flowerColorChipStackView.addArrangedSubview(flowerColorChipView1)
         flowerColorChipStackView.addArrangedSubview(flowerColorChipView2)
+        flowerColorChipStackView.addArrangedSubview(flowerColorChipView3)
         flowerColorChipView1.addSubview(starIcon)  // 포인트 컬러 칩에 별 추가
         addSubview(borderLine2)
         
@@ -350,6 +471,7 @@ class RequestDetailView: UIView {
         flowerTypeStackView.addArrangedSubview(flowerTypeTitleLabel)
         flowerTypeStackView.addArrangedSubview(flowerTypeView1)
         flowerTypeStackView.addArrangedSubview(flowerTypeView2)
+        flowerTypeStackView.addArrangedSubview(flowerTypeView3)
         addSubview(borderLine3)
         
         addSubview(alternativesStackView)
@@ -433,6 +555,11 @@ class RequestDetailView: UIView {
         flowerColorChipView2.snp.makeConstraints { make in
             make.height.equalTo(32)
             make.width.equalTo(flowerColorChipView2.snp.height).multipliedBy(1)
+        }
+        
+        flowerColorChipView3.snp.makeConstraints { make in
+            make.height.equalTo(32)
+            make.width.equalTo(flowerColorChipView3.snp.height).multipliedBy(1)
         }
         
         borderLine2.snp.makeConstraints { make in
