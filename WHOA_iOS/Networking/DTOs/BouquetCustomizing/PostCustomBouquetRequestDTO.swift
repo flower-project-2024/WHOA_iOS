@@ -14,6 +14,7 @@ struct PostCustomBouquetRequestDTO: Codable {
     let colorName: String
     let pointColor: String?
     let flowerType: String
+    let substitutionType: String
     let wrappingType: String
     let price: String
     let requirement: String?

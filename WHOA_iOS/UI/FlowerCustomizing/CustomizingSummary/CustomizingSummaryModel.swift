@@ -73,6 +73,7 @@ extension CustomizingSummaryModel {
                 colorName: colorName,
                 pointColor: pointColor,
                 flowerType: DTO.flowers.map{ $0.name }.joined(separator: ", "),
+                substitutionType: DTO.alternative.toDTOString(),
                 wrappingType: wrappingType,
                 price: DTO.priceRange,
                 requirement: DTO.requirement?.text
