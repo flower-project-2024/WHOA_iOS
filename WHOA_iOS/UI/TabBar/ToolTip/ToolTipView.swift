@@ -98,7 +98,6 @@ class ToolTipView: UIView {
         path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
         path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
 
-        //let shape = CAShapeLayer()
         shape.path = path
         shape.fillColor = UIColor.primary.cgColor
 
@@ -113,15 +112,5 @@ class ToolTipView: UIView {
         label.removeFromSuperview()
         shape.removeFromSuperlayer()
         parentVC?.removeToolTipView()
-        
-        print(self.layer.sublayers)
-//        self.layer.sublayers?.forEach({ layer in
-//            print(layer)
-//            print(layer.superlayer)
-//            layer.removeFromSuperlayer()
-//        })
-//        removeFromSuperview()
-        
-        //print(self.layer.sublayers)
     }
 }

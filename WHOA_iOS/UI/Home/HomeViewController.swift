@@ -57,10 +57,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        // TODO: 앱 최초 실행 시에만 툴팁 띄우기
-//        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
-//        print("isFirstLaunch: \(isFirstLaunch)")
     
         addViews()
         setupNavigation()
@@ -80,15 +76,8 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
-//        print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
-        
         setupCollectionView()
         setupTableView()
-//        if(!tooltipIsClosed || isFirstLaunch){
-//            print("==setting tool tip view==")
-//            setupToolTipView()
-//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -165,10 +154,7 @@ class HomeViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12 + 21 + 12) // tip 높이 + 탭바의 커스터마이징 이미지의 inset 값 + 그림자로 안보이는 정도
         }
         
-//        print("tooltipView.frame.height: \(tooltipView.frame.height)")
         tooltipView.layoutIfNeeded()
-//        print("tooltipView.frame.height: \(tooltipView.frame.height)")
-//        print("tooltipView.bounds.size: \(tooltipView.bounds.size)")
         let tipStartX = tooltipView.bounds.width / 2 - 13/2
         let tipStartY = tooltipView.bounds.height
         tooltipView.drawTip(tipStartX: tipStartX,
@@ -205,33 +191,9 @@ class HomeViewController: UIViewController {
         return image
     }
     
-    private func drawTip(
-        tipStartX: CGFloat,
-        tipStartY: CGFloat,
-        tipWidth: CGFloat,
-        tipHeight: CGFloat) {
-
-        let path = CGMutablePath()
-
-        let tipWidthCenter = tipWidth / 2.0
-        let endXWidth = tipStartX + tipWidth
-
-        path.move(to: CGPoint(x: tipStartX, y: tipStartY))
-        path.addLine(to: CGPoint(x: tipStartX + tipWidthCenter, y: tipStartY+tipHeight))
-        path.addLine(to: CGPoint(x: endXWidth, y: tipStartY))
-        path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
-
-        let shape = CAShapeLayer()
-        shape.path = path
-        shape.fillColor = UIColor.primary.cgColor
-
-        self.view.layer.insertSublayer(shape, at: 0)
-    }
-    
     func removeToolTipView(){
         tooltipIsClosed = true
         tooltipView.removeFromSuperview()
-//        tooltipView = 
     }
 }
 
