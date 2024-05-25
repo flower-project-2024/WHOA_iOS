@@ -12,6 +12,7 @@
 		0833EF7C2BE55AD40024FB2C /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */; };
 		0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF7D2BE55B9F0024FB2C /* MyPageModel.swift */; };
 		08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */; };
+		08478E3C2BEBB005003970B9 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08478E3B2BEBB005003970B9 /* TabBarViewController.swift */; };
 		08572A1A2B8CF950002F045F /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08572A192B8CF950002F045F /* CustomAlertViewController.swift */; };
 		085738372B72344C00AAFAC6 /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 085738302B721A5700AAFAC6 /* Pretendard-Black.otf */; };
 		085738382B72346000AAFAC6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382D2B721A5700AAFAC6 /* Pretendard-Bold.otf */; };
@@ -47,6 +48,9 @@
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
 		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
+		08C635EE2C01EB220088DE39 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635ED2C01EB220088DE39 /* UITabBar+.swift */; };
+		08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635EF2C01EB470088DE39 /* CALayer+.swift */; };
+		08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF322BF70D5B005CBECA /* ToolTipView.swift */; };
 		08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
@@ -162,6 +166,7 @@
 		0833EF7B2BE55AD40024FB2C /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		0833EF7D2BE55B9F0024FB2C /* MyPageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageModel.swift; sourceTree = "<group>"; };
 		08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetHeaderCell.swift; sourceTree = "<group>"; };
+		08478E3B2BEBB005003970B9 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		08572A192B8CF950002F045F /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		0857382C2B721A5700AAFAC6 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
@@ -197,6 +202,9 @@
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
+		08C635ED2C01EB220088DE39 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
+		08C635EF2C01EB470088DE39 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		08D0CF322BF70D5B005CBECA /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
 		08D245FD2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewController.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
@@ -337,6 +345,15 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		08478E3A2BEBAFE6003970B9 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				08D0CF2F2BF6F8BE005CBECA /* ToolTip */,
+				08478E3B2BEBB005003970B9 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
 		0857382A2B721A2200AAFAC6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +478,14 @@
 				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		08D0CF2F2BF6F8BE005CBECA /* ToolTip */ = {
+			isa = PBXGroup;
+			children = (
+				08D0CF322BF70D5B005CBECA /* ToolTipView.swift */,
+			);
+			path = ToolTip;
 			sourceTree = "<group>";
 		};
 		08F7B29F2B823DD100DFD4F7 /* cell */ = {
@@ -675,6 +700,8 @@
 				54EB18142BC018C900717E6F /* UIImageView+.swift */,
 				5411BA392BE11DD8002A85F0 /* UITextView+.swift */,
 				54D5BB002BE406F400C538E1 /* Int+.swift */,
+				08C635ED2C01EB220088DE39 /* UITabBar+.swift */,
+				08C635EF2C01EB470088DE39 /* CALayer+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -768,6 +795,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				08478E3A2BEBAFE6003970B9 /* TabBar */,
 				0887F6242B86777F00727F14 /* MyPage */,
 				54FD0F762B73CF2B00F964C3 /* Common */,
 				54FD0F622B6FFC1C00F964C3 /* Home */,
@@ -1033,6 +1061,7 @@
 				085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */,
 				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
+				08478E3C2BEBB005003970B9 /* TabBarViewController.swift in Sources */,
 				08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */,
 				08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
@@ -1074,6 +1103,7 @@
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
+				08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */,
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
 				5411BA3A2BE11DD8002A85F0 /* UITextView+.swift in Sources */,
 				542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */,
@@ -1123,12 +1153,14 @@
 				54EB180E2BBF4C1200717E6F /* FlowerKeywordAPI.swift in Sources */,
 				54EB18122BBF542C00717E6F /* FlowerSelectModel.swift in Sources */,
 				54D5BAFF2BE4016600C538E1 /* FlowerPriceModel.swift in Sources */,
+				08C635EE2C01EB220088DE39 /* UITabBar+.swift in Sources */,
 				5411BA382BE0DEA5002A85F0 /* PackagingAssignType.swift in Sources */,
 				5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */,
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				54D5BAFD2BE3F66A00C538E1 /* FlowerPriceViewModel.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
+				08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,
