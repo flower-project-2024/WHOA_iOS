@@ -9,7 +9,7 @@ import UIKit
 
 class RequestDetailViewController: UIViewController {
     // MARK: - Properties
-    private var requestTitle: String!
+    private var requestTitle: String
     var myPageVC: MyPageViewController?
 //    private var viewModel: RequestDetailViewModel!
     
@@ -46,10 +46,9 @@ class RequestDetailViewController: UIViewController {
     }()
     
     // MARK: - Initialization
-    init(requestTitle: String!) {
-        super.init(nibName: nil, bundle: nil)
-        
+    init(requestTitle: String) {
         self.requestTitle = requestTitle
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
