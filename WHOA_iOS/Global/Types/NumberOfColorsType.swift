@@ -23,7 +23,7 @@ enum NumberOfColorsType: String {
             case .colorful:
                 return "COLORFUL"
             case .pointColor:
-                return "POINTCOLOR"
+                return "POINT_COLOR"
             }
         }
 }
