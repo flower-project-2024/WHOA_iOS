@@ -86,4 +86,26 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 유저가 등록한 주문서 한 건을 상세 조회하는 함수입니다.
+    /// - Parameters:
+    /// - MemberID: 멤버 아이디
+    /// - bouquetId: 주문서 ID
+    func fetchGetBouquetDetail(
+        memberID: String,
+        bouquetId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<BouquetDetailDTO, NetworkError>) -> Void
+    ) {
+        let bouquetDetailAPI = BouquetDetailAPI(memberID: memberID, bouquetId: bouquetId)
+        print(bouquetDetailAPI.urlRequest)
+        networkService.request(bouquetDetailAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
