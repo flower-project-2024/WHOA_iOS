@@ -50,7 +50,7 @@ final class NetworkManager {
     }
     
     /// UUID로 멤버를 등록하는 함수입니다.
-    func postMemberRegister(
+    func createMemberRegister(
         memberRegisterRequestDTO: MemberRegisterRequestDTO,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<MemberRegisterDTO, NetworkError>) -> Void
@@ -70,7 +70,7 @@ final class NetworkManager {
     /// - Parameters:
     /// - Headers - memberID: 멤버 아이디
     /// - Body - postCustomBouquetRequestDTO: 명세서 내용
-    func postCustomBouquet(
+    func createCustomBouquet(
         postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
         memberID: String,
         _ networkService: NetworkServable = NetworkService(),

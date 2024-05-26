@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func registerMember() {
         let memberRegisterRequestDTO = MemberRegisterRequestDTO(deviceId: UIDevice.current.identifierForVendor?.uuidString ?? "")
         
-        NetworkManager.shared.postMemberRegister(memberRegisterRequestDTO: memberRegisterRequestDTO) { [weak self] result in
+        NetworkManager.shared.createMemberRegister(memberRegisterRequestDTO: memberRegisterRequestDTO) { [weak self] result in
             switch result {
             case .success(let memberRegisterDTO):
                 let memberId = String(memberRegisterDTO.data.id)
