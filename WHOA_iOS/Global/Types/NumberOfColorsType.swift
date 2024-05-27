@@ -11,7 +11,7 @@ import Foundation
 enum NumberOfColorsType: String {
     case oneColor = "단일 색"
     case twoColor = "2가지 색"
-    case colorful = "컬러풀한"
+    case colorful = "컬러풀"
     case pointColor = "포인트 컬러"
     
     func toDTOString() -> String {
