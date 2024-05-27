@@ -108,4 +108,26 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 유저가 등록한 주문서 한 건을 삭제하는 함수입니다.
+    /// - Parameters:
+    /// - MemberID: 멤버 아이디
+    /// - bouquetId: 주문서 ID
+    func DeleteBouquet(
+        memberID: String,
+        bouquetId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<DeleteBouquetDTO, NetworkError>) -> Void
+    ) {
+        let deleteBouquetAPI = DeleteBouquetAPI(memberID: memberID, bouquetId: bouquetId)
+        
+        networkService.request(deleteBouquetAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
