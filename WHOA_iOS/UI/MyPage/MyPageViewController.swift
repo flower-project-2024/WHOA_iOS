@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController {
+class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
     
     // MARK: - Properties
     
@@ -72,6 +72,12 @@ class MyPageViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
+    }
+    
+    // MARK: - CustomAlertViewControllerDelegate
+    
+    func deleteSuccessful(bouquetId: Int) {
+        viewModel.removeBouquet(withId: bouquetId)
     }
 }
 

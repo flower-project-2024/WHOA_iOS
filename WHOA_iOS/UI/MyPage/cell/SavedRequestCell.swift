@@ -161,6 +161,8 @@ class SavedRequestCell: UITableViewCell {
     
     @objc func deleteBtnTapped(){
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
+        customAlertVC.bouquetId = bouquetId
+        customAlertVC.delegate = myPageVC
         
         customAlertVC.modalPresentationStyle = .overFullScreen
         myPageVC?.present(customAlertVC, animated: false, completion: nil)

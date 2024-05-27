@@ -10,6 +10,7 @@ import UIKit
 class RequestDetailViewController: UIViewController {
     // MARK: - Properties
     private var requestTitle: String
+    private var bouquetId: Int
     var myPageVC: MyPageViewController?
 //    private var viewModel: RequestDetailViewModel!
     
@@ -46,8 +47,9 @@ class RequestDetailViewController: UIViewController {
     }()
     
     // MARK: - Initialization
-    init(requestTitle: String) {
-        self.requestTitle = requestTitle
+    init(with BouquetModel: BouquetModel) {
+        self.requestTitle = BouquetModel.bouquetTitle
+        self.bouquetId = BouquetModel.bouquetId
         super.init(nibName: nil, bundle: nil)
     }
     
