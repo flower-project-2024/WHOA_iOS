@@ -17,7 +17,7 @@ enum AlternativesType: String {
         case .colorOriented:
             return "FOCUS_ON_COLOR"
         case .hashTagOriented:
-            return "FOCUS_ON_TYPE"
+            return "FOCUS_ON_FLOWER_LANGUAGE"
         }
     }
 }
