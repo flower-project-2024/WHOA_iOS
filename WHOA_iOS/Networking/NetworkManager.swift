@@ -91,14 +91,13 @@ final class NetworkManager {
     /// - Parameters:
     /// - MemberID: 멤버 아이디
     /// - bouquetId: 주문서 ID
-    func fetchGetBouquetDetail(
+    func fetchBouquetDetail(
         memberID: String,
         bouquetId: Int,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<BouquetDetailDTO, NetworkError>) -> Void
     ) {
         let bouquetDetailAPI = BouquetDetailAPI(memberID: memberID, bouquetId: bouquetId)
-        print(bouquetDetailAPI.urlRequest)
         networkService.request(bouquetDetailAPI) { result in
             switch result {
             case .success(let DTO):
