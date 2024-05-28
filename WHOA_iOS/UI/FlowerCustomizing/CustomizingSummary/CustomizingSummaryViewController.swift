@@ -81,6 +81,20 @@ class CustomizingSummaryViewController: UIViewController {
         setupUI()
         setupTapGesture()
         requestDetailView.config(model: viewModel.customizingSummaryModel)
+        
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        
+        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
+        print(id)
+        print(dto)
+        NetworkManager.shared.createCustomBouquet(postCustomBouquetRequestDTO: dto, memberID: id) { result in
+            switch result {
+            case .success(let success):
+                print("성공")
+            case .failure(let failure):
+                print("실패")
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

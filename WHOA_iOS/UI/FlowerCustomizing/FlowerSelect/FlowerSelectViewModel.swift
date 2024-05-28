@@ -15,17 +15,22 @@ class FlowerSelectViewModel {
     var flowerKeywordModels: [FlowerKeywordModel] = []
     @Published var filteredModels: [FlowerKeywordModel] = []
     @Published var selectedFlowerModels: [FlowerKeywordModel] = []
+    @Published var networkError: NetworkError?
     
     var cancellables = Set<AnyCancellable>()
     
     // MARK: - Functions
     
-    func fetchFlowerKeyword(
-        keywordId: String,
-        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
-    ) {
+    func fetchFlowerKeyword(keywordId: String) {
         NetworkManager.shared.fetchFlowerKeyword(keywordId: keywordId) { result in
-            completion(result)
+            switch result {
+            case .success(let DTO):
+                let models = FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)
+                self.flowerKeywordModels = models
+                self.filteredModels = models
+            case .failure(let error):
+                self.networkError = error
+            }
         }
     }
     

@@ -36,13 +36,13 @@ final class NetworkManager {
     func fetchFlowerKeyword(
         keywordId: String,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
+        completion: @escaping (Result<FlowerKeywordDTO, NetworkError>) -> Void
     ) {
         let flowerKeywordAPI = FlowerKeywordAPI(keywordId: keywordId)
         networkService.request(flowerKeywordAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)))
+                completion(.success(DTO))
             case .failure(let error):
                 completion(.failure(error))
             }

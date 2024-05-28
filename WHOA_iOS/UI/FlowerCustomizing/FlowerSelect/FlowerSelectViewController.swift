@@ -220,22 +220,18 @@ class FlowerSelectViewController: UIViewController {
                 self?.nextButton.isActive = !model.isEmpty
             }
             .store(in: &viewModel.cancellables)
+        
+        viewModel.$networkError
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
+                self?.fetchFailure(error)
+            }
+            .store(in: &viewModel.cancellables)
     }
     
     private func fetchData() {
-        viewModel.fetchFlowerKeyword(keywordId: "0") { [weak self] result in
-            switch result {
-            case .success(let models):
-                self?.fetchSuccess(models)
-            case .failure(let error):
-                self?.fetchFailure(error)
-            }
-        }
-    }
-    
-    private func fetchSuccess(_ models: [FlowerKeywordModel]) {
-        viewModel.flowerKeywordModels = models
-        viewModel.filteredModels = models
+        viewModel.fetchFlowerKeyword(keywordId: "0")
     }
     
     private func fetchFailure(_ error: NetworkError) {
