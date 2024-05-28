@@ -1,5 +1,5 @@
 //
-//  flowerSelectTableViewCell.swift
+//  FlowerSelectionTableViewCell.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/28/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlowerSelectTableViewCell: UITableViewCell {
+class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -171,7 +171,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     }
 }
 
-extension FlowerSelectTableViewCell {
+extension FlowerSelectionTableViewCell {
     private func setupAutoLayout() {
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()

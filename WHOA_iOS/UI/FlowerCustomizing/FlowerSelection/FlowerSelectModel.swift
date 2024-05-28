@@ -1,5 +1,5 @@
 //
-//  FlowerSelectModel.swift
+//  FlowerKeywordModel.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 4/5/24.

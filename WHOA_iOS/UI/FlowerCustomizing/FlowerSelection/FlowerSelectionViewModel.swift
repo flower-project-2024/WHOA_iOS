@@ -1,5 +1,5 @@
 //
-//  FlowerSelectViewModel.swift
+//  FlowerSelectionViewModel.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/29/24.
@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class FlowerSelectViewModel {
+class FlowerSelectionViewModel {
     
     // MARK: - Properties
     

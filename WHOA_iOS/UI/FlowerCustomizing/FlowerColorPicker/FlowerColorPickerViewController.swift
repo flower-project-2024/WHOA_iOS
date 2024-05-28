@@ -248,9 +248,9 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        let flowerSelectViewModel = FlowerSelectViewModel()
-        let FlowerSelectVC = FlowerSelectViewController()
-        navigationController?.pushViewController(FlowerSelectVC, animated: true)
+        let flowerSelectionViewModel = FlowerSelectionViewModel()
+        let FlowerSelectionVC = FlowerSelectionViewController()
+        navigationController?.pushViewController(FlowerSelectionVC, animated: true)
     }
 }
 

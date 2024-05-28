@@ -1,5 +1,5 @@
 //
-//  FlowerSelectViewController.swift
+//  FlowerSelectionViewController.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/23/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class FlowerSelectViewController: UIViewController {
+class FlowerSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = FlowerSelectViewModel()
+    let viewModel = FlowerSelectionViewModel()
     var tempHashTag = ["전체", "사랑", "행운", "믿음", "추억", "존경", "믿음", "우정"]
 
     // MARK: - UI
@@ -117,7 +117,7 @@ class FlowerSelectViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var flowerSelectTableView: UITableView = {
+    private lazy var flowerSelectionTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.rowHeight = 120
@@ -125,8 +125,8 @@ class FlowerSelectViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(
-            FlowerSelectTableViewCell.self,
-            forCellReuseIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier
+            FlowerSelectionTableViewCell.self,
+            forCellReuseIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier
         )
         return tableView
     }()
@@ -193,7 +193,7 @@ class FlowerSelectViewController: UIViewController {
         view.addSubview(minusImageView3)
         
         view.addSubview(hashTagCollectionView)
-        view.addSubview(flowerSelectTableView)
+        view.addSubview(flowerSelectionTableView)
         
         view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
@@ -207,7 +207,7 @@ class FlowerSelectViewController: UIViewController {
         viewModel.$filteredModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.flowerSelectTableView.reloadData()
+                self?.flowerSelectionTableView.reloadData()
             }
             .store(in: &viewModel.cancellables)
         
@@ -305,7 +305,7 @@ class FlowerSelectViewController: UIViewController {
         let model = viewModel.getSelectedFlowerModel(idx: index)
         guard let indexPath = viewModel.findCellIndexPathRow(for: model) else { return }
         
-        if let cell = flowerSelectTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectTableViewCell {
+        if let cell = flowerSelectionTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectionTableViewCell {
             cell.isAddImageButtonSelected = isSelected
         }
     }
@@ -324,7 +324,7 @@ class FlowerSelectViewController: UIViewController {
     }
 }
 
-extension FlowerSelectViewController {
+extension FlowerSelectionViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
@@ -379,7 +379,7 @@ extension FlowerSelectViewController {
             $0.height.equalTo(64)
         }
         
-        flowerSelectTableView.snp.makeConstraints {
+        flowerSelectionTableView.snp.makeConstraints {
             $0.top.equalTo(hashTagCollectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(borderLine)
@@ -403,7 +403,7 @@ extension FlowerSelectViewController {
     }
 }
 
-extension FlowerSelectViewController: UICollectionViewDataSource {
+extension FlowerSelectionViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -432,7 +432,7 @@ extension FlowerSelectViewController: UICollectionViewDataSource {
 }
 // MARK: - UICollectionViewDelegate
 
-extension FlowerSelectViewController: UICollectionViewDelegate {
+extension FlowerSelectionViewController: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
@@ -443,7 +443,7 @@ extension FlowerSelectViewController: UICollectionViewDelegate {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
+extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -464,7 +464,7 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UITableViewDataSource
 
-extension FlowerSelectViewController: UITableViewDataSource {
+extension FlowerSelectionViewController: UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
@@ -477,9 +477,9 @@ extension FlowerSelectViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier,
+            withIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier,
             for: indexPath
-        ) as? FlowerSelectTableViewCell else { return UITableViewCell() }
+        ) as? FlowerSelectionTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
@@ -506,7 +506,7 @@ extension FlowerSelectViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension FlowerSelectViewController: UITableViewDelegate {
+extension FlowerSelectionViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
