@@ -25,7 +25,30 @@ struct BouquetDetail: Codable {
     let wrappingType: String
     let priceRange: String
     let requirement: String
-//    let imagePaths: [String]
-//    let flowerInfoList: [String]
+    //    let imagePaths: [String]
+    //    let flowerInfoList: [String]
 }
+
+
+extension BouquetDetailDTO {
+    static func convertBouquetDetailDTOToModel(_ DTO: BouquetDetailDTO) -> CustomizingSummaryModel {
+        var colors = DTO.data.colorName.components(separatedBy: ",")
+        
+        if let pointColor = DTO.data.pointColor {
+            colors.insert(pointColor, at: 0)
+        }
+        
+        return CustomizingSummaryModel(
+            purpose: PurposeType(rawValue: DTO.data.purpose) ?? .affection,
+            numberOfColors: NumberOfColorsType(rawValue: DTO.data.colorType) ?? .oneColor,
+            colors: colors,
+            flowers: [],
+            alternative: AlternativesType(rawValue: DTO.data.substitutionType) ?? .colorOriented,
+            assign: Assign(packagingAssignType: PackagingAssignType(rawValue: DTO.data.wrappingType) ?? .myselfAssign, text: DTO.data.wrappingType),
+            priceRange: DTO.data.priceRange,
+            requirement: Requirement(text: DTO.data.requirement, photosBase64Strings: [])
+        )
+    }
+}
+
 
