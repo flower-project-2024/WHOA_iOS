@@ -180,6 +180,13 @@ class FlowerSelectionViewController: UIViewController {
         fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     // MARK: - Fuctions
     
     private func setupUI() {
@@ -320,10 +327,7 @@ class FlowerSelectionViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        let flowerReplacementVC = AlternativesViewController()
-        flowerReplacementVC.sheetPresentationController?.detents = [.medium()]
-        
-        present(flowerReplacementVC, animated: true)
+        coordinator?.showAlternativesVC(from: self, flowerKeywordModels: viewModel.selectedFlowerModels)
     }
 }
 

@@ -12,7 +12,8 @@ class PhotoSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = PhotoSelectionViewModel()
+    private let viewModel: PhotoSelectionViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -194,6 +195,17 @@ class PhotoSelectionViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: PhotoSelectionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -201,6 +213,15 @@ class PhotoSelectionViewController: UIViewController {
         
         setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -326,18 +347,15 @@ class PhotoSelectionViewController: UIViewController {
     
     @objc
     private func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func nextButtonTapped() {
         viewModel.convertPhotosToBase64()
+        self.viewModel.photosBase64Strings
         
-        let viewModel = CustomizingSummaryViewModel()
-        viewModel.customizingSummaryModel.requirement?.photosBase64Strings = self.viewModel.photosBase64Strings
-        
-        let vc = CustomizingSummaryViewController(viewModel: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
+        coordinator?.showCustomizingSummaryVC()
     }
 }
 

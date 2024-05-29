@@ -11,7 +11,8 @@ class AlternativesViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = AlternativesViewModel()
+    let viewModel: AlternativesViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -35,6 +36,17 @@ class AlternativesViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: AlternativesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -42,6 +54,13 @@ class AlternativesViewController: UIViewController {
         
         bind()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -94,7 +113,8 @@ class AlternativesViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        print("다음이동")
+        guard let alternative = viewModel.alternativesModel?.AlternativesType else { return }
+        coordinator?.showPackagingSelectionVC(from: self, alternative: alternative)
     }
     
 }

@@ -11,7 +11,8 @@ class FlowerPriceViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = FlowerPriceViewModel()
+    private let viewModel: FlowerPriceViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -26,7 +27,7 @@ class FlowerPriceViewController: UIViewController {
         label.textColor = .black
         label.numberOfLines = 0
         return label
-      }()
+    }()
     
     private let rangeSlider: RangeSlider = {
         let slider = RangeSlider()
@@ -38,7 +39,7 @@ class FlowerPriceViewController: UIViewController {
         slider.trackTintColor = .gray2
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
-      }()
+    }()
     
     private let borderLine = ShadowBorderLine()
     
@@ -66,6 +67,16 @@ class FlowerPriceViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: FlowerPriceViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
@@ -74,6 +85,13 @@ class FlowerPriceViewController: UIViewController {
         
         bind()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -98,8 +116,7 @@ class FlowerPriceViewController: UIViewController {
             .receive(on: RunLoop.main)
             .print()
             .sink { [weak self] model in
-                self?.valueLabel.text =
-                "\(model.minPrice.decimalFormattedString()) ~ \(model.maxPrice.decimalFormattedString())원"
+                self?.valueLabel.text = self?.viewModel.getPriceString()
             }
             .store(in: &viewModel.cancellables)
     }
@@ -111,16 +128,16 @@ class FlowerPriceViewController: UIViewController {
         nextButton.isActive = true
         rangeSlider.trackTintColor = .second1
         viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
-      }
+    }
     
     @objc
     private func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func nextButtonTapped() {
-        print("다음이동")
+        coordinator?.showPhotoSelectionVC(price: viewModel.getPriceString())
     }
 }
 

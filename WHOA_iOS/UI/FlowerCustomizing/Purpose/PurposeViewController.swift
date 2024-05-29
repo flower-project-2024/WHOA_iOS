@@ -9,10 +9,12 @@ import UIKit
 import SnapKit
 
 class PurposeViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
+    
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -41,7 +43,10 @@ class PurposeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      navigationController?.setNavigationBarHidden(true, animated: true)
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -95,9 +100,8 @@ class PurposeViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        let flowerColorPickerViewModel = FlowerColorPickerViewModel()
-        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: flowerColorPickerViewModel)
-        navigationController?.pushViewController(flowerColorPickerVC, animated: true)
+        guard let purpose = viewModel.getPurposeType() else { return }
+        coordinator?.showColorPickerVC(purposeType: purpose)
     }
 }
 

@@ -11,7 +11,8 @@ class PackagingSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     
-    let viewModel = PackagingSelectionViewModel()
+    let viewModel: PackagingSelectionViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -80,6 +81,16 @@ class PackagingSelectionViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: PackagingSelectionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
@@ -88,6 +99,13 @@ class PackagingSelectionViewController: UIViewController {
         
         bind()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -146,13 +164,12 @@ class PackagingSelectionViewController: UIViewController {
     
     @objc
     func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func nextButtonTapped() {
-        let vc = FlowerPriceViewController()
-        present(vc, animated: false)
+        coordinator?.showFlowerPriceVC(packagingSelectionModel: viewModel.packagingSelectionModel)
     }
 }
 

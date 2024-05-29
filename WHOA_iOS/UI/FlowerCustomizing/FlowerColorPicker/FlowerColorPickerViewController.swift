@@ -15,6 +15,8 @@ class FlowerColorPickerViewController: UIViewController {
     private let viewModel: FlowerColorPickerViewModel
     private var isChevronUp = true
     
+    weak var coordinator: CustomizingCoordinator?
+    
     // MARK: - UI
     
     private let scrollView: UIScrollView = {
@@ -114,7 +116,11 @@ class FlowerColorPickerViewController: UIViewController {
         return view
     }()
     
-    private lazy var colorPickerView = ColorPickerView(viewModel: viewModel, numberOfColors: .oneColor)
+    private lazy var colorPickerView: ColorPickerView = {
+        let view = ColorPickerView(viewModel: viewModel, numberOfColors: .oneColor)
+        view.isHidden = true
+        return view
+    }()
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
@@ -173,9 +179,10 @@ class FlowerColorPickerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        colorPickerView.isHidden = true
-        
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
@@ -248,9 +255,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        let flowerSelectionViewModel = FlowerSelectionViewModel()
-        let FlowerSelectionVC = FlowerSelectionViewController()
-        navigationController?.pushViewController(FlowerSelectionVC, animated: true)
+        coordinator?.showFlowerSelectionVC(colors: viewModel.getColors())
     }
 }
 

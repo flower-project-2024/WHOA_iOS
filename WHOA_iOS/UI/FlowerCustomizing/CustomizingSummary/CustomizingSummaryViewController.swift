@@ -12,6 +12,7 @@ class CustomizingSummaryViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: CustomizingSummaryViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -98,7 +99,10 @@ class CustomizingSummaryViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-      navigationController?.setNavigationBarHidden(true, animated: true)
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Functions
