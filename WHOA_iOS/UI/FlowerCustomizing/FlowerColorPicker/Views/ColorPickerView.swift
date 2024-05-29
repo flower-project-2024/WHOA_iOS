@@ -482,7 +482,7 @@ class ColorPickerView: UIView {
         case .oneColor:
             if flowerColorPickerButton1.backgroundColor != .gray2 {
                 colors = [flowerColorPickerButton1.backgroundColor].compactMap { $0?.toHexString() }
-                viewModel.getColors(colors: colors)
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
@@ -492,7 +492,7 @@ class ColorPickerView: UIView {
             if flowerColorPickerButton1.backgroundColor != .gray2 &&
                 flowerColorPickerButton2.backgroundColor != .gray2 {
                 colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor].compactMap { $0?.toHexString() }
-                viewModel.getColors(colors: colors)
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
@@ -507,7 +507,7 @@ class ColorPickerView: UIView {
                     flowerColorPickerButton2.backgroundColor,
                     flowerColorPickerButton3.backgroundColor
                 ].compactMap { $0?.toHexString() }
-                viewModel.getColors(colors: colors)
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
