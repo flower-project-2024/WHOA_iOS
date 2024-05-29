@@ -56,6 +56,8 @@
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
+		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
+		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
 		5411BA382BE0DEA5002A85F0 /* PackagingAssignType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */; };
 		5411BA3A2BE11DD8002A85F0 /* UITextView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA392BE11DD8002A85F0 /* UITextView+.swift */; };
@@ -218,6 +220,8 @@
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
+		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
 		5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingAssignType.swift; sourceTree = "<group>"; };
 		5411BA392BE11DD8002A85F0 /* UITextView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+.swift"; sourceTree = "<group>"; };
@@ -513,6 +517,23 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		54098F982C05E2E8000C3F70 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				54098F9B2C05E40B000C3F70 /* AppCoordinator */,
+				54098F992C05E34D000C3F70 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		54098F9B2C05E40B000C3F70 /* AppCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */,
+			);
+			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
 		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +792,7 @@
 				54FD0F5E2B6FD48900F964C3 /* App */,
 				546071212B88C1860033B598 /* Networking */,
 				54FD0F612B6FD60700F964C3 /* UI */,
+				54098F982C05E2E8000C3F70 /* Coordinator */,
 				54FD0F822B74C0DB00F964C3 /* Global */,
 				54FD0F602B6FD52E00F964C3 /* Resources */,
 				54FD0F5F2B6FD4EB00F964C3 /* SupportingFiles */,
@@ -1083,6 +1105,7 @@
 			files = (
 				089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */,
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
+				54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */,
 				544FC0B92C03C44B0091EEE2 /* DeleteBouquetAPI.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
@@ -1153,6 +1176,7 @@
 				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
 				5413AA712BD5516E006AA160 /* CustomizingSummaryModel.swift in Sources */,
 				54EB17DE2BA1D4B200717E6F /* PhotoService.swift in Sources */,
+				54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */,
 				54D856602BDD40750099D818 /* AlternativesViewModel.swift in Sources */,
 				542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */,
 				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
