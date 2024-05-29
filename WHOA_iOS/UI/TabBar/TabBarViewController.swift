@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController {
     
     private let customizeButtonWidth = 69
     private var buttonConfig = UIButton.Configuration.plain()
+    private var customizingCoordinator :CustomizingCoordinator?
     
     // MARK: - Lifecycle
     
@@ -26,10 +27,12 @@ class TabBarViewController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.gray07
         tabBar.layer.masksToBounds = false
         
-        let customizingVC = PurposeViewController(viewModel: PurposeViewModel())
-        
         let homeNavVC = UINavigationController(rootViewController: HomeViewController())
-        let customizingNavVC = UINavigationController(rootViewController: customizingVC)
+        
+        let customizingNavVC = UINavigationController()
+        customizingCoordinator = CustomizingCoordinator(navigationController: customizingNavVC)
+        customizingCoordinator?.start()
+        
         let myPageNavVC = UINavigationController(rootViewController: MyPageViewController())
         
         self.setViewControllers([homeNavVC, customizingNavVC, myPageNavVC], animated: true)
