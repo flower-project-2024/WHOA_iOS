@@ -11,8 +11,10 @@ class FlowerSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = FlowerSelectionViewModel()
+    let viewModel: FlowerSelectionViewModel
     var tempHashTag = ["전체", "사랑", "행운", "믿음", "추억", "존경", "믿음", "우정"]
+    
+    weak var coordinator: CustomizingCoordinator?
 
     // MARK: - UI
     
@@ -159,7 +161,8 @@ class FlowerSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     
-    init() {
+    init(viewModel: FlowerSelectionViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -200,7 +203,7 @@ class FlowerSelectionViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\(PurposeType.affection.rawValue)과\n어울리는 꽃 선택"
+        titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
     }
     
     private func bind() {
@@ -312,7 +315,7 @@ class FlowerSelectionViewController: UIViewController {
     
     @objc
     func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc

@@ -12,12 +12,17 @@ class FlowerSelectionViewModel {
     
     // MARK: - Properties
     
+    private let purposeType: PurposeType
     var flowerKeywordModels: [FlowerKeywordModel] = []
     @Published var filteredModels: [FlowerKeywordModel] = []
     @Published var selectedFlowerModels: [FlowerKeywordModel] = []
     @Published var networkError: NetworkError?
     
     var cancellables = Set<AnyCancellable>()
+    
+    init(purposeType: PurposeType) {
+        self.purposeType = purposeType
+    }
     
     // MARK: - Functions
     
@@ -32,6 +37,10 @@ class FlowerSelectionViewModel {
                 self.networkError = error
             }
         }
+    }
+    
+    func getPurposeString() -> String {
+        return purposeType.rawValue
     }
     
     func popKeywordModel(model: FlowerKeywordModel) {
