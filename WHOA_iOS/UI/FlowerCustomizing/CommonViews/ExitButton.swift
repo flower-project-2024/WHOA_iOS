@@ -25,7 +25,7 @@ class ExitButton: UIImageView {
     // MARK: - Functions
     
     private func setupView() {
-        self.image = UIImage(named: "xmark")
+        self.image = UIImage(named: "Xmark")
         self.tintColor = .black
         self.contentMode = .scaleAspectFit
         self.isUserInteractionEnabled = true

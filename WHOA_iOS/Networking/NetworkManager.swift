@@ -14,13 +14,48 @@ final class NetworkManager {
     
     private init() {}
     
-    /// 앨범들을 조회하는 함수입니다.
-    func fetchNetworkingTest(
+    /// 요구서 전체를 조회하는 함수입니다.
+    func fetchAllBouquets(
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<TestDTO, NetworkError>) -> Void
+        completion: @escaping (Result<[BouquetModel], NetworkError>) -> Void
     ) {
-        let testAPI = TestAPI()
-        networkService.request(testAPI) { result in
+        let bouquetAllAPI = BouquetAllAPI()
+        networkService.request(bouquetAllAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(BouquetAllDTO.convertBouquetAllDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    /// 키워드별 꽃 데이터를 받아오는 함수입니다.
+    /// - Parameters:
+    /// - keywordId: String, ex) 0 - 전체, 1 - 사랑 등등
+    func fetchFlowerKeyword(
+        keywordId: String,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
+    ) {
+        let flowerKeywordAPI = FlowerKeywordAPI(keywordId: keywordId)
+        networkService.request(flowerKeywordAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func postMemberRegister(
+        memberRegisterRequestDTO: MemberRegisterRequestDTO,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MemberRegisterDTO, NetworkError>) -> Void
+    ) {
+        let memberRegisterAPI = MemberRegisterAPI(requestDTO: memberRegisterRequestDTO)
+        networkService.request(memberRegisterAPI) { result in
             switch result {
             case .success(let DTO):
                 completion(.success(DTO))
