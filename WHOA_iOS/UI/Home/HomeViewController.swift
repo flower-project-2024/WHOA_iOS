@@ -233,6 +233,7 @@ class HomeViewController: UIViewController {
         }
         print(returnArray)
         return returnArray
+    }
 
     func removeToolTipView(){
         tooltipIsClosed = true
@@ -334,9 +335,9 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.buttonCallbackMethod = { [weak self] in
                 self?.timer?.invalidate()
                 self?.timer = nil
-                ㅣet vc = FlowerDetailViewController()
+                let vc = FlowerDetailViewController()
                 vc.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
                 //self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
             }
             return cell
