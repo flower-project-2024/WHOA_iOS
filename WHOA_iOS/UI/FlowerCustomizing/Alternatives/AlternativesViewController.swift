@@ -56,13 +56,6 @@ class AlternativesViewController: UIViewController {
         setupUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
-    }
-    
     // MARK: - Functions
     
     private func setupUI() {

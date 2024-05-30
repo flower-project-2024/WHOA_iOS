@@ -187,6 +187,13 @@ class FlowerSelectionViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     // MARK: - Fuctions
     
     private func setupUI() {
