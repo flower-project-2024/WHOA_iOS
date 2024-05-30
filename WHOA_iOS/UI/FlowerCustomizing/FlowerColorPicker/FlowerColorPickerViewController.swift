@@ -255,7 +255,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        coordinator?.showFlowerSelectionVC(colors: viewModel.getColors())
+        coordinator?.showFlowerSelectionVC(numberOfColors: viewModel.getNumberOfColors(), colors: viewModel.getColors())
     }
 }
 

@@ -8,5 +8,6 @@
 import Foundation
 
 struct FlowerColorPickerModel {
-    var colors: [String?]
+    var numberOfColors: NumberOfColorsType
+    var colors: [String]
 }

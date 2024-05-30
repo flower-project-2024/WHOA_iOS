@@ -9,13 +9,22 @@ import Foundation
 
 class FlowerColorPickerViewModel {
     
-    private var colors: [String] = []
+    private var flowerColorPickerModel = FlowerColorPickerModel(numberOfColors: .oneColor, colors: [])
+    
+    func setNumberOfColors(numberOfColors: NumberOfColorsType) {
+        flowerColorPickerModel.numberOfColors = numberOfColors
+        flowerColorPickerModel.colors.removeAll()
+    }
     
     func setColors(colors: [String]) {
-        self.colors = colors
+        flowerColorPickerModel.colors = colors
+    }
+    
+    func getNumberOfColors() -> NumberOfColorsType {
+        return flowerColorPickerModel.numberOfColors
     }
     
     func getColors() -> [String] {
-        return colors
+        return flowerColorPickerModel.colors
     }
 }

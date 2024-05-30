@@ -31,6 +31,7 @@ class ColorPickerView: UIView {
             changedNumberOfColors()
             flowerColorPickerButtonCount(numberOfColors: numberOfColors)
             updateNextButtonState()
+            viewModel.setNumberOfColors(numberOfColors: numberOfColors)
         }
     }
     
