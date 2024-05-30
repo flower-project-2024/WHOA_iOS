@@ -353,9 +353,9 @@ class PhotoSelectionViewController: UIViewController {
     @objc
     private func nextButtonTapped() {
         viewModel.convertPhotosToBase64()
-        self.viewModel.photosBase64Strings
+        viewModel.updateBase64Strings(viewModel.photosBase64Strings)
         
-        coordinator?.showCustomizingSummaryVC()
+        coordinator?.showCustomizingSummaryVC(photoSelectionModel: viewModel.getPhotoSelectionModel())
     }
 }
 
@@ -461,5 +461,6 @@ extension PhotoSelectionViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        viewModel.updateText(textView.text)
     }
 }

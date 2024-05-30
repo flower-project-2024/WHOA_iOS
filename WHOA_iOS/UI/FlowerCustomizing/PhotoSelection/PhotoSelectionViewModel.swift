@@ -15,6 +15,13 @@ class PhotoSelectionViewModel {
     
     var photos = [UIImage?]()
     var photosBase64Strings: [String] = []
+    private var photoSelectionModel = PhotoSelectionModel(photosBase64Strings: [], text: nil)
+    
+    // MARK: - Functions
+    
+    func getPhotoSelectionModel() -> PhotoSelectionModel {
+        return photoSelectionModel
+    }
     
     func addPhotos(photos: [UIImage?]) {
         self.photos.append(contentsOf: photos)
@@ -45,6 +52,14 @@ class PhotoSelectionViewModel {
                 photosBase64Strings.append(base64)
             }
         }
+    }
+    
+    func updateBase64Strings(_ Base64Strings: [String?]) {
+        photoSelectionModel.photosBase64Strings = Base64Strings
+    }
+    
+    func updateText(_ text: String) {
+        photoSelectionModel.text = text
     }
     
 }

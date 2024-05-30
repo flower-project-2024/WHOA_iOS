@@ -97,6 +97,7 @@
 		54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
+		54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0A3F2C086B8500468B1E /* PhotoSelectionModel.swift */; };
 		54EA0E6B2BF5E398007B8F5A /* PostCustomBouquetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6A2BF5E398007B8F5A /* PostCustomBouquetDTO.swift */; };
 		54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6D2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift */; };
 		54EA0E702BF6183B007B8F5A /* ShadowBorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */; };
@@ -262,6 +263,7 @@
 		54DC8C1E2B95AFE80060CDC6 /* tempHashTagLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tempHashTagLabel.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
+		54EA0A3F2C086B8500468B1E /* PhotoSelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionModel.swift; sourceTree = "<group>"; };
 		54EA0E6A2BF5E398007B8F5A /* PostCustomBouquetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomBouquetDTO.swift; sourceTree = "<group>"; };
 		54EA0E6D2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCustomBouquetRequestDTO.swift; sourceTree = "<group>"; };
 		54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowBorderLine.swift; sourceTree = "<group>"; };
@@ -688,6 +690,7 @@
 				54EB17E12BA2F06900717E6F /* Views */,
 				54EB17D02BA08C2100717E6F /* PhotoSelectionViewController.swift */,
 				54EB17DF2BA2EA2600717E6F /* PhotoSelectionViewModel.swift */,
+				54EA0A3F2C086B8500468B1E /* PhotoSelectionModel.swift */,
 			);
 			path = PhotoSelection;
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 				08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */,
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
+				54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
