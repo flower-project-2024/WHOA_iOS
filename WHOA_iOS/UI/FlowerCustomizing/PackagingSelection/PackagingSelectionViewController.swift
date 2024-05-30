@@ -176,7 +176,13 @@ class PackagingSelectionViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        coordinator?.showFlowerPriceVC(packagingSelectionModel: viewModel.packagingSelectionModel)
+        let model = viewModel.packagingSelectionModel
+        guard let packagingType = model.packagingAssignButtonType else { return }
+        
+        coordinator?.showFlowerPriceVC(
+            packagingAssign: packagingType,
+            packagingRequirement: model.text
+        )
     }
 }
 

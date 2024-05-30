@@ -362,7 +362,9 @@ class PhotoSelectionViewController: UIViewController {
         viewModel.convertPhotosToBase64()
         viewModel.updateBase64Strings(viewModel.photosBase64Strings)
         
-        coordinator?.showCustomizingSummaryVC(photoSelectionModel: viewModel.getPhotoSelectionModel())
+        let model = viewModel.getPhotoSelectionModel()
+        
+        coordinator?.showCustomizingSummaryVC(requirementPhotos: model.photosBase64Strings, requirementText: model.text)
     }
 }
 

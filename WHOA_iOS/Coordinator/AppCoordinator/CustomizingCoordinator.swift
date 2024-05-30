@@ -17,9 +17,12 @@ class CustomizingCoordinator: Coordinator {
     private var colors: [String] = []
     private var flowers: [FlowerKeywordModel] = []
     private var alternative: AlternativesType = .colorOriented
-    private var packagingSelectionModel: PackagingSelectionModel?
+    private var packagingAssign: PackagingAssignType = .managerAssign
+    private var packagingRequirement: String?
     private var price: String?
-    private var photoSelectionModel: PhotoSelectionModel?
+    private var requirementPhotos: [String?] = []
+    private var requirementText: String?
+    
     
     // MARK: - Initialize
     
@@ -87,8 +90,9 @@ class CustomizingCoordinator: Coordinator {
         }
     }
     
-    func showFlowerPriceVC(packagingSelectionModel: PackagingSelectionModel?) {
-        self.packagingSelectionModel = packagingSelectionModel
+    func showFlowerPriceVC(packagingAssign: PackagingAssignType, packagingRequirement: String?) {
+        self.packagingAssign = packagingAssign
+        self.packagingRequirement = packagingRequirement
         
         let viewModel = FlowerPriceViewModel()
         let FlowerPriceVC = FlowerPriceViewController(viewModel: viewModel)
@@ -104,10 +108,23 @@ class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(photoSelectionVC, animated: true)
     }
     
-    // 최종 데이터 전달 코드 추가
-    // 파라미터로 요구사항text, 이미지 추가 필요
-    func showCustomizingSummaryVC() {
-        let viewModel = CustomizingSummaryViewModel()
+    // flowers 데이터 들어오면 수정 필요함
+    func showCustomizingSummaryVC(requirementPhotos: [String?], requirementText: String?) {
+        self.requirementPhotos = requirementPhotos
+        self.requirementText = requirementText
+        
+        let model = CustomizingSummaryModel(
+            purpose: self.purpose,
+            numberOfColors: self.numberOfColors,
+            colors: self.colors,
+            flowers: [Flower(photo: flowers[0].flowerImage, name: flowers[0].flowerName, hashTag: flowers[0].flowerKeyword)],
+            alternative: alternative,
+            assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
+            priceRange: price ?? "",
+            requirement: Requirement(text: requirementText, photosBase64Strings: requirementPhotos)
+        )
+        
+        let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model)
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)
