@@ -13,11 +13,13 @@ class CustomizingCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     private var purpose: PurposeType = .birthday
+    private var numberOfColors: NumberOfColorsType = .oneColor
     private var colors: [String] = []
     private var flowers: [FlowerKeywordModel] = []
     private var alternative: AlternativesType = .colorOriented
     private var packagingSelectionModel: PackagingSelectionModel?
     private var price: String?
+    private var photoSelectionModel: PhotoSelectionModel?
     
     // MARK: - Initialize
     
@@ -47,7 +49,8 @@ class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(flowerColorPickerVC, animated: true)
     }
     
-    func showFlowerSelectionVC(colors: [String]) {
+    func showFlowerSelectionVC(numberOfColors: NumberOfColorsType, colors: [String]) {
+        self.numberOfColors = numberOfColors
         self.colors = colors
         
         let viewModel = FlowerSelectionViewModel(purposeType: purpose)
@@ -108,5 +111,13 @@ class CustomizingCoordinator: Coordinator {
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)
+    }
+}
+
+extension CustomizingCoordinator {
+    func showExitAlertVC(from currentVC: UIViewController) {
+        let customExitAlertVC = CustomExitAlertViewController(currentVC: currentVC)
+        customExitAlertVC.modalPresentationStyle = .overFullScreen
+        currentVC.present(customExitAlertVC, animated: true)
     }
 }

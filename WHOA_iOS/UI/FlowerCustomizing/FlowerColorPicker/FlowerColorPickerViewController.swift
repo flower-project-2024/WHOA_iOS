@@ -31,7 +31,7 @@ class FlowerColorPickerViewController: UIViewController {
         return view
     }()
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 2, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "꽃 조합 색")
     private let descriptionLabel = CustomDescriptionLabel(text: "원하는 느낌의 꽃 조합 색을 선택해주세요", numberOfLines: 1)

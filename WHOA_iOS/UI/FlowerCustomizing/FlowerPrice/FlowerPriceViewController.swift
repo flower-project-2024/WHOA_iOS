@@ -16,7 +16,7 @@ class FlowerPriceViewController: UIViewController {
     
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 5, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "원하는 가격대 범위를\n설정해주세요")
     

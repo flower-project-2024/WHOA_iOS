@@ -28,7 +28,7 @@ class CustomizingSummaryViewController: UIViewController {
         return view
     }()
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 7, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "이렇게 요구서를 저장할까요?")
     
@@ -93,7 +93,7 @@ class CustomizingSummaryViewController: UIViewController {
             case .success(let success):
                 print("성공")
             case .failure(let failure):
-                print("실패")
+                print(failure)
             }
         }
     }

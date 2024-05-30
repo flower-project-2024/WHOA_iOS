@@ -16,7 +16,7 @@ class PackagingSelectionViewController: UIViewController {
     
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 4, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "원하는 포장지 종류가 있나요?")
     

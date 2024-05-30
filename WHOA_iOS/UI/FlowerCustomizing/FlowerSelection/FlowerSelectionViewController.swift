@@ -18,7 +18,7 @@ class FlowerSelectionViewController: UIViewController {
 
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 3, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "")
     private let descriptionLabel = CustomDescriptionLabel(text: "최대 3개의 꽃을 선택할 수 있어요", numberOfLines: 1)

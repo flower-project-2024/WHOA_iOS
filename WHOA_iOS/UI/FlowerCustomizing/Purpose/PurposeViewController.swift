@@ -18,7 +18,7 @@ class PurposeViewController: UIViewController {
     
     // MARK: - UI
     
-    private let purposeView: PurposeView = PurposeView()
+    private lazy var purposeView: PurposeView = PurposeView(currentVC: self, coordinator: coordinator)
     
     // MARK: - Initialize
     
