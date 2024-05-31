@@ -16,7 +16,7 @@ struct FlowerKeywordDTO: Codable {
     struct FlowerKeywordData: Codable {
         let flowerName: String
         let flowerImage: String
-        let flowerKeyword: String
+        let flowerKeyword: [String]
     }
 }
 
@@ -26,7 +26,7 @@ extension FlowerKeywordDTO {
             FlowerKeywordModel(
                 flowerName: $0.flowerName,
                 flowerImage: $0.flowerImage,
-                flowerKeyword: $0.flowerKeyword.components(separatedBy: ",")
+                flowerKeyword: $0.flowerKeyword
             )
         }
     }
