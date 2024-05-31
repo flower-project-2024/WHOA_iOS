@@ -94,4 +94,8 @@ class FlowerSelectionViewModel {
     func getFilterdModel(idx: Int) -> FlowerKeywordModel {
         return filteredModels[idx]
     }
+    
+    func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [Flower] {
+        return flowerKeywordModel.map { Flower(photo: $0.flowerImage, name: $0.flowerName, hashTag: $0.flowerKeyword) }
+    }
 }

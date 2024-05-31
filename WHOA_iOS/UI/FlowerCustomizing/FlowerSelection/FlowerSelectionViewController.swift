@@ -122,7 +122,7 @@ class FlowerSelectionViewController: UIViewController {
     private lazy var flowerSelectionTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-        tableView.rowHeight = 120
+        tableView.rowHeight = 148
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -334,7 +334,8 @@ class FlowerSelectionViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        coordinator?.showAlternativesVC(from: self, flowerKeywordModels: viewModel.selectedFlowerModels)
+        let flowers = viewModel.convertFlowerKeywordModelToFlower(with: viewModel.selectedFlowerModels)
+        coordinator?.showAlternativesVC(from: self, flowers: flowers)
     }
 }
 

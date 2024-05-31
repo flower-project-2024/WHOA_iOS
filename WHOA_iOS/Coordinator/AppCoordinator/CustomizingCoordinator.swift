@@ -15,7 +15,7 @@ class CustomizingCoordinator: Coordinator {
     private var purpose: PurposeType = .birthday
     private var numberOfColors: NumberOfColorsType = .oneColor
     private var colors: [String] = []
-    private var flowers: [FlowerKeywordModel] = []
+    private var flowers: [Flower] = []
     private var alternative: AlternativesType = .colorOriented
     private var packagingAssign: PackagingAssignType = .managerAssign
     private var packagingRequirement: String?
@@ -62,8 +62,8 @@ class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(flowerSelectionVC, animated: true)
     }
     
-    func showAlternativesVC(from currentVC: UIViewController, flowerKeywordModels: [FlowerKeywordModel]) {
-        self.flowers = flowerKeywordModels
+    func showAlternativesVC(from currentVC: UIViewController, flowers: [Flower]) {
+        self.flowers = flowers
         
         let viewModel = AlternativesViewModel()
         let alternativesVC = AlternativesViewController(viewModel: viewModel)
@@ -117,7 +117,7 @@ class CustomizingCoordinator: Coordinator {
             purpose: self.purpose,
             numberOfColors: self.numberOfColors,
             colors: self.colors,
-            flowers: [Flower(photo: flowers[0].flowerImage, name: flowers[0].flowerName, hashTag: flowers[0].flowerKeyword)],
+            flowers: flowers,
             alternative: alternative,
             assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
             priceRange: price ?? "",
