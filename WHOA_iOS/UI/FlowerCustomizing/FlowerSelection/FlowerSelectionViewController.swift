@@ -122,7 +122,7 @@ class FlowerSelectionViewController: UIViewController {
     private lazy var flowerSelectionTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-        tableView.rowHeight = 148
+        tableView.rowHeight = 120
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
