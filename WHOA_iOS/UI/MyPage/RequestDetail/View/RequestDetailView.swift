@@ -369,10 +369,12 @@ class RequestDetailView: UIView {
     
     private func configureFlowerTags(for flowerView: FlowerTypeView, with tags: [String]) {
         for (index, tag) in tags.enumerated() {
-            guard index < 2 else { break }
+            guard index < 4 else { break }
             let tagLabel = [
                 flowerView.flowerLanguageTagLabel1,
-                flowerView.flowerLanguageTagLabel2
+                flowerView.flowerLanguageTagLabel2,
+                flowerView.flowerLanguageTagLabel3,
+                flowerView.flowerLanguageTagLabel4,
             ][index]
             tagLabel.text = tag
             tagLabel.isHidden = false
