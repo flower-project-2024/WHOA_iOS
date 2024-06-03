@@ -39,6 +39,12 @@ class FlowerTypeView: UIView {
         return label
     }()
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
     private let flowerLanguageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -57,7 +63,27 @@ class FlowerTypeView: UIView {
     
     let flowerLanguageTagLabel2: DetailCustomLabel = {
         let label = DetailCustomLabel()
-        label.text = "추억"
+        label.text = "아름다운 추억"
+        label.textColor = .black
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
+        label.isHidden = true
+        return label
+    }()
+    
+    let flowerLanguageTagLabel3: DetailCustomLabel = {
+        let label = DetailCustomLabel()
+        label.text = "청춘의 기쁨"
+        label.textColor = .black
+        label.font = UIFont.Pretendard(size: 14, family: .Regular)
+        label.backgroundColor = UIColor.gray03
+        label.isHidden = true
+        return label
+    }()
+    
+    let flowerLanguageTagLabel4: DetailCustomLabel = {
+        let label = DetailCustomLabel()
+        label.text = "악뮤의 오날오밤"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
@@ -83,10 +109,13 @@ class FlowerTypeView: UIView {
         self.addSubview(flowerInfoStackView)
         
         flowerInfoStackView.addArrangedSubview(flowerNameLabel)
-        flowerInfoStackView.addArrangedSubview(flowerLanguageStackView)
+        flowerInfoStackView.addArrangedSubview(scrollView)
         
+        scrollView.addSubview(flowerLanguageStackView)
         flowerLanguageStackView.addArrangedSubview(flowerLanguageTagLabel1)
         flowerLanguageStackView.addArrangedSubview(flowerLanguageTagLabel2)
+        flowerLanguageStackView.addArrangedSubview(flowerLanguageTagLabel3)
+        flowerLanguageStackView.addArrangedSubview(flowerLanguageTagLabel4)
     }
     
     private func setupConstraints(){
@@ -94,13 +123,23 @@ class FlowerTypeView: UIView {
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()
             make.height.equalTo(64)
-            make.width.equalTo(flowerImageView.snp.height).multipliedBy(1)
+            make.width.equalTo(flowerImageView.snp.height)
         }
         
         flowerInfoStackView.snp.makeConstraints { make in
             make.centerY.equalTo(flowerImageView.snp.centerY)
             make.leading.equalTo(flowerImageView.snp.trailing).offset(15)
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview()
+            make.width.equalTo(230)
+        }
+        
+        scrollView.snp.makeConstraints { make in
+            make.leading.trailing.equalTo(flowerInfoStackView)
+            make.height.equalTo(flowerLanguageStackView)
+        }
+        
+        flowerLanguageStackView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView.contentLayoutGuide)
         }
     }
 }
