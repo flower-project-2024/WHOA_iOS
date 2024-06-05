@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import Combine
 
 class FlowerColorPickerViewModel {
     
     private var flowerColorPickerModel = FlowerColorPickerModel(numberOfColors: .oneColor, colors: [])
+    @Published var iscolorSelectionHidden = true
+    
+    var cancellables = Set<AnyCancellable>()
     
     func setNumberOfColors(numberOfColors: NumberOfColorsType) {
         flowerColorPickerModel.numberOfColors = numberOfColors

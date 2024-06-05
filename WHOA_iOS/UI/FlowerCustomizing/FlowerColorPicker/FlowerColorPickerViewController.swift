@@ -13,7 +13,6 @@ class FlowerColorPickerViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: FlowerColorPickerViewModel
-    private var isChevronUp = true
     
     weak var coordinator: CustomizingCoordinator?
     
@@ -36,6 +35,7 @@ class FlowerColorPickerViewController: UIViewController {
     private let titleLabel = CustomTitleLabel(text: "꽃 조합 색")
     private let descriptionLabel = CustomDescriptionLabel(text: "원하는 느낌의 꽃 조합 색을 선택해주세요", numberOfLines: 1)
     
+    // ===========================================================
     private let colorSelectionLabel: UILabel = {
         let label = UILabel()
         label.text = "조합"
@@ -59,7 +59,6 @@ class FlowerColorPickerViewController: UIViewController {
             chevronImageView
         ].forEach { stackView.addArrangedSubview($0) }
         stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
         stackView.spacing = 9
         stackView.backgroundColor = .gray2
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -70,7 +69,7 @@ class FlowerColorPickerViewController: UIViewController {
         stackView.addGestureRecognizer(tapGesture)
         return stackView
     }()
-    
+    // ===========================================================
     private let singleColorButton: UIButton = {
         let button = ColorSelectionButton(.oneColor)
         button.addTarget(self, action: #selector(numberOfColorsButtonTapped), for: .touchUpInside)
@@ -174,6 +173,7 @@ class FlowerColorPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
         colorPickerView.delegate = self
     }
@@ -218,14 +218,25 @@ class FlowerColorPickerViewController: UIViewController {
         setupAutoLayout()
     }
     
+    private func bind() {
+        viewModel.$iscolorSelectionHidden
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHidden in
+                self?.chevronImageView.transform = CGAffineTransform(rotationAngle: isHidden ? 0 : .pi)
+                self?.numberOfColorsButtonHStackView.isHidden = isHidden
+                self?.updateColorPickerBorderLineConstraints(isHidden: isHidden)
+            }
+            .store(in: &viewModel.cancellables)
+    }
+    
     private func updateButtonSelection(with selectedButton: ColorSelectionButton) {
         let buttons = [singleColorButton, dualColorButton, colorfulButton, pointColorButton]
         buttons.forEach { ($0 as? ColorSelectionButton)?.isActive = $0 == selectedButton ? true : false }
     }
     
-    private func updateColorPickerBorderLineConstraints() {
+    private func updateColorPickerBorderLineConstraints(isHidden: Bool) {
         colorPickerBorderLine.snp.remakeConstraints {
-            if numberOfColorsButtonHStackView.isHidden {
+            if isHidden {
                 $0.top.equalTo(colorSelectionHStackView.snp.bottom).offset(24)
             } else {
                 $0.top.equalTo(numberOfColorsButtonHStackView.snp.bottom).offset(44)
@@ -239,11 +250,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func colorSelectionHStackViewTapped() {
-        isChevronUp.toggle()
-        chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        numberOfColorsButtonHStackView.isHidden = isChevronUp
-        updateColorPickerBorderLineConstraints()
-        
+        viewModel.iscolorSelectionHidden.toggle()
     }
     
     @objc
