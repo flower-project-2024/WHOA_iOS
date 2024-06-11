@@ -129,4 +129,23 @@ final class NetworkManager {
             }
         }
     }
+    
+    func postMultipartFiles(
+        category: String,
+        name: String,
+        imageFiles: [ImageFile]?,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<MultipartFilesDTO, NetworkError>) -> Void
+    ) {
+        let api = MultipartFilesAPI(imageFile: imageFiles, category: category, name: name)
+        
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                print(DTO)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }

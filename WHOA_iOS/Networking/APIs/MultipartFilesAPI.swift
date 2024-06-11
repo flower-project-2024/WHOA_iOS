@@ -8,17 +8,32 @@
 import Foundation
 
 struct MultipartFilesAPI: ServableAPI {
-    typealias Response = DeleteBouquetDTO
+    typealias Response = MultipartFilesDTO
     
-    let memberID: String
-    let bouquetId: Int
+    let boundary = UUID().uuidString
+    let imageFile: [ImageFile]?
+    let category: String
+    let name: String
     
-    var method: HTTPMethod { .delete }
-    var path: String { "/api/bouquet/" }
-    var params: String { "\(bouquetId)" }
+    var parameters: [String: String] {
+        [
+            "category": category,
+            "name": name
+        ]
+    }
+    
+    var method: HTTPMethod { .post }
+    var path: String { "" }
     var headers: [String : String]? {
         [
-            "MEMBER_ID": memberID
+            "Content-Type": "multipart/form-data; boundary=\(boundary)",
         ]
+    }
+    var multipartData: Data? {
+        createMultipartFormData(
+            parameters: parameters,
+            file: imageFile,
+            boundary: boundary
+        )
     }
 }
