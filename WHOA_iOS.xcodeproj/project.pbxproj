@@ -67,6 +67,7 @@
 		5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */; };
 		5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */; };
 		5422927F2C132D22007E13C6 /* NumberOfColorsBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422927E2C132D22007E13C6 /* NumberOfColorsBox.swift */; };
+		542292842C18B5D8007E13C6 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542292832C18B5D8007E13C6 /* ImageFile.swift */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
 		542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */; };
 		542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */; };
@@ -234,6 +235,7 @@
 		5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewModel.swift; sourceTree = "<group>"; };
 		5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesType.swift; sourceTree = "<group>"; };
 		5422927E2C132D22007E13C6 /* NumberOfColorsBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfColorsBox.swift; sourceTree = "<group>"; };
+		542292832C18B5D8007E13C6 /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitAlertViewController.swift; sourceTree = "<group>"; };
 		542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewModel.swift; sourceTree = "<group>"; };
@@ -538,6 +540,14 @@
 				54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */,
 			);
 			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		542292822C18B5CB007E13C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				542292832C18B5D8007E13C6 /* ImageFile.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */ = {
@@ -944,6 +954,7 @@
 		54FD0F822B74C0DB00F964C3 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				542292822C18B5CB007E13C6 /* Model */,
 				54EB17FF2BB4771E00717E6F /* Extensions */,
 				548C4AE52B8E691D002F4FCB /* Helper */,
 				54FD0F832B74C11700F964C3 /* Types */,
@@ -1125,6 +1136,7 @@
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */,
 				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
+				542292842C18B5D8007E13C6 /* ImageFile.swift in Sources */,
 				54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */,
 				08478E3C2BEBB005003970B9 /* TabBarViewController.swift in Sources */,
 				08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */,
