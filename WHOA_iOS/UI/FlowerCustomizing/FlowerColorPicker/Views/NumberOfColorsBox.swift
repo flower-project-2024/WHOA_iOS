@@ -12,7 +12,7 @@ class NumberOfColorsBox: UIView {
     
     // MARK: - Properties
     
-    private let colorSelectionLabel: UILabel = {
+    let colorSelectionLabel: UILabel = {
         let label = UILabel()
         label.text = "조합"
         label.textColor = .gray9
@@ -20,7 +20,7 @@ class NumberOfColorsBox: UIView {
         return label
     }()
     
-    private let chevronImageView: UIImageView = {
+    let chevronImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.down")
         imageView.tintColor = .black
