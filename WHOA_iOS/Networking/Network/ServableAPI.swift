@@ -52,7 +52,7 @@ extension ServableAPI {
         return request
     }
     
-    func createMultipartFormData(parameters: [String: String], file: [ImageFile]?, boundary: String) -> Data {
+    func createMultipartFormData(parameters: [String: String], files: [ImageFile]?, boundary: String) -> Data {
         var body = Data()
         
         for (key, value) in parameters {
@@ -61,12 +61,12 @@ extension ServableAPI {
             body.append("\(value)\r\n".data(using: .utf8)!)
         }
         
-        if let file = file {
-            for i in file.indices {
+        if let files = files {
+            for file in files {
                 body.append("--\(boundary)\r\n".data(using: .utf8)!)
-                body.append("Content-Disposition: form-data; name=\"image\"; filename=\"\(file[i].filename)\"\r\n".data(using: .utf8)!)
-                body.append("Content-Type: \(file[i].type)\r\n\r\n".data(using: .utf8)!)
-                body.append(file[i].data)
+                body.append("Content-Disposition: form-data; name=\"image\"; filename=\"\(file.filename)\"\r\n".data(using: .utf8)!)
+                body.append("Content-Type: \(file.type)\r\n\r\n".data(using: .utf8)!)
+                body.append(file.data)
                 body.append("\r\n".data(using: .utf8)!)
                 body.append("--\(boundary)--\r\n".data(using: .utf8)!)
             }
