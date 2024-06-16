@@ -9,5 +9,5 @@ import Foundation
 
 struct MultipartFilesDTO: Codable {
     let success: Bool
-    let message: String
+//    let message: String
 }

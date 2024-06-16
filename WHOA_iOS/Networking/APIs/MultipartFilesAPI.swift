@@ -10,29 +10,31 @@ import Foundation
 struct MultipartFilesAPI: ServableAPI {
     typealias Response = MultipartFilesDTO
     
+    let memberID: String
     let boundary = UUID().uuidString
-    let imageFile: [ImageFile]?
-    let category: String
-    let name: String
     
-    var parameters: [String: String] {
-        [
-            "category": category,
-            "name": name
-        ]
-    }
+    let bouquetId: String
+    let imageUrl: [ImageFile]?
     
     var method: HTTPMethod { .post }
-    var path: String { "" }
+    var path: String { "/api/images/multipart-files/" }
     var headers: [String : String]? {
         [
+            "MEMBER_ID": memberID,
             "Content-Type": "multipart/form-data; boundary=\(boundary)",
         ]
     }
+    
+    var parameters: [String: String] {
+        [
+            "bouquetId": bouquetId,
+        ]
+    }
+    
     var multipartData: Data? {
         createMultipartFormData(
             parameters: parameters,
-            files: imageFile,
+            files: imageUrl,
             boundary: boundary
         )
     }
