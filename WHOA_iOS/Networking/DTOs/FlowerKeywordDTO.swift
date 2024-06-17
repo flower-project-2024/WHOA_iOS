@@ -15,7 +15,7 @@ struct FlowerKeywordDTO: Codable {
     
     struct FlowerKeywordData: Codable {
         let flowerName: String
-        let flowerImage: String
+        let flowerImage: String?
         let flowerKeyword: [String]
     }
 }

@@ -57,7 +57,9 @@ class FlowerSelectionViewModel {
     
     func getSelectedFlowerModelImagesURL() -> [URL?] {
         return selectedFlowerModels.map {
-            let url = URL(string: $0.flowerImage) ?? nil
+            guard let image = $0.flowerImage,
+                  let url = URL(string: image)
+            else { return nil }
             return url
         }
     }

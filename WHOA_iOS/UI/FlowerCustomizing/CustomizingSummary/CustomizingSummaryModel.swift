@@ -32,7 +32,7 @@ struct CustomizingSummaryModel {
 }
 
 struct Flower {
-    let photo: String
+    let photo: String?
     let name: String
     let hashTag: [String]
 }
