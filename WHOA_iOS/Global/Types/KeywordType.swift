@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum KeywordType: String {
+enum KeywordType: String, CaseIterable {
     case all = "전체"
     case love = "사랑"
     case gratitude = "감사"

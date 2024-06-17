@@ -13,6 +13,7 @@ class FlowerSelectionViewModel {
     // MARK: - Properties
     
     private let purposeType: PurposeType
+    let keyword = KeywordType.allCases
     var flowerKeywordModels: [FlowerKeywordModel] = []
     @Published var filteredModels: [FlowerKeywordModel] = []
     @Published var selectedFlowerModels: [FlowerKeywordModel] = []

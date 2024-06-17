@@ -12,7 +12,6 @@ class FlowerSelectionViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: FlowerSelectionViewModel
-    var tempHashTag = ["전체", "사랑", "행운", "믿음", "추억", "존경", "믿음", "우정"]
     
     weak var coordinator: CustomizingCoordinator?
 
@@ -434,7 +433,7 @@ extension FlowerSelectionViewController: UICollectionViewDataSource {
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
         }
         
-        cell.setupHashTag(text: tempHashTag[indexPath.row])
+        cell.setupHashTag(text: viewModel.keyword[indexPath.row].rawValue)
         return cell
     }
     
@@ -442,7 +441,7 @@ extension FlowerSelectionViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let title = tempHashTag[indexPath.row]
+        let title = viewModel.keyword[indexPath.row].rawValue
         viewModel.filterModels(with: title)
     }
     
@@ -454,7 +453,7 @@ extension FlowerSelectionViewController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return tempHashTag.count
+        return viewModel.keyword.count
     }
 }
 

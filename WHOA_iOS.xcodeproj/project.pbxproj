@@ -90,6 +90,7 @@
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
 		548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */; };
 		548C4AED2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AEC2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift */; };
+		54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C789D62C207FE00068B6F8 /* KeywordType.swift */; };
 		54D5BAFD2BE3F66A00C538E1 /* FlowerPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5BAFC2BE3F66A00C538E1 /* FlowerPriceViewModel.swift */; };
 		54D5BAFF2BE4016600C538E1 /* FlowerPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5BAFE2BE4016600C538E1 /* FlowerPriceModel.swift */; };
 		54D5BB012BE406F400C538E1 /* Int+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5BB002BE406F400C538E1 /* Int+.swift */; };
@@ -259,6 +260,7 @@
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		548C4AEC2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		54C789D62C207FE00068B6F8 /* KeywordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordType.swift; sourceTree = "<group>"; };
 		54D5BAFC2BE3F66A00C538E1 /* FlowerPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewModel.swift; sourceTree = "<group>"; };
 		54D5BAFE2BE4016600C538E1 /* FlowerPriceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceModel.swift; sourceTree = "<group>"; };
 		54D5BB002BE406F400C538E1 /* Int+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+.swift"; sourceTree = "<group>"; };
@@ -970,6 +972,7 @@
 				5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */,
 				5411BA372BE0DEA5002A85F0 /* PackagingAssignType.swift */,
 				54F6959D2BF535D5009E3E4D /* RequestDetailType.swift */,
+				54C789D62C207FE00068B6F8 /* KeywordType.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -1150,6 +1153,7 @@
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */,
+				54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
