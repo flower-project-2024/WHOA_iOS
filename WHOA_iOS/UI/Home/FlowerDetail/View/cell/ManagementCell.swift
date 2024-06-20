@@ -35,6 +35,7 @@ class ManagementCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.lineBreakStrategy = .hangulWordPriority
         label.textColor = UIColor.gray09
         label.setLineSpacing(spacing: 5)
         return label
@@ -71,6 +72,11 @@ class ManagementCell: UICollectionViewCell {
       self.imageView.image = image
     }
     
+    func configure(content: [String]){
+        managementTitleLabel.text = content[0]
+        managementContentLabel.text = content[1]
+    }
+    
     private func addViews(){
         addSubview(imageView)
         addSubview(managementTitleLabel)
@@ -86,14 +92,14 @@ class ManagementCell: UICollectionViewCell {
         
         managementTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(22)
-            make.top.equalTo(imageView.snp.bottom).offset(13)
+            make.top.equalTo(imageView.snp.bottom).offset(15)
         }
         
         managementContentLabel.snp.makeConstraints { make in
             make.leading.equalTo(managementTitleLabel.snp.leading)
             make.trailing.equalToSuperview().inset(22)
             make.top.equalTo(managementTitleLabel.snp.bottom).offset(6)
-            //make.bottom.equalToSuperview().inset(22)
+//            make.bottom.equalToSuperview().inset(22)
         }
     }
 }

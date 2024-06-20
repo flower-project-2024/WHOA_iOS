@@ -10,7 +10,7 @@ import UIKit
 class ManagementView: UIView {
     
     // MARK: - Properties
-    static var cellSize = CGSize(width: 192, height: 276)
+    static var cellSize = CGSize(width: 215, height: 278)
     static let minimumLineSpacing: CGFloat = 12.0
     
     // MARK: - Views
@@ -30,7 +30,6 @@ class ManagementView: UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.isScrollEnabled = true
-        collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = .zero
