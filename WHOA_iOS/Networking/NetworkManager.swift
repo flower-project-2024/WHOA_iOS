@@ -119,13 +119,13 @@ final class NetworkManager {
     func fetchFlowerDetail(
         flowerId: Int,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<FlowerDetailDTO, NetworkError>) -> Void
+        completion: @escaping (Result<FlowerDetailModel, NetworkError>) -> Void
     ){
         let flowerDetailAPI = FlowerDetailAPI(flowerId: flowerId)
         networkService.request(flowerDetailAPI) { result in
             switch result {
             case .success(let DTO):
-                completion(.success(DTO))
+                completion(.success(FlowerDetailDTO.convertFlowerDetailDTOToModel(DTO: DTO)))
             case .failure(let error):
                 completion(.failure(error))
             }

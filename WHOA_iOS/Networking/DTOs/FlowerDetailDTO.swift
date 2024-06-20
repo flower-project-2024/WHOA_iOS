@@ -22,9 +22,27 @@ struct FlowerDetailData: Codable {
     let birthFlower: String?
     let managementMethod: String
     let storageMethod: String?
-    let flowerExpressions: [FlowerExpression]
+    let flowerExpressions: [FlowerExpressionData]
 }
 
-struct FlowerExpression: Codable {
+struct FlowerExpressionData: Codable {
     let flowerColor, flowerLanguage: String
+}
+
+extension FlowerDetailDTO {
+    static func convertFlowerDetailDTOToModel(DTO: FlowerDetailDTO) -> FlowerDetailModel{
+        return FlowerDetailModel(
+            flowerId: DTO.data.flowerId,
+            flowerName: DTO.data.flowerName,
+            flowerDescription: DTO.data.flowerDescription,
+            flowerOneLineDescription: DTO.data.flowerOneLineDescription,
+            flowerImages: DTO.data.flowerImages,
+            birthFlower: DTO.data.birthFlower,
+            managementMethod: DTO.data.managementMethod,
+            storageMethod: DTO.data.storageMethod,
+            flowerExpressions: DTO.data.flowerExpressions.map({
+                FlowerExpression(flowerColor: $0.flowerColor, flowerLanguage: $0.flowerLanguage)
+            })
+        )
+    }
 }
