@@ -8,14 +8,17 @@
 import UIKit
 
 class ManagementCell: UICollectionViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "ManagementColletionViewCell"
     
     // MARK: - Views
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "ManageImage.png")
+        imageView.image = UIImage.watering
         return imageView
     }()
     
@@ -23,7 +26,7 @@ class ManagementCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "탈수 잦음"
         label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.secondary05
         return label
     }()
     
@@ -32,7 +35,7 @@ class ManagementCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.gray09
         label.setLineSpacing(spacing: 5)
         return label
     }()
@@ -76,22 +79,21 @@ class ManagementCell: UICollectionViewCell {
     
     private func setupConstraints(){
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(17)
-            make.leading.equalToSuperview().inset(18)
-            make.trailing.equalToSuperview().inset(27)
-            make.height.equalTo(104)
+            make.top.equalToSuperview().inset(22)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(99)
         }
         
         managementTitleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(27)
+            make.leading.equalToSuperview().inset(22)
             make.top.equalTo(imageView.snp.bottom).offset(13)
         }
         
         managementContentLabel.snp.makeConstraints { make in
             make.leading.equalTo(managementTitleLabel.snp.leading)
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(22)
             make.top.equalTo(managementTitleLabel.snp.bottom).offset(6)
-            make.bottom.equalToSuperview().inset(27)
+            //make.bottom.equalToSuperview().inset(22)
         }
     }
 }

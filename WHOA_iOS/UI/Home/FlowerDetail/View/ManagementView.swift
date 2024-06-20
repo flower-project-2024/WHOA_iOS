@@ -10,13 +10,13 @@ import UIKit
 class ManagementView: UIView {
     
     // MARK: - Properties
-    static var cellSize = CGSize(width: 200, height: 258)
+    static var cellSize = CGSize(width: 192, height: 276)
     static let minimumLineSpacing: CGFloat = 12.0
     
     // MARK: - Views
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이렇게 관리해주세요!"
+        label.text = "관리법과 보관법을 알려드릴게요"
         label.font = UIFont(name: "Pretendard-Bold", size: 20)
         label.textColor = UIColor.primary
         return label
