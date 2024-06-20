@@ -15,8 +15,9 @@ struct FlowerKeywordDTO: Codable {
     
     struct FlowerKeywordData: Codable {
         let flowerName: String
-        let flowerImage: String?
+        let flowerImageUrl: String?
         let flowerKeyword: [String]
+        let flowerLanguage: String
     }
 }
 
@@ -25,8 +26,9 @@ extension FlowerKeywordDTO {
         return DTO.data.map {
             FlowerKeywordModel(
                 flowerName: $0.flowerName,
-                flowerImage: $0.flowerImage,
-                flowerKeyword: $0.flowerKeyword
+                flowerImage: $0.flowerImageUrl,
+                flowerKeyword: $0.flowerKeyword,
+                flowerLanguage: $0.flowerLanguage
             )
         }
     }
