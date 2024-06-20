@@ -163,7 +163,7 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering && !filteredItems.isEmpty{
             tableView.deselectRow(at: indexPath, animated: false)
-            navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
+            navigationController?.pushViewController(FlowerDetailViewController(flowerId: 1), animated: true)
         }
     }
 }

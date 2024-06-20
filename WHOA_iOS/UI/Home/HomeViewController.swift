@@ -270,7 +270,7 @@ extension HomeViewController : UITableViewDelegate {
         timer?.invalidate()
         timer = nil
         //navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
-        let vc = FlowerDetailViewController()
+        let vc = FlowerDetailViewController(flowerId: 1)
         vc.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -335,7 +335,7 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.buttonCallbackMethod = { [weak self] in
                 self?.timer?.invalidate()
                 self?.timer = nil
-                let vc = FlowerDetailViewController()
+                let vc = FlowerDetailViewController(flowerId: 1)
                 vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
                 //self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
