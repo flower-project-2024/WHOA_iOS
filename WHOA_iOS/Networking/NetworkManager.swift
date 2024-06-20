@@ -114,4 +114,21 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 꽃 상세 정보를 조회하는 함수입니다.
+    func fetchFlowerDetail(
+        flowerId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FlowerDetailDTO, NetworkError>) -> Void
+    ){
+        let flowerDetailAPI = FlowerDetailAPI(flowerId: flowerId)
+        networkService.request(flowerDetailAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

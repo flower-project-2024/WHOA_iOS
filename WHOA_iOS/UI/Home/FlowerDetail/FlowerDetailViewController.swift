@@ -246,7 +246,15 @@ class FlowerDetailViewController: UIViewController {
         imageList = ["1", "2", "3"]
         
         view.backgroundColor = .white
-                
+        
+        NetworkManager.shared.fetchFlowerDetail(flowerId: 1, completion: { result in
+            switch result {
+            case .success(let model):
+                print(model)
+            case .failure(let error):
+                print(error)
+            }
+        })
         imageScrollView.delegate = self
         outerScrollView.delegate = self
         

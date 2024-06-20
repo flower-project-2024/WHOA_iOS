@@ -31,6 +31,8 @@
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
 		085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */; };
+		0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */; };
+		0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4AA2C24190B00FAE6C3 /* FlowerDetailAPI.swift */; };
 		085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085DEE982BA3404500CC5AC2 /* CustomButton.swift */; };
 		0864AE912BE1F82D00F89488 /* FlowerImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0864AE902BE1F82D00F89488 /* FlowerImage.png */; };
 		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
@@ -194,6 +196,8 @@
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
+		0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailDTO.swift; sourceTree = "<group>"; };
+		0858C4AA2C24190B00FAE6C3 /* FlowerDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailAPI.swift; sourceTree = "<group>"; };
 		085DEE982BA3404500CC5AC2 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0864AE902BE1F82D00F89488 /* FlowerImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlowerImage.png; sourceTree = "<group>"; };
 		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
@@ -581,6 +585,7 @@
 				0833EF792BE534C40024FB2C /* BouquetAllAPI.swift */,
 				54EB180D2BBF4C1200717E6F /* FlowerKeywordAPI.swift */,
 				54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */,
+				0858C4AA2C24190B00FAE6C3 /* FlowerDetailAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -594,6 +599,7 @@
 				0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */,
 				54F695992BF1C60C009E3E4D /* MemberRegister */,
 				54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */,
+				0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1107,6 +1113,7 @@
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
+				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
 				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
@@ -1168,6 +1175,7 @@
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
+				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectViewController.swift in Sources */,
 				5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* PurposeModel.swift in Sources */,
