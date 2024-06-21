@@ -13,7 +13,7 @@ class ColorSheetViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: FlowerDetailViewModel
-    var tempData = ["F3142C", "FF8AD0", "FFD5EC", "FF8A49", "FFEA2C", "FDFFF8", "AD65F4", "ABE472", "251F1F"]
+    
     var selectedColorIndex: Int? {
         didSet {
             decorateButton.configuration?.background.backgroundColor = UIColor.primary
@@ -21,6 +21,7 @@ class ColorSheetViewController: UIViewController {
             decorateButton.isEnabled = true
         }
     }
+    
     var colorSelected: Bool = false
     
     // MARK: - Views
@@ -116,6 +117,7 @@ class ColorSheetViewController: UIViewController {
 }
 
 // MARK: - Extension
+
 extension ColorSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

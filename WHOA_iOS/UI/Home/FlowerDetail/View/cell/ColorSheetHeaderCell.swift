@@ -8,15 +8,18 @@
 import UIKit
 
 class ColorSheetHeaderCell: UICollectionReusableView {
+    
     // MARK: - Properties
+    
     static let identifier = "ColorSheetHeaderCell"
     
     // MARK: - Views
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어떤 색으로 꾸며볼까요?"
         label.textColor = .primary
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
     

@@ -25,7 +25,7 @@ class ManagementCell: UICollectionViewCell {
     private lazy var managementTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "탈수 잦음"
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.font = .Pretendard(size: 16, family: .Bold)
         label.textColor = UIColor.secondary05
         return label
     }()
@@ -34,7 +34,7 @@ class ManagementCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16, family: .Regular)
         label.lineBreakStrategy = .hangulWordPriority
         label.textColor = UIColor.gray09
         label.setLineSpacing(spacing: 5)

@@ -47,7 +47,7 @@ class FlowerDetailViewController: UIViewController {
     
     private let titleView: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 18)
+        label.font = .Pretendard(size: 18, family: .SemiBold)
         label.textColor = .primary
         return label
     }()
@@ -62,15 +62,14 @@ class FlowerDetailViewController: UIViewController {
     
     private let flowerKoreanNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "튤립"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 24)
+        label.font = .Pretendard(size: 24, family: .SemiBold)
         label.textColor = UIColor.primary
         return label
     }()
     
     private let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
         label.textColor = UIColor.primary
         return label
     }()
@@ -83,26 +82,24 @@ class FlowerDetailViewController: UIViewController {
     
     private let flowerDescTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "시대불문 모두에게 사랑받는 꽃, 튤립"
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = UIColor.secondary04
         return label
     }()
     
     private lazy var flowerDescContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃 이름을 잘 모르는 사람이라도 누구나 아는 꽃이 튤립일지 모른다. 매년 신품종이 잇따라 등장하며 추운 겨울부터 꽃집 앞을 장식한다. 홑꽃형, 겹꽃형, 백합형, 페럿형, 프린지형 등 화형이 다양하며 색상도 풍부하다. 모든 어레인지먼트에 적합한 화재로, 빛이나 온도에 따라 꽃이 벌어졌다가 오므라들기를 반복하며 색다른 이미지를 연출한다. 튤립만으로 일종꽂이해도 좋고, 다양한 종류를 혼합해 유리 화기 등에 꽂아도 근사하다."
         label.numberOfLines = 2  // 초기 줄 수는 2 (접은 상태)
         label.setLineSpacing(spacing: 5)
         label.textAlignment = .justified
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16)
         label.textColor = UIColor(red: 66/255, green: 66/255, blue: 68/255, alpha: 1)
         return label
     }()
     
     private let flowerDescToggleButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        button.titleLabel?.font = .Pretendard(size: 16, family: .Bold)
         button.setTitleColor(UIColor.gray06, for: .normal)
         button.setTitleColor(UIColor.gray06, for: .selected)
         
@@ -127,7 +124,7 @@ class FlowerDetailViewController: UIViewController {
     private let infoLabel: UILabel = {
         let label = UILabel()
         label.text = "정보"
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -143,7 +140,7 @@ class FlowerDetailViewController: UIViewController {
     private let birthFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "탄생화"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = .Pretendard(size: 16, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -172,7 +169,7 @@ class FlowerDetailViewController: UIViewController {
     private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = .Pretendard(size: 16, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -219,7 +216,7 @@ class FlowerDetailViewController: UIViewController {
     private let flowerColorLabel: UILabel = {
         let label = UILabel()
         label.text = "색상"
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = .Pretendard(size: 16, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -286,10 +283,10 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Functions
 
     private func setupNavigation(){
-        self.navigationController?.navigationBar.tintColor = UIColor(named: "Primary")
+        self.navigationController?.navigationBar.tintColor = .primary
         self.navigationController?.navigationBar.topItem?.title = ""
         
-        let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
+        let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = backbutton
 
         // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
