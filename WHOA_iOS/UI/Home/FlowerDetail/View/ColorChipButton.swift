@@ -15,6 +15,11 @@ class ColorChipButton: UIButton {
         config.background.backgroundColor = UIColor(hexCode: colorCode)
         config.cornerStyle = .dynamic
         config.background.cornerRadius = 15
+        
+        if colorCode == "#FDFFF8" {
+            config.background.strokeWidth = 0.5
+            config.background.strokeColor = UIColor(hex: "#CACDC2", alpha: 1)
+        }
         self.configuration = config
     }
     

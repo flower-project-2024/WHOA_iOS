@@ -50,6 +50,7 @@
 		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
 		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
 		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
+		0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */; };
 		089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */; };
 		089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D507D2BB9833100877CE3 /* DecorateButton.swift */; };
 		089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50832BB9A77300877CE3 /* ColorSheetCell.swift */; };
@@ -218,6 +219,7 @@
 		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
 		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
 		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
+		0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageCell.swift; sourceTree = "<group>"; };
 		089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetViewController.swift; sourceTree = "<group>"; };
 		089D507D2BB9833100877CE3 /* DecorateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorateButton.swift; sourceTree = "<group>"; };
 		089D50832BB9A77300877CE3 /* ColorSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetCell.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				08A5401A2BB1355400710A7D /* ManagementCell.swift */,
 				089D50832BB9A77300877CE3 /* ColorSheetCell.swift */,
 				08350ABA2BBE859100D30E6D /* ColorSheetHeaderCell.swift */,
+				0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -1123,6 +1126,7 @@
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
 				54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */,
+				0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */,
 				54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */,
 				54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */,
 				54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */,

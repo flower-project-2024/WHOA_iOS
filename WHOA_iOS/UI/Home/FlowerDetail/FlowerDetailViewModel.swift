@@ -30,6 +30,7 @@ class FlowerDetailViewModel {
                 print(self.flowerDetailModel)
             case .failure(let error):
                 print("꽃 상세 조회 실패")
+                print(error)
                 //                let networkAlertController = self.networkErrorAlert(error)
                 //
                 //                DispatchQueue.main.async { [unowned self] in
@@ -44,8 +45,16 @@ class FlowerDetailViewModel {
         return flowerDetailModel
     }
     
+    func getFlowerImageCount() -> Int {
+        return flowerDetailModel.flowerImages!.count
+    }
+    
+    func getFlowerImages() -> [String] {
+        return flowerDetailModel.flowerImages!
+    }
+    
     func getFlowerName() -> String {
-        return flowerDetailModel.flowerName!
+        return flowerDetailModel.flowerName ?? "꽃"
     }
     
     func getFlowerOneLineDesc() -> String {
@@ -54,6 +63,12 @@ class FlowerDetailViewModel {
     
     func getFlowerDesc() -> String {
         return flowerDetailModel.flowerDescription!
+    }
+    
+    func getBirthFlowerDates() -> [String]? {
+        return flowerDetailModel.birthFlower?.split(separator: ",").map({
+            String($0)
+        })
     }
     
     /// 관리법, 보관법 칸에 들어갈 셀 개수 리턴
@@ -67,6 +82,32 @@ class FlowerDetailViewModel {
             detailList.append(String($0))
         }
         return detailList
+    }
+    
+    func getFlowerExpressionsCount() -> Int {
+        return flowerDetailModel.flowerExpressions?.count ?? 0
+    }
+    
+    func getFlowerExpressionAt(index: Int) -> FlowerExpression {
+        return flowerDetailModel.flowerExpressions![index]
+    }
+    
+    func getFlowerColors() -> [String] {
+        var colorList: [String] = []
+        
+        if let expressions = flowerDetailModel.flowerExpressions {
+            expressions.map {
+                colorList.append($0.flowerColor!)
+            }
+        }
+        return colorList
+    }
+    
+    func getFlowerLanguagesAt(index: Int) -> String {
+        if let expressions = flowerDetailModel.flowerExpressions {
+            return expressions[index].flowerLanguage!
+        }
+        return ""
     }
     
     /// 관리법, 보관법 리스트 만들기

@@ -8,7 +8,19 @@
 import UIKit
 
 class FlowerDetailViewController: UIViewController {
+    
+    // MARK: - Properties
+    
+    static private let flowerLanguageInterItemSpacing: CGFloat = 6
+    
+    var colorButtonList: [ColorChipButton] = []
+    
+    private var flowerId: Int
+    
+    private let viewModel = FlowerDetailViewModel()
+
     // MARK: - Views
+    
     private let outerScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = true
@@ -58,7 +70,6 @@ class FlowerDetailViewController: UIViewController {
     
     private let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Tulip"
         label.font = UIFont(name: "Pretendard-Regular", size: 16)
         label.textColor = UIColor.primary
         return label
@@ -94,7 +105,7 @@ class FlowerDetailViewController: UIViewController {
         button.titleLabel?.font = UIFont(name: "Pretendard-SemiBold", size: 16)
         button.setTitleColor(UIColor.gray06, for: .normal)
         button.setTitleColor(UIColor.gray06, for: .selected)
-
+        
         button.setTitle("설명 보기", for: .normal)
         button.setImage(UIImage.chevronDown, for: .normal)
         button.setTitle("접기", for: .selected)
@@ -137,12 +148,11 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    private let birthFlowerDateLabel: HashTagCustomLabel = {
-        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
-        label.text = "8월 15일"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor.gray03
-        return label
+    private let birthFlowerDateStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 6
+        return stackView
     }()
     
     private let borderLine1: UIView = {
@@ -167,27 +177,29 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    private let flowerLanguageContentStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 6
-        return stackView
-    }()
-    
-    private let flowerLanguageContentLabel1: HashTagCustomLabel = {
-        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
-        label.text = "믿는 사랑"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor.gray03
-        return label
-    }()
-    
-    private let flowerLanguageContentLabel2: HashTagCustomLabel = {
-        let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
-        label.text = "추억"
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
-        label.backgroundColor = UIColor.gray03
-        return label
+    private lazy var flowerLanguageContentCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        flowLayout.minimumInteritemSpacing = FlowerDetailViewController.flowerLanguageInterItemSpacing
+        flowLayout.minimumLineSpacing = FlowerDetailViewController.flowerLanguageInterItemSpacing
+        //flowLayout.estimatedItemSize = CGSize(width: 49, height: 32)
+        
+        let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        view.isScrollEnabled = true
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.contentInset = UIEdgeInsets(top: 0,
+                                         left: 28,
+                                         bottom: 0,
+                                         right: 28)
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.automaticallyAdjustsScrollIndicatorInsets = false
+        
+        view.delegate = self
+        view.dataSource = self
+        view.register(FlowerLanguageCell.self, forCellWithReuseIdentifier: FlowerLanguageCell.identifier)
+        return view
     }()
     
     private let borderLine2: UIView = {
@@ -234,40 +246,35 @@ class FlowerDetailViewController: UIViewController {
     
     private let decorateButton = DecorateButton()
     
-    // MARK: - Properties
-    var colorButtonList: [ColorChipButton] = []
-    var imageList: [String] = []
-    var tempName = "튤립"
-    
     // MARK: - Lifecycle
+    
+    init(flowerId: Int){
+        self.flowerId = flowerId
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageList = ["1", "2", "3"]
-        
+                
         view.backgroundColor = .white
         
-        NetworkManager.shared.fetchFlowerDetail(flowerId: 1, completion: { result in
-            switch result {
-            case .success(let model):
-                print(model)
-            case .failure(let error):
-                print(error)
-            }
-        })
+        bind()
+        viewModel.fetchFlowerDetail(flowerId: 9)
+        
         imageScrollView.delegate = self
-        outerScrollView.delegate = self
+        //outerScrollView.delegate = self
         
         decorateButton.addTarget(self, action: #selector(decorateBtnTapped), for: .touchUpInside)
-        
-        generateColorChipButtons()
-        
+                
         setupNavigation()
 
         addSubViews()
         setupConstraints()
-        setPageControlCount(imageList.count)
-        setScrollViewContent(images: imageList)  // 스크롤뷰에 이미지 세팅
     }
     
     override func viewDidLayoutSubviews() {
@@ -280,8 +287,6 @@ class FlowerDetailViewController: UIViewController {
 
     private func setupNavigation(){
         self.navigationController?.navigationBar.tintColor = UIColor(named: "Primary")
-        titleView.text = tempName
-        self.navigationItem.titleView = titleView
         self.navigationController?.navigationBar.topItem?.title = ""
         
         let backbutton = UIBarButtonItem(image: UIImage(named: "ChevronLeft"), style: .done, target: self, action: #selector(goBack))
@@ -290,6 +295,11 @@ class FlowerDetailViewController: UIViewController {
         // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    private func setupNavigationTitle(){
+        titleView.text = viewModel.getFlowerName()
+        self.navigationItem.titleView = titleView
     }
     
     private func setupCollectionView(){
@@ -321,34 +331,19 @@ class FlowerDetailViewController: UIViewController {
         outerScrollView.addSubview(infoLabel)
         outerScrollView.addSubview(birthFlowerStackView)
         outerScrollView.addSubview(borderLine1)
-        outerScrollView.addSubview(flowerLanguageStackView)
+        outerScrollView.addSubview(flowerLanguageLabel)
+        outerScrollView.addSubview(flowerLanguageContentCollectionView)
         outerScrollView.addSubview(borderLine2)
         outerScrollView.addSubview(flowerColorStackView)
         outerScrollView.addSubview(managementView)
 
-        // add colorChipButtons to flowerColorChipHStackView
-        colorButtonList.forEach({ button in
-            button.snp.makeConstraints { make in
-                make.width.equalTo(27.93)
-                make.height.equalTo(27.93)
-            }
-            flowerColorChipHStackView.addArrangedSubview(button)
-        })
         
         [flowerKoreanNameLabel, flowerEnglishNameLabel].forEach {
             flowerNameStackView.addArrangedSubview($0)
         }
         
-        [birthFlowerLabel, birthFlowerDateLabel].forEach {
+        [birthFlowerLabel, birthFlowerDateStackView].forEach {
             birthFlowerStackView.addArrangedSubview($0)
-        }
-        
-        [flowerLanguageLabel, flowerLanguageContentStackView].forEach {
-            flowerLanguageStackView.addArrangedSubview($0)
-        }
-        
-        [flowerLanguageContentLabel1, flowerLanguageContentLabel2].forEach {
-            flowerLanguageContentStackView.addArrangedSubview($0)
         }
         
         [flowerColorLabel, flowerColorChipHStackView].forEach{
@@ -426,20 +421,27 @@ class FlowerDetailViewController: UIViewController {
             make.top.equalTo(birthFlowerStackView.snp.bottom).offset(22)
         }
         
-        flowerLanguageStackView.snp.makeConstraints { make in
+        flowerLanguageLabel.snp.makeConstraints { make in
             make.leading.equalTo(birthFlowerStackView.snp.leading)
             make.top.equalTo(borderLine1.snp.bottom).offset(22)
+        }
+        
+        flowerLanguageContentCollectionView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.top.equalTo(flowerLanguageLabel.snp.bottom).offset(10)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(32)
         }
         
         borderLine2.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.height.equalTo(1)
-            make.top.equalTo(flowerLanguageStackView.snp.bottom).offset(22)
+            make.top.equalTo(flowerLanguageContentCollectionView.snp.bottom).offset(22)
         }
         
         flowerColorStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine2.snp.bottom).offset(22)
-            make.leading.equalTo(flowerLanguageStackView.snp.leading)
+            make.leading.equalTo(flowerLanguageLabel.snp.leading)
             make.trailing.equalToSuperview().inset(15)
         }
         
@@ -461,10 +463,21 @@ class FlowerDetailViewController: UIViewController {
         }
     }
     
-    private func generateColorChipButtons(){
-        for _ in 0...8 {
-            colorButtonList.append(ColorChipButton(colorCode: "#EFEFEF"))
+    private func generateColorChipButtons(_ colors: [String]?){
+        if let colors = colors {
+            for color in colors {
+                colorButtonList.append(ColorChipButton(colorCode: color))
+            }
         }
+        
+        // add colorChipButtons to flowerColorChipHStackView
+        colorButtonList.forEach({ button in
+            button.snp.makeConstraints { make in
+                make.width.equalTo(27.93)
+                make.height.equalTo(27.93)
+            }
+            flowerColorChipHStackView.addArrangedSubview(button)
+        })
     }
     
     private func setPageControlCount(_ pages: Int) {
@@ -475,26 +488,67 @@ class FlowerDetailViewController: UIViewController {
         view.setNeedsLayout()  // 정확한 크기를 얻기 위해
         view.layoutIfNeeded()
         
-        for index in 0..<images.count {
+        for index in 0 ..< images.count {
+            let url = URL(string: images[index])!
             let imageView = UIImageView()
-            imageView.image = UIImage(named: "FlowerImage.png")
-            imageView.contentMode = .scaleAspectFit
+            imageView.load(url: url)
             
             let xPosition = imageScrollView.frame.width * CGFloat(index)
             
             imageView.frame = CGRect(x: xPosition,
                                      y: 0,
                                      width: imageScrollView.bounds.width,
-                                     height: imageScrollView.bounds.width)
-            
+                                     height: imageScrollView.bounds.height)
+            imageView.contentMode = .scaleAspectFit
             imageScrollView.addSubview(imageView)
             
             imageScrollView.contentSize.width = imageView.frame.width * CGFloat(index+1)
         }
     }
+    
+    private func setBirthFlowerData(_ dates: [String]?) {
+        if let dates = dates {
+            for date in dates {
+                let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
+                label.layer.cornerRadius = 16
+                label.text = date
+                label.font = .Pretendard()  // 폰트는 기본 세팅(regular, 14)
+                label.backgroundColor = .gray03
+                birthFlowerDateStackView.addArrangedSubview(label)
+            }
+            
+        }
+        else {
+            let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
+            label.text = "탄생일 없음"
+            label.layer.cornerRadius = 16
+            label.font = .Pretendard()  // 폰트는 기본 세팅(regular, 14)
+            label.backgroundColor = .gray03
+            birthFlowerDateStackView.addArrangedSubview(label)
+        }
+    }
+    
+    private func bind(){
+        viewModel.flowerDetailDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.setupNavigationTitle()
+                self?.setPageControlCount((self?.viewModel.getFlowerImageCount())!)
+                self?.setScrollViewContent(images: (self?.viewModel.getFlowerImages())!)  // 스크롤뷰에 이미지 세팅
+                self?.flowerKoreanNameLabel.text = self?.viewModel.getFlowerName()
+                self?.flowerDescTitleLabel.text = self?.viewModel.getFlowerOneLineDesc()
+                self?.flowerDescContentLabel.text = self?.viewModel.getFlowerDesc()
+                self?.setBirthFlowerData(self?.viewModel.getBirthFlowerDates())
+                self?.generateColorChipButtons(self?.viewModel.getFlowerColors())
+                self?.managementView.collectionView.reloadData()
+                self?.flowerLanguageContentCollectionView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - Actions
+    
     @objc func decorateBtnTapped(){
-        let colorSheetVC = ColorSheetViewController()
+        let colorSheetVC = ColorSheetViewController(viewModel: viewModel)
         
         colorSheetVC.modalPresentationStyle = .pageSheet
         if let sheet = colorSheetVC.sheetPresentationController {
@@ -502,9 +556,8 @@ class FlowerDetailViewController: UIViewController {
             //sheet.delegate = self
             sheet.prefersGrabberVisible = true  // 상단에 그래버 표시
             sheet.selectedDetentIdentifier = .medium
-            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.preferredCornerRadius = 20
         }
-        
         present(colorSheetVC, animated: true)
     }
     
@@ -519,6 +572,7 @@ class FlowerDetailViewController: UIViewController {
 }
 
 // MARK: - Extensions
+
 extension FlowerDetailViewController: UIScrollViewDelegate {
     // scrollView가 스와이프 될 때 발생 될 이벤트
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -528,28 +582,73 @@ extension FlowerDetailViewController: UIScrollViewDelegate {
 }
 
 extension FlowerDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2  // TODO: api 연결 후 수정
+        if collectionView == flowerLanguageContentCollectionView {
+            return viewModel.getFlowerExpressionsCount()
+        }
+        else {
+            return viewModel.getFlowerManagementCellCount()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManagementCell.identifier, for: indexPath) as? ManagementCell else{
-            return UICollectionViewCell()
+        if collectionView == flowerLanguageContentCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlowerLanguageCell.identifier, for: indexPath) as? FlowerLanguageCell else { return UICollectionViewCell() }
+            
+            cell.configure(viewModel.getFlowerLanguagesAt(index: indexPath.item))
+            return cell
         }
-        cell.prepare(image: UIImage(named: "ManageImage.png"))
-        return cell
+        else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ManagementCell.identifier, for: indexPath) as? ManagementCell else{
+                return UICollectionViewCell()
+            }
+            
+            let method = viewModel.getFlowerMethodDetailAt(index: indexPath.item)
+            
+            cell.prepare(image: method[0].getFlowerManagementImage())
+            cell.configure(content: method)
+            
+            return cell
+        }
     }
     
 }
     
 extension FlowerDetailViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return ManagementView.cellSize
+        if collectionView == flowerLanguageContentCollectionView {
+            let label = UILabel()
+            label.text = viewModel.getFlowerLanguagesAt(index: indexPath.item)
+            label.font = .Pretendard()
+            label.sizeToFit()
+            
+            let cellWidth = label.frame.width + 24
+            let cellHeight = label.frame.height + 12
+            
+            return CGSize(width: cellWidth, height: cellHeight)
+        }
+        else {
+            return ManagementView.cellSize
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return ManagementView.minimumLineSpacing
+        if collectionView == flowerLanguageContentCollectionView {
+            return FlowerDetailViewController.flowerLanguageInterItemSpacing
+        }
+        else {
+            return ManagementView.minimumLineSpacing
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if collectionView == flowerLanguageContentCollectionView {
+            return FlowerDetailViewController.flowerLanguageInterItemSpacing
+        }
+        else {
+            return ManagementView.minimumLineSpacing
+        }
     }
 }
 
