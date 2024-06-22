@@ -14,10 +14,11 @@ struct FlowerKeywordDTO: Codable {
     let data: [FlowerKeywordData]
     
     struct FlowerKeywordData: Codable {
+        let id: Int
         let flowerName: String
         let flowerImageUrl: String?
-        let flowerKeyword: [String]
         let flowerLanguage: String
+        let flowerKeyword: [String]
     }
 }
 
@@ -25,10 +26,11 @@ extension FlowerKeywordDTO {
     static func convertFlowerKeywordDTOToModel(_ DTO: FlowerKeywordDTO) -> [FlowerKeywordModel] {
         return DTO.data.map {
             FlowerKeywordModel(
+                id: $0.id,
                 flowerName: $0.flowerName,
                 flowerImage: $0.flowerImageUrl,
                 flowerKeyword: $0.flowerKeyword,
-                flowerLanguage: $0.flowerLanguage
+                flowerLanguage: $0.flowerLanguage.components(separatedBy: ", ")
             )
         }
     }

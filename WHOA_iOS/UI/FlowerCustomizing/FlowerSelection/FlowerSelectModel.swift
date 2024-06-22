@@ -8,15 +8,17 @@
 import Foundation
 
 struct FlowerKeywordModel {
+    let id: Int
     let flowerName: String
     let flowerImage: String?
     let flowerKeyword: [String]
-    let flowerLanguage: String
+    let flowerLanguage: [String]
 }
 
 extension FlowerKeywordModel: Equatable {
     static func == (lhs: FlowerKeywordModel, rhs: FlowerKeywordModel) -> Bool {
-        return lhs.flowerName == rhs.flowerName &&
+        return lhs.id == rhs.id &&
+        lhs.flowerName == rhs.flowerName &&
         lhs.flowerImage == rhs.flowerImage &&
         lhs.flowerKeyword == rhs.flowerKeyword &&
         lhs.flowerLanguage == rhs.flowerLanguage
