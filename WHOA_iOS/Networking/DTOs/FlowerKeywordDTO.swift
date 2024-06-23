@@ -30,8 +30,33 @@ extension FlowerKeywordDTO {
                 flowerName: $0.flowerName,
                 flowerImage: $0.flowerImageUrl,
                 flowerKeyword: $0.flowerKeyword,
-                flowerLanguage: $0.flowerLanguage.components(separatedBy: ", ")
+                flowerLanguage: formatFlowerLanguage($0.flowerLanguage)
             )
         }
+    }
+    
+    private static func formatFlowerLanguage(_ language: String) -> String {
+        let languageArray = language.components(separatedBy: ", ")
+        
+        guard !languageArray.isEmpty else  { return "" }
+        var currentLineLength = languageArray.first!.count
+        
+        let languageStr = languageArray.reduce("") {
+            if $0.isEmpty {
+                return $0 + $1
+            }
+            
+            currentLineLength += $1.count
+            
+            if currentLineLength <= 15 {
+                return $0 + " · " + $1
+            } else {
+                currentLineLength = 0
+                return $0 + "\n" + $1
+            }
+            
+        }
+        
+        return languageStr
     }
 }

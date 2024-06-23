@@ -12,7 +12,7 @@ struct FlowerKeywordModel {
     let flowerName: String
     let flowerImage: String?
     let flowerKeyword: [String]
-    let flowerLanguage: [String]
+    let flowerLanguage: String
 }
 
 extension FlowerKeywordModel: Equatable {
