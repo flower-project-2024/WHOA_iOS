@@ -32,6 +32,7 @@ struct CustomizingSummaryModel {
 }
 
 struct Flower {
+    let id: Int
     let photo: String?
     let name: String
     let hashTag: [String]
@@ -72,7 +73,7 @@ extension CustomizingSummaryModel {
                 colorType: DTO.numberOfColors.toDTOString(),
                 colorName: colorName,
                 pointColor: pointColor,
-                flowerType: DTO.flowers.map{ $0.name }.joined(separator: ", "),
+                flowerType: DTO.flowers.map{ String($0.id) }.joined(separator: ", "),
                 substitutionType: DTO.alternative.toDTOString(),
                 wrappingType: wrappingType,
                 price: DTO.priceRange,
