@@ -99,6 +99,19 @@ class FlowerSelectionViewModel {
     }
     
     func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [Flower] {
-        return flowerKeywordModel.map { Flower(id: $0.id, photo: $0.flowerImage, name: $0.flowerName, hashTag: $0.flowerKeyword) }
+        return flowerKeywordModel.map { 
+            Flower(
+                id: $0.id,
+                photo: $0.flowerImage,
+                name: $0.flowerName,
+                hashTag: convertLanguageStringToArray($0.flowerLanguage)
+            )
+        }
+    }
+    
+    private func convertLanguageStringToArray(_ languageStr: String) -> [String] {
+        let unifiedString = languageStr.replacingOccurrences(of: " · ", with: "\n")
+        let languageArray = unifiedString.components(separatedBy: "\n")
+        return languageArray
     }
 }
