@@ -176,7 +176,7 @@ class FlowerSelectionViewController: UIViewController {
         
         bind()
         setupUI()
-        fetchData()
+        fetchData(keywordId: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -246,8 +246,8 @@ class FlowerSelectionViewController: UIViewController {
             .store(in: &viewModel.cancellables)
     }
     
-    private func fetchData() {
-        viewModel.fetchFlowerKeyword(keywordId: "0")
+    private func fetchData(keywordId: Int) {
+        viewModel.fetchFlowerKeyword(keywordId: "\(keywordId)")
     }
     
     private func fetchFailure(_ error: NetworkError) {
@@ -496,8 +496,6 @@ extension FlowerSelectionViewController: UITableViewDataSource {
             withIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier,
             for: indexPath
         ) as? FlowerSelectionTableViewCell else { return UITableViewCell() }
-        
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         let model = viewModel.getFilterdModel(idx: indexPath.row)
         cell.configUI(model: model)

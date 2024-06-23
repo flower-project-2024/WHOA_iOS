@@ -94,6 +94,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .white
+        selectionStyle = .none
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
@@ -115,7 +116,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     func configUI(model: FlowerKeywordModel) {
         flowerNameLabel.text = model.flowerName
-        flowerLanguageLabel.text = model.flowerKeyword.first
+        flowerLanguageLabel.text = model.flowerLanguage
         
         guard let image = model.flowerImage, let imageURL = URL(string: image) else { return }
         flowerImageView.load(url: imageURL)
