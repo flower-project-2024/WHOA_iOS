@@ -34,6 +34,8 @@ extension TodaysFlowerDTO {
             flowerName: DTO.data.flowerName,
             flowerOneLineDescription: DTO.data.flowerOneLineDescription,
             flowerImage: DTO.data.flowerImage,
-            flowerExpressions: /*DTO.data.flowerExpressions[1]*/["열정", "사랑"])
+            flowerExpressions: DTO.data.flowerExpressions.map({ data in
+                FlowerExpression(flowerColor: data.flowerColor, flowerLanguage: data.flowerLanguage)
+            }))
     }
 }
