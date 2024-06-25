@@ -58,9 +58,6 @@ class FlowerSearchViewController: UIViewController {
     
     private let viewModel = FlowerSearchViewModel()
     lazy var filteredItems: [FlowerSearchModel] = []
-    let tempData: [String] = [
-        "히아신스", "아네모네", "아마란서스", "아마릴리스", "아이리스", "장미", "튤립", "그냥 꽃"
-    ]
     private var isFiltering: Bool = false
     private var searchedText: String = ""
     
@@ -118,7 +115,7 @@ class FlowerSearchViewController: UIViewController {
     
     private func bind(){
         viewModel.flowerSearchListDidChange = {
-        
+            
         }
     }
 }
@@ -167,9 +164,8 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isFiltering && !filteredItems.isEmpty{
             tableView.deselectRow(at: indexPath, animated: false)
-            navigationController?.pushViewController(FlowerDetailViewController(flowerId: 1), animated: true)
-//            let cell = tableView.cellForRow(at: indexPath) as? FlowerSearchResultCell
-//            navigationController?.pushViewController(FlowerDetailViewController(flowerId: cell!.flowerId), animated: true)
+            let cell = tableView.cellForRow(at: indexPath) as? FlowerSearchResultCell
+            navigationController?.pushViewController(FlowerDetailViewController(flowerId: cell!.flowerId), animated: true)
         }
     }
 }
