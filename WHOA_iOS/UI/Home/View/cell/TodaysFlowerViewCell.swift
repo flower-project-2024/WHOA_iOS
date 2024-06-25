@@ -11,6 +11,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "TodaysFlowerViewCell"
     var buttonCallbackMethod: (() -> Void)?
+    var flowerId: Int?
     
     // MARK: - Views
     private let todaysFlowerStackView: UIStackView = {
@@ -29,7 +30,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var flowerDescriptionLabel: UILabel = {
+    private lazy var flowerOneLineDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name:"Pretendard-Bold", size: 24.0)
         label.text = "봄 향기를 품은 꽃"
@@ -121,7 +122,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         addSubview(todaysFlowerButton)
 
         todaysFlowerStackView.addArrangedSubview(todaysFlowerLabel)
-        todaysFlowerStackView.addArrangedSubview(flowerDescriptionLabel)
+        todaysFlowerStackView.addArrangedSubview(flowerOneLineDescriptionLabel)
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
         todaysFlowerStackView.addArrangedSubview(flowerLanguageStackView)
         
@@ -148,25 +149,27 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         }
     }
     
-    private func addAttributeToFlowerName(name: String){
-        let array = name.split(separator: "\n")
-        let attributeText = NSMutableAttributedString(string: name)
-        let range0 = (name as NSString).range(of: String(array[0]))
-        let range1 = (name as NSString).range(of: String(array[1]))
-        attributeText.addAttribute(.foregroundColor, value: UIColor.primary, range: range0)
-        attributeText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range1)
-        
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 5
-        attributeText.addAttribute(.paragraphStyle,
-                                   value: style,
-                                   range: NSRange(location: 0, length: attributeText.length))
-        flowerNameLabel.attributedText = attributeText
-    }
+//    private func addAttributeToFlowerName(name: String){
+//        let array = name.split(separator: "\n")
+//        let attributeText = NSMutableAttributedString(string: name)
+//        let range0 = (name as NSString).range(of: String(array[0]))
+//        let range1 = (name as NSString).range(of: String(array[1]))
+//        attributeText.addAttribute(.foregroundColor, value: UIColor.primary, range: range0)
+//        attributeText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range1)
+//        
+//        let style = NSMutableParagraphStyle()
+//        style.lineSpacing = 5
+//        attributeText.addAttribute(.paragraphStyle,
+//                                   value: style,
+//                                   range: NSRange(location: 0, length: attributeText.length))
+//        flowerNameLabel.attributedText = attributeText
+//    }
     
     func configure(_ model: TodaysFlowerModel){
+        flowerId = model.flowerId
         flowerNameLabel.text = model.flowerName
-        flowerDescriptionLabel.text = model.flowerDescription
+        let description = model.flowerOneLineDescription?.split(separator: ",")
+        flowerOneLineDescriptionLabel.text = String((description![0]))
         if let imagePath = model.flowerImage {
             let url = URL(string: imagePath)
             print(url)
@@ -180,5 +183,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
                 }
             }
         }
+        flowerLanguageLabel1.text = "#" + (model.flowerExpressions?[0].flowerLanguage)!
+        flowerLanguageLabel2.text = "#" + (model.flowerExpressions?[1].flowerLanguage)!
     }
 }
