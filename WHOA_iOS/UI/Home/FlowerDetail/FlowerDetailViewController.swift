@@ -261,7 +261,7 @@ class FlowerDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchFlowerDetail(flowerId: 9)
+        viewModel.fetchFlowerDetail(flowerId: flowerId)
         
         imageScrollView.delegate = self
         //outerScrollView.delegate = self
