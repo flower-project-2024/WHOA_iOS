@@ -17,7 +17,7 @@ struct CheapFlowerModel {
 struct TodaysFlowerModel {
     var flowerId: Int?
     var flowerName: String?
-    var flowerDescription: String?
+    var flowerOneLineDescription: String?
     var flowerImage: String?
     var flowerExpressions: [String]?
 }

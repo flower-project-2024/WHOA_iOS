@@ -17,7 +17,7 @@ struct TodaysFlowerDTO: Codable {
 struct TodaysFlowerData: Codable {
     let flowerId: Int
     let flowerName: String
-    let flowerDescription: String
+    let flowerOneLineDescription: String
     let flowerImage: String
     let flowerExpressions: [FlowerColorLanguage]
 }
@@ -32,7 +32,7 @@ extension TodaysFlowerDTO {
         return TodaysFlowerModel(
             flowerId: DTO.data.flowerId,
             flowerName: DTO.data.flowerName,
-            flowerDescription: DTO.data.flowerDescription,
+            flowerOneLineDescription: DTO.data.flowerOneLineDescription,
             flowerImage: DTO.data.flowerImage,
             flowerExpressions: /*DTO.data.flowerExpressions[1]*/["열정", "사랑"])
     }
