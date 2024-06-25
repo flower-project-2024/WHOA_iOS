@@ -8,7 +8,9 @@
 import UIKit
 
 class FlowerSearchViewController: UIViewController {
+    
     // MARK: - Views
+    
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -63,6 +65,7 @@ class FlowerSearchViewController: UIViewController {
     private var searchedText: String = ""
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -121,6 +124,7 @@ class FlowerSearchViewController: UIViewController {
 }
 
 // MARK: - Extension; TableView
+
 extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,11 +168,14 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
         if isFiltering && !filteredItems.isEmpty{
             tableView.deselectRow(at: indexPath, animated: false)
             navigationController?.pushViewController(FlowerDetailViewController(flowerId: 1), animated: true)
+//            let cell = tableView.cellForRow(at: indexPath) as? FlowerSearchResultCell
+//            navigationController?.pushViewController(FlowerDetailViewController(flowerId: cell!.flowerId), animated: true)
         }
     }
 }
 
 // MARK: - Extension; Search
+
 extension FlowerSearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.isFiltering = true
