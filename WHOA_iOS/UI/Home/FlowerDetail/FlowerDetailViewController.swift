@@ -283,6 +283,11 @@ class FlowerDetailViewController: UIViewController {
     // MARK: - Functions
 
     private func setupNavigation(){
+        self.navigationController?.navigationBar.backgroundColor = .white
+        
+        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
+        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
+        
         self.navigationController?.navigationBar.tintColor = .primary
         self.navigationController?.navigationBar.topItem?.title = ""
         
