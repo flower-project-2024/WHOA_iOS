@@ -45,13 +45,15 @@ class ManagementCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+                
+        contentView.backgroundColor = .white
         
-        layer.masksToBounds = true
-        layer.cornerRadius = 6
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray03.cgColor
-        backgroundColor = UIColor.gray01
+        contentView.layer.cornerRadius = 6
+        contentView.layer.masksToBounds = false
         
+        contentView.layer.borderColor = UIColor.gray03.cgColor
+        contentView.layer.borderWidth = 1
+                
         addViews()
         setupConstraints()
     }
@@ -78,9 +80,9 @@ class ManagementCell: UICollectionViewCell {
     }
     
     private func addViews(){
-        addSubview(imageView)
-        addSubview(managementTitleLabel)
-        addSubview(managementContentLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(managementTitleLabel)
+        contentView.addSubview(managementContentLabel)
     }
     
     private func setupConstraints(){

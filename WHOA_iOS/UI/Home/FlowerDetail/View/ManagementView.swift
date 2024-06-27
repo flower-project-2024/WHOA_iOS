@@ -70,8 +70,8 @@ class ManagementView: UIView {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.height.equalTo(258)
-            make.bottom.equalToSuperview().inset(35)
+            make.height.equalTo(ManagementView.cellSize.height)
+            make.bottom.equalToSuperview().inset(17)
         }
     }
 }
