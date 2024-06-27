@@ -33,6 +33,7 @@ struct MultipartFilesAPI: ServableAPI {
     
     var multipartData: Data? {
         createMultipartFormData(
+            name: "imgUrl",
             parameters: parameters,
             files: imageUrl,
             boundary: boundary
