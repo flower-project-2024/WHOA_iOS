@@ -131,13 +131,13 @@ final class NetworkManager {
     }
     
     func postMultipartFiles(
-        category: String,
-        name: String,
+        memberID: String,
+        bouquetId: Int,
         imageFiles: [ImageFile]?,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<MultipartFilesDTO, NetworkError>) -> Void
     ) {
-        let api = MultipartFilesAPI(imageFile: imageFiles, category: category, name: name)
+        let api = MultipartFilesAPI(memberID: memberID, bouquetId: bouquetId, imageUrl: imageFiles)
         
         networkService.request(api) { result in
             switch result {

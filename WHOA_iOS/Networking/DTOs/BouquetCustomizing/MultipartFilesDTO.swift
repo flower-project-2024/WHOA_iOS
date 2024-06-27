@@ -8,6 +8,7 @@
 import Foundation
 
 struct MultipartFilesDTO: Codable {
+    let timestamp: String
     let success: Bool
-//    let message: String
+    let status: Int
 }

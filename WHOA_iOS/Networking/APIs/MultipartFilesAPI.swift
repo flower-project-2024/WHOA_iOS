@@ -13,21 +13,21 @@ struct MultipartFilesAPI: ServableAPI {
     let memberID: String
     let boundary = UUID().uuidString
     
-    let bouquetId: String
+    let bouquetId: Int
     let imageUrl: [ImageFile]?
     
     var method: HTTPMethod { .post }
-    var path: String { "/api/images/multipart-files/" }
+    var path: String { "/api/images/multipart-files" }
     var headers: [String : String]? {
         [
-            "MEMBER_ID": memberID,
             "Content-Type": "multipart/form-data; boundary=\(boundary)",
+            "MEMBER_ID": memberID,
         ]
     }
     
-    var parameters: [String: String] {
+    var parameters: [String: Any] {
         [
-            "bouquetId": bouquetId,
+            "bouquetId": "{\n\"bouquet_id\" : \(bouquetId)\n}",
         ]
     }
     
