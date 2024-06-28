@@ -23,34 +23,24 @@ class FlowerSearchViewController: UIViewController {
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        //searchBar.placeholder = "어떤 꽃을 찾으시나요?"
-        //searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
-        searchBar.searchTextField.layer.masksToBounds = true
-        searchBar.searchTextField.layer.cornerRadius = 19
-        searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
-        searchBar.searchTextField.layer.borderWidth = 1
         searchBar.searchBarStyle = .minimal
         searchBar.delegate = self
-        searchBar.frame.size.width = searchBar.bounds.width
-        searchBar.searchTextField.frame.size = searchBar.frame.size
         searchBar.setImage(UIImage.searchIcon, for: .search, state: .normal)
         searchBar.setImage(UIImage.searchCancel, for: .clear, state: .normal)
+        searchBar.placeholder = "어떤 꽃을 찾으시나요?"
         
-        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
-            textField.backgroundColor = .white
-            if let font = UIFont(name: "Pretendard-Regular", size: 14) {
-                let placeholderAttributedText =  NSAttributedString(string: "어떤 꽃을 찾으시나요?",
-                                                         attributes: [NSAttributedString.Key.font: font])
-                
-                let attributes =  [NSAttributedString.Key.font: font] as [NSAttributedString.Key: Any]
-                
-                textField.attributedPlaceholder = placeholderAttributedText
-                textField.font = font
-                textField.textColor = UIColor.gray08
-                textField.defaultTextAttributes = attributes
-            }
-            
-        }
+        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 40))
+        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
+        
+        let searchTextField = searchBar.searchTextField
+        searchTextField.layer.masksToBounds = true
+        searchTextField.layer.cornerRadius = 19
+        searchTextField.layer.borderColor = UIColor.gray04.cgColor
+        searchTextField.layer.borderWidth = 1
+        searchTextField.font = UIFont.Pretendard()
+        searchTextField.textColor = UIColor.gray08
+//        searchBar.frame.size.width = searchBar.bounds.width
+//        searchBar.searchTextField.frame.size = searchBar.frame.size
         return searchBar
     }()
     
@@ -77,9 +67,6 @@ class FlowerSearchViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = ""
         let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem = backbutton
-        
-        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 40))
-        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
         
         addViews()
         setupConstraints()
