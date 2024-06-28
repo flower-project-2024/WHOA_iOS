@@ -360,11 +360,10 @@ class PhotoSelectionViewController: UIViewController {
     @objc
     private func nextButtonTapped() {
         viewModel.convertPhotosToBase64()
-        viewModel.updateBase64Strings(viewModel.photosBase64Strings)
         
         let model = viewModel.getPhotoSelectionModel()
         
-        coordinator?.showCustomizingSummaryVC(requirementPhotos: model.photosBase64Strings, requirementText: model.text)
+        coordinator?.showCustomizingSummaryVC(requirementPhotos: model.imageFiles, requirementText: model.text)
     }
 }
 

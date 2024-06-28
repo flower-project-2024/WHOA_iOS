@@ -45,7 +45,7 @@ struct Assign {
 
 struct Requirement {
     let text: String?
-    var photosBase64Strings: [String?]
+    var imageFiles: [ImageFile]
 }
 
 extension CustomizingSummaryModel {

@@ -14,8 +14,7 @@ class PhotoSelectionViewModel {
     let authService = MyPhotoAuthService()
     
     var photos = [UIImage?]()
-    var photosBase64Strings: [String] = []
-    private var photoSelectionModel = PhotoSelectionModel(photosBase64Strings: [], text: nil)
+    private var photoSelectionModel = PhotoSelectionModel(imageFiles: [], text: nil)
     
     // MARK: - Functions
     
@@ -44,18 +43,14 @@ class PhotoSelectionViewModel {
     }
     
     func convertPhotosToBase64() {
-        photosBase64Strings.removeAll()
+        photoSelectionModel.imageFiles.removeAll()
         
-        for photo in photos {
-            if let data = photo?.pngData() {
-                let base64 = data.base64EncodedString()
-                photosBase64Strings.append(base64)
+        for i in 0..<photos.count {
+            if let pnaData = photos[i]?.pngData() {
+                let imageFile = ImageFile(filename: "RequirementImage\(i+1)", data: pnaData, type: "image/png")
+                photoSelectionModel.imageFiles.append(imageFile)
             }
         }
-    }
-    
-    func updateBase64Strings(_ Base64Strings: [String?]) {
-        photoSelectionModel.photosBase64Strings = Base64Strings
     }
     
     func updateText(_ text: String) {

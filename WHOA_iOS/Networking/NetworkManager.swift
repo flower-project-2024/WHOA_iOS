@@ -142,9 +142,9 @@ final class NetworkManager {
         networkService.request(api) { result in
             switch result {
             case .success(let DTO):
-                print(DTO)
+                completion(.success(DTO))
             case .failure(let error):
-                print(error)
+                completion(.failure(error))
             }
         }
     }

@@ -46,7 +46,7 @@ extension BouquetDetailDTO {
             alternative: AlternativesType(rawValue: DTO.data.substitutionType) ?? .colorOriented,
             assign: Assign(packagingAssignType: PackagingAssignType(rawValue: DTO.data.wrappingType) ?? .myselfAssign, text: DTO.data.wrappingType),
             priceRange: DTO.data.priceRange,
-            requirement: Requirement(text: DTO.data.requirement, photosBase64Strings: [])
+            requirement: Requirement(text: DTO.data.requirement, imageFiles: [])
         )
     }
 }

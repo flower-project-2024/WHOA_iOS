@@ -20,7 +20,7 @@ class CustomizingCoordinator: Coordinator {
     private var packagingAssign: PackagingAssignType = .managerAssign
     private var packagingRequirement: String?
     private var price: String?
-    private var requirementPhotos: [String?] = []
+    private var requirementPhotos: [ImageFile] = []
     private var requirementText: String?
     
     
@@ -109,7 +109,7 @@ class CustomizingCoordinator: Coordinator {
     }
     
     // flowers 데이터 들어오면 수정 필요함
-    func showCustomizingSummaryVC(requirementPhotos: [String?], requirementText: String?) {
+    func showCustomizingSummaryVC(requirementPhotos: [ImageFile], requirementText: String?) {
         self.requirementPhotos = requirementPhotos
         self.requirementText = requirementText
         
@@ -121,7 +121,7 @@ class CustomizingCoordinator: Coordinator {
             alternative: alternative,
             assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
             priceRange: price ?? "",
-            requirement: Requirement(text: requirementText, photosBase64Strings: requirementPhotos)
+            requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
         )
         
         let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model)

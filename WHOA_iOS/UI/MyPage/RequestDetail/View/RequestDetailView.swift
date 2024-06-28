@@ -401,15 +401,12 @@ class RequestDetailView: UIView {
     }
     
     private func configureReferenceImages(_ model: CustomizingSummaryModel) {
-        guard let photos = model.requirement?.photosBase64Strings else { return }
-        for (index, photoString) in photos.enumerated() {
+        guard let imageFiles = model.requirement?.imageFiles else { return }
+        for (index, imageFile) in imageFiles.enumerated() {
             guard index < 3 else { break }
             let imageView = [referenceImageView1, referenceImageView2, referenceImageView3][index]
+            imageView.image = UIImage(data: imageFile.data)
             imageView.isHidden = false
-            if let data = Data(base64Encoded: photoString ?? "", options: .ignoreUnknownCharacters),
-               let decodedImg = UIImage(data: data) {
-                imageView.image = decodedImg
-            }
         }
     }
     
