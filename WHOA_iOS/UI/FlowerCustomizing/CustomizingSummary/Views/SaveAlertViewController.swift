@@ -17,6 +17,7 @@ class SaveAlertViewController: UIViewController {
     // MARK: - Properties
     
     private var saveResult: SaveResult
+    var currentVC: UIViewController
     
     // MARK: - UI
     
@@ -58,7 +59,8 @@ class SaveAlertViewController: UIViewController {
         return button
     }()
     
-    init(saveResult: SaveResult) {
+    init(currentVC: UIViewController, saveResult: SaveResult) {
+        self.currentVC = currentVC
         self.saveResult = saveResult
         super.init(nibName: nil, bundle: nil)
     }
@@ -114,6 +116,12 @@ class SaveAlertViewController: UIViewController {
         
         switch saveResult {
         case .success:
+            dismiss(animated: true) { [weak self] in
+                self?.currentVC.tabBarController?.selectedIndex = 0
+                self?.currentVC.navigationController?.popToRootViewController(animated: true)
+                
+            }
+            
             let homeVC = HomeViewController()
             
             homeVC.modalPresentationStyle = .fullScreen
