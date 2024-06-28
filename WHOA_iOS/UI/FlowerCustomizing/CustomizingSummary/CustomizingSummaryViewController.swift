@@ -82,20 +82,6 @@ class CustomizingSummaryViewController: UIViewController {
         setupUI()
         setupTapGesture()
         requestDetailView.config(model: viewModel.customizingSummaryModel)
-        
-        guard let id = KeychainManager.shared.loadMemberId() else { return }
-        
-        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
-        print(id)
-        print(dto)
-        NetworkManager.shared.createCustomBouquet(postCustomBouquetRequestDTO: dto, memberID: id) { result in
-            switch result {
-            case .success(let success):
-                print("성공")
-            case .failure(let failure):
-                print(failure)
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -165,10 +151,32 @@ class CustomizingSummaryViewController: UIViewController {
     
     @objc
     private func nextButtonTapped() {
-        let saveAlertVC = SaveAlertViewController(saveResult: .success)
         
-        saveAlertVC.modalPresentationStyle = .fullScreen
-        present(saveAlertVC, animated: true)
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
+        
+        NetworkManager.shared.createCustomBouquet(postCustomBouquetRequestDTO: dto, memberID: id) { result in
+            switch result {
+            case .success(let success):
+                let imageFiles = self.viewModel.customizingSummaryModel.requirement?.imageFiles
+                
+                NetworkManager.shared.postMultipartFiles(memberID: id, bouquetId: success.data.bouquetId, imageFiles: imageFiles) { result in
+                    switch result {
+                    case .success(let success):
+                        print("성공이야")
+                        DispatchQueue.main.async {
+                            let saveAlertVC = SaveAlertViewController(currentVC: self, saveResult: .success)
+                            saveAlertVC.modalPresentationStyle = .fullScreen
+                            self.present(saveAlertVC, animated: true)
+                        }
+                    case .failure(let failure):
+                        print(failure)
+                    }
+                }
+            case .failure(let failure):
+                print(failure)
+            }
+        }
     }
 }
 
