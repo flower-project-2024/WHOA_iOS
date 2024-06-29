@@ -28,15 +28,14 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     private let todaysFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘의 추천 꽃"
-        label.font = .Pretendard(size: 14, family: .Bold)
-        label.textColor = UIColor.primary
+        label.font = .Pretendard(size: 14, family: .Medium)
+        label.textColor = UIColor.gray07
         return label
     }()
     
     private lazy var flowerOneLineDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .Pretendard(size: 24, family: .Bold)
-        label.text = "봄 향기를 품은 꽃"
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -52,32 +51,8 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.spacing = 1
         return stackView
-    }()
-    
-    private let flowerLanguageLabel1: UILabel = {
-        let label = UILabel()
-        label.text = "#유희"
-        label.font = .Pretendard(family: .Medium)
-        label.textColor = UIColor.gray06
-        return label
-    }()
-    
-    private let flowerLanguageLabel2: UILabel = {
-        let label = UILabel()
-        label.text = "#단아함"
-        label.font = .Pretendard(family: .Medium)
-        label.textColor = UIColor.gray06
-        return label
-    }()
-    
-    private let flowerLanguageLabel3: UILabel = {
-        let label = UILabel()
-        label.text = "#겸손한 사랑"
-        label.font = .Pretendard(family: .Medium)
-        label.textColor = UIColor.gray06
-        return label
     }()
     
     private let todaysFlowerButton: CustomButton = {
@@ -127,11 +102,6 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         todaysFlowerStackView.addArrangedSubview(flowerOneLineDescriptionLabel)
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
         todaysFlowerStackView.addArrangedSubview(flowerLanguageStackView)
-        
-        [flowerLanguageLabel1, flowerLanguageLabel2, flowerLanguageLabel3].forEach {
-            flowerLanguageStackView.addArrangedSubview($0)
-        }
-        
     }
     
     private func setupConstraints(){
@@ -141,12 +111,14 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         
         todaysFlowerButton.snp.makeConstraints { make in
             make.leading.equalTo(todaysFlowerStackView.snp.leading)
+            make.trailing.equalTo(flowerImageView.snp.leading).offset(-21)
             make.top.equalTo(todaysFlowerStackView.snp.bottom).offset(23)
         }
 
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.leading.equalTo(todaysFlowerStackView.snp.trailing)
             make.width.equalTo(flowerImageView.snp.height).multipliedBy(2.0 / 3.0)
         }
     }
@@ -154,12 +126,36 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     func configure(_ model: TodaysFlowerModel){
         flowerId = model.flowerId
         flowerNameLabel.text = model.flowerName
+        
         let description = model.flowerOneLineDescription?.split(separator: ",")
         flowerOneLineDescriptionLabel.text = String((description![0]))
+        
         if let imagePath = model.flowerImage {
             flowerImageView.load(url: URL(string: imagePath)!)
         }
-        flowerLanguageLabel1.text = "#" + (model.flowerExpressions?[0].flowerLanguage)!
-        flowerLanguageLabel2.text = "#" + (model.flowerExpressions?[1].flowerLanguage)!
+        
+        if let flowerLanguage = model.flowerExpressions?[0].flowerLanguage {
+            let languageList = flowerLanguage.split(separator: ",").map({ "#" + String($0).trimmingCharacters(in: .whitespaces) })
+            
+            let languageLabelList: [UILabel] = languageList.map {
+                let label = UILabel()
+                label.text = $0
+                label.font = .Pretendard(family: .Medium)
+                label.textColor = UIColor.gray06
+                label.sizeToFit()
+                return label
+            }
+                        
+            self.layoutSubviews()
+            let stackViewWidth = self.todaysFlowerStackView.frame.width
+            
+            var widthSum: CGFloat = 0
+            for label in languageLabelList {
+                if label.frame.width + widthSum <= stackViewWidth {
+                    widthSum += label.frame.width
+                    self.flowerLanguageStackView.addArrangedSubview(label)
+                }
+            }
+        }
     }
 }
