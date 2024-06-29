@@ -11,6 +11,38 @@ class FlowerSearchViewController: UIViewController {
     
     // MARK: - Views
     
+    private let headerView = UIView()
+    
+    private let backButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage.chevronLeft, for: .normal)
+        button.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "어떤 꽃을 찾으시나요?"
+        searchBar.searchTextField.font = UIFont.Pretendard(family: .Regular)
+        searchBar.searchTextField.layer.masksToBounds = true
+        searchBar.searchTextField.layer.cornerRadius = 19
+        searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
+        searchBar.searchTextField.layer.borderWidth = 1
+        searchBar.searchBarStyle = .minimal
+        searchBar.delegate = self
+        searchBar.frame.size.width = searchBar.bounds.width
+        searchBar.searchTextField.frame.size = searchBar.frame.size
+        
+        let searchIconResized = UIImage.searchIcon.resizeImage(size: CGSize(width: 24, height: 24))
+        
+        searchBar.setImage(searchIconResized, for: .search, state: .normal)
+        searchBar.setImage(UIImage.searchCancel, for: .clear, state: .normal)
+        
+        searchBar.setPositionAdjustment(UIOffset(horizontal: 10, vertical: 0), for: .search)
+        searchBar.setPositionAdjustment(UIOffset(horizontal: -10, vertical: 0), for: .clear)
+        return searchBar
+    }()
+    
     private lazy var searchTableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -20,30 +52,7 @@ class FlowerSearchViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-    
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
-        searchBar.delegate = self
-        searchBar.setImage(UIImage.searchIcon, for: .search, state: .normal)
-        searchBar.setImage(UIImage.searchCancel, for: .clear, state: .normal)
-        searchBar.placeholder = "어떤 꽃을 찾으시나요?"
-        
-        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 40))
-        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
-        
-        let searchTextField = searchBar.searchTextField
-        searchTextField.layer.masksToBounds = true
-        searchTextField.layer.cornerRadius = 19
-        searchTextField.layer.borderColor = UIColor.gray04.cgColor
-        searchTextField.layer.borderWidth = 1
-        searchTextField.font = UIFont.Pretendard()
-        searchTextField.textColor = UIColor.gray08
-//        searchBar.frame.size.width = searchBar.bounds.width
-//        searchBar.searchTextField.frame.size = searchBar.frame.size
-        return searchBar
-    }()
-    
+
     // MARK: - Properties
     
     private let viewModel = FlowerSearchViewModel()
@@ -56,37 +65,65 @@ class FlowerSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         bind()
         viewModel.fetchFlowersForSearch()
         
         searchBar.delegate = self
-        
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.titleView = searchBar
-        self.navigationController?.navigationBar.tintColor = .black
-        self.navigationController?.navigationBar.topItem?.title = ""
-        let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
-        self.navigationItem.leftBarButtonItem = backbutton
+        self.navigationController?.navigationBar.isHidden = true
         
         addViews()
         setupConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        view.layoutSubviews()
+        headerView.layoutSubviews()
+        searchBar.setBackgroundColor(size: searchBar.frame.size)
     }
     
     // MARK: - Actions
     
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Helpers
     
     private func addViews(){
+        view.addSubview(headerView)
+        headerView.addSubview(backButton)
+        headerView.addSubview(searchBar)
+        
         view.addSubview(searchTableView)
     }
     
     private func setupConstraints(){
+        backButton.snp.makeConstraints { make in
+            make.height.equalTo(24)
+            make.width.equalTo(backButton.snp.height).multipliedBy(1)
+            make.leading.equalToSuperview().inset(21)
+            make.centerY.equalToSuperview()
+        }
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalTo(backButton.snp.trailing).offset(1)
+            make.trailing.equalToSuperview().inset(29)
+        }
+        
+        headerView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(5)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+            make.height.equalTo(40)
+        }
+        
         searchTableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(headerView.snp.bottom).offset(19)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -153,6 +190,7 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
             tableView.deselectRow(at: indexPath, animated: false)
             let cell = tableView.cellForRow(at: indexPath) as? FlowerSearchResultCell
             navigationController?.pushViewController(FlowerDetailViewController(flowerId: cell!.flowerId), animated: true)
+            self.navigationController?.navigationBar.isHidden = false
         }
     }
 }
