@@ -5,6 +5,8 @@
 //  Created by Suyeon Hwang on 6/20/24.
 //
 
+import UIKit
+
 class FlowerDetailViewModel {
     
     // MARK: - Properties
@@ -22,20 +24,17 @@ class FlowerDetailViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowerDetail(flowerId: Int){
+    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController){
         NetworkManager.shared.fetchFlowerDetail(flowerId: flowerId) { result in
             switch result {
             case .success(let model):
                 self.flowerDetailModel = model
-                print(self.flowerDetailModel)
             case .failure(let error):
-                print("꽃 상세 조회 실패")
-                print(error)
-                //                let networkAlertController = self.networkErrorAlert(error)
-                //
-                //                DispatchQueue.main.async { [unowned self] in
-                //                    fromCurrentVC.present(networkAlertController, animated: true)
-                //                }
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async { [unowned self] in
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
             }
         }
     }
@@ -121,7 +120,13 @@ class FlowerDetailViewModel {
                 manageAndStorageMethodList.append(String($0))
             }
         }
+    }
+    
+    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
         
-        print("만들어진 관리, 보관법 리스트: \(manageAndStorageMethodList)")
+        return alertController
     }
 }

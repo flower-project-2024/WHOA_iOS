@@ -179,7 +179,6 @@ class FlowerDetailViewController: UIViewController {
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumInteritemSpacing = FlowerDetailViewController.flowerLanguageInterItemSpacing
         flowLayout.minimumLineSpacing = FlowerDetailViewController.flowerLanguageInterItemSpacing
-        //flowLayout.estimatedItemSize = CGSize(width: 49, height: 32)
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         view.isScrollEnabled = true
@@ -261,10 +260,9 @@ class FlowerDetailViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchFlowerDetail(flowerId: flowerId)
+        viewModel.fetchFlowerDetail(flowerId: flowerId, fromCurrentVC: self)
         
         imageScrollView.delegate = self
-        //outerScrollView.delegate = self
         
         decorateButton.addTarget(self, action: #selector(decorateBtnTapped), for: .touchUpInside)
                 
@@ -303,7 +301,6 @@ class FlowerDetailViewController: UIViewController {
         managementView.collectionView.dataSource = self
         
         managementView.collectionView.register(ManagementCell.self, forCellWithReuseIdentifier: ManagementCell.identifier)
-//        ManagementView.cellSize = CGSize(width: managementView.collectionView.bounds.width - (minimumLineSpacing * 4), height: 258)
         
         managementView.collectionView.contentInset = UIEdgeInsets(top: 0,
                                                                   left: ManagementView.minimumLineSpacing * 2,
@@ -559,7 +556,6 @@ class FlowerDetailViewController: UIViewController {
     
     @objc func goBack(){
         self.navigationController?.popViewController(animated: true)
-        //self.navigationController?.navigationBar.isHidden = true
     }
     
     @objc func descButtonTapped(){
