@@ -83,6 +83,10 @@ class FlowerSearchViewController: UIViewController {
         searchBar.setBackgroundColor(size: searchBar.frame.size)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     // MARK: - Actions
     
     @objc func goBack(){
