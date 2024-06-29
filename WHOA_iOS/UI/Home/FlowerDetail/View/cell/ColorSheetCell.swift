@@ -80,7 +80,11 @@ class ColorSheetCell: UICollectionViewCell {
     // MARK: - Helpers
         
     func setupData(colorCode: String, colorDescription: String) {
-        colorChipView.backgroundColor = UIColor.init(hexCode: colorCode)
+        colorChipView.backgroundColor = UIColor(hex: colorCode)
+        if colorCode == "#FDFFF8" {
+            colorChipView.layer.borderColor = UIColor(hex: "#CACDC2", alpha: 1).cgColor
+            colorChipView.layer.borderWidth = 0.5
+        }
         colorDescriptionLabel.text = colorDescription
     }
     
