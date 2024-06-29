@@ -60,6 +60,7 @@
 		08A540192BB133C500710A7D /* ManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A540182BB133C500710A7D /* ManagementView.swift */; };
 		08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A5401A2BB1355400710A7D /* ManagementCell.swift */; };
 		08A5401D2BB136D400710A7D /* ManageImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A5401C2BB136D400710A7D /* ManageImage.png */; };
+		08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9815A2C30877000F3CD45 /* UILabel+.swift */; };
 		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
 		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
@@ -232,6 +233,7 @@
 		08A540182BB133C500710A7D /* ManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementView.swift; sourceTree = "<group>"; };
 		08A5401A2BB1355400710A7D /* ManagementCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementCell.swift; sourceTree = "<group>"; };
 		08A5401C2BB136D400710A7D /* ManageImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ManageImage.png; sourceTree = "<group>"; };
+		08B9815A2C30877000F3CD45 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 				0858C4B22C2449C200FAE6C3 /* String+.swift */,
 				0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */,
 				0892C3382C2F047E007DCFBA /* UIImage+.swift */,
+				08B9815A2C30877000F3CD45 /* UILabel+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				54DC8C1F2B95AFE80060CDC6 /* tempHashTagLabel.swift in Sources */,
 				54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
+				08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */,
 				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
 				08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */,
