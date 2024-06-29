@@ -21,6 +21,20 @@ class HomeViewController: UIViewController {
 
     // MARK: - Views
     
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsHorizontalScrollIndicator = false
+        view.isScrollEnabled = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
     private lazy var carouselView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.minimumLineSpacing = 0
@@ -31,6 +45,14 @@ class HomeViewController: UIViewController {
         //collectionView.isPagingEnabled = true  // cellSize의 width가 collectionView의 width와 같지 않기 때문에
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = .clear
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.decelerationRate = .fast
+        
+        collectionView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
+        collectionView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
         return collectionView
     }()
     
@@ -75,21 +97,22 @@ class HomeViewController: UIViewController {
         
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
-        if(!tooltipIsClosed || isFirstLaunch){
-            print("==setting tool tip view==")
-            setupToolTipView()
-        }
+//        if(!tooltipIsClosed || isFirstLaunch){
+//            print("==setting tool tip view==")
+//            setupToolTipView()
+//        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+//        scrollView.updateContentSize()
         setupCollectionView()
         setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        resetTimer()
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     deinit {
@@ -100,9 +123,13 @@ class HomeViewController: UIViewController {
     // MARK: - Helper
     
     private func addViews(){
-        view.addSubview(searchBar)
-        view.addSubview(carouselView)
-        view.addSubview(cheapFlowerView)
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(searchBar)
+        contentView.addSubview(carouselView)
+        contentView.addSubview(cheapFlowerView)
     }
     
     private func setupNavigation(){
@@ -110,42 +137,72 @@ class HomeViewController: UIViewController {
         let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
         
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        self.navigationController?.navigationBar.tintColor = .primary
+        self.navigationController?.navigationBar.topItem?.title = ""
+        
         // 네비게이션 바 줄 없애기
-//        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
-//        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
+        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
+        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
     }
     
     private func setupConstraints(){
+        scrollView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            make.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            make.width.equalTo(scrollView.frameLayoutGuide.snp.width)
+        } 
+        
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(contentView.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        
         carouselView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(225)
         }
+        
         cheapFlowerView.snp.makeConstraints { make in
             make.top.equalTo(carouselView.snp.bottom).offset(29)
             make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(contentView.snp.bottom).inset(15)
         }
     }
     
     private func setupCollectionView(){
+        
+//        carouselView.delegate = self
+//        carouselView.dataSource = self
+        
         // minimumLineSpacing 고려하여 width 값 조절
-        cellSize = CGSize(width: carouselView.bounds.width - (minimumLineSpacing * 4), height: 225)
+        print(carouselView.bounds)
+        print(carouselView.frame.width)
+        carouselView.layoutIfNeeded()
+        print(carouselView.bounds)
+        print(carouselView.frame.width)
+        cellSize = CGSize(width: carouselView.frame.width - (minimumLineSpacing * 4), height: 225)
         carouselView.contentInset = UIEdgeInsets(top: 0,
                                                  left: minimumLineSpacing * 2,
                                                  bottom: 0,
                                                  right: minimumLineSpacing)
-        carouselView.delegate = self
-        carouselView.dataSource = self
         
-        carouselView.decelerationRate = .fast
-        
-        carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
-        carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
+//        carouselView.decelerationRate = .fast
+//        
+//        carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
+//        carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
     }
     
     private func setupTableView(){
@@ -211,6 +268,7 @@ class HomeViewController: UIViewController {
         viewModel.todaysFlowerDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.carouselView.reloadData()
+                self?.resetTimer()
             }
         }
     }
@@ -245,6 +303,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("저렴한 꽃 셀 개수: \(viewModel.getCheapFlowerModelCount())")
         return viewModel.getCheapFlowerModelCount()
     }
     
@@ -269,36 +328,17 @@ extension HomeViewController : UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         timer?.invalidate()
         timer = nil
-        //navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
-        let vc = FlowerDetailViewController(flowerId: 1)
-        vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+        let cell = tableView.cellForRow(at: indexPath) as! CheapFlowerInfoCell
+        if let id = cell.flowerId {
+            let vc = FlowerDetailViewController(flowerId: id)
+            vc.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(vc, animated: true)
+        }        
     }
 }
 
-// MARK: - Extensions; ScrollView
-//extension UIScrollView {
-//    func updateContentSize() {
-//        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-//        
-//        // 계산된 크기로 컨텐츠 사이즈 설정
-//        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-//    }
-//    
-//    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-//        var totalRect: CGRect = .zero
-//        
-//        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-//        for subView in view.subviews {
-//            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-//        }
-//        
-//        // 최종 계산 영역의 크기를 반환
-//        return totalRect.union(view.frame)
-//    }
-//}
-
 // MARK: - Extensions; CollectionView
+
 extension HomeViewController: UICollectionViewDelegate {
     // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -335,7 +375,7 @@ extension HomeViewController: UICollectionViewDataSource {
             cell.buttonCallbackMethod = { [weak self] in
                 self?.timer?.invalidate()
                 self?.timer = nil
-                let vc = FlowerDetailViewController(flowerId: 1)
+                let vc = FlowerDetailViewController(flowerId: cell.flowerId ?? 1)
                 vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
                 //self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)

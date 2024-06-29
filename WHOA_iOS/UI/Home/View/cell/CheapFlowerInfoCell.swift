@@ -11,13 +11,15 @@ class CheapFlowerInfoCell: UITableViewCell {
     // MARK: - Properties
     
     static let identifier = "CheapFlowerInfoCell"
+    
+    var flowerId: Int?
         
     // MARK: - Views
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "FlowerImage.png")
+        imageView.image = UIImage.appLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = CGColor(red: 199/255, green: 199/255, blue: 199/255, alpha: 1)
@@ -120,10 +122,23 @@ class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
-    func configure(model: CheapFlowerModel){
+    func configure(model: CheapFlowerModel) {
         flowerNameLabel.text = model.flowerRankingName
-        flowerLanguageLabel.text = model.flowerRankingLanguage
+        flowerLanguageLabel.text = model.flowerRankingLanguage ?? "꽃말 들어가야하는 자리"
         priceLabel.text = "\(model.flowerRankingPrice)원"
+        
+        // 서버에 있는 꽃인 경우
+        if let id = model.flowerId {
+            self.flowerId = id
+            moveToDetailImageView.isHidden = false
+            if let img = model.flowerRankingImg {
+                flowerImageView.load(url: URL(string: img)!)
+            }
+        }
+        // 서버에 없는 꽃인 경우
+        else{
+            moveToDetailImageView.isHidden = true
+            flowerImageView.image = UIImage.appLogo
+        }
     }
-    
 }
