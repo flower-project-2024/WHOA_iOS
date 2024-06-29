@@ -84,8 +84,8 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        /*getTodaysDate()*/
-        viewModel.fetchTodaysFlowerModel(["3", "1"])  // TODO: 서버에 데이터 다 들어오면 오늘 날짜로 수정!
+        
+        viewModel.fetchTodaysFlowerModel(getTodaysDate())
         viewModel.fetchCheapFlowerRanking()
     
         addViews()
