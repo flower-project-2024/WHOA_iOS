@@ -6,12 +6,12 @@
 //
 
 struct CheapFlowerModel {
-    let flowerId: Int
+    let flowerId: Int?
     let flowerRankingName: String
     let flowerRankingLanguage: String?
     let flowerRankingPrice: String
     let flowerRankingDate: String
-    let flowerRankingImg: String
+    let flowerRankingImg: String?
 }
 
 struct TodaysFlowerModel {
