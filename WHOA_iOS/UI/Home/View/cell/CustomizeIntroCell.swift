@@ -95,11 +95,13 @@ class CustomizeIntroCell: UICollectionViewCell {
         customizeButton.snp.makeConstraints { make in
             make.leading.equalTo(customizeStackView.snp.leading)
             make.top.equalTo(customizeStackView.snp.bottom).offset(23)
+            make.trailing.equalTo(flowerDecoImageView.snp.leading).inset(28)
         }
         
         flowerDecoImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.width.equalTo((flowerDecoImageView.image?.size.width)!)
         }
     }
 }
