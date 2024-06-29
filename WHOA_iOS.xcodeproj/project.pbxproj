@@ -51,6 +51,8 @@
 		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
 		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */; };
+		0892C3372C2EE24F007DCFBA /* UISearchBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */; };
+		0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892C3382C2F047E007DCFBA /* UIImage+.swift */; };
 		089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */; };
 		089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D507D2BB9833100877CE3 /* DecorateButton.swift */; };
 		089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089D50832BB9A77300877CE3 /* ColorSheetCell.swift */; };
@@ -220,6 +222,8 @@
 		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
 		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageCell.swift; sourceTree = "<group>"; };
+		0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+.swift"; sourceTree = "<group>"; };
+		0892C3382C2F047E007DCFBA /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		089D50792BB951AC00877CE3 /* ColorSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetViewController.swift; sourceTree = "<group>"; };
 		089D507D2BB9833100877CE3 /* DecorateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecorateButton.swift; sourceTree = "<group>"; };
 		089D50832BB9A77300877CE3 /* ColorSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSheetCell.swift; sourceTree = "<group>"; };
@@ -740,6 +744,8 @@
 				08C635ED2C01EB220088DE39 /* UITabBar+.swift */,
 				08C635EF2C01EB470088DE39 /* CALayer+.swift */,
 				0858C4B22C2449C200FAE6C3 /* String+.swift */,
+				0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */,
+				0892C3382C2F047E007DCFBA /* UIImage+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1174,6 +1180,7 @@
 				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
 				0858C4B32C2449C200FAE6C3 /* String+.swift in Sources */,
 				5460710E2B8235E10033B598 /* ColorPickerView.swift in Sources */,
+				0892C3372C2EE24F007DCFBA /* UISearchBar+.swift in Sources */,
 				08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */,
 				0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* PurposeModel.swift in Sources */,
@@ -1198,6 +1205,7 @@
 				0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
 				08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */,
+				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */,
@@ -1295,6 +1303,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1358,6 +1367,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1389,9 +1399,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7G8HP2JBMK;
+				DEVELOPMENT_TEAM = 7AS2J3XH7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1403,7 +1414,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "suyeon.WHOA-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "apps.suyeon.WHOA-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1424,9 +1435,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7G8HP2JBMK;
+				DEVELOPMENT_TEAM = 7AS2J3XH7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1438,7 +1450,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "suyeon.WHOA-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "apps.suyeon.WHOA-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
