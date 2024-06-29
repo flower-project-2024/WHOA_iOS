@@ -30,8 +30,8 @@ class CheapFlowerView: UIView {
         return label
     }()
     
-    let topThreeTableView: UITableView = {
-        let tableView = UITableView()
+    let topThreeTableView: CustomTableView = {
+        let tableView = CustomTableView()
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
         tableView.separatorStyle = .none
         tableView.rowHeight = 86
