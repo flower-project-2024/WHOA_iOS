@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0800412E2C302D5F00CDA693 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800412D2C302D5F00CDA693 /* CustomTableView.swift */; };
 		08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */; };
 		08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */; };
 		08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E992BE9103400F58A34 /* HomeModel.swift */; };
@@ -179,6 +180,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0800412D2C302D5F00CDA693 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingAPI.swift; sourceTree = "<group>"; };
 		08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingDTO.swift; sourceTree = "<group>"; };
 		08149E992BE9103400F58A34 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
 				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
 				085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
+				0800412D2C302D5F00CDA693 /* CustomTableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1225,6 +1228,7 @@
 				0843605B2C08FA8700B18B90 /* TodaysFlowerAPI.swift in Sources */,
 				0843605C2C08FA9C00B18B90 /* FlowerSearchViewModel.swift in Sources */,
 				08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */,
+				0800412E2C302D5F00CDA693 /* CustomTableView.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,
