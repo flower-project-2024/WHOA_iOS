@@ -11,5 +11,4 @@ struct CheapFlowerRankingAPI: ServableAPI {
     typealias Response = CheapFlowerRankingDTO
     
     var path: String { "/api/ranking" }
-    var params: [String : String] { [:] }
 }

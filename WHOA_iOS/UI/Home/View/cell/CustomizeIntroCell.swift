@@ -9,10 +9,13 @@ import UIKit
 import SnapKit
 
 class CustomizeIntroCell: UICollectionViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "AppInfoCell"
     
     // MARK: - Views
+    
     private let customizeStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,7 +27,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     private let customizeLabel: UILabel = {
         let label = UILabel()
         label.text = "커스터마이징 탭"
-        label.font = UIFont(name: "Pretendard-Bold", size: 14)
+        label.font = .Pretendard(family: .Bold)
         label.textColor = UIColor.secondary03
         return label
     }()
@@ -33,7 +36,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "WHOA로 만드는\n나만의 꽃다발"
         label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-Bold", size: 24)
+        label.font = .Pretendard(size: 24, family: .Bold)
         label.textColor = UIColor.gray01
         label.setLineSpacing(spacing: 5)
         return label
@@ -42,7 +45,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말을 담아 내 마음을 전해보세요"
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
+        label.font = .Pretendard(family: .Medium)
         label.textColor = UIColor.gray05
         return label
     }()
@@ -60,6 +63,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     }()
     
     // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -75,7 +79,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews(){
         addSubview(customizeStackView)

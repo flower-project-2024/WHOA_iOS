@@ -8,6 +8,7 @@
 import UIKit
 
 class CheapFlowerInfoCell: UITableViewCell {
+    
     // MARK: - Properties
     
     static let identifier = "CheapFlowerInfoCell"
@@ -29,7 +30,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     let rankingLabel: UILabel =  {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.font = .Pretendard(size: 20, family: .SemiBold)
         label.textColor = UIColor.primary
         label.text = "1"
         return label
@@ -37,7 +38,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         label.textColor = UIColor.primary
         label.text = "히아신스"
         return label
@@ -45,7 +46,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Medium", size: 12)
+        label.font = .Pretendard(size: 12, family: .Medium)
         label.text = "영원한 사랑"
         label.textColor = UIColor.gray07
         return label
@@ -53,7 +54,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 14)
+        label.font = .Pretendard(family: .Bold)
         label.text = "2100원"
         label.textColor = UIColor.secondary04
         return label
@@ -67,7 +68,8 @@ class CheapFlowerInfoCell: UITableViewCell {
         return imageView
     }()
     
-    // MARK: - init
+    // MARK: - Initialziation
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -78,7 +80,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - functions
+    // MARK: - Functions
     
     private func setupConstraints(){
         // add view
@@ -124,7 +126,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     func configure(model: CheapFlowerModel) {
         flowerNameLabel.text = model.flowerRankingName
-        flowerLanguageLabel.text = model.flowerRankingLanguage ?? "꽃말 들어가야하는 자리"
+        flowerLanguageLabel.text = model.flowerRankingLanguage ?? "꽃말 정보 없음"
         priceLabel.text = "\(model.flowerRankingPrice)원"
         
         // 서버에 있는 꽃인 경우

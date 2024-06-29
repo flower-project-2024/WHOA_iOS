@@ -28,25 +28,23 @@ class HomeViewModel {
     
     // MARK: - Functions
     
-    func fetchCheapFlowerRanking(){
+    func fetchCheapFlowerRanking(fromCurrentVC: UIViewController){
         NetworkManager.shared.fetchCheapFlowerRanking { result in
             switch result {
             case .success(let model):
                 self.cheapFlowerRankings = model
             case .failure(let error):
-                print("저렴한 꽃 랭킹 조회 실패")
-                //                let networkAlertController = self.networkErrorAlert(error)
-                //
-                //                DispatchQueue.main.async { [unowned self] in
-                //                    fromCurrentVC.present(networkAlertController, animated: true)
-                //                }
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async { [unowned self] in
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
             }
         }
     }
     
     // 저렴한 꽃 1개 리턴 (인덱스에 해당하는)
     func getCheapFlowerModel(index: Int) -> CheapFlowerModel {
-        print(cheapFlowerRankings)
         return cheapFlowerRankings[index]
     }
     
@@ -54,23 +52,34 @@ class HomeViewModel {
         return cheapFlowerRankings.count
     }
     
-    func fetchTodaysFlowerModel(_ dateArray: [String]) {
+    func fetchTodaysFlowerModel(_ dateArray: [String], fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchTodaysFlower(month: dateArray[0], date: dateArray[1], completion: { result in
             switch result {
             case .success(let model):
                 self.todaysFlower = model
             case .failure(let error):
-                print(error)
+                let networkAlertController = self.networkErrorAlert(error)
+
+                DispatchQueue.main.async { [unowned self] in
+                    fromCurrentVC.present(networkAlertController, animated: true)
+                }
             }
         })
     }
     
     func getTodaysFlower() -> TodaysFlowerModel{
-        print(todaysFlower)
         return todaysFlower
     }
     
     func getTodaysFlowerCount() -> Int {
         return 1
+    }
+    
+    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        
+        return alertController
     }
 }

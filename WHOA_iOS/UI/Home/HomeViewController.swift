@@ -42,7 +42,6 @@ class HomeViewController: UIViewController {
         flowlayout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        //collectionView.isPagingEnabled = true  // cellSize의 width가 collectionView의 width와 같지 않기 때문에
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = .clear
         
@@ -63,7 +62,7 @@ class HomeViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
-        searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
+        searchBar.searchTextField.font = .Pretendard()
         searchBar.searchTextField.layer.masksToBounds = true
         searchBar.searchTextField.layer.cornerRadius = 25
         searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
@@ -85,8 +84,8 @@ class HomeViewController: UIViewController {
         
         bind()
         
-        viewModel.fetchTodaysFlowerModel(getTodaysDate())
-        viewModel.fetchCheapFlowerRanking()
+        viewModel.fetchTodaysFlowerModel(getTodaysDate(), fromCurrentVC: self)
+        viewModel.fetchCheapFlowerRanking(fromCurrentVC: self)
     
         addViews()
         setupNavigation()
@@ -120,7 +119,7 @@ class HomeViewController: UIViewController {
         timer = nil
     }
 
-    // MARK: - Helper
+    // MARK: - Functions
     
     private func addViews(){
         view.addSubview(scrollView)
@@ -183,26 +182,13 @@ class HomeViewController: UIViewController {
     }
     
     private func setupCollectionView(){
-        
-//        carouselView.delegate = self
-//        carouselView.dataSource = self
-        
         // minimumLineSpacing 고려하여 width 값 조절
-        print(carouselView.bounds)
-        print(carouselView.frame.width)
         carouselView.layoutIfNeeded()
-        print(carouselView.bounds)
-        print(carouselView.frame.width)
         cellSize = CGSize(width: carouselView.frame.width - (minimumLineSpacing * 4), height: 225)
         carouselView.contentInset = UIEdgeInsets(top: 0,
                                                  left: minimumLineSpacing * 2,
                                                  bottom: 0,
                                                  right: minimumLineSpacing)
-        
-//        carouselView.decelerationRate = .fast
-//        
-//        carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
-//        carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
     }
     
     private func setupTableView(){
@@ -247,16 +233,6 @@ class HomeViewController: UIViewController {
         })
     }
     
-    private func getImageWithCustomColor(color: UIColor, size: CGSize) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
-    }
-    
     private func bind(){
         viewModel.cheapFlowerRankingsDidChange = { [weak self] in
             DispatchQueue.main.async {
@@ -289,7 +265,6 @@ class HomeViewController: UIViewController {
                 returnArray[i] = String(splitArray[i])
             }
         }
-        print(returnArray)
         return returnArray
     }
 
@@ -300,10 +275,10 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - Extensions; TableView
+
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("저렴한 꽃 셀 개수: \(viewModel.getCheapFlowerModelCount())")
         return viewModel.getCheapFlowerModelCount()
     }
     
@@ -316,11 +291,6 @@ extension HomeViewController : UITableViewDataSource {
         cell.configure(model: model)
         return cell
     }
-    
-//    // TableView의 rowHeight속성에 AutometicDimension을 통해 테이블의 row가 유동적이라는 것을 선언
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
 }
 
 extension HomeViewController : UITableViewDelegate {
@@ -378,7 +348,6 @@ extension HomeViewController: UICollectionViewDataSource {
                 let vc = FlowerDetailViewController(flowerId: cell.flowerId ?? 1)
                 vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
-                //self?.navigationController?.pushViewController(FlowerDetailViewController(), animated: true)
             }
             return cell
         }
@@ -400,7 +369,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - search bar
+// MARK: - Extensions; search bar
+
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         timer?.invalidate()
@@ -408,21 +378,5 @@ extension HomeViewController: UISearchBarDelegate {
         let searchVC = FlowerSearchViewController()
         searchVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(searchVC, animated: true)
-    }
-}
-
-// MARK: - Extension; UILabel (추후 Global 로 빼기)
-// TODO: Global에 추가
-extension UILabel {
-    func setLineSpacing(spacing: CGFloat) {
-        guard let text = text else { return }
-
-        let attributeString = NSMutableAttributedString(string: text)
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = spacing
-        attributeString.addAttribute(.paragraphStyle,
-                                     value: style,
-                                     range: NSRange(location: 0, length: attributeString.length))
-        attributedText = attributeString
     }
 }

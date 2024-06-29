@@ -21,7 +21,7 @@ class CustomButton: UIButton {
         config.cornerStyle = .dynamic
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
         config.attributedTitle = AttributedString.init(buttonType.rawValue)
-        config.attributedTitle?.font = UIFont(name: "Pretendard-Bold", size: 13)
+        config.attributedTitle?.font = UIFont.Pretendard(size: 13, family: .Bold)
         config.image = UIImage.chevronRight.withRenderingMode(.alwaysTemplate)
         config.imagePlacement = .trailing
         config.imagePadding = 11

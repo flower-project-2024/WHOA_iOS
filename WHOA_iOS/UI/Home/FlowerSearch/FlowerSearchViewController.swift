@@ -68,7 +68,7 @@ class FlowerSearchViewController: UIViewController {
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchFlowersForSearch()
+        viewModel.fetchFlowersForSearch(fromCurrentVC: self)
         
         searchBar.delegate = self
         self.navigationController?.navigationBar.isHidden = true
