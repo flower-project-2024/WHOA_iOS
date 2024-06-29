@@ -92,9 +92,6 @@ class HomeViewController: UIViewController {
         setupNavigation()
         setupConstraints()
         
-        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
-        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
-        
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
 //        if(!tooltipIsClosed || isFirstLaunch){
@@ -107,6 +104,9 @@ class HomeViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
 //        scrollView.updateContentSize()
+        contentView.layoutSubviews()
+        searchBar.setBackgroundColor(size: searchBar.frame.size)
+        
         setupCollectionView()
         setupTableView()
     }
