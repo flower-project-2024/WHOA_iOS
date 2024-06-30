@@ -115,14 +115,9 @@ class SaveAlertViewController: UIViewController {
         switch saveResult {
         case .success:
             dismiss(animated: true) { [weak self] in
-                self?.currentVC?.tabBarController?.selectedIndex = 0
+                self?.currentVC?.tabBarController?.selectedIndex = 2
                 self?.currentVC?.navigationController?.popToRootViewController(animated: true)
             }
-            
-            let homeVC = HomeViewController()
-            
-            homeVC.modalPresentationStyle = .fullScreen
-            present(homeVC, animated: true)
         case .failure:
             dismiss(animated: true)
         }
