@@ -117,7 +117,6 @@ class SaveAlertViewController: UIViewController {
     
     @objc
     private func exitButtonTapped() {
-        
         switch saveResult {
         case .success:
             dismiss(animated: true) { [weak self] in

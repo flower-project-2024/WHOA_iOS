@@ -108,7 +108,6 @@ class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(photoSelectionVC, animated: true)
     }
     
-    // flowers 데이터 들어오면 수정 필요함
     func showCustomizingSummaryVC(requirementPhotos: [ImageFile], requirementText: String?) {
         self.requirementPhotos = requirementPhotos
         self.requirementText = requirementText
