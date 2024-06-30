@@ -17,3 +17,9 @@ struct PostCustomBouquetDTO: Codable {
 struct PostCustomBouquetData: Codable {
     let bouquetId: Int
 }
+
+extension PostCustomBouquetDTO {
+    static func convertPostCustomBouquetDTOToBouquetId(_ DTO: PostCustomBouquetDTO) -> Int {
+        return DTO.data.bouquetId
+    }
+}
