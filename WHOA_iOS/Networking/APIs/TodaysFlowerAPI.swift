@@ -13,5 +13,5 @@ struct TodaysFlowerAPI: ServableAPI {
     var date: String
     var month: String
     var path: String { "/api/flower/recommend/" }
-    var params: String { "\(date)/\(month)" }
+    var params: String { "\(month)/\(date)" }
 }
