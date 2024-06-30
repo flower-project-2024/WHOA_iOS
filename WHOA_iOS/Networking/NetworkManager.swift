@@ -130,6 +130,11 @@ final class NetworkManager {
         }
     }
     
+    /// 커스터마이징의 참고 이미지를 다중으로 업로드하는 함수입니다.
+    /// - Parameters:
+    /// - MemberID: 멤버 아이디
+    /// - bouquetId: 주문서 ID
+    /// - imageUrl: 참고 이미지들(png데이터)
     func postMultipartFiles(
         memberID: String,
         bouquetId: Int,
