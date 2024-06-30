@@ -61,7 +61,6 @@ class CustomizingSummaryViewController: UIViewController {
         return stackView
     }()
     
-
     // MARK: - Initialize
     
     init(viewModel: CustomizingSummaryViewModel) {
@@ -79,6 +78,7 @@ class CustomizingSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
         setupTapGesture()
         requestDetailView.config(model: viewModel.customizingSummaryModel)
@@ -129,6 +129,51 @@ class CustomizingSummaryViewController: UIViewController {
         requestDetailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
+    private func bind() {
+        viewModel.$bouquetId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bouquetId in
+                self?.handleBouquetId(bouquetId)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$imageUploadSuccess
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] success in
+                guard success else { return }
+                self?.presentSaveAlert(saveResult: .success)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$networkError
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let error = error else { return }
+                let saveResult: SaveResult = (error == .duplicateError ? .duplicateError : .networkError)
+                self?.presentSaveAlert(saveResult: saveResult)
+            }
+            .store(in: &viewModel.cancellables)
+    }
+    
+    private func presentSaveAlert(saveResult: SaveResult) {
+        let saveAlertVC = SaveAlertViewController(currentVC: self, saveResult: saveResult)
+        saveAlertVC.modalPresentationStyle = .fullScreen
+        self.present(saveAlertVC, animated: true)
+    }
+    
+    private func handleBouquetId(_ bouquetId: Int?) {
+        guard
+            let bouquetId = bouquetId,
+            let id = viewModel.memberId
+        else { return }
+        
+        if let imageFiles = viewModel.customizingSummaryModel.requirement?.imageFiles, !imageFiles.isEmpty {
+            viewModel.submitRequirementImages(id: id, bouquetId: bouquetId, imageFiles: imageFiles)
+        } else {
+            presentSaveAlert(saveResult: .success)
+        }
+    }
+    
     // MARK: - Actions
     
     @objc func dismissKeyboard() {
@@ -151,32 +196,10 @@ class CustomizingSummaryViewController: UIViewController {
     
     @objc
     private func nextButtonTapped() {
-        
-        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        guard let id = viewModel.memberId else { return }
         let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
         
-        NetworkManager.shared.createCustomBouquet(postCustomBouquetRequestDTO: dto, memberID: id) { result in
-            switch result {
-            case .success(let success):
-                let imageFiles = self.viewModel.customizingSummaryModel.requirement?.imageFiles
-                
-                NetworkManager.shared.postMultipartFiles(memberID: id, bouquetId: success.data.bouquetId, imageFiles: imageFiles) { result in
-                    switch result {
-                    case .success(let success):
-                        print("성공이야")
-                        DispatchQueue.main.async {
-                            let saveAlertVC = SaveAlertViewController(currentVC: self, saveResult: .success)
-                            saveAlertVC.modalPresentationStyle = .fullScreen
-                            self.present(saveAlertVC, animated: true)
-                        }
-                    case .failure(let failure):
-                        print(failure)
-                    }
-                }
-            case .failure(let failure):
-                print(failure)
-            }
-        }
+        viewModel.submitCustomBouquet(id: id, DTO: dto)
     }
 }
 
