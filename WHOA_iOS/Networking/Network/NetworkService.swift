@@ -46,6 +46,8 @@ class NetworkService: NetworkServable {
                     completion(.failure(NetworkError.clientError))
                 } catch NetworkError.serverError {
                     completion(.failure(NetworkError.serverError))
+                } catch NetworkError.duplicateError {
+                    completion(.failure(NetworkError.duplicateError))
                 } catch {
                     completion(.failure(NetworkError.unknownError))
                 }
