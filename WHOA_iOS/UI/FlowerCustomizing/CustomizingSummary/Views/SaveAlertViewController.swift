@@ -17,7 +17,7 @@ class SaveAlertViewController: UIViewController {
     // MARK: - Properties
     
     private var saveResult: SaveResult
-    var currentVC: UIViewController
+    var currentVC: UIViewController?
     
     // MARK: - UI
     
@@ -93,9 +93,7 @@ class SaveAlertViewController: UIViewController {
     }
     
     private func configUI() {
-        let result = saveResult
-        
-        switch result {
+        switch saveResult {
         case .success:
             flowerImageView.image = UIImage(named: "SaveSuccess")
           titleLabel.text = "저장 완료!"
@@ -117,9 +115,8 @@ class SaveAlertViewController: UIViewController {
         switch saveResult {
         case .success:
             dismiss(animated: true) { [weak self] in
-                self?.currentVC.tabBarController?.selectedIndex = 0
-                self?.currentVC.navigationController?.popToRootViewController(animated: true)
-                
+                self?.currentVC?.tabBarController?.selectedIndex = 0
+                self?.currentVC?.navigationController?.popToRootViewController(animated: true)
             }
             
             let homeVC = HomeViewController()
