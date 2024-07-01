@@ -35,7 +35,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     
     private lazy var flowerOneLineDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .Pretendard(size: 16, family: .SemiBold)
+        label.font = .Pretendard(size: 18, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -94,25 +94,35 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func addViews(){
+        addSubview(todaysFlowerLabel)
         addSubview(todaysFlowerStackView)
+        addSubview(flowerLanguageStackView)
         addSubview(flowerImageView)
         addSubview(todaysFlowerButton)
 
-        todaysFlowerStackView.addArrangedSubview(todaysFlowerLabel)
         todaysFlowerStackView.addArrangedSubview(flowerOneLineDescriptionLabel)
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
-        todaysFlowerStackView.addArrangedSubview(flowerLanguageStackView)
     }
     
     private func setupConstraints(){
-        todaysFlowerStackView.snp.makeConstraints { make in
+        todaysFlowerLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(26)
         }
         
-        todaysFlowerButton.snp.makeConstraints { make in
+        todaysFlowerStackView.snp.makeConstraints { make in
+            make.top.equalTo(todaysFlowerLabel.snp.bottom).offset(17)
+            make.leading.equalTo(todaysFlowerLabel.snp.leading)
+        }
+        
+        flowerLanguageStackView.snp.makeConstraints { make in
             make.leading.equalTo(todaysFlowerStackView.snp.leading)
+            make.top.equalTo(todaysFlowerStackView.snp.bottom).offset(11)
+        }
+        
+        todaysFlowerButton.snp.makeConstraints { make in
+            make.leading.equalTo(flowerLanguageStackView.snp.leading)
             make.trailing.equalTo(flowerImageView.snp.leading).offset(-21)
-            make.top.equalTo(todaysFlowerStackView.snp.bottom).offset(23)
+            make.top.equalTo(flowerLanguageStackView.snp.bottom).offset(15)
         }
 
         flowerImageView.snp.makeConstraints { make in
@@ -126,9 +136,12 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     func configure(_ model: TodaysFlowerModel){
         flowerId = model.flowerId
         flowerNameLabel.text = model.flowerName
+        flowerNameLabel.setLetterSpacing(0.02)
         
         let description = model.flowerOneLineDescription?.split(separator: ",")
         flowerOneLineDescriptionLabel.text = String((description![0]))
+        flowerOneLineDescriptionLabel.setLetterSpacing(0.02)
+//        flowerOneLineDescriptionLabel.text = "시간이 흘러도 변치 않는 아름다움"
         
         if let imagePath = model.flowerImage {
             flowerImageView.load(url: URL(string: imagePath)!)
