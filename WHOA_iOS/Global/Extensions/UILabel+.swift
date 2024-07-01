@@ -19,4 +19,22 @@ extension UILabel {
                                      range: NSRange(location: 0, length: attributeString.length))
         attributedText = attributeString
     }
+    
+    /// UILabel에 자간을 설정하는 함수입니다.
+    func setLetterSpacing(_ spacing: Double) {
+        guard let text = text else { return }
+        
+        let kernValue = self.font.pointSize * CGFloat(spacing)
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        
+        attributedString.addAttribute(
+            NSAttributedString.Key.kern,
+            value: kernValue,
+            range: NSRange(location: 0, length: attributedString.length)
+        )
+            
+        attributedText = attributedString
+        print(attributedString)
+    }
 }
