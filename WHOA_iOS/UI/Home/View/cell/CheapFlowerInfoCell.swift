@@ -86,19 +86,6 @@ class CheapFlowerInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        contentView.layoutSubviews()
-//        print("== layout subviews ==")
-//        print(flowerInfoStackView.frame.width)
-//        print(flowerLanguageStackView.frame.width)
-//        
-//        flowerInfoStackView.layoutSubviews()
-//        print("== flower Info stack view layout subviews == ")
-//        print(flowerLanguageStackView.frame.width)
-//        print("===========")
-//    }
-    
     // MARK: - Functions
     
     private func setupConstraints(){
@@ -174,12 +161,13 @@ class CheapFlowerInfoCell: UITableViewCell {
     }
     
     func updateFlowerLanguageStackView() {
-        print("= set flower language =")
         flowerLanguageStackView.removeArrangedSubviews()
                 
         if let language = self.flowerLanguage {
             
-            var languageList = language.split(separator: ",").map({ String($0).trimmingCharacters(in: .whitespaces) })
+            var languageList = language.split(separator: ",").map({
+                String($0).trimmingCharacters(in: .whitespaces)
+            })
             
             for i in 1 ..< languageList.count {
                 languageList[i] =  "," + languageList[i]
@@ -195,7 +183,6 @@ class CheapFlowerInfoCell: UITableViewCell {
             }
 
             let stackViewWidth = self.flowerInfoStackView.bounds.width
-            print("stackViewWidth: \(stackViewWidth)")
             
             var widthSum: CGFloat = 0
             for label in languageLabelList {
@@ -216,6 +203,5 @@ class CheapFlowerInfoCell: UITableViewCell {
             label.sizeToFit()
             flowerLanguageStackView.addArrangedSubview(label)
         }
-        print("= set flower language =")
     }
 }

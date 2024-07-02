@@ -35,6 +35,5 @@ extension UILabel {
         )
             
         attributedText = attributedString
-        print(attributedString)
     }
 }

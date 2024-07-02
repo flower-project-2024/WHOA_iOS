@@ -100,7 +100,6 @@ class HomeViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        print("======= START view did layout subviews =========")
         super.viewDidLayoutSubviews()
         
 //        scrollView.updateContentSize()
@@ -113,11 +112,9 @@ class HomeViewController: UIViewController {
         for cell in cheapFlowerView.topThreeTableView.visibleCells {
             if let cheapFlowerInfoCell = cell as? CheapFlowerInfoCell {
                 let stackViewFrame = cheapFlowerInfoCell.flowerInfoStackView
-                print(stackViewFrame.frame.width)
                 cheapFlowerInfoCell.updateFlowerLanguageStackView()
             }
         }
-        print("======= END view did layout subviews =========")
     }
 
     override func viewWillAppear(_ animated: Bool) {

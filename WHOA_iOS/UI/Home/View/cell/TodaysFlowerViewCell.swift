@@ -141,7 +141,6 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let description = model.flowerOneLineDescription?.split(separator: ",")
         flowerOneLineDescriptionLabel.text = String((description![0]))
         flowerOneLineDescriptionLabel.setLetterSpacing(0.02)
-//        flowerOneLineDescriptionLabel.text = "시간이 흘러도 변치 않는 아름다움"
         
         if let imagePath = model.flowerImage {
             flowerImageView.load(url: URL(string: imagePath)!)
