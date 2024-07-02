@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0800412E2C302D5F00CDA693 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800412D2C302D5F00CDA693 /* CustomTableView.swift */; };
+		080199772C34731E00EB01CF /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080199762C34731E00EB01CF /* UIStackView+.swift */; };
 		08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */; };
 		08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */; };
 		08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E992BE9103400F58A34 /* HomeModel.swift */; };
@@ -180,6 +181,7 @@
 
 /* Begin PBXFileReference section */
 		0800412D2C302D5F00CDA693 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
+		080199762C34731E00EB01CF /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingAPI.swift; sourceTree = "<group>"; };
 		08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingDTO.swift; sourceTree = "<group>"; };
 		08149E992BE9103400F58A34 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
@@ -748,6 +750,7 @@
 				0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */,
 				0892C3382C2F047E007DCFBA /* UIImage+.swift */,
 				08B9815A2C30877000F3CD45 /* UILabel+.swift */,
+				080199762C34731E00EB01CF /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
+				080199772C34731E00EB01CF /* UIStackView+.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
