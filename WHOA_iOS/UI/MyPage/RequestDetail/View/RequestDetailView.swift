@@ -262,7 +262,7 @@ class RequestDetailView: UIView {
     // 이미지는 최대 3개
     private let referenceImageView1: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
@@ -274,7 +274,7 @@ class RequestDetailView: UIView {
     
     private let referenceImageView2: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
@@ -286,7 +286,7 @@ class RequestDetailView: UIView {
     
     private let referenceImageView3: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage.whoaLogo
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
