@@ -26,6 +26,7 @@ class CustomAlertViewController: UIViewController {
     private var myPageVC: UIViewController?
     var bouquetId: Int?
     
+    var customizingCoordinator: CustomizingCoordinator?
     weak var delegate: CustomAlertViewControllerDelegate?
     
     // MARK: - Views
@@ -196,10 +197,13 @@ class CustomAlertViewController: UIViewController {
     @objc func confirmBtnTapped(){
         if alertType == AlertType.modify {
             //TODO: 구매 목적 페이지로 이동..
-//            let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
-//            buyingIntentVC.modalPresentationStyle = .fullScreen
-//            
-//            myPageVC!.present(buyingIntentVC, animated: true)
+            guard let bouquetId = bouquetId else { return }
+
+            dismiss(animated: true) { [weak self] in
+                self?.myPageVC?.tabBarController?.selectedIndex = 1
+                self?.customizingCoordinator?.setActionType(actionType: .update(bouquetId: bouquetId))
+            }
+
         }
         else if alertType == .delete {
             // TODO: 요구서 삭제 api 요청

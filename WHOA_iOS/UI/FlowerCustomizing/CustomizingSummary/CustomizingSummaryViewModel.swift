@@ -8,12 +8,19 @@
 import Foundation
 import Combine
 
+
+enum ActionType {
+    case create
+    case update(bouquetId: Int?)
+}
+
 class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
     var customizingSummaryModel: CustomizingSummaryModel
     private let networkManager: NetworkManager
+    var actionType: ActionType
     let memberId: String?
     
     @Published var requestName = "꽃다발 요구서1"
@@ -26,12 +33,13 @@ class CustomizingSummaryViewModel {
     init(
         customizingSummaryModel: CustomizingSummaryModel,
         networkManager: NetworkManager = .shared,
-        keychainManager: KeychainManager = .shared
-        
+        keychainManager: KeychainManager = .shared,
+        actionType: ActionType = .create
     ) {
         self.customizingSummaryModel = customizingSummaryModel
         self.networkManager = networkManager
         self.memberId = keychainManager.loadMemberId()
+        self.actionType = actionType
     }
     
     func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
