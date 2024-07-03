@@ -42,10 +42,33 @@ class CustomizingSummaryViewModel {
         self.actionType = actionType
     }
     
-    func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+    func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+        switch actionType {
+        case .create:
+            submitCustomBouquet(id: id, DTO: DTO)
+        case .update(let bouquetId):
+            guard let bouquetId = bouquetId else { return }
+            putCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
+        }
+    }
+    
+    private func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
         networkManager.createCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id) { result in
             switch result {
             case .success(let DTO):
+                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        networkManager.putCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id, bouquetId: bouquetId) { result in
+            print("put안에 부케아이디=\(bouquetId)")
+            switch result {
+            case .success(let DTO):
+                print("putCustomBouquet")
                 self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
             case .failure(let error):
                 self.networkError = error
