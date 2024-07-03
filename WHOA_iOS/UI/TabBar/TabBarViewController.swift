@@ -13,7 +13,7 @@ class TabBarViewController: UITabBarController {
     
     private let customizeButtonWidth = 69
     private var buttonConfig = UIButton.Configuration.plain()
-    private var customizingCoordinator :CustomizingCoordinator?
+    private var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Lifecycle
     
@@ -33,7 +33,9 @@ class TabBarViewController: UITabBarController {
         customizingCoordinator = CustomizingCoordinator(navigationController: customizingNavVC)
         customizingCoordinator?.start()
         
-        let myPageNavVC = UINavigationController(rootViewController: MyPageViewController())
+        let myPageVC = MyPageViewController()
+        myPageVC.customizingCoordinator = customizingCoordinator
+        let myPageNavVC = UINavigationController(rootViewController: myPageVC)
         
         self.setViewControllers([homeNavVC, customizingNavVC, myPageNavVC], animated: true)
         

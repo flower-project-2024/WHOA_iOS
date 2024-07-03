@@ -13,6 +13,7 @@ class SavedRequestCell: UITableViewCell {
     
     var requestTitle: String?
     var myPageVC: MyPageViewController?
+    var customizingCoordinator: CustomizingCoordinator?
     private var bouquetId: Int?
     
     // MARK: - Views
@@ -154,7 +155,8 @@ class SavedRequestCell: UITableViewCell {
     // MARK: - Actions
     @objc func modifyBtnTapped(){
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
-        
+        customAlertVC.bouquetId = bouquetId
+        customAlertVC.customizingCoordinator = customizingCoordinator
         customAlertVC.modalPresentationStyle = .overFullScreen
         myPageVC?.present(customAlertVC, animated: false, completion: nil)
     }

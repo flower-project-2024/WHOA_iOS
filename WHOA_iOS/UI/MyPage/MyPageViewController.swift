@@ -12,6 +12,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     // MARK: - Properties
     
     private let viewModel = BouquetListModel()
+    var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Views
     private let viewTitleLabel: UILabel = {
@@ -94,6 +95,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         let model = viewModel.getBouquetModel(index: indexPath.row)
         cell.myPageVC = self
         cell.configure(model: model)
+        cell.customizingCoordinator = customizingCoordinator
         return cell
     }
     
