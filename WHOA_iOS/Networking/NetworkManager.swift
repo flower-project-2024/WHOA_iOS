@@ -136,7 +136,7 @@ final class NetworkManager {
     /// - Parameters:
     /// - MemberID: 멤버 아이디
     /// - bouquetId: 주문서 ID
-    func DeleteBouquet(
+    func deleteBouquet(
         memberID: String,
         bouquetId: Int,
         _ networkService: NetworkServable = NetworkService(),

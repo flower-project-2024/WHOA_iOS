@@ -212,7 +212,7 @@ class CustomAlertViewController: UIViewController {
                 let bouquetId = bouquetId
             else { return }
             
-            NetworkManager.shared.DeleteBouquet(memberID: id, bouquetId: bouquetId) { reuslt in
+            NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { reuslt in
                 switch reuslt {
                 case .success(let success):
                     DispatchQueue.main.async {
