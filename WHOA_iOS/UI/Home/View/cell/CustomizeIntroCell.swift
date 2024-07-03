@@ -38,7 +38,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         label.numberOfLines = 2
         label.font = .Pretendard(size: 24, family: .Bold)
         label.textColor = UIColor.gray01
-        label.setLineSpacing(spacing: 5)
+        label.setLineHeight(lineHeight: 140)
         return label
     }()
     

@@ -90,8 +90,7 @@ class FlowerDetailViewController: UIViewController {
     private lazy var flowerDescContentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2  // 초기 줄 수는 2 (접은 상태)
-        label.setLineSpacing(spacing: 5)
-        label.textAlignment = .justified
+        label.lineBreakMode = .byCharWrapping
         label.font = .Pretendard(size: 16)
         label.textColor = UIColor(red: 66/255, green: 66/255, blue: 68/255, alpha: 1)
         return label
@@ -530,6 +529,7 @@ class FlowerDetailViewController: UIViewController {
                 self?.flowerKoreanNameLabel.text = self?.viewModel.getFlowerName()
                 self?.flowerDescTitleLabel.text = self?.viewModel.getFlowerOneLineDesc()
                 self?.flowerDescContentLabel.text = self?.viewModel.getFlowerDesc()
+                self?.flowerDescContentLabel.setLineHeight(lineHeight: 150)
                 self?.setBirthFlowerData(self?.viewModel.getBirthFlowerDates())
                 self?.generateColorChipButtons(self?.viewModel.getFlowerColors())
                 self?.managementView.collectionView.reloadData()

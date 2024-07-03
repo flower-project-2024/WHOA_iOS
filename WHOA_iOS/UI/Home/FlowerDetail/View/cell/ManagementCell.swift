@@ -33,11 +33,9 @@ class ManagementCell: UICollectionViewCell {
     private lazy var managementContentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
         label.font = .Pretendard(size: 16, family: .Regular)
         label.lineBreakStrategy = .hangulWordPriority
         label.textColor = UIColor.gray09
-        label.setLineSpacing(spacing: 5)
         return label
     }()
     
@@ -77,6 +75,7 @@ class ManagementCell: UICollectionViewCell {
     func configure(content: [String]){
         managementTitleLabel.text = content[0]
         managementContentLabel.text = content[1]
+        managementContentLabel.setLineHeight(lineHeight: 142)
     }
     
     private func addViews(){
