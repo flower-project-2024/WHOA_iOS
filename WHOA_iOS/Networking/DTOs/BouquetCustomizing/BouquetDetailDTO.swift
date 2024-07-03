@@ -25,7 +25,7 @@ struct BouquetDetail: Codable {
     let wrappingType: String
     let priceRange: String
     let requirement: String?
-    let imgPaths: [String]
+    let imgInfoList: [ImgInfoList]
     let flowerInfoList: [FlowerInfoList]
 }
 
@@ -33,6 +33,11 @@ struct FlowerInfoList: Codable {
     let flowerImageUrl: String
     let flowerName: String
     let flowerLanguage: String
+}
+
+struct ImgInfoList: Codable {
+    let bouquetImageId: String
+    let bouquetImageUrl: String
 }
 
 extension BouquetDetailDTO {
@@ -52,9 +57,9 @@ extension BouquetDetailDTO {
         let dispatchGroup = DispatchGroup()
         var imageFiles: [ImageFile] = []
         
-        for imgPath in DTO.data.imgPaths {
+        for imgPath in DTO.data.imgInfoList {
             dispatchGroup.enter()
-            urlStringToImageFile(urlString: imgPath, filename: "RequirementImage") { imageFile in
+            urlStringToImageFile(urlString: imgPath.bouquetImageUrl, filename: "RequirementImage") { imageFile in
                 if let imageFile = imageFile {
                     imageFiles.append(imageFile)
                 }
