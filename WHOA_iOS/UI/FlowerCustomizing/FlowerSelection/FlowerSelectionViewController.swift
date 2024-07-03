@@ -295,6 +295,9 @@ class FlowerSelectionViewController: UIViewController {
             if let url = urls[i] {
                 flowerImageViews[i].load(url: url)
                 minusImageViews[i].isHidden = false
+            } else {
+                flowerImageViews[i].image = UIImage(named: "TempImage")
+                minusImageViews[i].isHidden = false
             }
         }
     }
