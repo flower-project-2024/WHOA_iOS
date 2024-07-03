@@ -216,6 +216,7 @@ class FlowerSelectionViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
+        selectInitialItem()
         titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
     }
     
@@ -272,6 +273,18 @@ class FlowerSelectionViewController: UIViewController {
             HashTagCollectionViewCell.self,
             forCellWithReuseIdentifier: CellIdentifier.hashTagCellIdentifier)
         hashTagCollectionView.backgroundColor = .white
+    }
+    
+    private func selectInitialItem() {
+        let initialIndexPath = IndexPath(item: 0, section: 0)
+        hashTagCollectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: .init())
+        
+        if let cell = hashTagCollectionView.cellForItem(at: initialIndexPath) as? HashTagCollectionViewCell {
+            cell.isSelected = true
+        }
+        
+        let title = viewModel.keyword[initialIndexPath.row].rawValue
+        viewModel.filterModels(with: title)
     }
     
     private func updateFlowerImageViews(with urls: [URL?]) {
@@ -431,9 +444,10 @@ extension FlowerSelectionViewController: UICollectionViewDataSource {
             withReuseIdentifier: CellIdentifier.hashTagCellIdentifier,
             for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
         
-        if indexPath.row == 0 {
+        if collectionView.indexPathsForSelectedItems?.contains(indexPath) == true {
             cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+        } else {
+            cell.isSelected = false
         }
         
         cell.setupHashTag(text: viewModel.keyword[indexPath.row].rawValue)
