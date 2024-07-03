@@ -48,7 +48,7 @@ class CustomizingSummaryViewModel {
             submitCustomBouquet(id: id, DTO: DTO)
         case .update(let bouquetId):
             guard let bouquetId = bouquetId else { return }
-            putCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
+            deleteCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
         }
     }
     
@@ -65,11 +65,20 @@ class CustomizingSummaryViewModel {
     
     private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
         networkManager.putCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id, bouquetId: bouquetId) { result in
-            print("put안에 부케아이디=\(bouquetId)")
             switch result {
             case .success(let DTO):
-                print("putCustomBouquet")
                 self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func deleteCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let _):
+                self.submitCustomBouquet(id: id, DTO: DTO)
             case .failure(let error):
                 self.networkError = error
             }
