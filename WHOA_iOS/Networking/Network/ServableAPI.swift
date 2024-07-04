@@ -17,6 +17,7 @@ protocol ServableAPI {
     var method: HTTPMethod { get }
     var headers: [String : String]? { get }
     var requestBody: Encodable? { get }
+    var multipartData: Data? { get }
 }
 
 extension ServableAPI {
@@ -25,10 +26,10 @@ extension ServableAPI {
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
     var requestBody: Encodable? { nil }
+    var multipartData: Data? { nil }
     
     var urlRequest: URLRequest {
         let urlString = baseURL + path + params
-        
         let url = URL(string: urlString)!
         
         var request = URLRequest(url: url)
@@ -44,6 +45,34 @@ extension ServableAPI {
             request.httpBody = jsonData
         }
         
+        if let multipartData = multipartData {
+            request.httpBody = multipartData
+        }
+        
         return request
+    }
+    
+    func createMultipartFormData(name: String, parameters: [String: Any], files: [ImageFile]?, boundary: String) -> Data {
+        var body = Data()
+        
+        for (key, value) in parameters {
+            body.append("--\(boundary)\r\n".data(using: .utf8)!)
+            body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n".data(using: .utf8)!)
+            body.append("\(value)\r\n".data(using: .utf8)!)
+        }
+        
+        if let files = files {
+            for file in files {
+                body.append("--\(boundary)\r\n".data(using: .utf8)!)
+                // name=\"imgUrl\" 동적으로 변경
+                body.append("Content-Disposition: form-data; name=\"\(name)\";  filename=\"\(file.filename).png\"\r\n".data(using: .utf8)!)
+                body.append("Content-Type: \(file.type)\r\n\r\n".data(using: .utf8)!)
+                body.append(file.data)
+                body.append("\r\n".data(using: .utf8)!)
+                body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+            }
+        }
+        
+        return body
     }
 }

@@ -31,6 +31,7 @@ class ColorPickerView: UIView {
             changedNumberOfColors()
             flowerColorPickerButtonCount(numberOfColors: numberOfColors)
             updateNextButtonState()
+            viewModel.setNumberOfColors(numberOfColors: numberOfColors)
         }
     }
     
@@ -429,22 +430,22 @@ class ColorPickerView: UIView {
         baseLabel.isHidden = true
         
         switch numberOfColors {
-        case .단일:
+        case .oneColor:
             flowerColorPickerButton2.isHidden = true
             flowerColorPickerButton3.isHidden = true
             checkCircle2.isHidden = true
             checkCircle3.isHidden = true
-        case .두가지:
+        case .twoColor:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = true
             checkCircle2.isHidden = false
             checkCircle3.isHidden = true
-        case .컬러풀한:
+        case .colorful:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = false
             checkCircle2.isHidden = false
             checkCircle3.isHidden = false
-        case .포인트:
+        case .pointColor:
             flowerColorPickerButton2.isHidden = false
             flowerColorPickerButton3.isHidden = true
             checkCircle2.isHidden = false
@@ -476,29 +477,29 @@ class ColorPickerView: UIView {
     }
     
     private func updateNextButtonState() {
-        var colors: [UIColor?]
+        var colors: [String]
         
         switch numberOfColors {
-        case .단일:
+        case .oneColor:
             if flowerColorPickerButton1.backgroundColor != .gray2 {
-                colors = [flowerColorPickerButton1.backgroundColor]
-                viewModel.getColors(colors: colors)
+                colors = [flowerColorPickerButton1.backgroundColor].compactMap { $0?.toHexString() }
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
-        case .두가지, .포인트:
+        case .twoColor, .pointColor:
             if flowerColorPickerButton1.backgroundColor != .gray2 &&
                 flowerColorPickerButton2.backgroundColor != .gray2 {
-                colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor]
-                viewModel.getColors(colors: colors)
+                colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor].compactMap { $0?.toHexString() }
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
-        case .컬러풀한:
+        case .colorful:
             if flowerColorPickerButton1.backgroundColor != .gray2 &&
                 flowerColorPickerButton2.backgroundColor != .gray2 &&
                 flowerColorPickerButton3.backgroundColor != .gray2 {
@@ -506,8 +507,8 @@ class ColorPickerView: UIView {
                     flowerColorPickerButton1.backgroundColor,
                     flowerColorPickerButton2.backgroundColor,
                     flowerColorPickerButton3.backgroundColor
-                ]
-                viewModel.getColors(colors: colors)
+                ].compactMap { $0?.toHexString() }
+                viewModel.setColors(colors: colors)
                 
                 delegate?.isNextButtonEnabled(isEnabled: true)
             } else {
@@ -517,7 +518,7 @@ class ColorPickerView: UIView {
     }
     
     func configPointColorPickerStyle(_ numberOfColors: NumberOfColorsType) {
-        if numberOfColors == .포인트 {
+        if numberOfColors == .pointColor {
             flowerColorPickerButtonHStackView.distribution = .fill
             
             flowerColorPickerButton1.snp.makeConstraints {
@@ -597,6 +598,7 @@ extension ColorPickerView {
         colorPaletteVStack.snp.makeConstraints {
             $0.top.equalTo(segmentControl.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
 }

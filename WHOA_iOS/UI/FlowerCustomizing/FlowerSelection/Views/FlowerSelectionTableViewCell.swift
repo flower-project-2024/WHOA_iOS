@@ -1,5 +1,5 @@
 //
-//  flowerSelectTableViewCell.swift
+//  FlowerSelectionTableViewCell.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/28/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlowerSelectTableViewCell: UITableViewCell {
+class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -23,7 +23,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "TempFlower")
+        imageView.image = UIImage(named: "TempImage")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -47,42 +47,12 @@ class FlowerSelectTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let hashTag1: tempHashTagLabel = {
-        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.font = .Pretendard(family: .Medium)
-        hashTagLabel.textColor = .second3
-        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
-        return hashTagLabel
-    }()
-    
-    private let hashTag2: tempHashTagLabel = {
-        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.font = .Pretendard(family: .Medium)
-        hashTagLabel.textColor = .second3
-        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
-        return hashTagLabel
-    }()
-    
-    private let hashTag3: tempHashTagLabel = {
-        let hashTagLabel = tempHashTagLabel(padding: UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10))
-        hashTagLabel.font = .Pretendard(family: .Medium)
-        hashTagLabel.textColor = .second3
-        hashTagLabel.backgroundColor = .second1.withAlphaComponent(0.1)
-        return hashTagLabel
-    }()
-    
-    private lazy var hashTagHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            hashTag1,
-            hashTag2,
-            hashTag3
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.alignment = .trailing
-        stackView.spacing = 4
-        return stackView
+    private let flowerLanguageLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .gray8
+        label.font = .Pretendard(family: .Medium)
+        label.numberOfLines = 3
+        return label
     }()
     
     private let flowerDescriptionView: UIView = {
@@ -124,6 +94,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .white
+        selectionStyle = .none
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
@@ -132,7 +103,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)
         flowerDescriptionView.addSubview(addImageButton)
-        flowerDescriptionView.addSubview(hashTagHStackView)
+        flowerDescriptionView.addSubview(flowerLanguageLabel)
         
         contentView.addSubview(fullHStackView)
         
@@ -144,22 +115,13 @@ class FlowerSelectTableViewCell: UITableViewCell {
     }
     
     func configUI(model: FlowerKeywordModel) {
-        guard let imageURL = URL(string: model.flowerImage) else { return }
-        
         flowerNameLabel.text = model.flowerName
-        flowerImageView.load(url: imageURL)
-
-        for i in model.flowerKeyword.indices {
-            switch i {
-            case 0:
-                hashTag1.text = model.flowerKeyword[i]
-            case 1:
-                hashTag2.text = model.flowerKeyword[i]
-            case 2:
-                hashTag3.text = model.flowerKeyword[i]
-            default:
-                break
-            }
+        flowerLanguageLabel.text = model.flowerLanguage
+        
+        if let image = model.flowerImage, let imageURL = URL(string: image) {
+            flowerImageView.load(url: imageURL)
+        } else {
+            flowerImageView.image = UIImage(named: "TempImage")
         }
     }
     
@@ -171,7 +133,7 @@ class FlowerSelectTableViewCell: UITableViewCell {
     }
 }
 
-extension FlowerSelectTableViewCell {
+extension FlowerSelectionTableViewCell {
     private func setupAutoLayout() {
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
@@ -180,7 +142,7 @@ extension FlowerSelectTableViewCell {
         
         flowerNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(13)
-            $0.leading.equalToSuperview().offset(12)
+            $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(60)
         }
         
@@ -190,8 +152,10 @@ extension FlowerSelectTableViewCell {
             $0.size.equalTo(18)
         }
         
-        hashTagHStackView.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview().inset(12)
+        flowerLanguageLabel.snp.makeConstraints {
+            $0.top.equalTo(flowerNameLabel.snp.bottom).offset(13)
+            $0.leading.equalTo(flowerNameLabel.snp.leading)
+            $0.trailing.equalToSuperview().offset(-5)
         }
         
         fullHStackView.snp.makeConstraints {

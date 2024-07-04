@@ -8,10 +8,11 @@
 import UIKit
 
 class RequestDetailViewController: UIViewController {
+    
     // MARK: - Properties
-    private var requestTitle: String!
+    
+    private let viewModel: RequestDetailViewModel
     var myPageVC: MyPageViewController?
-//    private var viewModel: RequestDetailViewModel!
     
     // MARK: - Views
     
@@ -28,7 +29,7 @@ class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let requestDetailView = RequestDetailView()
+    private let requestDetailView = RequestDetailView(requestDetailType: .myPage)
     
     private let saveAsImageButton: UIButton = {
         let button = UIButton()
@@ -46,10 +47,9 @@ class RequestDetailViewController: UIViewController {
     }()
     
     // MARK: - Initialization
-    init(requestTitle: String!) {
+    init(with BouquetModel: BouquetModel) {
+        viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, bouquetId: BouquetModel.bouquetId)
         super.init(nibName: nil, bundle: nil)
-        
-        self.requestTitle = requestTitle
     }
     
     required init?(coder: NSCoder) {
@@ -63,15 +63,17 @@ class RequestDetailViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        bind()
         setupNavigation()
         addViews()
         setupConstraints()
+        viewModel.fetchBouquetDetail(bouquetId: viewModel.getBouquetId())
     }
     
     // MARK: - Helpers
     private func setupNavigation(){
         navigationController?.navigationBar.tintColor = .black
-        self.navigationItem.title = requestTitle
+        self.navigationItem.title = viewModel.getRequestTitle()
         self.navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.Pretendard(size: 18, family: .SemiBold)]
         
@@ -118,11 +120,44 @@ class RequestDetailViewController: UIViewController {
         }
     }
     
+    private func bind() {
+        viewModel.customizingSummaryModelDidChaged = { [weak self] model in
+            guard let model = model else { return
+            }
+            DispatchQueue.main.async {
+                self?.requestDetailView.config(model: model)
+            }
+        }
+        
+        viewModel.showError = { [weak self] error in
+            print("showError")
+            DispatchQueue.main.async {
+                self?.fetchFailure(error)
+            }
+        }
+    }
+    
+    private func fetchFailure(_ error: NetworkError) {
+        let networkAlertController = self.networkErrorAlert(error)
+        DispatchQueue.main.async { [unowned self] in
+            self.present(networkAlertController, animated: true)
+        }
+    }
+    
+    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
+        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        
+        return alertController
+    }
+    
     // MARK: - Actions
     
     @objc func saveAsImageButtonTapped(){
         ImageSaver().saveAsImage(requestDetailView.transfromToImage()!, target: self) {
-            let customAlertVC = CustomAlertViewController(requestTitle: self.requestTitle, alertType: .requestSaveAlert, currentVC: self)
+            let requestTitle = self.viewModel.getRequestTitle()
+            let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .requestSaveAlert, currentVC: self)
             customAlertVC.modalPresentationStyle = .overFullScreen
             self.present(customAlertVC, animated: false, completion: nil)
         }

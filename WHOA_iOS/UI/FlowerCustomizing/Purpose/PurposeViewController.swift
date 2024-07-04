@@ -6,19 +6,19 @@
 //
 
 import UIKit
-import Combine
 import SnapKit
 
 class PurposeViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
-    private var cancellables = Set<AnyCancellable>()
+    
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
-    private let purposeView: PurposeView = PurposeView()
+    private lazy var purposeView: PurposeView = PurposeView(currentVC: self, coordinator: coordinator)
     
     // MARK: - Initialize
     
@@ -42,6 +42,20 @@ class PurposeViewController: UIViewController {
         setupButtonActions()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     // MARK: - Functions
     
     private func setupUI() {
@@ -53,12 +67,13 @@ class PurposeViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$nextButtonEnabled
+        viewModel.$purposeModel
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] enabled in
-                self?.purposeView.nextButton.isActive = enabled
+            .sink { [weak self] model in
+                guard let self = self else { return }
+                self.purposeView.nextButton.isActive = self.viewModel.updateNextButtonState()
             }
-            .store(in: &cancellables)
+            .store(in: &viewModel.cancellables)
     }
     
     private func setupButtonActions() {
@@ -92,13 +107,8 @@ class PurposeViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        guard let purposeType = viewModel.getPurposeType() else { return }
-        
-        let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: FlowerColorPickerViewModel())
-        
-        flowerColorPickerVC.modalPresentationStyle = .fullScreen
-        
-        present(flowerColorPickerVC, animated: true)
+        guard let purpose = viewModel.getPurposeType() else { return }
+        coordinator?.showColorPickerVC(purposeType: purpose)
     }
 }
 

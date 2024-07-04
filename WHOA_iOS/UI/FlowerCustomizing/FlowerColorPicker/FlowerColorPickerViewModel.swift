@@ -5,20 +5,30 @@
 //  Created by KSH on 2/11/24.
 //
 
-import UIKit
+import Foundation
+import Combine
 
 class FlowerColorPickerViewModel {
     
-    private var flowerColorPickerModel: FlowerColorPickerModel?
+    private var flowerColorPickerModel = FlowerColorPickerModel(numberOfColors: .oneColor, colors: [])
+    @Published var iscolorSelectionHidden = true
     
-    func getColors(colors: [UIColor?]) {
-        flowerColorPickerModel?.colors = colors
+    var cancellables = Set<AnyCancellable>()
+    
+    func setNumberOfColors(numberOfColors: NumberOfColorsType) {
+        flowerColorPickerModel.numberOfColors = numberOfColors
+        flowerColorPickerModel.colors.removeAll()
     }
     
-    func goToNextVC(fromCurrentVC: UIViewController, animated: Bool) {
-        let flowerSelectVC = FlowerSelectViewController()
-        flowerSelectVC.modalPresentationStyle = .fullScreen
-        
-        fromCurrentVC.present(flowerSelectVC, animated: true)
+    func setColors(colors: [String]) {
+        flowerColorPickerModel.colors = colors
+    }
+    
+    func getNumberOfColors() -> NumberOfColorsType {
+        return flowerColorPickerModel.numberOfColors
+    }
+    
+    func getColors() -> [String] {
+        return flowerColorPickerModel.colors
     }
 }

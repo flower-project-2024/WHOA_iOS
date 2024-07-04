@@ -6,19 +6,53 @@
 //
 
 import Foundation
+import Combine
 
 class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
-    var customizingSummaryModel: CustomizingSummaryModel =
-    CustomizingSummaryModel(purpose: .birthday,
-                            numberOfColors: .두가지,
-                            colors: ["FF0000", "FFFFFF"],
-                            flowers: [Flower(photo: "", name: "장미", hashTag: ["사랑", "믿음"])],
-                            alternative: .colorOriented,
-                            assign: Assign(packagingAssignType: .myselfAssign, text: "분홍분홍하게"),
-                            priceRange: "20000 ~ 100000",
-                            requirement: Requirement(text: "싱싱한걸로", photos: []))
+    var customizingSummaryModel: CustomizingSummaryModel
+    private let networkManager: NetworkManager
+    let memberId: String?
     
+    @Published var requestName = "꽃다발 요구서1"
+    @Published var bouquetId: Int?
+    @Published var networkError: NetworkError?
+    @Published var imageUploadSuccess: Bool = false
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    init(
+        customizingSummaryModel: CustomizingSummaryModel,
+        networkManager: NetworkManager = .shared,
+        keychainManager: KeychainManager = .shared
+        
+    ) {
+        self.customizingSummaryModel = customizingSummaryModel
+        self.networkManager = networkManager
+        self.memberId = keychainManager.loadMemberId()
+    }
+    
+    func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+        networkManager.createCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id) { result in
+            switch result {
+            case .success(let DTO):
+                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    func submitRequirementImages(id: String, bouquetId: Int, imageFiles: [ImageFile]?) {
+        networkManager.postMultipartFiles(memberID: id, bouquetId: bouquetId, imageFiles: imageFiles) { result in
+            switch result {
+            case .success(let _):
+                self.imageUploadSuccess = true
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
 }

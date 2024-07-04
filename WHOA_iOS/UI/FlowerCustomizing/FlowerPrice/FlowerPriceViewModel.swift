@@ -22,6 +22,10 @@ class FlowerPriceViewModel {
         flowerPriceModel = FlowerPriceModel(minPrice: formatNumberToThousands(min), maxPrice: formatNumberToThousands(max))
     }
     
+    func getPriceString() -> String {
+        return "\(flowerPriceModel.minPrice.decimalFormattedString()) ~ \(flowerPriceModel.maxPrice.decimalFormattedString())원"
+    }
+    
     private func formatNumberToThousands(_ number: Double) -> Int {
         return Int(round(number / 1000.0) * 1000)
     }

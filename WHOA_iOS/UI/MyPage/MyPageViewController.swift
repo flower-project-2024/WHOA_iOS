@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController {
+class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
     
     // MARK: - Properties
     
@@ -73,6 +73,12 @@ class MyPageViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - CustomAlertViewControllerDelegate
+    
+    func deleteSuccessful(bouquetId: Int) {
+        viewModel.removeBouquet(withId: bouquetId)
+    }
 }
 
 // MARK: - Extension; TableView
@@ -96,7 +102,8 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = RequestDetailViewController(requestTitle: "저장된 요구서2")
+        let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
+        let vc = RequestDetailViewController(with: bouquetModel)
         vc.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
         return

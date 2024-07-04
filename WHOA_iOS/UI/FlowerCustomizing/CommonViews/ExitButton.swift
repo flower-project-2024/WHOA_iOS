@@ -9,9 +9,16 @@ import UIKit
 
 class ExitButton: UIImageView {
     
-    // MARK: - Initialization
+    // MARK: - Properties
     
-    init() {
+    let currentVC: UIViewController
+    let coordinator: CustomizingCoordinator?
+    
+    // MARK: - Initialize
+    
+    init(currentVC: UIViewController, coordinator: CustomizingCoordinator?) {
+        self.currentVC = currentVC
+        self.coordinator = coordinator
         super.init(frame: .zero)
         
         setupView()
@@ -38,16 +45,6 @@ class ExitButton: UIImageView {
     
     @objc
     private func handleTap() {
-        showExitAlert()
-    }
-    
-    private func showExitAlert() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let topViewController = windowScene.windows.first?.rootViewController else { return }
-        let customAlertVC = CustomExitAlertViewController()
-        
-        customAlertVC.modalPresentationStyle = .overFullScreen
-        topViewController.present(customAlertVC, animated: false, completion: nil)
-        
+        coordinator?.showExitAlertVC(from: currentVC)
     }
 }

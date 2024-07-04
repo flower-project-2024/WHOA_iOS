@@ -8,8 +8,9 @@
 import UIKit
 
 enum SaveResult {
-  case success
-  case failure
+    case success
+    case networkError
+    case duplicateError
 }
 
 class SaveAlertViewController: UIViewController {
@@ -17,6 +18,7 @@ class SaveAlertViewController: UIViewController {
     // MARK: - Properties
     
     private var saveResult: SaveResult
+    var currentVC: UIViewController?
     
     // MARK: - UI
     
@@ -58,7 +60,8 @@ class SaveAlertViewController: UIViewController {
         return button
     }()
     
-    init(saveResult: SaveResult) {
+    init(currentVC: UIViewController, saveResult: SaveResult) {
+        self.currentVC = currentVC
         self.saveResult = saveResult
         super.init(nibName: nil, bundle: nil)
     }
@@ -91,18 +94,21 @@ class SaveAlertViewController: UIViewController {
     }
     
     private func configUI() {
-        let result = saveResult
-        
-        switch result {
+        switch saveResult {
         case .success:
             flowerImageView.image = UIImage(named: "SaveSuccess")
-          titleLabel.text = "저장 완료!"
-          descriptionLabel.text = "꽃다발 요구서를 저장했어요."
-          exitButton.setTitle("마이페이지 가기", for: .normal)
-        case .failure:
+            titleLabel.text = "저장 완료!"
+            descriptionLabel.text = "꽃다발 요구서를 저장했어요."
+            exitButton.setTitle("마이페이지 가기", for: .normal)
+        case .networkError:
             flowerImageView.image = UIImage(named: "SaveFailure")
             titleLabel.text = "저장 실패"
             descriptionLabel.text = "네트워크 연결 상태를 확인해 주세요."
+            exitButton.setTitle("다시 시도하기", for: .normal)
+        case .duplicateError:
+            flowerImageView.image = UIImage(named: "SaveFailure")
+            titleLabel.text = "저장 실패"
+            descriptionLabel.text = "이미 사용 중인 요구서 제목이에요."
             exitButton.setTitle("다시 시도하기", for: .normal)
         }
     }
@@ -111,14 +117,13 @@ class SaveAlertViewController: UIViewController {
     
     @objc
     private func exitButtonTapped() {
-        
         switch saveResult {
         case .success:
-            let homeVC = HomeViewController()
-            
-            homeVC.modalPresentationStyle = .fullScreen
-            present(homeVC, animated: true)
-        case .failure:
+            dismiss(animated: true) { [weak self] in
+                self?.currentVC?.tabBarController?.selectedIndex = 2
+                self?.currentVC?.navigationController?.popToRootViewController(animated: true)
+            }
+        case .networkError, .duplicateError:
             dismiss(animated: true)
         }
     }

@@ -11,11 +11,12 @@ class PackagingSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     
-    let viewModel = PackagingSelectionViewModel()
+    let viewModel: PackagingSelectionViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 4, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "원하는 포장지 종류가 있나요?")
     
@@ -54,11 +55,7 @@ class PackagingSelectionViewController: UIViewController {
         return label
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: BackButton = {
         let button = BackButton(isActive: true)
@@ -84,6 +81,16 @@ class PackagingSelectionViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: PackagingSelectionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
@@ -92,6 +99,20 @@ class PackagingSelectionViewController: UIViewController {
         
         bind()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Functions
@@ -150,13 +171,18 @@ class PackagingSelectionViewController: UIViewController {
     
     @objc
     func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func nextButtonTapped() {
-        let vc = FlowerPriceViewController()
-        present(vc, animated: false)
+        let model = viewModel.packagingSelectionModel
+        guard let packagingType = model.packagingAssignButtonType else { return }
+        
+        coordinator?.showFlowerPriceVC(
+            packagingAssign: packagingType,
+            packagingRequirement: model.text
+        )
     }
 }
 
@@ -204,7 +230,7 @@ extension PackagingSelectionViewController {
         borderLine.snp.makeConstraints {
             $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {

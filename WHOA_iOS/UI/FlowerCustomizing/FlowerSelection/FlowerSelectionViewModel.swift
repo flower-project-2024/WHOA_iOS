@@ -1,5 +1,5 @@
 //
-//  FlowerSelectViewModel.swift
+//  FlowerSelectionViewModel.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/29/24.
@@ -8,25 +8,40 @@
 import Foundation
 import Combine
 
-class FlowerSelectViewModel {
+class FlowerSelectionViewModel {
     
     // MARK: - Properties
     
+    private let purposeType: PurposeType
+    let keyword = KeywordType.allCases
     var flowerKeywordModels: [FlowerKeywordModel] = []
     @Published var filteredModels: [FlowerKeywordModel] = []
     @Published var selectedFlowerModels: [FlowerKeywordModel] = []
+    @Published var networkError: NetworkError?
     
     var cancellables = Set<AnyCancellable>()
     
+    init(purposeType: PurposeType) {
+        self.purposeType = purposeType
+    }
+    
     // MARK: - Functions
     
-    func fetchFlowerKeyword(
-        keywordId: String,
-        completion: @escaping (Result<[FlowerKeywordModel], NetworkError>) -> Void
-    ) {
+    func fetchFlowerKeyword(keywordId: String) {
         NetworkManager.shared.fetchFlowerKeyword(keywordId: keywordId) { result in
-            completion(result)
+            switch result {
+            case .success(let DTO):
+                let models = FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)
+                self.flowerKeywordModels = models
+                self.filteredModels = models
+            case .failure(let error):
+                self.networkError = error
+            }
         }
+    }
+    
+    func getPurposeString() -> String {
+        return purposeType.rawValue
     }
     
     func popKeywordModel(model: FlowerKeywordModel) {
@@ -43,7 +58,9 @@ class FlowerSelectViewModel {
     
     func getSelectedFlowerModelImagesURL() -> [URL?] {
         return selectedFlowerModels.map {
-            let url = URL(string: $0.flowerImage) ?? nil
+            guard let image = $0.flowerImage,
+                  let url = URL(string: image)
+            else { return nil }
             return url
         }
     }
@@ -79,5 +96,22 @@ class FlowerSelectViewModel {
     
     func getFilterdModel(idx: Int) -> FlowerKeywordModel {
         return filteredModels[idx]
+    }
+    
+    func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [Flower] {
+        return flowerKeywordModel.map { 
+            Flower(
+                id: $0.id,
+                photo: $0.flowerImage,
+                name: $0.flowerName,
+                hashTag: convertLanguageStringToArray($0.flowerLanguage)
+            )
+        }
+    }
+    
+    private func convertLanguageStringToArray(_ languageStr: String) -> [String] {
+        let unifiedString = languageStr.replacingOccurrences(of: " · ", with: "\n")
+        let languageArray = unifiedString.components(separatedBy: "\n")
+        return languageArray
     }
 }
