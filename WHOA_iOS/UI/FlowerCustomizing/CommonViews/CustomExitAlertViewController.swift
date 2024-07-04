@@ -25,25 +25,26 @@ class CustomExitAlertViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "커스트마이징을 종료할까요?"
-        label.font = .systemFont(ofSize: 13.5)
+        label.text = "커스터마이징을 종료할까요?"
+        label.textColor = .black
+        label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "페이지를 나가면 복구할 수 없습니다,"
-        label.font = .systemFont(ofSize: 9)
+        label.text = "페이지를 나가면 복구할 수 없습니다."
+        label.font = .Pretendard()
         label.textColor = .lightGray
         return label
     }()
     
     private let exitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("종료하기", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.backgroundColor = .lightGray
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("종료할래요", for: .normal)
+        button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
+        button.backgroundColor = .gray02
+        button.setTitleColor(.gray08, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 7.5
         button.addTarget(self, action: #selector(exitButtonTapped), for: .touchUpInside)
@@ -52,8 +53,8 @@ class CustomExitAlertViewController: UIViewController {
     
     private let continueButton: UIButton = {
         let button = UIButton()
-        button.setTitle("계속하기", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.setTitle("아니요", for: .normal)
+        button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
         button.backgroundColor = .black
         button.clipsToBounds = true
         button.layer.cornerRadius = 7.5
@@ -69,7 +70,7 @@ class CustomExitAlertViewController: UIViewController {
         ].forEach { stackView.addArrangedSubview($0)}
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 9
+        stackView.spacing = 8
         return stackView
     }()
     
@@ -123,33 +124,31 @@ class CustomExitAlertViewController: UIViewController {
 extension CustomExitAlertViewController {
     private func setupAutoLayout() {
         alertView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-            $0.width.equalTo(262.5)
-            $0.height.equalTo(180)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.top.equalToSuperview().offset(302)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(45.75)
-            $0.leading.equalToSuperview().offset(56.25)
-            $0.trailing.equalToSuperview().offset(-55.5)
+            $0.top.equalToSuperview().offset(70)
+            $0.centerX.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp_bottomMargin).offset(15)
-            $0.leading.equalToSuperview().offset(67.5)
-            $0.trailing.equalToSuperview().offset(66.75)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.centerX.equalToSuperview()
         }
         
         continueButton.snp.makeConstraints {
-            $0.width.equalTo(130.5)
-            $0.height.equalTo(36)
+            $0.width.equalToSuperview().multipliedBy(0.5)
+            $0.height.equalTo(48)
         }
         
         buttonHStackView.snp.makeConstraints {
-            $0.leading.equalTo(18)
-            $0.trailing.equalTo(-18)
-            $0.bottom.equalTo(-25.5)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(50)
+            $0.leading.equalToSuperview().offset(24)
+            $0.trailing.equalToSuperview().offset(-24)
+            $0.bottom.equalTo(-24)
         }
     }
 }

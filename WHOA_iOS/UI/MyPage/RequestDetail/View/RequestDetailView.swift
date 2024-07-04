@@ -18,6 +18,7 @@ class RequestDetailView: UIView {
     let requestNameTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .gray03
+        textField.textColor = .black
         textField.frame.size.height = 40
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 6
