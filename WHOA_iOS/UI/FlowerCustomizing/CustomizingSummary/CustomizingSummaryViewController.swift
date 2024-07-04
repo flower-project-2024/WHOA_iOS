@@ -12,6 +12,7 @@ class CustomizingSummaryViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: CustomizingSummaryViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -27,20 +28,13 @@ class CustomizingSummaryViewController: UIViewController {
         return view
     }()
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 7, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "이렇게 요구서를 저장할까요?")
     
-    private let contentView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.systemGray.cgColor
-        return view
-    }()
+    private let requestDetailView = RequestDetailView(requestDetailType: .custom)
     
-    private lazy var customSummaryView: UIView = CustomSummaryView(model: viewModel.customizingSummaryModel)
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -67,7 +61,6 @@ class CustomizingSummaryViewController: UIViewController {
         return stackView
     }()
     
-
     // MARK: - Initialize
     
     init(viewModel: CustomizingSummaryViewModel) {
@@ -85,8 +78,27 @@ class CustomizingSummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
+        setupTapGesture()
+        requestDetailView.config(model: viewModel.customizingSummaryModel)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -99,25 +111,95 @@ class CustomizingSummaryViewController: UIViewController {
         scrollContentView.addSubview(progressHStackView)
         scrollContentView.addSubview(titleLabel)
         
-        scrollContentView.addSubview(contentView)
-        contentView.addSubview(customSummaryView)
+        scrollContentView.addSubview(requestDetailView)
         
+        scrollContentView.addSubview(borderLine)
         scrollContentView.addSubview(navigationHStackView)
         
         setupAutoLayout()
+        
+        requestDetailView.requestNameTextField.delegate = self
+        scrollView.delegate = self
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
+        requestDetailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    }
+    
+    private func bind() {
+        viewModel.$bouquetId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] bouquetId in
+                self?.handleBouquetId(bouquetId)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$imageUploadSuccess
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] success in
+                guard success else { return }
+                self?.presentSaveAlert(saveResult: .success)
+            }
+            .store(in: &viewModel.cancellables)
+        
+        viewModel.$networkError
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let error = error else { return }
+                let saveResult: SaveResult = (error == .duplicateError ? .duplicateError : .networkError)
+                self?.presentSaveAlert(saveResult: saveResult)
+            }
+            .store(in: &viewModel.cancellables)
+    }
+    
+    private func presentSaveAlert(saveResult: SaveResult) {
+        let saveAlertVC = SaveAlertViewController(currentVC: self, saveResult: saveResult)
+        saveAlertVC.modalPresentationStyle = .fullScreen
+        self.present(saveAlertVC, animated: true)
+    }
+    
+    private func handleBouquetId(_ bouquetId: Int?) {
+        guard
+            let bouquetId = bouquetId,
+            let id = viewModel.memberId
+        else { return }
+        
+        if let imageFiles = viewModel.customizingSummaryModel.requirement?.imageFiles, !imageFiles.isEmpty {
+            viewModel.submitRequirementImages(id: id, bouquetId: bouquetId, imageFiles: imageFiles)
+        } else {
+            presentSaveAlert(saveResult: .success)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc func dismissKeyboard() {
+        requestDetailView.requestNameTextField.isEnabled = false
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = requestDetailView.requestNameTextField.text == "" ? false : true
+        view.endEditing(true)
+    }
+    
+    @objc
+    private func editButtonTapped() {
+        requestDetailView.requestNameTextField.isEnabled = true
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = true
+        requestDetailView.requestNameTextField.becomeFirstResponder()
     }
     
     @objc
     private func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func nextButtonTapped() {
-        let saveAlertVC = SaveAlertViewController(saveResult: .success)
+        guard let id = viewModel.memberId else { return }
+        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
         
-        saveAlertVC.modalPresentationStyle = .fullScreen
-        present(saveAlertVC, animated: true)
+        viewModel.saveBouquet(id: id, DTO: dto)
     }
 }
 
@@ -148,19 +230,18 @@ extension CustomizingSummaryViewController {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(97)
         }
         
-        contentView.snp.makeConstraints {
+        requestDetailView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(37)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(navigationHStackView.snp.top).offset(-42)
         }
         
-        customSummaryView.snp.makeConstraints {
-            $0.top.equalTo(contentView).offset(25)
-            $0.leading.trailing.bottom.equalTo(contentView)
-            $0.height.equalTo(1000)
+        borderLine.snp.makeConstraints {
+            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {
@@ -173,5 +254,28 @@ extension CustomizingSummaryViewController {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomizingSummaryViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        requestDetailView.requestNameTextField.isEnabled = false
+        requestDetailView.requestNameTextFieldPlaceholder.isHidden = textField.text == "" ? false : true
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let text = textField.text {
+            viewModel.requestName = text
+        }
+    }
+}
+
+extension CustomizingSummaryViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dismissKeyboard()
     }
 }

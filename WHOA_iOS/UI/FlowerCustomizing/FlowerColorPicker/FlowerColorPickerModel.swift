@@ -5,8 +5,9 @@
 //  Created by KSH on 2/23/24.
 //
 
-import UIKit
+import Foundation
 
 struct FlowerColorPickerModel {
-    var colors: [UIColor?]?
+    var numberOfColors: NumberOfColorsType
+    var colors: [String]
 }

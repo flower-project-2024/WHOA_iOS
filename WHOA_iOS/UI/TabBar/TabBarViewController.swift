@@ -13,11 +13,15 @@ class TabBarViewController: UITabBarController {
     
     private let customizeButtonWidth = 69
     private var buttonConfig = UIButton.Configuration.plain()
+    private var customizingCoordinator: CustomizingCoordinator?
     
+    private var customizingNavVC: UINavigationController?
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
         
         tabBar.backgroundColor = .white
         tabBar.barTintColor = .white
@@ -26,13 +30,23 @@ class TabBarViewController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.gray07
         tabBar.layer.masksToBounds = false
         
-        let customizingVC = PurposeViewController(viewModel: PurposeViewModel())
-        
         let homeNavVC = UINavigationController(rootViewController: HomeViewController())
-        let customizingNavVC = UINavigationController(rootViewController: customizingVC)
-        let myPageNavVC = UINavigationController(rootViewController: MyPageViewController())
         
-        self.setViewControllers([homeNavVC, customizingNavVC, myPageNavVC], animated: true)
+        customizingNavVC = UINavigationController()
+        if let customizingNavVC = customizingNavVC {
+            customizingCoordinator = CustomizingCoordinator(navigationController: customizingNavVC)
+            customizingCoordinator?.start()
+        }
+        
+        let myPageVC = MyPageViewController()
+        myPageVC.customizingCoordinator = customizingCoordinator
+        let myPageNavVC = UINavigationController(rootViewController: myPageVC)
+        
+        if let customizingNavVC = customizingNavVC {
+            self.setViewControllers([homeNavVC, customizingNavVC, myPageNavVC], animated: true)
+        } else {
+            self.setViewControllers([homeNavVC, myPageNavVC], animated: true)
+        }
         
         if let items = self.tabBar.items {
             items[0].selectedImage = UIImage.homeIconFilled
@@ -62,5 +76,15 @@ class TabBarViewController: UITabBarController {
         
         UITabBar.clearShadow()
         tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, x: 0, y: -2, blur: 6)
+    }
+}
+
+// MARK: - UITabBarControllerDelegate
+
+extension TabBarViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController == customizingNavVC {
+            customizingCoordinator?.setActionType(actionType: .create)
+        }
     }
 }

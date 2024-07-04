@@ -12,6 +12,10 @@ class CustomExitAlertViewController: UIViewController {
     
     // MARK: - Properties
     
+    var currentVC: UIViewController
+    
+    // MARK: - UI
+    
     private let alertView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -69,6 +73,15 @@ class CustomExitAlertViewController: UIViewController {
         return stackView
     }()
     
+    init(currentVC: UIViewController) {
+        self.currentVC = currentVC
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -94,10 +107,11 @@ class CustomExitAlertViewController: UIViewController {
     
     @objc
     private func exitButtonTapped() {
-        let homeVC = HomeViewController()
-        
-        homeVC.modalPresentationStyle = .fullScreen
-        present(homeVC, animated: true)
+        dismiss(animated: true) { [weak self] in
+            self?.currentVC.tabBarController?.selectedIndex = 0
+            self?.currentVC.navigationController?.popToRootViewController(animated: true)
+            
+        }
     }
     
     @objc

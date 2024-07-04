@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol CustomAlertViewControllerDelegate: AnyObject {
+    func deleteSuccessful(bouquetId: Int)
+}
+
 class CustomAlertViewController: UIViewController {
     // MARK: - AlertType
     enum AlertType: String {
@@ -20,6 +24,10 @@ class CustomAlertViewController: UIViewController {
     private var requestTitle: String?
     private var alertType: AlertType?
     private var myPageVC: UIViewController?
+    var bouquetId: Int?
+    
+    var customizingCoordinator: CustomizingCoordinator?
+    weak var delegate: CustomAlertViewControllerDelegate?
     
     // MARK: - Views
     private let alertView: UIView = {
@@ -117,7 +125,7 @@ class CustomAlertViewController: UIViewController {
     // MARK: - Initialization
     convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
         self.init()
-
+        
         self.requestTitle = requestTitle
         self.alertType = alertType
         self.myPageVC = currentVC
@@ -166,23 +174,56 @@ class CustomAlertViewController: UIViewController {
         }
     }
     
+    private func fetchFailure(_ error: NetworkError) {
+        let networkAlertController = self.networkErrorAlert(error)
+        DispatchQueue.main.async { [unowned self] in
+            self.present(networkAlertController, animated: true)
+        }
+    }
+    
+    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
+        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "확인", style: .default)
+        alertController.addAction(confirmAction)
+        
+        return alertController
+    }
+    
     // MARK: - Actions
     @objc func cancelBtnTapped(){
         dismiss(animated: false)
     }
     
     @objc func confirmBtnTapped(){
-        dismiss(animated: false)
-        
         if alertType == AlertType.modify {
             //TODO: 구매 목적 페이지로 이동..
-//            let buyingIntentVC = BuyingIntentViewController(viewModel: BuyingIntentViewModel())
-//            buyingIntentVC.modalPresentationStyle = .fullScreen
-//            
-//            myPageVC!.present(buyingIntentVC, animated: true)
+            guard let bouquetId = bouquetId else { return }
+
+            dismiss(animated: true) { [weak self] in
+                self?.myPageVC?.tabBarController?.selectedIndex = 1
+                self?.customizingCoordinator?.setActionType(actionType: .update(bouquetId: bouquetId))
+            }
+
         }
         else if alertType == .delete {
             // TODO: 요구서 삭제 api 요청
+            guard
+                let id = KeychainManager.shared.loadMemberId(),
+                let bouquetId = bouquetId
+            else { return }
+            
+            NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { reuslt in
+                switch reuslt {
+                case .success(let success):
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: false) {
+                            self.delegate?.deleteSuccessful(bouquetId: bouquetId)
+                        }
+                    }
+                case .failure(let error):
+                    self.fetchFailure(error)
+                }
+            }
         }
     }
 }

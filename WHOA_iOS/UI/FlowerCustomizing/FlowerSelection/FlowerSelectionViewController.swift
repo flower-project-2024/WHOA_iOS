@@ -1,5 +1,5 @@
 //
-//  FlowerSelectViewController.swift
+//  FlowerSelectionViewController.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/23/24.
@@ -7,16 +7,17 @@
 
 import UIKit
 
-class FlowerSelectViewController: UIViewController {
+class FlowerSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = FlowerSelectViewModel()
-    var tempHashTag = ["전체", "사랑", "행운", "믿음", "추억", "존경", "믿음", "우정"]
+    let viewModel: FlowerSelectionViewModel
+    
+    weak var coordinator: CustomizingCoordinator?
 
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 3, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "")
     private let descriptionLabel = CustomDescriptionLabel(text: "최대 3개의 꽃을 선택할 수 있어요", numberOfLines: 1)
@@ -117,7 +118,7 @@ class FlowerSelectViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var flowerSelectTableView: UITableView = {
+    private lazy var flowerSelectionTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.rowHeight = 120
@@ -125,17 +126,13 @@ class FlowerSelectViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(
-            FlowerSelectTableViewCell.self,
-            forCellReuseIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier
+            FlowerSelectionTableViewCell.self,
+            forCellReuseIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier
         )
         return tableView
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: BackButton = {
         let button = BackButton(isActive: true)
@@ -163,7 +160,8 @@ class FlowerSelectViewController: UIViewController {
     
     // MARK: - Initialize
     
-    init() {
+    init(viewModel: FlowerSelectionViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -178,7 +176,21 @@ class FlowerSelectViewController: UIViewController {
         
         bind()
         setupUI()
-        fetchData()
+        fetchData(keywordId: 0)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Fuctions
@@ -197,21 +209,22 @@ class FlowerSelectViewController: UIViewController {
         view.addSubview(minusImageView3)
         
         view.addSubview(hashTagCollectionView)
-        view.addSubview(flowerSelectTableView)
+        view.addSubview(flowerSelectionTableView)
         
         view.addSubview(borderLine)
         view.addSubview(navigationHStackView)
         
         setupAutoLayout()
         setupCollectionView()
-        titleLabel.text = "\(PurposeType.affection.rawValue)과\n어울리는 꽃 선택"
+        selectInitialItem()
+        titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
     }
     
     private func bind() {
         viewModel.$filteredModels
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.flowerSelectTableView.reloadData()
+                self?.flowerSelectionTableView.reloadData()
             }
             .store(in: &viewModel.cancellables)
         
@@ -224,22 +237,18 @@ class FlowerSelectViewController: UIViewController {
                 self?.nextButton.isActive = !model.isEmpty
             }
             .store(in: &viewModel.cancellables)
-    }
-    
-    private func fetchData() {
-        viewModel.fetchFlowerKeyword(keywordId: "0") { [weak self] result in
-            switch result {
-            case .success(let models):
-                self?.fetchSuccess(models)
-            case .failure(let error):
+        
+        viewModel.$networkError
+            .receive(on: DispatchQueue.main)
+            .compactMap { $0 }
+            .sink { [weak self] error in
                 self?.fetchFailure(error)
             }
-        }
+            .store(in: &viewModel.cancellables)
     }
     
-    private func fetchSuccess(_ models: [FlowerKeywordModel]) {
-        viewModel.flowerKeywordModels = models
-        viewModel.filteredModels = models
+    private func fetchData(keywordId: Int) {
+        viewModel.fetchFlowerKeyword(keywordId: "\(keywordId)")
     }
     
     private func fetchFailure(_ error: NetworkError) {
@@ -266,6 +275,18 @@ class FlowerSelectViewController: UIViewController {
         hashTagCollectionView.backgroundColor = .white
     }
     
+    private func selectInitialItem() {
+        let initialIndexPath = IndexPath(item: 0, section: 0)
+        hashTagCollectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: .init())
+        
+        if let cell = hashTagCollectionView.cellForItem(at: initialIndexPath) as? HashTagCollectionViewCell {
+            cell.isSelected = true
+        }
+        
+        let title = viewModel.keyword[initialIndexPath.row].rawValue
+        viewModel.filterModels(with: title)
+    }
+    
     private func updateFlowerImageViews(with urls: [URL?]) {
         let flowerImageViews = [
             self.flowerImageView1,
@@ -286,6 +307,9 @@ class FlowerSelectViewController: UIViewController {
         for i in urls.indices {
             if let url = urls[i] {
                 flowerImageViews[i].load(url: url)
+                minusImageViews[i].isHidden = false
+            } else {
+                flowerImageViews[i].image = UIImage(named: "TempImage")
                 minusImageViews[i].isHidden = false
             }
         }
@@ -313,26 +337,24 @@ class FlowerSelectViewController: UIViewController {
         let model = viewModel.getSelectedFlowerModel(idx: index)
         guard let indexPath = viewModel.findCellIndexPathRow(for: model) else { return }
         
-        if let cell = flowerSelectTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectTableViewCell {
+        if let cell = flowerSelectionTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectionTableViewCell {
             cell.isAddImageButtonSelected = isSelected
         }
     }
     
     @objc
     func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func nextButtonTapped() {
-        let flowerReplacementVC = AlternativesViewController()
-        flowerReplacementVC.sheetPresentationController?.detents = [.medium()]
-        
-        present(flowerReplacementVC, animated: true)
+        let flowers = viewModel.convertFlowerKeywordModelToFlower(with: viewModel.selectedFlowerModels)
+        coordinator?.showAlternativesVC(from: self, flowers: flowers)
     }
 }
 
-extension FlowerSelectViewController {
+extension FlowerSelectionViewController {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
@@ -387,7 +409,7 @@ extension FlowerSelectViewController {
             $0.height.equalTo(64)
         }
         
-        flowerSelectTableView.snp.makeConstraints {
+        flowerSelectionTableView.snp.makeConstraints {
             $0.top.equalTo(hashTagCollectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(borderLine)
@@ -396,7 +418,7 @@ extension FlowerSelectViewController {
         borderLine.snp.makeConstraints {
             $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {
@@ -411,7 +433,9 @@ extension FlowerSelectViewController {
     }
 }
 
-extension FlowerSelectViewController: UICollectionViewDataSource {
+// MARK: - UICollectionViewDataSource
+
+extension FlowerSelectionViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -420,12 +444,13 @@ extension FlowerSelectViewController: UICollectionViewDataSource {
             withReuseIdentifier: CellIdentifier.hashTagCellIdentifier,
             for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
         
-        if indexPath.row == 0 {
+        if collectionView.indexPathsForSelectedItems?.contains(indexPath) == true {
             cell.isSelected = true
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .init())
+        } else {
+            cell.isSelected = false
         }
         
-        cell.setupHashTag(text: tempHashTag[indexPath.row])
+        cell.setupHashTag(text: viewModel.keyword[indexPath.row].rawValue)
         return cell
     }
     
@@ -433,25 +458,25 @@ extension FlowerSelectViewController: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        let title = tempHashTag[indexPath.row]
+        let title = viewModel.keyword[indexPath.row].rawValue
         viewModel.filterModels(with: title)
     }
     
 }
 // MARK: - UICollectionViewDelegate
 
-extension FlowerSelectViewController: UICollectionViewDelegate {
+extension FlowerSelectionViewController: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        return tempHashTag.count
+        return viewModel.keyword.count
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
+extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
@@ -472,7 +497,7 @@ extension FlowerSelectViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UITableViewDataSource
 
-extension FlowerSelectViewController: UITableViewDataSource {
+extension FlowerSelectionViewController: UITableViewDataSource {
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
@@ -485,11 +510,9 @@ extension FlowerSelectViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellIdentifier.flowerSelectTableViewCellIdentifier,
+            withIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier,
             for: indexPath
-        ) as? FlowerSelectTableViewCell else { return UITableViewCell() }
-        
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
+        ) as? FlowerSelectionTableViewCell else { return UITableViewCell() }
         
         let model = viewModel.getFilterdModel(idx: indexPath.row)
         cell.configUI(model: model)
@@ -514,7 +537,7 @@ extension FlowerSelectViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension FlowerSelectViewController: UITableViewDelegate {
+extension FlowerSelectionViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath

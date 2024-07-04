@@ -46,6 +46,10 @@ class BouquetListModel {
         return bouquetModelList.count
     }
     
+    func removeBouquet(withId bouquetId: Int) {
+        bouquetModelList.removeAll { $0.bouquetId == bouquetId }
+    }
+    
     private func networkErrorAlert(_ error: Error) -> UIAlertController{
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)

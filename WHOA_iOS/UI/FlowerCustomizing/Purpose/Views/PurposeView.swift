@@ -10,9 +10,14 @@ import SnapKit
 
 class PurposeView: UIView {
     
+    // MARK: - Properties
+    
+    let currentVC: UIViewController
+    let coordinator: CustomizingCoordinator?
+    
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
     private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요", numberOfLines: 2)
@@ -57,11 +62,7 @@ class PurposeView: UIView {
         return stackView
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     let backButton = BackButton(isActive: false)
     let nextButton = NextButton()
@@ -80,8 +81,10 @@ class PurposeView: UIView {
     
     // MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(currentVC: UIViewController, coordinator: CustomizingCoordinator?) {
+        self.currentVC = currentVC
+        self.coordinator = coordinator
+        super.init(frame: .zero)
         
         setupUI()
     }
@@ -135,12 +138,13 @@ extension PurposeView {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
             $0.leading.equalToSuperview().offset(21)
             $0.trailing.equalToSuperview().offset(-21)
+            $0.height.lessThanOrEqualToSuperview().multipliedBy(0.5)
         }
         
         borderLine.snp.makeConstraints {
             $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {

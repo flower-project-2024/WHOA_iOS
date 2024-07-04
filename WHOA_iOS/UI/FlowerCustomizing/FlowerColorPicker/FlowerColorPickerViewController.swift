@@ -13,8 +13,8 @@ class FlowerColorPickerViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: FlowerColorPickerViewModel
-    private var colorButtonTopConstraint: Constraint?
-    private var isChevronUp = true
+    
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -30,66 +30,33 @@ class FlowerColorPickerViewController: UIViewController {
         return view
     }()
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 2, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "꽃 조합 색")
     private let descriptionLabel = CustomDescriptionLabel(text: "원하는 느낌의 꽃 조합 색을 선택해주세요", numberOfLines: 1)
-    
-    private let colorSelectionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "조합"
-        label.textColor = .gray9
-        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        return label
-    }()
-    
-    private let chevronImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.down")
-        imageView.tintColor = .black
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
-    
-    private lazy var colorSelectionHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            colorSelectionLabel,
-            chevronImageView
-        ].forEach { stackView.addArrangedSubview($0) }
-        stackView.axis = .horizontal
-        stackView.distribution = .equalCentering
-        stackView.spacing = 9
-        stackView.backgroundColor = .gray2
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.directionalLayoutMargins =  NSDirectionalEdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12)
-        stackView.layer.cornerRadius = 10
-        stackView.layer.masksToBounds = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(colorSelectionHStackViewTapped))
-        stackView.addGestureRecognizer(tapGesture)
-        return stackView
-    }()
+        
+    private let numberOfColorsBox = NumberOfColorsBox()
     
     private let singleColorButton: UIButton = {
-        let button = ColorSelectionButton(.단일)
+        let button = ColorSelectionButton(.oneColor)
         button.addTarget(self, action: #selector(numberOfColorsButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let dualColorButton: UIButton = {
-        let button = ColorSelectionButton(.두가지)
+        let button = ColorSelectionButton(.twoColor)
         button.addTarget(self, action: #selector(numberOfColorsButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let colorfulButton: UIButton = {
-        let button = ColorSelectionButton(.컬러풀한)
+        let button = ColorSelectionButton(.colorful)
         button.addTarget(self, action: #selector(numberOfColorsButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private let pointColorButton: UIButton = {
-        let button = ColorSelectionButton(.포인트)
+        let button = ColorSelectionButton(.pointColor)
         button.addTarget(self, action: #selector(numberOfColorsButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -115,7 +82,11 @@ class FlowerColorPickerViewController: UIViewController {
         return view
     }()
     
-    private lazy var colorPickerView = ColorPickerView(viewModel: viewModel, numberOfColors: .단일)
+    private lazy var colorPickerView: ColorPickerView = {
+        let view = ColorPickerView(viewModel: viewModel, numberOfColors: .oneColor)
+        view.isHidden = true
+        return view
+    }()
     
     private let noticeLabel: UILabel = {
         let label = UILabel()
@@ -127,11 +98,7 @@ class FlowerColorPickerViewController: UIViewController {
         return label
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -173,12 +140,23 @@ class FlowerColorPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bind()
         setupUI()
         colorPickerView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        colorPickerView.isHidden = true
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Functions
@@ -195,7 +173,7 @@ class FlowerColorPickerViewController: UIViewController {
         scrollContentView.addSubview(titleLabel)
         scrollContentView.addSubview(descriptionLabel)
         
-        scrollContentView.addSubview(colorSelectionHStackView)
+        scrollContentView.addSubview(numberOfColorsBox)
         scrollContentView.addSubview(colorPickerBorderLine)
         scrollContentView.addSubview(numberOfColorsButtonHStackView)
         scrollContentView.addSubview(colorPickerView)
@@ -205,6 +183,23 @@ class FlowerColorPickerViewController: UIViewController {
         scrollContentView.addSubview(navigationHStackView)
         
         setupAutoLayout()
+        addTapGesture()
+    }
+    
+    private func bind() {
+        viewModel.$iscolorSelectionHidden
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHidden in
+                self?.numberOfColorsBox.chevronImageView.transform = CGAffineTransform(rotationAngle: isHidden ? 0 : .pi)
+                self?.numberOfColorsButtonHStackView.isHidden = isHidden
+                self?.updateColorPickerBorderLineConstraints(isHidden: isHidden)
+            }
+            .store(in: &viewModel.cancellables)
+    }
+    
+    private func addTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(numberOfColorsBoxTapped))
+        numberOfColorsBox.addGestureRecognizer(tapGesture)
     }
     
     private func updateButtonSelection(with selectedButton: ColorSelectionButton) {
@@ -212,20 +207,29 @@ class FlowerColorPickerViewController: UIViewController {
         buttons.forEach { ($0 as? ColorSelectionButton)?.isActive = $0 == selectedButton ? true : false }
     }
     
+    private func updateColorPickerBorderLineConstraints(isHidden: Bool) {
+        colorPickerBorderLine.snp.remakeConstraints {
+            if isHidden {
+                $0.top.equalTo(numberOfColorsBox.snp.bottom).offset(24)
+            } else {
+                $0.top.equalTo(numberOfColorsButtonHStackView.snp.bottom).offset(44)
+            }
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+    }
+    
     // MARK: - Actions
     
     @objc
-    func colorSelectionHStackViewTapped() {
-        isChevronUp.toggle()
-        chevronImageView.transform = CGAffineTransform(rotationAngle: isChevronUp ? 0 : .pi)
-        colorButtonTopConstraint?.update(offset: isChevronUp ? 24 : 100)
-        numberOfColorsButtonHStackView.isHidden = isChevronUp
+    private func numberOfColorsBoxTapped() {
+        viewModel.iscolorSelectionHidden.toggle()
     }
     
     @objc
     func numberOfColorsButtonTapped(_ sender: ColorSelectionButton) {
-        colorSelectionLabel.text = sender.titleLabel?.text
-        colorPickerView.numberOfColors = NumberOfColorsType(rawValue: sender.titleLabel?.text ?? "") ?? .단일
+        self.numberOfColorsBox.colorSelectionLabel.text = sender.titleLabel?.text
+        colorPickerView.numberOfColors = NumberOfColorsType(rawValue: sender.titleLabel?.text ?? "") ?? .oneColor
         colorPickerView.isHidden = false
         
         updateButtonSelection(with: sender)
@@ -233,12 +237,12 @@ class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func nextButtonTapped() {
-        viewModel.goToNextVC(fromCurrentVC: self, animated: true)
+        coordinator?.showFlowerSelectionVC(numberOfColors: viewModel.getNumberOfColors(), colors: viewModel.getColors())
     }
 }
 
@@ -253,7 +257,6 @@ extension FlowerColorPickerViewController {
         scrollContentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
-            $0.height.equalTo(880)
         }
         
         exitButton.snp.makeConstraints {
@@ -277,20 +280,24 @@ extension FlowerColorPickerViewController {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        colorSelectionHStackView.snp.makeConstraints {
+        numberOfColorsBox.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(56)
         }
         
         numberOfColorsButtonHStackView.snp.makeConstraints {
-            $0.top.equalTo(colorSelectionHStackView.snp.bottom).offset(20)
+            $0.top.equalTo(numberOfColorsBox.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(36)
         }
         
         colorPickerBorderLine.snp.makeConstraints {
-            colorButtonTopConstraint = $0.top.equalTo(colorSelectionHStackView.snp.bottom).offset(24).constraint
+            if numberOfColorsButtonHStackView.isHidden {
+                $0.top.equalTo(numberOfColorsBox.snp.bottom).offset(24)
+            } else {
+                $0.top.equalTo(numberOfColorsButtonHStackView.snp.bottom).offset(44)
+            }
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(4)
         }
@@ -298,7 +305,6 @@ extension FlowerColorPickerViewController {
         colorPickerView.snp.makeConstraints {
             $0.top.equalTo(colorPickerBorderLine.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(340)
         }
         
         noticeLabel.snp.makeConstraints {
@@ -309,7 +315,7 @@ extension FlowerColorPickerViewController {
         borderLine.snp.makeConstraints {
             $0.top.equalTo(noticeLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {
@@ -321,6 +327,7 @@ extension FlowerColorPickerViewController {
             $0.top.equalTo(borderLine.snp.bottom).offset(20)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalToSuperview().inset(20)
         }
     }
 }

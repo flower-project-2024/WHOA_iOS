@@ -12,17 +12,19 @@ class PhotoSelectionViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = PhotoSelectionViewModel()
+    private let viewModel: PhotoSelectionViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
-    private let exitButton = ExitButton()
+    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 6, denominator: 7)
     private let titleLabel = CustomTitleLabel(text: "추가로 사장님께\n요구할 사항들을 작성해주세요")
     
     private let requirementLabel: UILabel = {
         let label = UILabel()
         label.text = "요구사항"
+        label.textColor = .black
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -51,6 +53,7 @@ class PhotoSelectionViewController: UIViewController {
     private let photoLabel: UILabel = {
         let label = UILabel()
         label.text = "참고 사진"
+        label.textColor = .black
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -165,11 +168,7 @@ class PhotoSelectionViewController: UIViewController {
         return scrollView
     }()
     
-    private let borderLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray2
-        return view
-    }()
+    private let borderLine = ShadowBorderLine()
     
     private let backButton: UIButton = {
         let button = BackButton(isActive: true)
@@ -196,6 +195,17 @@ class PhotoSelectionViewController: UIViewController {
         return stackView
     }()
     
+    // MARK: - Initialize
+    
+    init(viewModel: PhotoSelectionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -203,6 +213,22 @@ class PhotoSelectionViewController: UIViewController {
         
         setupUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        extendedLayoutIncludesOpaqueBars = true
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        extendedLayoutIncludesOpaqueBars = false
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -328,12 +354,16 @@ class PhotoSelectionViewController: UIViewController {
     
     @objc
     private func backButtonTapped() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     private func nextButtonTapped() {
-        print("다음이동")
+        viewModel.convertPhotosToBase64()
+        
+        let model = viewModel.getPhotoSelectionModel()
+        
+        coordinator?.showCustomizingSummaryVC(requirementPhotos: model.imageFiles, requirementText: model.text)
     }
 }
 
@@ -384,14 +414,14 @@ extension PhotoSelectionViewController {
         }
         
         photoImageViewHStackView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(photoImageHScrollView)
+            $0.edges.equalTo(photoImageHScrollView)
+            $0.height.equalTo(photoImageHScrollView)
         }
         
         photoImageHScrollView.snp.makeConstraints {
             $0.top.equalTo(photoLabel.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview()
-            $0.bottom.equalTo(navigationHStackView.snp.top).inset(-97)
         }
         
         [minusImageView1, minusImageView2, minusImageView3].forEach { imageView in
@@ -405,7 +435,7 @@ extension PhotoSelectionViewController {
         borderLine.snp.makeConstraints {
             $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(3)
+            $0.height.equalTo(2)
         }
         
         backButton.snp.makeConstraints {
@@ -439,5 +469,6 @@ extension PhotoSelectionViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        viewModel.updateText(textView.text)
     }
 }

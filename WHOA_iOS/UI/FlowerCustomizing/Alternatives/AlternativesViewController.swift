@@ -11,7 +11,8 @@ class AlternativesViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel = AlternativesViewModel()
+    let viewModel: AlternativesViewModel
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -34,6 +35,17 @@ class AlternativesViewController: UIViewController {
         button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - Initialize
+    
+    init(viewModel: AlternativesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     
@@ -94,7 +106,8 @@ class AlternativesViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        print("다음이동")
+        guard let alternative = viewModel.alternativesModel?.AlternativesType else { return }
+        coordinator?.showPackagingSelectionVC(from: self, alternative: alternative)
     }
     
 }

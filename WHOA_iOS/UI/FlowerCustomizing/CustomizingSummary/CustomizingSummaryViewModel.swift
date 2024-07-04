@@ -6,19 +6,93 @@
 //
 
 import Foundation
+import Combine
+
+
+enum ActionType {
+    case create
+    case update(bouquetId: Int?)
+}
 
 class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
-    var customizingSummaryModel: CustomizingSummaryModel =
-    CustomizingSummaryModel(purpose: .birthday,
-                            numberOfColors: .두가지,
-                            colors: ["FF0000", "FFFFFF"],
-                            flowers: [Flower(photo: "", name: "장미", hashTag: ["사랑", "믿음"])],
-                            alternative: .colorOriented,
-                            assign: Assign(packagingAssignType: .myselfAssign, text: "분홍분홍하게"),
-                            priceRange: "20000 ~ 100000",
-                            requirement: Requirement(text: "싱싱한걸로", photos: []))
+    var customizingSummaryModel: CustomizingSummaryModel
+    private let networkManager: NetworkManager
+    var actionType: ActionType
+    let memberId: String?
     
+    @Published var requestName = "꽃다발 요구서1"
+    @Published var bouquetId: Int?
+    @Published var networkError: NetworkError?
+    @Published var imageUploadSuccess: Bool = false
+    
+    var cancellables = Set<AnyCancellable>()
+    
+    init(
+        customizingSummaryModel: CustomizingSummaryModel,
+        networkManager: NetworkManager = .shared,
+        keychainManager: KeychainManager = .shared,
+        actionType: ActionType = .create
+    ) {
+        self.customizingSummaryModel = customizingSummaryModel
+        self.networkManager = networkManager
+        self.memberId = keychainManager.loadMemberId()
+        self.actionType = actionType
+    }
+    
+    func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+        switch actionType {
+        case .create:
+            submitCustomBouquet(id: id, DTO: DTO)
+        case .update(let bouquetId):
+            guard let bouquetId = bouquetId else { return }
+            deleteCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
+        }
+    }
+    
+    private func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+        networkManager.createCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id) { result in
+            switch result {
+            case .success(let DTO):
+                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        networkManager.putCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let DTO):
+                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func deleteCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let _):
+                self.submitCustomBouquet(id: id, DTO: DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    func submitRequirementImages(id: String, bouquetId: Int, imageFiles: [ImageFile]?) {
+        networkManager.postMultipartFiles(memberID: id, bouquetId: bouquetId, imageFiles: imageFiles) { result in
+            switch result {
+            case .success(let _):
+                self.imageUploadSuccess = true
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
 }
