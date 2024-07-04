@@ -23,6 +23,8 @@ class CustomizingCoordinator: Coordinator {
     private var requirementPhotos: [ImageFile] = []
     private var requirementText: String?
     
+    private var actionType: ActionType = .create
+    
     
     // MARK: - Initialize
     
@@ -34,6 +36,10 @@ class CustomizingCoordinator: Coordinator {
     
     func start() {
         showPurposeVC()
+    }
+    
+    func setActionType(actionType: ActionType) {
+        self.actionType = actionType
     }
     
     private func showPurposeVC() {
@@ -123,7 +129,7 @@ class CustomizingCoordinator: Coordinator {
             requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
         )
         
-        let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model)
+        let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model, actionType: self.actionType)
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)

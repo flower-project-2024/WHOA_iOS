@@ -199,7 +199,7 @@ class CustomizingSummaryViewController: UIViewController {
         guard let id = viewModel.memberId else { return }
         let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
         
-        viewModel.submitCustomBouquet(id: id, DTO: dto)
+        viewModel.saveBouquet(id: id, DTO: dto)
     }
 }
 

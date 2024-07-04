@@ -108,11 +108,35 @@ final class NetworkManager {
         }
     }
     
+    /// 꽃다발 명세서를 수정(PUT)하는 함수입니다.
+    /// - Parameters:
+    /// - Headers - memberID: 멤버 아이디
+    /// bouquetId: 변경하는 주문서 ID
+    /// - Body - postCustomBouquetRequestDTO: 명세서 내용
+    func putCustomBouquet(
+        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
+        memberID: String,
+        bouquetId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<PostCustomBouquetDTO, NetworkError>) -> Void
+    ) {
+        let api = PutBouquetAPI(requestDTO: postCustomBouquetRequestDTO, memberID: memberID, bouquetId: bouquetId)
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     /// 유저가 등록한 주문서 한 건을 삭제하는 함수입니다.
     /// - Parameters:
     /// - MemberID: 멤버 아이디
     /// - bouquetId: 주문서 ID
-    func DeleteBouquet(
+    func deleteBouquet(
         memberID: String,
         bouquetId: Int,
         _ networkService: NetworkServable = NetworkService(),

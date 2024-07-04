@@ -98,6 +98,7 @@
 		54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */; };
 		54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8565D2BDAFC390099D818 /* SpacebarButton.swift */; };
 		54D856602BDD40750099D818 /* AlternativesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8565F2BDD40750099D818 /* AlternativesViewModel.swift */; };
+		54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E115312C35226C00C4E738 /* PutBouquetAPI.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
 		54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EA0A3F2C086B8500468B1E /* PhotoSelectionModel.swift */; };
@@ -268,6 +269,7 @@
 		54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingSelectionViewModel.swift; sourceTree = "<group>"; };
 		54D8565D2BDAFC390099D818 /* SpacebarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacebarButton.swift; sourceTree = "<group>"; };
 		54D8565F2BDD40750099D818 /* AlternativesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewModel.swift; sourceTree = "<group>"; };
+		54E115312C35226C00C4E738 /* PutBouquetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutBouquetAPI.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
 		54EA0A3F2C086B8500468B1E /* PhotoSelectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionModel.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */,
 				54EA0E712BF779C6007B8F5A /* PostCustomBouquetAPI.swift */,
 				544FC0B42C03A70D0091EEE2 /* BouquetDetailAPI.swift */,
+				54E115312C35226C00C4E738 /* PutBouquetAPI.swift */,
 				544FC0B82C03C44B0091EEE2 /* DeleteBouquetAPI.swift */,
 				545588632C0A08B100B0C4CF /* MultipartFilesAPI.swift */,
 			);
@@ -1130,6 +1133,7 @@
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */,
 				544FC0B92C03C44B0091EEE2 /* DeleteBouquetAPI.swift in Sources */,
+				54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,

@@ -8,12 +8,19 @@
 import Foundation
 import Combine
 
+
+enum ActionType {
+    case create
+    case update(bouquetId: Int?)
+}
+
 class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
     var customizingSummaryModel: CustomizingSummaryModel
     private let networkManager: NetworkManager
+    var actionType: ActionType
     let memberId: String?
     
     @Published var requestName = "꽃다발 요구서1"
@@ -26,19 +33,52 @@ class CustomizingSummaryViewModel {
     init(
         customizingSummaryModel: CustomizingSummaryModel,
         networkManager: NetworkManager = .shared,
-        keychainManager: KeychainManager = .shared
-        
+        keychainManager: KeychainManager = .shared,
+        actionType: ActionType = .create
     ) {
         self.customizingSummaryModel = customizingSummaryModel
         self.networkManager = networkManager
         self.memberId = keychainManager.loadMemberId()
+        self.actionType = actionType
     }
     
-    func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+    func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+        switch actionType {
+        case .create:
+            submitCustomBouquet(id: id, DTO: DTO)
+        case .update(let bouquetId):
+            guard let bouquetId = bouquetId else { return }
+            deleteCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
+        }
+    }
+    
+    private func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
         networkManager.createCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id) { result in
             switch result {
             case .success(let DTO):
                 self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        networkManager.putCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let DTO):
+                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .failure(let error):
+                self.networkError = error
+            }
+        }
+    }
+    
+    private func deleteCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
+        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let _):
+                self.submitCustomBouquet(id: id, DTO: DTO)
             case .failure(let error):
                 self.networkError = error
             }
