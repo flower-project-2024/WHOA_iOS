@@ -14,6 +14,8 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     static let identifier = "AppInfoCell"
     
+    var goToCustomzingFromCustomizingCell: (() -> Void)?
+    
     // MARK: - Views
     
     private let customizeStackView: UIStackView = {
@@ -59,6 +61,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     private let customizeButton: CustomButton = {
         let button = CustomButton(buttonType: .customizing)
+        button.addTarget(self, action: #selector(goToCustomizing), for: .touchUpInside)
         return button
     }()
     
@@ -77,6 +80,12 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func goToCustomizing(){
+        goToCustomzingFromCustomizingCell?()
     }
     
     // MARK: - Functions

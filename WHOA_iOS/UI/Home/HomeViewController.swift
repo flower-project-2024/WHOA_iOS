@@ -359,7 +359,10 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         }
         else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath) as! CustomizeIntroCell
+            cell.goToCustomzingFromCustomizingCell = { [weak self] in
+                self?.tabBarController?.selectedIndex = 1
+            }
             return cell
         }
         
