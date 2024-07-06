@@ -67,7 +67,7 @@ class HomeViewController: UIViewController {
         
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
-        if(!tooltipIsClosed || isFirstLaunch){
+        if(!isFirstLaunch){
             print("==setting tool tip view==")
             setupToolTipView()
         }
