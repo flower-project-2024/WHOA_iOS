@@ -669,7 +669,6 @@
 				08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */,
 				08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */,
 				08DA470C2BF0ABD000956555 /* FlowerSearchDTO.swift */,
-				0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */,
 				54F695992BF1C60C009E3E4D /* MemberRegister */,
 				54EA0E6C2BF5E439007B8F5A /* BouquetCustomizing */,
 				0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */,
@@ -1221,7 +1220,6 @@
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
-				54EB17F02BAB515100717E6F /* CustomSummaryView.swift in Sources */,
 				0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */,
 				54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */,
 				54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */,
@@ -1287,7 +1285,7 @@
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
-				54EB17D22BA08CA300717E6F /* FlowerSelectViewController.swift in Sources */,
+				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */,
@@ -1406,7 +1404,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development: sungah Yoon (RN5UTFQDYY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1470,7 +1468,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development: sungah Yoon (RN5UTFQDYY)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1502,10 +1500,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1516,8 +1515,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "apps.suyeon.WHOA-iOS";
+				MARKETING_VERSION = 9.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1538,10 +1537,11 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7AS2J3XH7B;
+				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -1552,8 +1552,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "apps.suyeon.WHOA-iOS";
+				MARKETING_VERSION = 9.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
