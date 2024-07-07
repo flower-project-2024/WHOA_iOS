@@ -8,10 +8,12 @@
 import Foundation
 
 struct BouquetAllAPI: ServableAPI {
+    
+    var memberId: String
+    
     var method: HTTPMethod { .get }
-    var headers: [String : String]? { ["MEMBER_ID" : "1"] }
+    var headers: [String : String]? { ["MEMBER_ID" : memberId] }
     var path: String { "/api/bouquet/all" }
-    var params: String { "" }
     
     typealias Response = BouquetAllDTO
 }

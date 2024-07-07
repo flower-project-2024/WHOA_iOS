@@ -16,10 +16,11 @@ final class NetworkManager {
     
     /// 요구서 전체를 조회하는 함수입니다.
     func fetchAllBouquets(
+        memberId: String,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<[BouquetModel], NetworkError>) -> Void
     ) {
-        let bouquetAllAPI = BouquetAllAPI()
+        let bouquetAllAPI = BouquetAllAPI(memberId: memberId)
         networkService.request(bouquetAllAPI) { result in
             switch result {
             case .success(let DTO):
