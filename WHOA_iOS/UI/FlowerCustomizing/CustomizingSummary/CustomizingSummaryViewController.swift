@@ -118,15 +118,13 @@ class CustomizingSummaryViewController: UIViewController {
         
         setupAutoLayout()
         
-        requestDetailView.requestNameTextField.delegate = self
+        requestDetailView.requestTitleTextField.delegate = self
         scrollView.delegate = self
     }
     
     private func setupTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
-        requestDetailView.editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
     }
     
     private func bind() {
@@ -176,17 +174,9 @@ class CustomizingSummaryViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func dismissKeyboard() {
-        requestDetailView.requestNameTextField.isEnabled = false
-        requestDetailView.requestNameTextFieldPlaceholder.isHidden = requestDetailView.requestNameTextField.text == "" ? false : true
-        view.endEditing(true)
-    }
-    
     @objc
-    private func editButtonTapped() {
-        requestDetailView.requestNameTextField.isEnabled = true
-        requestDetailView.requestNameTextFieldPlaceholder.isHidden = true
-        requestDetailView.requestNameTextField.becomeFirstResponder()
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc
@@ -197,7 +187,7 @@ class CustomizingSummaryViewController: UIViewController {
     @objc
     private func nextButtonTapped() {
         guard let id = viewModel.memberId else { return }
-        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestName, viewModel.customizingSummaryModel)
+        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestTitle, viewModel.customizingSummaryModel)
         
         viewModel.saveBouquet(id: id, DTO: dto)
     }
@@ -260,19 +250,26 @@ extension CustomizingSummaryViewController {
 // MARK: - UITextFieldDelegate
 
 extension CustomizingSummaryViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        requestDetailView.requestTitleTextFieldPlaceholder.isHidden = true
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        requestDetailView.requestNameTextField.isEnabled = false
-        requestDetailView.requestNameTextFieldPlaceholder.isHidden = textField.text == "" ? false : true
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let text = textField.text {
-            viewModel.requestName = text
+        if textField.text == "" {
+            requestDetailView.requestTitleTextFieldPlaceholder.isHidden = false
+            viewModel.getRequestTitle(title: requestDetailView.requestTitleTextFieldPlaceholder.text)
+        } else {
+            viewModel.getRequestTitle(title: textField.text)
         }
     }
 }
+
+// MARK: - UIScrollViewDelegate
 
 extension CustomizingSummaryViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

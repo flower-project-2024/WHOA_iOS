@@ -15,7 +15,7 @@ class RequestDetailView: UIView {
     
     // MARK: - Views
     
-    let requestNameTextField: UITextField = {
+    let requestTitleTextField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .gray03
         textField.textColor = .black
@@ -27,7 +27,7 @@ class RequestDetailView: UIView {
         return textField
     }()
     
-    let requestNameTextFieldPlaceholder: UILabel = {
+    let requestTitleTextFieldPlaceholder: UILabel = {
         let label = UILabel()
         label.text = "꽃다발 요구서1"
         label.textColor = .gray8
@@ -413,15 +413,15 @@ class RequestDetailView: UIView {
     
     private func setupCustomDetailUI() {
         if requestDetailType == .custom {
-            requestNameTextField.isHidden = false
+            requestTitleTextField.isHidden = false
             editButton.isHidden = false
             borderLine.isHidden = false
         }
     }
     
     private func addViews(){
-        addSubview(requestNameTextField)
-        requestNameTextField.addSubview(requestNameTextFieldPlaceholder)
+        addSubview(requestTitleTextField)
+        requestTitleTextField.addSubview(requestTitleTextFieldPlaceholder)
         addSubview(editButton)
         addSubview(borderLine)
         
@@ -473,25 +473,25 @@ class RequestDetailView: UIView {
     }
     
     private func setupConstraints(){
-        requestNameTextField.snp.makeConstraints {
+        requestTitleTextField.snp.makeConstraints {
             $0.top.equalToSuperview().offset(25)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().inset(20)
         }
         
-        requestNameTextFieldPlaceholder.snp.makeConstraints {
+        requestTitleTextFieldPlaceholder.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalTo(12)
         }
         
         editButton.snp.makeConstraints {
-            $0.centerY.equalTo(requestNameTextField.snp.centerY)
-            $0.trailing.equalTo(requestNameTextField.snp.trailing).offset(-12)
+            $0.centerY.equalTo(requestTitleTextField.snp.centerY)
+            $0.trailing.equalTo(requestTitleTextField.snp.trailing).offset(-12)
         }
         
         borderLine.snp.makeConstraints {
             $0.leading.trailing.equalTo(borderLine1)
-            $0.top.equalTo(requestNameTextField.snp.bottom).offset(16)
+            $0.top.equalTo(requestTitleTextField.snp.bottom).offset(16)
             $0.height.equalTo(1)
         }
         
