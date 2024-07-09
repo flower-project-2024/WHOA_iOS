@@ -23,7 +23,6 @@ class RequestDetailView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 6
         textField.layer.masksToBounds = true
-        textField.isEnabled = false
         textField.isHidden = true
         return textField
     }()
@@ -336,6 +335,7 @@ class RequestDetailView: UIView {
         flowerColorContentLabel.text = model.numberOfColors.rawValue
         
         let colors = model.colors
+        guard !colors.isEmpty else { return }
         flowerColorChipView1.backgroundColor = UIColor(hex: colors.first ?? "")
         
         switch model.numberOfColors {
