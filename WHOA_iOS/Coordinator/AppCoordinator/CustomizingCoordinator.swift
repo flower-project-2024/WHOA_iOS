@@ -141,6 +141,6 @@ extension CustomizingCoordinator {
     func showExitAlertVC(from currentVC: UIViewController) {
         let customExitAlertVC = CustomExitAlertViewController(currentVC: currentVC)
         customExitAlertVC.modalPresentationStyle = .overFullScreen
-        currentVC.present(customExitAlertVC, animated: true)
+        currentVC.present(customExitAlertVC, animated: false)
     }
 }

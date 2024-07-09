@@ -19,7 +19,7 @@ class CustomExitAlertViewController: UIViewController {
     private let alertView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 7.5
+        view.layer.cornerRadius = 15
         return view
     }()
     
@@ -35,7 +35,7 @@ class CustomExitAlertViewController: UIViewController {
         let label = UILabel()
         label.text = "페이지를 나가면 복구할 수 없습니다."
         label.font = .Pretendard()
-        label.textColor = .lightGray
+        label.textColor = .gray7
         return label
     }()
     
@@ -67,7 +67,7 @@ class CustomExitAlertViewController: UIViewController {
         [
             exitButton,
             continueButton
-        ].forEach { stackView.addArrangedSubview($0)}
+        ].forEach { stackView.addArrangedSubview($0) }
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
@@ -94,7 +94,7 @@ class CustomExitAlertViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .primary.withAlphaComponent(0.5)
         
         view.addSubview(alertView)
         alertView.addSubview(titleLabel)
@@ -140,7 +140,7 @@ extension CustomExitAlertViewController {
         }
         
         continueButton.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.5)
+            $0.width.equalToSuperview().multipliedBy(0.55)
             $0.height.equalTo(48)
         }
         
