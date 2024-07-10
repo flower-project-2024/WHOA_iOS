@@ -14,7 +14,7 @@ class FlowerSelectionViewController: UIViewController {
     let viewModel: FlowerSelectionViewModel
     
     weak var coordinator: CustomizingCoordinator?
-
+    
     // MARK: - UI
     
     private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
@@ -111,7 +111,6 @@ class FlowerSelectionViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor.gray3.cgColor
         
@@ -482,7 +481,7 @@ extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 36)
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     func collectionView(
@@ -490,8 +489,10 @@ extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        
-        return CGSize(width: collectionView.frame.width / 7 - 2, height: collectionView.frame.height / 1.5)
+        let label = UILabel()
+        label.text = viewModel.keyword[indexPath.item].rawValue
+        label.sizeToFit()
+        return CGSize(width: label.frame.width + 18, height: label.frame.height + 16)
     }
 }
 
