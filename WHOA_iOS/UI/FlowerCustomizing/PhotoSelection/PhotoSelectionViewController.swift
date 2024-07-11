@@ -409,8 +409,8 @@ extension PhotoSelectionViewController {
         }
         
         photoImageView1.snp.makeConstraints {
-            $0.width.equalTo(130)
-            $0.height.equalTo(136)
+            $0.width.equalTo(130.adjusted())
+            $0.height.equalTo(136.adjustedH())
         }
         
         photoImageViewHStackView.snp.makeConstraints {

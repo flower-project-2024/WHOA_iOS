@@ -122,19 +122,19 @@ extension AlternativesViewController {
         colorOrientedButton.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(56)
+            $0.height.equalTo(56.adjustedH())
         }
         
         hashTagOrientedButton.snp.makeConstraints {
             $0.top.equalTo(colorOrientedButton.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(56)
+            $0.height.equalTo(56.adjustedH())
         }
         
         nextButton.snp.makeConstraints {
-            $0.top.equalTo(hashTagOrientedButton.snp.bottom).offset(98)
+            $0.top.equalTo(hashTagOrientedButton.snp.bottom).offset(98.adjustedH())
             $0.leading.trailing.equalToSuperview().inset(18)
-            $0.height.equalTo(56)
+            $0.height.equalTo(56.adjustedH())
         }
     }
 }
