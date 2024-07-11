@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class FlowerSelectionViewController: UIViewController {
     
@@ -192,7 +193,7 @@ class FlowerSelectionViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    // MARK: - Fuctions
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -437,6 +438,13 @@ extension FlowerSelectionViewController {
 extension FlowerSelectionViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return viewModel.keyword.count
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -459,17 +467,6 @@ extension FlowerSelectionViewController: UICollectionViewDataSource {
     ) {
         let title = viewModel.keyword[indexPath.row].rawValue
         viewModel.filterModels(with: title)
-    }
-    
-}
-// MARK: - UICollectionViewDelegate
-
-extension FlowerSelectionViewController: UICollectionViewDelegate {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return viewModel.keyword.count
     }
 }
 
@@ -519,18 +516,7 @@ extension FlowerSelectionViewController: UITableViewDataSource {
         cell.configUI(model: model)
         
         cell.isAddImageButtonSelected = viewModel.selectedFlowerModels.contains(where: { $0 == model })
-        
-        cell.addImageButtonClicked = { [weak self] in
-            guard let self = self else { return }
-            
-            if !cell.isAddImageButtonSelected && self.viewModel.getSelectedFlowerModelCount() < 3 {
-                cell.isAddImageButtonSelected = true
-                self.viewModel.pushKeywordModel(model: model)
-            } else {
-                cell.isAddImageButtonSelected = false
-                self.viewModel.popKeywordModel(model: model)
-            }
-        }
+        cell.delegate = self
         
         return cell
     }
@@ -538,11 +524,25 @@ extension FlowerSelectionViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension FlowerSelectionViewController: UITableViewDelegate {
+extension FlowerSelectionViewController: UITableViewDelegate, FlowerSelectionTableViewCellDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        tableView.deselectRow(at: indexPath, animated: false)
+        guard let cell = tableView.cellForRow(at: indexPath) as? FlowerSelectionTableViewCell else { return }
+        didTapAddImageButton(in: cell)
+    }
+    
+    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell) {
+        guard let indexPath = flowerSelectionTableView.indexPath(for: cell) else { return }
+        let model = viewModel.getFilterdModel(idx: indexPath.row)
+        
+        if !cell.isAddImageButtonSelected && viewModel.getSelectedFlowerModelCount() < 3 {
+            cell.isAddImageButtonSelected = true
+            viewModel.pushFlowerModel(model: model)
+        } else {
+            cell.isAddImageButtonSelected = false
+            viewModel.popFlowerModel(model: model)
+        }
     }
 }
