@@ -44,7 +44,7 @@ class FlowerSelectionViewModel {
         return purposeType.rawValue
     }
     
-    func popKeywordModel(model: FlowerKeywordModel) {
+    func popFlowerModel(model: FlowerKeywordModel) {
         guard let idx = selectedFlowerModels.firstIndex(where: { selectedFlowerModel in
             selectedFlowerModel == model }) else { return }
         
@@ -65,7 +65,7 @@ class FlowerSelectionViewModel {
         }
     }
     
-    func pushKeywordModel(model: FlowerKeywordModel) {
+    func pushFlowerModel(model: FlowerKeywordModel) {
         selectedFlowerModels.append(model)
     }
     

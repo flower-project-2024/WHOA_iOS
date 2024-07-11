@@ -41,7 +41,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     // MARK: - Functions
     
     private func setupUI() {
-        contentView.layer.cornerRadius = 20
+        contentView.layer.cornerRadius = 18
         contentView.layer.borderColor = UIColor.gray4.cgColor
         contentView.layer.borderWidth = 1
         

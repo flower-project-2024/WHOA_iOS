@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol FlowerSelectionTableViewCellDelegate: AnyObject {
+    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell)
+}
+
 class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
+    
+    weak var delegate: FlowerSelectionTableViewCellDelegate?
     
     var isAddImageButtonSelected: Bool = false {
         didSet {
@@ -108,6 +114,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         contentView.addSubview(fullHStackView)
         
         setupAutoLayout()
+        updateAppearance(isAddImageButtonSelected)
     }
     
     private func updateAppearance(_ isSelected: Bool) {
@@ -129,7 +136,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     @objc
     func addImageButtonTapped() {
-        addImageButtonClicked?()
+        delegate?.didTapAddImageButton(in: self)
     }
 }
 

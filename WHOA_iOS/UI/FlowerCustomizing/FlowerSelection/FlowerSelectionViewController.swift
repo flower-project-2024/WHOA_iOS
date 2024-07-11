@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class FlowerSelectionViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class FlowerSelectionViewController: UIViewController {
     let viewModel: FlowerSelectionViewModel
     
     weak var coordinator: CustomizingCoordinator?
-
+    
     // MARK: - UI
     
     private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
@@ -111,7 +112,6 @@ class FlowerSelectionViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor.gray3.cgColor
         
@@ -193,7 +193,7 @@ class FlowerSelectionViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    // MARK: - Fuctions
+    // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -438,6 +438,13 @@ extension FlowerSelectionViewController {
 extension FlowerSelectionViewController: UICollectionViewDataSource {
     func collectionView(
         _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        return viewModel.keyword.count
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
@@ -461,17 +468,6 @@ extension FlowerSelectionViewController: UICollectionViewDataSource {
         let title = viewModel.keyword[indexPath.row].rawValue
         viewModel.filterModels(with: title)
     }
-    
-}
-// MARK: - UICollectionViewDelegate
-
-extension FlowerSelectionViewController: UICollectionViewDelegate {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return viewModel.keyword.count
-    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -482,7 +478,7 @@ extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 36)
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     func collectionView(
@@ -490,8 +486,10 @@ extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        
-        return CGSize(width: collectionView.frame.width / 7 - 2, height: collectionView.frame.height / 1.5)
+        let label = UILabel()
+        label.text = viewModel.keyword[indexPath.item].rawValue
+        label.sizeToFit()
+        return CGSize(width: label.frame.width + 18, height: label.frame.height + 16)
     }
 }
 
@@ -518,18 +516,7 @@ extension FlowerSelectionViewController: UITableViewDataSource {
         cell.configUI(model: model)
         
         cell.isAddImageButtonSelected = viewModel.selectedFlowerModels.contains(where: { $0 == model })
-        
-        cell.addImageButtonClicked = { [weak self] in
-            guard let self = self else { return }
-            
-            if !cell.isAddImageButtonSelected && self.viewModel.getSelectedFlowerModelCount() < 3 {
-                cell.isAddImageButtonSelected = true
-                self.viewModel.pushKeywordModel(model: model)
-            } else {
-                cell.isAddImageButtonSelected = false
-                self.viewModel.popKeywordModel(model: model)
-            }
-        }
+        cell.delegate = self
         
         return cell
     }
@@ -537,11 +524,25 @@ extension FlowerSelectionViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension FlowerSelectionViewController: UITableViewDelegate {
+extension FlowerSelectionViewController: UITableViewDelegate, FlowerSelectionTableViewCellDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        tableView.deselectRow(at: indexPath, animated: false)
+        guard let cell = tableView.cellForRow(at: indexPath) as? FlowerSelectionTableViewCell else { return }
+        didTapAddImageButton(in: cell)
+    }
+    
+    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell) {
+        guard let indexPath = flowerSelectionTableView.indexPath(for: cell) else { return }
+        let model = viewModel.getFilterdModel(idx: indexPath.row)
+        
+        if !cell.isAddImageButtonSelected && viewModel.getSelectedFlowerModelCount() < 3 {
+            cell.isAddImageButtonSelected = true
+            viewModel.pushFlowerModel(model: model)
+        } else {
+            cell.isAddImageButtonSelected = false
+            viewModel.popFlowerModel(model: model)
+        }
     }
 }

@@ -17,4 +17,5 @@ enum PurposeType: String {
     case employment = "취업/개업식"
     case promotion = "승진/취임식"
     case friendship = "우정/추억/청춘"
+    case noPurpose = "구매 목적 없음"
 }

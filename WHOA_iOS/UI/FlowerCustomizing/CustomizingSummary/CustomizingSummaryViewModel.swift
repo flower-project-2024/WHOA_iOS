@@ -23,7 +23,7 @@ class CustomizingSummaryViewModel {
     var actionType: ActionType
     let memberId: String?
     
-    @Published var requestName = "꽃다발 요구서1"
+    @Published var requestTitle = "꽃다발 요구서1"
     @Published var bouquetId: Int?
     @Published var networkError: NetworkError?
     @Published var imageUploadSuccess: Bool = false
@@ -94,5 +94,10 @@ class CustomizingSummaryViewModel {
                 self.networkError = error
             }
         }
+    }
+    
+    func getRequestTitle(title: String?) {
+        guard let title = title else { return }
+        requestTitle = title
     }
 }
