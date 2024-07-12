@@ -33,6 +33,11 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
         return tableView
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchAllBouquets(fromCurrentVC: self)
+    }
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +45,6 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
         view.backgroundColor = .white
         
         bind()
-        viewModel.fetchAllBouquets(fromCurrentVC: self)
-        
         setupNavigation()
         addViews()
         setupConstraints()

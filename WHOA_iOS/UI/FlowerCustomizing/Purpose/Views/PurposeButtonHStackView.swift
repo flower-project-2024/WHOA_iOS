@@ -102,6 +102,8 @@ class PurposeButton: UIButton {
             UIImage(named: "Promotion")
         case .friendship:
             UIImage(named: "Friendship")
+        case .noPurpose:
+            nil
         }
     }
 }

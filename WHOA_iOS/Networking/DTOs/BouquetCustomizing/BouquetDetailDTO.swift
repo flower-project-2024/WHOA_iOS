@@ -7,7 +7,6 @@
 
 import Foundation
 
-// 이미지 작업, flowerInfoList 데이터 완료되면 수정 필요
 struct BouquetDetailDTO: Codable {
     let timestamp: String
     let success: Bool

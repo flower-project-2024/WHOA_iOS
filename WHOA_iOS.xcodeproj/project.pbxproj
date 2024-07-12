@@ -109,6 +109,7 @@
 		548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE62B8E694A002F4FCB /* Constants.swift */; };
 		548C4AEA2B8E6B75002F4FCB /* HashTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */; };
 		548C4AED2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 548C4AEC2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift */; };
+		54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BF6D7C2C4057A900928B3F /* SizeAdjustments+.swift */; };
 		54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C789D62C207FE00068B6F8 /* KeywordType.swift */; };
 		54D5BAFD2BE3F66A00C538E1 /* FlowerPriceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5BAFC2BE3F66A00C538E1 /* FlowerPriceViewModel.swift */; };
 		54D5BAFF2BE4016600C538E1 /* FlowerPriceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5BAFE2BE4016600C538E1 /* FlowerPriceModel.swift */; };
@@ -299,6 +300,7 @@
 		548C4AE62B8E694A002F4FCB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		548C4AE92B8E6B75002F4FCB /* HashTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		548C4AEC2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		54BF6D7C2C4057A900928B3F /* SizeAdjustments+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SizeAdjustments+.swift"; sourceTree = "<group>"; };
 		54C789D62C207FE00068B6F8 /* KeywordType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordType.swift; sourceTree = "<group>"; };
 		54D5BAFC2BE3F66A00C538E1 /* FlowerPriceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceViewModel.swift; sourceTree = "<group>"; };
 		54D5BAFE2BE4016600C538E1 /* FlowerPriceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerPriceModel.swift; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 				0892C3382C2F047E007DCFBA /* UIImage+.swift */,
 				08B9815A2C30877000F3CD45 /* UILabel+.swift */,
 				080199762C34731E00EB01CF /* UIStackView+.swift */,
+				54BF6D7C2C4057A900928B3F /* SizeAdjustments+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1286,6 +1289,7 @@
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
+				54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */,
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */,
