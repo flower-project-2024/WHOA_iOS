@@ -8,11 +8,15 @@
 import UIKit
 
 class TodaysFlowerViewCell: UICollectionViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "TodaysFlowerViewCell"
     var buttonCallbackMethod: (() -> Void)?
+    var flowerId: Int?
     
     // MARK: - Views
+    
     private let todaysFlowerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,15 +28,22 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     private let todaysFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "오늘의 추천 꽃"
-        label.font = UIFont(name: "Pretendard-Bold", size: 14)
+        label.font = .Pretendard(size: 14, family: .Medium)
+        label.textColor = UIColor.gray07
+        return label
+    }()
+    
+    private lazy var flowerOneLineDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .Pretendard(size: 18, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
     
     private lazy var flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-Bold", size: 24.0)
+        label.textColor = UIColor.secondary04
+        label.font = .Pretendard(size: 24, family: .Bold)
         return label
     }()
     
@@ -40,32 +51,8 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.spacing = 1
         return stackView
-    }()
-    
-    private let flowerLanguageLabel1: UILabel = {
-        let label = UILabel()
-        label.text = "#유희"
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor.gray06
-        return label
-    }()
-    
-    private let flowerLanguageLabel2: UILabel = {
-        let label = UILabel()
-        label.text = "#단아함"
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor.gray06
-        return label
-    }()
-    
-    private let flowerLanguageLabel3: UILabel = {
-        let label = UILabel()
-        label.text = "#겸손한 사랑"
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
-        label.textColor = UIColor.gray06
-        return label
     }()
     
     private let todaysFlowerButton: CustomButton = {
@@ -76,13 +63,13 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "FlowerImage.png")
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
     
     // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -90,7 +77,6 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         self.layer.borderColor = UIColor.gray03.cgColor
         self.layer.borderWidth = 1
         
-        addAttributeToFlowerName(name: "봄 향기를 품은 꽃\n히아신스")
         addViews()
         setupConstraints()
     }
@@ -100,56 +86,88 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     }
     
     // MARK: - Actions
+    
     @objc func goToFlowerDetail(){
         buttonCallbackMethod?()
     }
     
     // MARK: - Helpers
+    
     private func addViews(){
+        addSubview(todaysFlowerLabel)
         addSubview(todaysFlowerStackView)
+        addSubview(flowerLanguageStackView)
         addSubview(flowerImageView)
         addSubview(todaysFlowerButton)
 
-        todaysFlowerStackView.addArrangedSubview(todaysFlowerLabel)
+        todaysFlowerStackView.addArrangedSubview(flowerOneLineDescriptionLabel)
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
-        todaysFlowerStackView.addArrangedSubview(flowerLanguageStackView)
-        
-        [flowerLanguageLabel1, flowerLanguageLabel2, flowerLanguageLabel3].forEach {
-            flowerLanguageStackView.addArrangedSubview($0)
-        }
-        
     }
     
     private func setupConstraints(){
-        todaysFlowerStackView.snp.makeConstraints { make in
+        todaysFlowerLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(26)
         }
         
-        todaysFlowerButton.snp.makeConstraints { make in
+        todaysFlowerStackView.snp.makeConstraints { make in
+            make.top.equalTo(todaysFlowerLabel.snp.bottom).offset(17)
+            make.leading.equalTo(todaysFlowerLabel.snp.leading)
+        }
+        
+        flowerLanguageStackView.snp.makeConstraints { make in
             make.leading.equalTo(todaysFlowerStackView.snp.leading)
-            make.top.equalTo(todaysFlowerStackView.snp.bottom).offset(23)
+            make.top.equalTo(todaysFlowerStackView.snp.bottom).offset(11)
+        }
+        
+        todaysFlowerButton.snp.makeConstraints { make in
+            make.leading.equalTo(flowerLanguageStackView.snp.leading)
+            make.trailing.equalTo(flowerImageView.snp.leading).offset(-21)
+            make.top.equalTo(flowerLanguageStackView.snp.bottom).offset(15)
         }
 
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.leading.equalTo(todaysFlowerStackView.snp.trailing)
             make.width.equalTo(flowerImageView.snp.height).multipliedBy(2.0 / 3.0)
         }
     }
     
-    private func addAttributeToFlowerName(name: String){
-        let array = name.split(separator: "\n")
-        let attributeText = NSMutableAttributedString(string: name)
-        let range0 = (name as NSString).range(of: String(array[0]))
-        let range1 = (name as NSString).range(of: String(array[1]))
-        attributeText.addAttribute(.foregroundColor, value: UIColor.primary, range: range0)
-        attributeText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range1)
+    func configure(_ model: TodaysFlowerModel){
+        flowerId = model.flowerId
+        flowerNameLabel.text = model.flowerName
+        flowerNameLabel.setLetterSpacing(0.02)
         
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 5
-        attributeText.addAttribute(.paragraphStyle,
-                                   value: style,
-                                   range: NSRange(location: 0, length: attributeText.length))
-        flowerNameLabel.attributedText = attributeText
+        let description = model.flowerOneLineDescription?.split(separator: ",")
+        flowerOneLineDescriptionLabel.text = String((description![0]))
+        flowerOneLineDescriptionLabel.setLetterSpacing(0.02)
+        
+        if let imagePath = model.flowerImage {
+            flowerImageView.load(url: URL(string: imagePath)!)
+        }
+        
+        if let flowerLanguage = model.flowerExpressions?[0].flowerLanguage {
+            let languageList = flowerLanguage.split(separator: ",").map({ "#" + String($0).trimmingCharacters(in: .whitespaces) })
+            
+            let languageLabelList: [UILabel] = languageList.map {
+                let label = UILabel()
+                label.text = $0
+                label.font = .Pretendard(family: .Medium)
+                label.textColor = UIColor.gray06
+                label.sizeToFit()
+                return label
+            }
+                        
+            self.layoutSubviews()
+            let stackViewWidth = self.todaysFlowerStackView.frame.width
+            
+            var widthSum: CGFloat = 0
+            for label in languageLabelList {
+                if label.frame.width + widthSum <= stackViewWidth {
+                    widthSum += label.frame.width
+                    self.flowerLanguageStackView.addArrangedSubview(label)
+                }
+            }
+        }
     }
 }

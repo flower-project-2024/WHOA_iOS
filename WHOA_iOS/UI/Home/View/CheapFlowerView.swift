@@ -11,12 +11,13 @@ import SnapKit
 class CheapFlowerView: UIView {
     
     // MARK: - Views
+    
     private let cheapFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "이번 주 저렴한 꽃 랭킹"
         label.textColor = UIColor.primary
         label.numberOfLines = 0
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()
     
@@ -24,13 +25,13 @@ class CheapFlowerView: UIView {
         let label = UILabel()
         label.text = "4월 첫째 주 기준"
         label.textColor = UIColor.primary
-        label.font = UIFont(name: "Pretendard-Regular", size: 12)
+        label.font = .Pretendard(size: 12, family: .Regular)
         label.textColor = UIColor.gray08
         return label
     }()
     
-    let topThreeTableView: UITableView = {
-        let tableView = UITableView()
+    let topThreeTableView: CustomTableView = {
+        let tableView = CustomTableView()
         tableView.register(CheapFlowerInfoCell.self, forCellReuseIdentifier: CheapFlowerInfoCell.identifier)
         tableView.separatorStyle = .none
         tableView.rowHeight = 86
@@ -40,6 +41,7 @@ class CheapFlowerView: UIView {
     
     
     // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -68,5 +70,12 @@ class CheapFlowerView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Functions
+    
+    func setBaseDateLabel(viewModel: HomeViewModel){
+        let data = viewModel.calculateCheapFlowerBaseDate()
+        baseDateLabel.text = "\(data[0])월 \(data[1]) 기준"
     }
 }

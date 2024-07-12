@@ -8,8 +8,32 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+
+    // MARK: - Properties
     
+    private let viewModel = HomeViewModel()
+    private var cellSize: CGSize = .zero
+    private var timer: Timer? = Timer()
+    private let minimumLineSpacing: CGFloat = 0
+    private var collectionViewCellCount: [String] = ["0", "1"]
+    
+    var tooltipIsClosed = false
+
     // MARK: - Views
+    
+    private let scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsHorizontalScrollIndicator = false
+        view.isScrollEnabled = true
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    private let contentView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        return view
+    }()
     
     private lazy var carouselView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
@@ -18,21 +42,27 @@ class HomeViewController: UIViewController {
         flowlayout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        //collectionView.isPagingEnabled = true  // cellSize의 width가 collectionView의 width와 같지 않기 때문에
         collectionView.showsHorizontalScrollIndicator = true
         collectionView.backgroundColor = .clear
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        collectionView.decelerationRate = .fast
+        
+        collectionView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
+        collectionView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
         return collectionView
     }()
     
     private var tooltipView = ToolTipView()
-    
-    // MARK: - Properties
+
     private var cheapFlowerView = CheapFlowerView()
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "어떤 꽃을 찾으시나요?"
-        searchBar.searchTextField.font = UIFont(name: "Pretendard-Regular", size: 14)
+        searchBar.searchTextField.font = .Pretendard()
         searchBar.searchTextField.layer.masksToBounds = true
         searchBar.searchTextField.layer.cornerRadius = 25
         searchBar.searchTextField.layer.borderColor = UIColor.gray04.cgColor
@@ -45,25 +75,21 @@ class HomeViewController: UIViewController {
         return searchBar
     }()
     
-    private var cellSize: CGSize = .zero
-    private var timer: Timer? = Timer()
-    private let minimumLineSpacing: CGFloat = 0
-    private var collectionViewCellCount: [String] = ["0", "1"]
-    
-    var tooltipIsClosed = false
-    
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        bind()
+        
+        viewModel.fetchTodaysFlowerModel(getTodaysDate(), fromCurrentVC: self)
+        viewModel.fetchCheapFlowerRanking(fromCurrentVC: self)
     
         addViews()
         setupNavigation()
         setupConstraints()
-        
-        let backgroundImage = getImageWithCustomColor(color: UIColor.gray03, size: CGSize(width: 350, height: 54))
-        searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
         
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
@@ -75,12 +101,23 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+//        scrollView.updateContentSize()
+        contentView.layoutSubviews()
+        searchBar.setBackgroundColor(size: searchBar.frame.size)
+        
         setupCollectionView()
         setupTableView()
+        
+        for cell in cheapFlowerView.topThreeTableView.visibleCells {
+            if let cheapFlowerInfoCell = cell as? CheapFlowerInfoCell {
+                let stackViewFrame = cheapFlowerInfoCell.flowerInfoStackView
+                cheapFlowerInfoCell.updateFlowerLanguageStackView()
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        resetTimer()
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     deinit {
@@ -88,11 +125,16 @@ class HomeViewController: UIViewController {
         timer = nil
     }
 
-    // MARK: - Helper
+    // MARK: - Functions
+    
     private func addViews(){
-        view.addSubview(searchBar)
-        view.addSubview(carouselView)
-        view.addSubview(cheapFlowerView)
+        view.addSubview(scrollView)
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(searchBar)
+        contentView.addSubview(carouselView)
+        contentView.addSubview(cheapFlowerView)
     }
     
     private func setupNavigation(){
@@ -100,42 +142,59 @@ class HomeViewController: UIViewController {
         let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
         
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.barTintColor = .white
+        
+        self.navigationController?.navigationBar.tintColor = .primary
+        self.navigationController?.navigationBar.topItem?.title = ""
+        
         // 네비게이션 바 줄 없애기
-//        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
-//        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
+        self.navigationController?.navigationBar.standardAppearance.shadowColor = .white  // 스크롤하지 않는 상태
+        self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
     }
     
     private func setupConstraints(){
+        scrollView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            make.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            make.top.equalTo(scrollView.contentLayoutGuide.snp.top)
+            make.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom)
+            make.width.equalTo(scrollView.frameLayoutGuide.snp.width)
+        } 
+        
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(contentView.snp.top)
             make.leading.trailing.equalToSuperview().inset(20)
         }
+        
         carouselView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(225)
         }
+        
         cheapFlowerView.snp.makeConstraints { make in
             make.top.equalTo(carouselView.snp.bottom).offset(29)
             make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(contentView.snp.bottom).inset(15)
         }
     }
     
     private func setupCollectionView(){
         // minimumLineSpacing 고려하여 width 값 조절
-        cellSize = CGSize(width: carouselView.bounds.width - (minimumLineSpacing * 4), height: 225)
+        carouselView.layoutIfNeeded()
+        cellSize = CGSize(width: carouselView.frame.width - (minimumLineSpacing * 4), height: 225)
         carouselView.contentInset = UIEdgeInsets(top: 0,
                                                  left: minimumLineSpacing * 2,
                                                  bottom: 0,
                                                  right: minimumLineSpacing)
-        carouselView.delegate = self
-        carouselView.dataSource = self
-        
-        carouselView.decelerationRate = .fast
-        
-        carouselView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
-        carouselView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
     }
     
     private func setupTableView(){
@@ -180,16 +239,41 @@ class HomeViewController: UIViewController {
         })
     }
     
-    private func getImageWithCustomColor(color: UIColor, size: CGSize) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        color.setFill()
-        UIRectFill(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
+    private func bind(){
+        viewModel.cheapFlowerRankingsDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.cheapFlowerView.topThreeTableView.reloadData()
+                self?.cheapFlowerView.setBaseDateLabel(viewModel: self!.viewModel)
+            }
+        }
+        
+        viewModel.todaysFlowerDidChange = { [weak self] in
+            DispatchQueue.main.async {
+                self?.carouselView.reloadData()
+                self?.resetTimer()
+            }
+        }
     }
     
+    private func getTodaysDate() -> [String] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd"
+        let currentDate = dateFormatter.string(from: Date())
+        let splitArray = currentDate.split(separator: "-")
+        var returnArray = ["", ""]
+        
+        // 월, 날짜가 한 자리 수인 경우 앞에 0을 제거해야 함
+        for i in 0...1{
+            if splitArray[i].prefix(1) == "0" {
+                returnArray[i] = String(splitArray[i].suffix(1))
+            }
+            else {
+                returnArray[i] = String(splitArray[i])
+            }
+        }
+        return returnArray
+    }
+
     func removeToolTipView(){
         tooltipIsClosed = true
         tooltipView.removeFromSuperview()
@@ -197,23 +281,22 @@ class HomeViewController: UIViewController {
 }
 
 // MARK: - Extensions; TableView
+
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.getCheapFlowerModelCount()
     }
     
     // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
         cell.rankingLabel.text = "\(indexPath.row + 1)"
+        
+        let model = viewModel.getCheapFlowerModel(index: indexPath.row)
+        cell.configure(model: model)
         return cell
     }
-    
-//    // TableView의 rowHeight속성에 AutometicDimension을 통해 테이블의 row가 유동적이라는 것을 선언
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
 }
 
 extension HomeViewController : UITableViewDelegate {
@@ -221,35 +304,17 @@ extension HomeViewController : UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         timer?.invalidate()
         timer = nil
-        let vc = FlowerDetailViewController()
-        vc.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(vc, animated: true)
+        let cell = tableView.cellForRow(at: indexPath) as! CheapFlowerInfoCell
+        if let id = cell.flowerId {
+            let vc = FlowerDetailViewController(flowerId: id)
+            vc.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(vc, animated: true)
+        }        
     }
 }
 
-// MARK: - Extensions; ScrollView
-//extension UIScrollView {
-//    func updateContentSize() {
-//        let unionCalculatedTotalRect = recursiveUnionInDepthFor(view: self)
-//        
-//        // 계산된 크기로 컨텐츠 사이즈 설정
-//        self.contentSize = CGSize(width: self.frame.width, height: unionCalculatedTotalRect.height+50)
-//    }
-//    
-//    private func recursiveUnionInDepthFor(view: UIView) -> CGRect {
-//        var totalRect: CGRect = .zero
-//        
-//        // 모든 자식 View의 컨트롤의 크기를 재귀적으로 호출하며 최종 영역의 크기를 설정
-//        for subView in view.subviews {
-//            totalRect = totalRect.union(recursiveUnionInDepthFor(view: subView))
-//        }
-//        
-//        // 최종 계산 영역의 크기를 반환
-//        return totalRect.union(view.frame)
-//    }
-//}
-
 // MARK: - Extensions; CollectionView
+
 extension HomeViewController: UICollectionViewDelegate {
     // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -274,23 +339,29 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return viewModel.getTodaysFlowerCount() + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
-            cell.buttonCallbackMethod = { [self] in
-                timer?.invalidate()
-                timer = nil
-                let vc = FlowerDetailViewController()
+
+            cell.configure(viewModel.getTodaysFlower())
+            
+            cell.buttonCallbackMethod = { [weak self] in
+                self?.timer?.invalidate()
+                self?.timer = nil
+                let vc = FlowerDetailViewController(flowerId: cell.flowerId ?? 1)
                 vc.hidesBottomBarWhenPushed = true
-                navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
             return cell
         }
         else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath) as! CustomizeIntroCell
+            cell.goToCustomzingFromCustomizingCell = { [weak self] in
+                self?.tabBarController?.selectedIndex = 1
+            }
             return cell
         }
         
@@ -307,7 +378,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - search bar
+// MARK: - Extensions; search bar
+
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         timer?.invalidate()
@@ -315,21 +387,5 @@ extension HomeViewController: UISearchBarDelegate {
         let searchVC = FlowerSearchViewController()
         searchVC.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(searchVC, animated: true)
-    }
-}
-
-// MARK: - Extension; UILabel (추후 Global 로 빼기)
-// TODO: Global에 추가
-extension UILabel {
-    func setLineSpacing(spacing: CGFloat) {
-        guard let text = text else { return }
-
-        let attributeString = NSMutableAttributedString(string: text)
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = spacing
-        attributeString.addAttribute(.paragraphStyle,
-                                     value: style,
-                                     range: NSRange(location: 0, length: attributeString.length))
-        attributedText = attributeString
     }
 }

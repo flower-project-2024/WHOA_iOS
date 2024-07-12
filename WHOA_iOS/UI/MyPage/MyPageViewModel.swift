@@ -22,7 +22,9 @@ class BouquetListModel {
     // MARK: - Functions
     
     func fetchAllBouquets(fromCurrentVC: UIViewController){
-        NetworkManager.shared.fetchAllBouquets { result in
+        guard let memberId = KeychainManager.shared.loadMemberId() else { return }
+        print("member id: \(memberId)")
+        NetworkManager.shared.fetchAllBouquets(memberId: memberId) { result in
             switch result {
             case .success(let model):
                 self.bouquetModelList = model

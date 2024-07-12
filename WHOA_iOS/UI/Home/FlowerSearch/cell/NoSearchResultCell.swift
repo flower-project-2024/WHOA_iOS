@@ -9,10 +9,13 @@ import UIKit
 import SnapKit
 
 class NoSearchResultCell: UITableViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "NoSearchResultCell"
     
     // MARK: - Views
+    
     private let noResultImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -24,7 +27,7 @@ class NoSearchResultCell: UITableViewCell {
         let label = UILabel()
         label.text = "검색 결과가 없어요"
         label.textColor = UIColor.primary
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
+        label.font = .Pretendard(size: 16, family: .Bold)
         return label
     }()
     
@@ -32,11 +35,12 @@ class NoSearchResultCell: UITableViewCell {
         let label = UILabel()
         label.text = "다른 이름으로 검색해보세요."
         label.textColor = UIColor.primary
-        label.font = UIFont(name: "Pretendard-Regular", size: 14)
+        label.font = .Pretendard(family: .Regular)
         return label
     }()
     
     // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -49,6 +53,7 @@ class NoSearchResultCell: UITableViewCell {
     }
     
    // MARK: - Helpers
+    
     private func addViews(){
         addSubview(noResultImageView)
         addSubview(noResultLabel)

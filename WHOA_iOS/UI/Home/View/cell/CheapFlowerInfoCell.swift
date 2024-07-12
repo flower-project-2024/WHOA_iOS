@@ -8,16 +8,20 @@
 import UIKit
 
 class CheapFlowerInfoCell: UITableViewCell {
+    
     // MARK: - Properties
     
     static let identifier = "CheapFlowerInfoCell"
+    
+    var flowerId: Int?
+    
+    private var flowerLanguage: String?
         
     // MARK: - Views
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "FlowerImage.png")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = CGColor(red: 199/255, green: 199/255, blue: 199/255, alpha: 1)
@@ -27,32 +31,37 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     let rankingLabel: UILabel =  {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 20)
+        label.font = .Pretendard(size: 20, family: .Medium)
         label.textColor = UIColor.primary
-        label.text = "1"
         return label
+    }()
+    
+    let flowerInfoStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 6
+        view.alignment = .leading
+        return view
     }()
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-SemiBold", size: 16)
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         label.textColor = UIColor.primary
-        label.text = "히아신스"
         return label
     }()
     
-    private let flowerLanguageLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Medium", size: 12)
-        label.text = "영원한 사랑"
-        label.textColor = UIColor.gray07
-        return label
+    private let flowerLanguageStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.distribution = .fillProportionally
+        view.spacing = 0
+        return view
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Bold", size: 14)
-        label.text = "2100원"
+        label.font = .Pretendard(family: .Bold)
         label.textColor = UIColor.secondary04
         return label
     }()
@@ -65,7 +74,8 @@ class CheapFlowerInfoCell: UITableViewCell {
         return imageView
     }()
     
-    // MARK: - init
+    // MARK: - Initialziation
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -76,15 +86,19 @@ class CheapFlowerInfoCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - functions
+    // MARK: - Functions
+    
     private func setupConstraints(){
         // add view
         contentView.addSubview(flowerImageView)
         contentView.addSubview(rankingLabel)
-        contentView.addSubview(flowerNameLabel)
-        contentView.addSubview(flowerLanguageLabel)
+        contentView.addSubview(flowerInfoStackView)
         contentView.addSubview(priceLabel)
         contentView.addSubview(moveToDetailImageView)
+        
+        [flowerNameLabel, flowerLanguageStackView].forEach {
+            flowerInfoStackView.addArrangedSubview($0)
+        }
         
         // constraints
         flowerImageView.snp.makeConstraints { make in
@@ -94,22 +108,18 @@ class CheapFlowerInfoCell: UITableViewCell {
         }
         
         rankingLabel.snp.makeConstraints { make in
-            make.leading.equalTo(flowerImageView.snp.trailing).offset(15)
-            make.top.equalTo(flowerImageView.snp.top).inset(11.5)
+            make.leading.equalTo(flowerImageView.snp.trailing).offset(17)
+            make.top.equalTo(flowerNameLabel.snp.top)
         }
         
-        flowerNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(rankingLabel.snp.top)
-            make.leading.equalTo(rankingLabel.snp.trailing).offset(25)
-        }
-        
-        flowerLanguageLabel.snp.makeConstraints { make in
-            make.leading.equalTo(flowerNameLabel.snp.leading)
-            make.top.equalTo(flowerNameLabel.snp.bottom).offset(6)
+        flowerInfoStackView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(rankingLabel.snp.trailing).offset(17)
         }
         
         priceLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(flowerImageView.snp.centerY)
+            make.leading.equalTo(flowerInfoStackView.snp.trailing)
+            make.centerY.equalTo(flowerNameLabel.snp.centerY)
         }
         
         moveToDetailImageView.snp.makeConstraints { make in
@@ -119,4 +129,79 @@ class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
+    func configure(model: CheapFlowerModel){
+        flowerNameLabel.text = model.flowerRankingName
+        
+        var price = model.flowerRankingPrice
+        
+        if price.count > 3{
+            let endIndex = price.endIndex
+            let thirdLastIndex = price.index(endIndex, offsetBy: -3)  // 뒤에서 3번째 인덱스 자리를 구함
+            price.insert(",", at: thirdLastIndex)
+            priceLabel.text = "\(price)원"
+        }
+        else {
+            priceLabel.text = "\(model.flowerRankingPrice)원"
+        }
+        
+        /* 서버에 있는 꽃인 경우와 없는 꽃인 경우 분기 */
+        if let id = model.flowerId {
+            self.flowerId = id
+            moveToDetailImageView.isHidden = false
+            if let img = model.flowerRankingImg {
+                flowerImageView.load(url: URL(string: img)!)
+            }
+        }
+        else{
+            moveToDetailImageView.isHidden = true
+            flowerImageView.image = UIImage.defaultFlower
+        }
+        
+        flowerLanguage = model.flowerRankingLanguage
+    }
+    
+    func updateFlowerLanguageStackView() {
+        flowerLanguageStackView.removeArrangedSubviews()
+                
+        if let language = self.flowerLanguage {
+            
+            var languageList = language.split(separator: ",").map({
+                String($0).trimmingCharacters(in: .whitespaces)
+            })
+            
+            for i in 1 ..< languageList.count {
+                languageList[i] =  "," + languageList[i]
+            }
+                
+            let languageLabelList: [UILabel] = languageList.map {
+                let label = UILabel()
+                label.text = $0
+                label.font = .Pretendard(size: 12, family: .Regular)
+                label.textColor = UIColor.gray07
+                label.sizeToFit()
+                return label
+            }
+
+            let stackViewWidth = self.flowerInfoStackView.bounds.width
+            
+            var widthSum: CGFloat = 0
+            for label in languageLabelList {
+                if label.frame.width + widthSum <= stackViewWidth {
+                    widthSum += label.frame.width
+                    flowerLanguageStackView.addArrangedSubview(label)
+                }
+                else {
+                    return
+                }
+            }
+        }
+        else {
+            let label = UILabel()
+            label.text = "꽃말 정보 없음"
+            label.font = .Pretendard(size: 12, family: .Regular)
+            label.textColor = UIColor.gray07
+            label.sizeToFit()
+            flowerLanguageStackView.addArrangedSubview(label)
+        }
+    }
 }

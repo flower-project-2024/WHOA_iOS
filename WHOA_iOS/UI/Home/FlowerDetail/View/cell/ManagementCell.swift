@@ -8,32 +8,34 @@
 import UIKit
 
 class ManagementCell: UICollectionViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "ManagementColletionViewCell"
     
     // MARK: - Views
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "ManageImage.png")
+        imageView.image = UIImage.watering
         return imageView
     }()
     
     private lazy var managementTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "탈수 잦음"
-        label.font = UIFont(name: "Pretendard-Bold", size: 16)
-        label.textColor = UIColor.primary
+        label.font = .Pretendard(size: 16, family: .Bold)
+        label.textColor = UIColor.secondary05
         return label
     }()
     
     private lazy var managementContentLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "탈수현상이 쉽게 나타나므로 물올림을 충분히 한 후에 꽂아주세요"
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
-        label.textColor = UIColor.primary
-        label.setLineSpacing(spacing: 5)
+        label.font = .Pretendard(size: 16, family: .Regular)
+        label.lineBreakStrategy = .hangulWordPriority
+        label.textColor = UIColor.gray09
         return label
     }()
     
@@ -41,13 +43,15 @@ class ManagementCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+                
+        contentView.backgroundColor = .white
         
-        layer.masksToBounds = true
-        layer.cornerRadius = 6
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.gray03.cgColor
-        backgroundColor = UIColor.gray01
+        contentView.layer.cornerRadius = 6
+        contentView.layer.masksToBounds = false
         
+        contentView.layer.borderColor = UIColor.gray03.cgColor
+        contentView.layer.borderWidth = 1
+                
         addViews()
         setupConstraints()
     }
@@ -68,30 +72,35 @@ class ManagementCell: UICollectionViewCell {
       self.imageView.image = image
     }
     
+    func configure(content: [String]){
+        managementTitleLabel.text = content[0]
+        managementContentLabel.text = content[1]
+        managementContentLabel.setLineHeight(lineHeight: 142)
+    }
+    
     private func addViews(){
-        addSubview(imageView)
-        addSubview(managementTitleLabel)
-        addSubview(managementContentLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(managementTitleLabel)
+        contentView.addSubview(managementContentLabel)
     }
     
     private func setupConstraints(){
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(17)
-            make.leading.equalToSuperview().inset(18)
-            make.trailing.equalToSuperview().inset(27)
-            make.height.equalTo(104)
+            make.top.equalToSuperview().inset(22)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(99)
         }
         
         managementTitleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(27)
-            make.top.equalTo(imageView.snp.bottom).offset(13)
+            make.leading.equalToSuperview().inset(22)
+            make.top.equalTo(imageView.snp.bottom).offset(15)
         }
         
         managementContentLabel.snp.makeConstraints { make in
             make.leading.equalTo(managementTitleLabel.snp.leading)
-            make.trailing.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(22)
             make.top.equalTo(managementTitleLabel.snp.bottom).offset(6)
-            make.bottom.equalToSuperview().inset(27)
+//            make.bottom.equalToSuperview().inset(22)
         }
     }
 }

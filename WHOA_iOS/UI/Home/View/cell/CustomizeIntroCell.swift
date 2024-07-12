@@ -9,10 +9,15 @@ import UIKit
 import SnapKit
 
 class CustomizeIntroCell: UICollectionViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "AppInfoCell"
     
+    var goToCustomzingFromCustomizingCell: (() -> Void)?
+    
     // MARK: - Views
+    
     private let customizeStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -24,7 +29,7 @@ class CustomizeIntroCell: UICollectionViewCell {
     private let customizeLabel: UILabel = {
         let label = UILabel()
         label.text = "커스터마이징 탭"
-        label.font = UIFont(name: "Pretendard-Bold", size: 14)
+        label.font = .Pretendard(family: .Bold)
         label.textColor = UIColor.secondary03
         return label
     }()
@@ -33,16 +38,16 @@ class CustomizeIntroCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "WHOA로 만드는\n나만의 꽃다발"
         label.numberOfLines = 2
-        label.font = UIFont(name: "Pretendard-Bold", size: 24)
+        label.font = .Pretendard(size: 24, family: .Bold)
         label.textColor = UIColor.gray01
-        label.setLineSpacing(spacing: 5)
+        label.setLineHeight(lineHeight: 140)
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "꽃말을 담아 내 마음을 전해보세요"
-        label.font = UIFont(name: "Pretendard-Medium", size: 14)
+        label.font = .Pretendard(family: .Medium)
         label.textColor = UIColor.gray05
         return label
     }()
@@ -56,10 +61,12 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     private let customizeButton: CustomButton = {
         let button = CustomButton(buttonType: .customizing)
+        button.addTarget(self, action: #selector(goToCustomizing), for: .touchUpInside)
         return button
     }()
     
     // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -75,7 +82,13 @@ class CustomizeIntroCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Actions
+    
+    @objc private func goToCustomizing(){
+        goToCustomzingFromCustomizingCell?()
+    }
+    
+    // MARK: - Functions
     
     private func addViews(){
         addSubview(customizeStackView)
@@ -95,11 +108,13 @@ class CustomizeIntroCell: UICollectionViewCell {
         customizeButton.snp.makeConstraints { make in
             make.leading.equalTo(customizeStackView.snp.leading)
             make.top.equalTo(customizeStackView.snp.bottom).offset(23)
+            make.trailing.equalTo(flowerDecoImageView.snp.leading).inset(28)
         }
         
         flowerDecoImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.bottom.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.width.equalTo((flowerDecoImageView.image?.size.width)!)
         }
     }
 }

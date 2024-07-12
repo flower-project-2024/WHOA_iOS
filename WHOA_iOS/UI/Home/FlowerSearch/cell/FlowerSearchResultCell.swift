@@ -8,10 +8,14 @@
 import UIKit
 
 class FlowerSearchResultCell: UITableViewCell {
+    
     // MARK: - Properties
+    
     static let identifier: String = "FlowerSearchResultCell"
+    var flowerId: Int = 0
     
     // MARK: - Views
+    
     private let searchImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage.searchIcon
@@ -21,11 +25,12 @@ class FlowerSearchResultCell: UITableViewCell {
     
     let resultLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Pretendard-Regular", size: 16)
+        label.font = .Pretendard(size: 16, family: .Regular)
         return label
     }()
     
     // MARK: - Initialization
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -38,6 +43,7 @@ class FlowerSearchResultCell: UITableViewCell {
     }
     
     // MARK: - Helpers
+    
     private func addViews(){
         addSubview(searchImageView)
         addSubview(resultLabel)
@@ -55,5 +61,10 @@ class FlowerSearchResultCell: UITableViewCell {
             make.leading.equalTo(searchImageView.snp.trailing).offset(8)
             make.centerY.equalTo(searchImageView.snp.centerY)
         }
+    }
+    
+    func configure(id: Int, attributedFlowerName: NSMutableAttributedString){
+        flowerId = id
+        resultLabel.attributedText = attributedFlowerName
     }
 }

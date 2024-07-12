@@ -10,14 +10,16 @@ import UIKit
 class ManagementView: UIView {
     
     // MARK: - Properties
-    static var cellSize = CGSize(width: 200, height: 258)
+    
+    static var cellSize = CGSize(width: 215, height: 278)
     static let minimumLineSpacing: CGFloat = 12.0
     
     // MARK: - Views
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "이렇게 관리해주세요!"
-        label.font = UIFont(name: "Pretendard-Bold", size: 20)
+        label.text = "관리법과 보관법을 알려드릴게요"
+        label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = UIColor.primary
         return label
     }()
@@ -30,7 +32,6 @@ class ManagementView: UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.isScrollEnabled = true
-        collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = .zero
@@ -71,8 +72,8 @@ class ManagementView: UIView {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
-            make.height.equalTo(258)
-            make.bottom.equalToSuperview().inset(35)
+            make.height.equalTo(ManagementView.cellSize.height)
+            make.bottom.equalToSuperview().inset(17)
         }
     }
 }

@@ -16,10 +16,11 @@ final class NetworkManager {
     
     /// 요구서 전체를 조회하는 함수입니다.
     func fetchAllBouquets(
+        memberId: String,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<[BouquetModel], NetworkError>) -> Void
     ) {
-        let bouquetAllAPI = BouquetAllAPI()
+        let bouquetAllAPI = BouquetAllAPI(memberId: memberId)
         networkService.request(bouquetAllAPI) { result in
             switch result {
             case .success(let DTO):
@@ -66,6 +67,22 @@ final class NetworkManager {
         }
     }
     
+    /// 저렴한 꽃 랭킹을 조회하는 함수입니다.
+    func fetchCheapFlowerRanking(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[CheapFlowerModel], NetworkError>) -> Void
+    ){
+        let cheapFlowerRankingAPI = CheapFlowerRankingAPI()
+        networkService.request(cheapFlowerRankingAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(CheapFlowerRankingDTO.convertCheapFlowerRankingDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     /// 꽃다발 명세서를 POST하는 함수입니다.
     /// - Parameters:
     /// - Headers - memberID: 멤버 아이디
@@ -87,6 +104,24 @@ final class NetworkManager {
         }
     }
     
+    /// 오늘의 꽃을 조회하는 함수입니다
+    func fetchTodaysFlower(
+        month: String,
+        date: String,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<TodaysFlowerModel, NetworkError>) -> Void
+    ){
+        let todaysFlowerAPI = TodaysFlowerAPI(date: date, month: month)
+        networkService.request(todaysFlowerAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(TodaysFlowerDTO.convertTodaysFlowerDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     /// 유저가 등록한 주문서 한 건을 상세 조회하는 함수입니다.
     /// - Parameters:
     /// - MemberID: 멤버 아이디
@@ -108,6 +143,22 @@ final class NetworkManager {
         }
     }
     
+    /// 꽃 검색을 위한 꽃 정보를 조회하는 함수입니다.
+    func fetchFlowersForSearch(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[FlowerSearchModel], NetworkError>) -> Void
+    ){
+        let flowerSearchAPI = FlowerSearchAPI()
+        networkService.request(flowerSearchAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(FlowerSearchDTO.convertFlowerSearchDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
     /// 꽃다발 명세서를 수정(PUT)하는 함수입니다.
     /// - Parameters:
     /// - Headers - memberID: 멤버 아이디
@@ -131,6 +182,22 @@ final class NetworkManager {
         }
     }
     
+    /// 꽃 상세 정보를 조회하는 함수입니다.
+    func fetchFlowerDetail(
+        flowerId: Int,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<FlowerDetailModel, NetworkError>) -> Void
+    ){
+        let flowerDetailAPI = FlowerDetailAPI(flowerId: flowerId)
+        networkService.request(flowerDetailAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(FlowerDetailDTO.convertFlowerDetailDTOToModel(DTO: DTO)))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
     
     /// 유저가 등록한 주문서 한 건을 삭제하는 함수입니다.
     /// - Parameters:
