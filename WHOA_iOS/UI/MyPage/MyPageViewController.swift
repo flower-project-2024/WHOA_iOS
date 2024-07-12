@@ -15,7 +15,8 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Views
-    private let viewTitleLabel: UILabel = {
+        
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "저장된 요구서"
         label.font = UIFont.Pretendard(size: 20, family: .SemiBold)
@@ -53,19 +54,19 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     // MARK: - Helpers
     
     private func setupNavigation(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: viewTitleLabel)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     private func addViews(){
-        view.addSubview(viewTitleLabel)
         view.addSubview(tableView)
     }
     
     private func setupConstraints(){
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(6)
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)/*.inset(20)*/
+            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalToSuperview()
         }
     }
@@ -86,6 +87,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
 }
 
 // MARK: - Extension; TableView
+
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getBouquetModelCount()
