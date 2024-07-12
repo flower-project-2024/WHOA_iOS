@@ -8,7 +8,9 @@
 import UIKit
 
 class SavedRequestCell: UITableViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "SavedRequestCell"
     
     var requestTitle: String?
@@ -17,11 +19,11 @@ class SavedRequestCell: UITableViewCell {
     private var bouquetId: Int?
     
     // MARK: - Views
+    
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .blue
         return imageView
     }()
     
@@ -153,6 +155,7 @@ class SavedRequestCell: UITableViewCell {
     }
     
     // MARK: - Actions
+    
     @objc func modifyBtnTapped(){
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
