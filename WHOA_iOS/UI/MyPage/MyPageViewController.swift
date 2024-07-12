@@ -12,6 +12,8 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     // MARK: - Properties
     
     private let viewModel = BouquetListModel()
+    private let cellVerticalSpacing: CGFloat = 8
+    private var noRequest = true
     var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Views
@@ -29,8 +31,10 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
+        tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
         tableView.separatorStyle = .none
-        tableView.rowHeight = 160
+        tableView.sectionHeaderHeight = .zero
+        tableView.sectionFooterHeight = cellVerticalSpacing
         return tableView
     }()
     
@@ -40,6 +44,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +70,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     private func setupConstraints(){
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(6)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)/*.inset(20)*/
+            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalToSuperview()
         }
@@ -89,31 +94,46 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
 // MARK: - Extension; TableView
 
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let count = viewModel.getBouquetModelCount()
+        noRequest = count == 0 ? true : false
+        return count == 0 ? 1 : count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getBouquetModelCount()
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return cellVerticalSpacing
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
-        cell.selectionStyle = .none
-        
-        let model = viewModel.getBouquetModel(index: indexPath.row)
-        cell.myPageVC = self
-        cell.configure(model: model)
-        cell.customizingCoordinator = customizingCoordinator
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160+16
+        if noRequest {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NoRequestCell.identifier, for: indexPath) as? NoRequestCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            return cell
+        }
+        else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            
+            let model = viewModel.getBouquetModel(index: indexPath.section)
+            cell.myPageVC = self
+            cell.configure(model: model)
+            cell.customizingCoordinator = customizingCoordinator
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
-        let vc = RequestDetailViewController(with: bouquetModel)
-        vc.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(vc, animated: true)
-        return
+        if !noRequest {
+            let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
+            let vc = RequestDetailViewController(with: bouquetModel)
+            vc.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
+        }
     }
     
 }
