@@ -78,7 +78,7 @@ class RequestDetailViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.Pretendard(size: 18, family: .SemiBold)]
         
-        let backbutton = UIBarButtonItem(image: UIImage.chevronRight, style: .done, target: self, action: #selector(goBack))
+        let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         
         // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
