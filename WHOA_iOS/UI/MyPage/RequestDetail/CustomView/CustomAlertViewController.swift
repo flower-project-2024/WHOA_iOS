@@ -196,7 +196,6 @@ class CustomAlertViewController: UIViewController {
     
     @objc func confirmBtnTapped(){
         if alertType == AlertType.modify {
-            //TODO: 구매 목적 페이지로 이동..
             guard let bouquetId = bouquetId else { return }
 
             dismiss(animated: true) { [weak self] in
@@ -206,7 +205,6 @@ class CustomAlertViewController: UIViewController {
 
         }
         else if alertType == .delete {
-            // TODO: 요구서 삭제 api 요청
             guard
                 let id = KeychainManager.shared.loadMemberId(),
                 let bouquetId = bouquetId
@@ -224,6 +222,9 @@ class CustomAlertViewController: UIViewController {
                     self.fetchFailure(error)
                 }
             }
+        }
+        else if alertType == .requestSaveAlert {
+            dismiss(animated: true)
         }
     }
 }
