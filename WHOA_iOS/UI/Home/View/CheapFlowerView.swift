@@ -75,34 +75,7 @@ class CheapFlowerView: UIView {
     // MARK: - Functions
     
     func setBaseDateLabel(viewModel: HomeViewModel){
-        let data = calculateWeekOfTheMonth(date: viewModel.getCheapFlowerModel(index: 0).flowerRankingDate)
+        let data = viewModel.calculateCheapFlowerBaseDate()
         baseDateLabel.text = "\(data[0])월 \(data[1]) 기준"
     }
-    
-    /// 입력받은 날짜가 몇 월의 몇 째주인지 계산해주는 함수
-    private func calculateWeekOfTheMonth(date: String) -> [String]{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-        
-        let date = dateFormatter.date(from: date)!
-        
-        let calendar = Calendar.current  // 어떤 종류의 달력인지
-        let month = calendar.component(.month, from: date)
-        let weekNumber = calendar.component(.weekOfMonth, from: date)
-               
-        if weekNumber == 1 {
-            return [String(month), "첫째 주"]
-        }
-        else if weekNumber == 2 {
-            return [String(month), "둘째 주"]
-        }
-        else if weekNumber == 3 {
-            return [String(month), "셋째 주"]
-        }
-        else {
-            return [String(month), "넷째 주"]
-        }
-    }
-    
 }
