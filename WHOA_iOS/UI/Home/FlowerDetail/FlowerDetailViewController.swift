@@ -310,7 +310,7 @@ class FlowerDetailViewController: UIViewController {
     private func addSubViews(){
         // add views
         view.addSubview(outerScrollView)
-        view.addSubview(bottomFixedView)
+        //view.addSubview(bottomFixedView)
         
         outerScrollView.addSubview(imageScrollView)
         outerScrollView.addSubview(imagePageControl)
@@ -342,14 +342,15 @@ class FlowerDetailViewController: UIViewController {
             flowerColorStackView.addArrangedSubview($0)
         }
         
-        bottomFixedView.addSubview(decorateButton)
+        //bottomFixedView.addSubview(decorateButton)
     }
     
     private func setupConstraints(){
         outerScrollView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(bottomFixedView.snp.top)
+//            make.bottom.equalTo(bottomFixedView.snp.top)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
         imageScrollView.snp.makeConstraints { make in
@@ -443,16 +444,16 @@ class FlowerDetailViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
         
-        decorateButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(8)
-        }
-        
-        bottomFixedView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-        }
+//        decorateButton.snp.makeConstraints { make in
+//            make.leading.trailing.equalToSuperview().inset(20)
+//            make.top.equalToSuperview().inset(20)
+//            make.bottom.equalToSuperview().inset(8)
+//        }
+//        
+//        bottomFixedView.snp.makeConstraints { make in
+//            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            make.leading.trailing.equalToSuperview()
+//        }
     }
     
     private func generateColorChipButtons(_ colors: [String]?){
