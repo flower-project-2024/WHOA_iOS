@@ -82,7 +82,7 @@ class SaveAlertViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .primary.withAlphaComponent(0.5)
         
         view.addSubview(alertView)
         alertView.addSubview(flowerImageView)
