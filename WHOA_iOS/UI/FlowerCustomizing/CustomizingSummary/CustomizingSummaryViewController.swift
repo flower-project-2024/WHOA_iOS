@@ -138,25 +138,23 @@ class CustomizingSummaryViewController: UIViewController {
         viewModel.$imageUploadSuccess
             .receive(on: DispatchQueue.main)
             .sink { [weak self] success in
-                guard success else { return }
-                self?.presentSaveAlert(saveResult: .success)
+                guard let self = self,
+                    success
+                else { return }
+                self.coordinator?.showSaveAlert(from: self, saveResult: .success)
             }
             .store(in: &viewModel.cancellables)
         
         viewModel.$networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let error = error else { return }
+                guard let self = self,
+                      let error = error
+                else { return }
                 let saveResult: SaveResult = (error == .duplicateError ? .duplicateError : .networkError)
-                self?.presentSaveAlert(saveResult: saveResult)
+                self.coordinator?.showSaveAlert(from: self, saveResult: saveResult)
             }
             .store(in: &viewModel.cancellables)
-    }
-    
-    private func presentSaveAlert(saveResult: SaveResult) {
-        let saveAlertVC = SaveAlertViewController(currentVC: self, saveResult: saveResult)
-        saveAlertVC.modalPresentationStyle = .fullScreen
-        self.present(saveAlertVC, animated: true)
     }
     
     private func handleBouquetId(_ bouquetId: Int?) {
@@ -168,7 +166,7 @@ class CustomizingSummaryViewController: UIViewController {
         if let imageFiles = viewModel.customizingSummaryModel.requirement?.imageFiles, !imageFiles.isEmpty {
             viewModel.submitRequirementImages(id: id, bouquetId: bouquetId, imageFiles: imageFiles)
         } else {
-            presentSaveAlert(saveResult: .success)
+            self.coordinator?.showSaveAlert(from: self, saveResult: .success)
         }
     }
     
