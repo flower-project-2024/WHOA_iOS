@@ -33,12 +33,14 @@
 		0857383E2B72349100AAFAC6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382B2B721A5700AAFAC6 /* Pretendard-SemiBold.otf */; };
 		0857383F2B72349300AAFAC6 /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0857382E2B721A5700AAFAC6 /* Pretendard-Thin.otf */; };
 		085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */; };
+		0857D6AE2C429F71006C1FEF /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0857D6AD2C429F71006C1FEF /* CustomTabBar.swift */; };
 		0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */; };
 		0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4AA2C24190B00FAE6C3 /* FlowerDetailAPI.swift */; };
 		0858C4AD2C241C5900FAE6C3 /* FlowerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4AC2C241C5900FAE6C3 /* FlowerDetailViewModel.swift */; };
 		0858C4AF2C241C8B00FAE6C3 /* FlowerDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4AE2C241C8B00FAE6C3 /* FlowerDetailModel.swift */; };
 		0858C4B32C2449C200FAE6C3 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0858C4B22C2449C200FAE6C3 /* String+.swift */; };
 		085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085DEE982BA3404500CC5AC2 /* CustomButton.swift */; };
+		086E3D6E2C41792000C90787 /* NoRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086E3D6D2C41792000C90787 /* NoRequestCell.swift */; };
 		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
 		0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA642B957C87003779CE /* RequestDetailViewModel.swift */; };
 		0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA662B9580FE003779CE /* DetailCustomLabel.swift */; };
@@ -222,12 +224,14 @@
 		085738322B721A5800AAFAC6 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
 		085738332B721A5800AAFAC6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagCustomLabel.swift; sourceTree = "<group>"; };
+		0857D6AD2C429F71006C1FEF /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 		0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailDTO.swift; sourceTree = "<group>"; };
 		0858C4AA2C24190B00FAE6C3 /* FlowerDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailAPI.swift; sourceTree = "<group>"; };
 		0858C4AC2C241C5900FAE6C3 /* FlowerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewModel.swift; sourceTree = "<group>"; };
 		0858C4AE2C241C8B00FAE6C3 /* FlowerDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailModel.swift; sourceTree = "<group>"; };
 		0858C4B22C2449C200FAE6C3 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		085DEE982BA3404500CC5AC2 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		086E3D6D2C41792000C90787 /* NoRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRequestCell.swift; sourceTree = "<group>"; };
 		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
 		0886DA642B957C87003779CE /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
 		0886DA662B9580FE003779CE /* DetailCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCustomLabel.swift; sourceTree = "<group>"; };
@@ -425,6 +429,7 @@
 			children = (
 				08D0CF2F2BF6F8BE005CBECA /* ToolTip */,
 				08478E3B2BEBB005003970B9 /* TabBarViewController.swift */,
+				0857D6AD2C429F71006C1FEF /* CustomTabBar.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				0887F6282B867BAE00727F14 /* SavedRequestCell.swift */,
+				086E3D6D2C41792000C90787 /* NoRequestCell.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -1282,6 +1288,7 @@
 				0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */,
 				542DD3F02B794B1000DBFCCC /* PurposeModel.swift in Sources */,
 				54EA0E702BF6183B007B8F5A /* ShadowBorderLine.swift in Sources */,
+				086E3D6E2C41792000C90787 /* NoRequestCell.swift in Sources */,
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */,
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
@@ -1290,6 +1297,7 @@
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */,
+				0857D6AE2C429F71006C1FEF /* CustomTabBar.swift in Sources */,
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */,
@@ -1428,6 +1436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1486,6 +1495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1519,7 +1529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 9.0.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1556,7 +1566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 9.0.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

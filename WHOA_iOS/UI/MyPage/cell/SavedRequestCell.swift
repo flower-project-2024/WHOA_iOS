@@ -8,7 +8,9 @@
 import UIKit
 
 class SavedRequestCell: UITableViewCell {
+    
     // MARK: - Properties
+    
     static let identifier = "SavedRequestCell"
     
     var requestTitle: String?
@@ -17,11 +19,11 @@ class SavedRequestCell: UITableViewCell {
     private var bouquetId: Int?
     
     // MARK: - Views
+    
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .blue
         return imageView
     }()
     
@@ -85,7 +87,7 @@ class SavedRequestCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
     }
     
     // MARK: - Helpers
@@ -106,7 +108,8 @@ class SavedRequestCell: UITableViewCell {
         flowerImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.bottom.equalToSuperview()
-            make.width.equalTo(flowerImageView.snp.height).multipliedBy(4.0 / 5.0)
+            make.height.equalTo(160)
+            make.width.equalTo(flowerImageView.snp.height).multipliedBy(7.0 / 8.0)
         }
         
         detailView.snp.makeConstraints { make in
@@ -117,7 +120,7 @@ class SavedRequestCell: UITableViewCell {
         
         requestTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
-            make.trailing.greaterThanOrEqualToSuperview().inset(50)  // ????
+            make.trailing.greaterThanOrEqualToSuperview().inset(20)
             make.top.equalToSuperview().inset(27)
         }
         
@@ -140,19 +143,14 @@ class SavedRequestCell: UITableViewCell {
         writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
         
         if !model.bouquetImgPaths.isEmpty {
-            DispatchQueue.global().async { [weak self] in
-                if let data = try? Data(contentsOf: URL(string: model.bouquetImgPaths[0])!) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.flowerImageView.image = image
-                        }
-                    }
-                }
+            if let url = URL(string: model.bouquetImgPaths[0]) {
+                flowerImageView.load(url: url)
             }
         }
     }
     
     // MARK: - Actions
+    
     @objc func modifyBtnTapped(){
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
