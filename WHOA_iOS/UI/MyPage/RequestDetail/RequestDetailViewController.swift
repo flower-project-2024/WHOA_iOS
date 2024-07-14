@@ -39,7 +39,7 @@ class RequestDetailViewController: UIViewController {
         config.baseForegroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1)
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10
-        config.contentInsets = NSDirectionalEdgeInsets(top: 17, leading: 117.5, bottom: 17, trailing: 117.5)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 17, leading: 0, bottom: 17, trailing: 0)
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
@@ -47,6 +47,7 @@ class RequestDetailViewController: UIViewController {
     }()
     
     // MARK: - Initialization
+    
     init(with BouquetModel: BouquetModel) {
         viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, bouquetId: BouquetModel.bouquetId)
         super.init(nibName: nil, bundle: nil)
@@ -77,7 +78,7 @@ class RequestDetailViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.title = ""
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font : UIFont.Pretendard(size: 18, family: .SemiBold)]
         
-        let backbutton = UIBarButtonItem(image: UIImage.chevronRight, style: .done, target: self, action: #selector(goBack))
+        let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         
         // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true

@@ -170,7 +170,7 @@ class HomeViewController: UIViewController {
         } 
         
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.top)
+            make.top.equalTo(contentView.snp.top).inset(17)  // 내비게이션 바의 높이 고려한 간격
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
