@@ -13,6 +13,7 @@ import UIKit
 /// 3. 없다면 urlString에서 UIImage로 변환
 /// 4. 변환된 UIImage를 Value, 매개변수로 전달받은 urlString을 Key로 하여 캐시에 저장
 /// 5. completionHandler를 통해 변환된 UIImage를 전달
+/// 6. 이미지 표시가 필요 시 SetImage로 이미지 표시
 
 class ImageProvider {
     static let shared = ImageProvider()

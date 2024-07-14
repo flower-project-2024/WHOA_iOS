@@ -29,7 +29,6 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "TempImage")
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -125,8 +124,8 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         flowerNameLabel.text = model.flowerName
         flowerLanguageLabel.text = model.flowerLanguage
         
-        if let image = model.flowerImage, let imageURL = URL(string: image) {
-            flowerImageView.load(url: imageURL)
+        if let image = model.flowerImage {
+            ImageProvider.shared.setImage(into: flowerImageView, qos: .userInitiated, from: image)
         } else {
             flowerImageView.image = UIImage(named: "TempImage")
         }
