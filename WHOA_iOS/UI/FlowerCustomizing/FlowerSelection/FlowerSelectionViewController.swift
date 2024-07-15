@@ -304,14 +304,18 @@ class FlowerSelectionViewController: UIViewController {
             minusView.isHidden = true
         }
         
-        for i in urls.indices {
-            if let url = urls[i] {
-                flowerImageViews[i].load(url: url)
-                minusImageViews[i].isHidden = false
+        for (index, url) in urls.enumerated() {
+            guard index < flowerImageViews.count else { break }
+            let flowerImageView = flowerImageViews[index]
+            let minusImageView = minusImageViews[index]
+            
+            if let url = url {
+                ImageProvider.shared.setImage(into: flowerImageView, from: url.absoluteString)
             } else {
-                flowerImageViews[i].image = UIImage(named: "TempImage")
-                minusImageViews[i].isHidden = false
+                flowerImageView.image = UIImage(named: "TempImage")
             }
+            
+            minusImageView.isHidden = false
         }
     }
     

@@ -143,7 +143,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         flowerOneLineDescriptionLabel.setLetterSpacing(0.02)
         
         if let imagePath = model.flowerImage {
-            flowerImageView.load(url: URL(string: imagePath)!)
+            ImageProvider.shared.setImage(into: flowerImageView, from: imagePath)
         }
         
         if let flowerLanguage = model.flowerExpressions?[0].flowerLanguage {

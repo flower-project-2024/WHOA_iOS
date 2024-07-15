@@ -482,9 +482,8 @@ class FlowerDetailViewController: UIViewController {
         view.layoutIfNeeded()
         
         for index in 0 ..< images.count {
-            let url = URL(string: images[index])!
             let imageView = UIImageView()
-            imageView.load(url: url)
+            ImageProvider.shared.setImage(into: imageView, from: images[index])
             
             let xPosition = imageScrollView.frame.width * CGFloat(index)
             

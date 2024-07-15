@@ -362,9 +362,8 @@ class RequestDetailView: UIView {
             flowerView.isHidden = false
             flowerView.flowerNameLabel.text = flower.name
             configureFlowerTags(for: flowerView, with: flower.hashTag)
-            if let imageString = flower.photo,
-               let imageURL = URL(string: imageString) {
-                flowerView.flowerImageView.load(url: imageURL)
+            if let imageString = flower.photo {
+                ImageProvider.shared.setImage(into: flowerView.flowerImageView, from: imageString)
             }
         }
     }

@@ -144,7 +144,7 @@ class SavedRequestCell: UITableViewCell {
         
         if !model.bouquetImgPaths.isEmpty {
             if let url = URL(string: model.bouquetImgPaths[0]) {
-                flowerImageView.load(url: url)
+                ImageProvider.shared.setImage(into: flowerImageView, from: url.absoluteString)
             }
         }
     }

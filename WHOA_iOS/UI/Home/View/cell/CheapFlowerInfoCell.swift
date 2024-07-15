@@ -149,7 +149,7 @@ class CheapFlowerInfoCell: UITableViewCell {
             self.flowerId = id
             moveToDetailImageView.isHidden = false
             if let img = model.flowerRankingImg {
-                flowerImageView.load(url: URL(string: img)!)
+                ImageProvider.shared.setImage(into: flowerImageView, from: img)
             }
         }
         else{
