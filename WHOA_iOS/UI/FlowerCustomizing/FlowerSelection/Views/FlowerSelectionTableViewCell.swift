@@ -149,7 +149,7 @@ extension FlowerSelectionTableViewCell {
         flowerNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(13)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(60)
+            $0.trailing.equalTo(addImageButton.snp.leading).offset(-5)
         }
         
         addImageButton.snp.makeConstraints {
