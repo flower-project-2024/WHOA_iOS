@@ -13,8 +13,10 @@ class FlowerSelectionViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: FlowerSelectionViewModel
-    
     weak var coordinator: CustomizingCoordinator?
+    
+    private var flowerImageViews: [UIImageView] = []
+    private var minusImageViews: [UIImageView] = []
     
     // MARK: - UI
     
@@ -196,6 +198,7 @@ class FlowerSelectionViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
+        titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
         view.backgroundColor = .white
         
         view.addSubview(exitButton)
@@ -216,8 +219,13 @@ class FlowerSelectionViewController: UIViewController {
         
         setupAutoLayout()
         setupCollectionView()
+        setupImageViews()
         selectInitialItem()
-        titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
+    }
+    
+    private func setupImageViews() {
+        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
+        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
     }
     
     private func bind() {
@@ -287,63 +295,44 @@ class FlowerSelectionViewController: UIViewController {
         viewModel.filterModels(with: title)
     }
     
-    private func updateFlowerImageViews(with urls: [URL?]) {
-        let flowerImageViews = [
-            self.flowerImageView1,
-            self.flowerImageView2,
-            self.flowerImageView3
-        ]
-        let minusImageViews = [
-            self.minusImageView1,
-            self.minusImageView2,
-            self.minusImageView3
-        ]
+  
+    private func updateFlowerImageViews(with urlStrings: [String?]) {
+        resetImageView()
         
-        for (imageView, minusView) in zip(flowerImageViews, minusImageViews) {
-            imageView.image = nil
-            minusView.isHidden = true
+        for (index, urlString) in urlStrings.enumerated() {
+            updateImageView(at: index, with: urlString)
+        }
+    }
+    
+    private func updateImageView(at index: Int, with urlString: String?) {
+        guard index < flowerImageViews.count else { return }
+        let flowerImageView = flowerImageViews[index]
+        let minusImageView = minusImageViews[index]
+        
+        if let url = urlString {
+            ImageProvider.shared.setImage(into: flowerImageView, from: url)
+        } else {
+            flowerImageView.image = UIImage(named: "TempImage")
         }
         
-        for (index, url) in urls.enumerated() {
-            guard index < flowerImageViews.count else { break }
-            let flowerImageView = flowerImageViews[index]
-            let minusImageView = minusImageViews[index]
-            
-            if let url = url {
-                ImageProvider.shared.setImage(into: flowerImageView, from: url.absoluteString)
-            } else {
-                flowerImageView.image = UIImage(named: "TempImage")
-            }
-            
-            minusImageView.isHidden = false
-        }
+        minusImageView.isHidden = false
+    }
+    
+    private func resetImageView() {
+        flowerImageViews.forEach { $0.image = nil }
+        minusImageViews.forEach { $0.isHidden = true }
     }
     
     // MARK: - Actions
     
     @objc
     func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
-        guard let imageView = sender.view as? UIImageView else { return }
+        guard let imageView = sender.view as? UIImageView,
+              let indexToRemove = minusImageViews.firstIndex(of: imageView)
+        else { return }
         
-        let flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
-        let imageViews = [minusImageView1, minusImageView2, minusImageView3]
-        
-        guard let indexToRemove = imageViews.firstIndex(of: imageView) else { return }
-        
-        flowerImageViews[indexToRemove].image = nil
-        imageViews[indexToRemove].isHidden = true
-        
-        updateTableViewButtonUI(at: indexToRemove, isSelected: false)
         viewModel.popSelectedFlowerModel(at: indexToRemove)
-    }
-    
-    func updateTableViewButtonUI(at index: Int, isSelected: Bool) {
-        let model = viewModel.getSelectedFlowerModel(idx: index)
-        guard let indexPath = viewModel.findCellIndexPathRow(for: model) else { return }
-        
-        if let cell = flowerSelectionTableView.cellForRow(at: IndexPath(row: indexPath, section: 0)) as? FlowerSelectionTableViewCell {
-            cell.isAddImageButtonSelected = isSelected
-        }
+        flowerSelectionTableView.reloadData()
     }
     
     @objc
@@ -517,10 +506,9 @@ extension FlowerSelectionViewController: UITableViewDataSource {
         ) as? FlowerSelectionTableViewCell else { return UITableViewCell() }
         
         let model = viewModel.getFilterdModel(idx: indexPath.row)
-        cell.configUI(model: model)
         
+        cell.configUI(model: model)
         cell.isAddImageButtonSelected = viewModel.selectedFlowerModels.contains(where: { $0 == model })
-        cell.delegate = self
         
         return cell
     }
@@ -528,25 +516,22 @@ extension FlowerSelectionViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 
-extension FlowerSelectionViewController: UITableViewDelegate, FlowerSelectionTableViewCellDelegate {
+extension FlowerSelectionViewController: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? FlowerSelectionTableViewCell else { return }
-        didTapAddImageButton(in: cell)
+        didTapAddImageButton(row: indexPath.row)
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
     
-    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell) {
-        guard let indexPath = flowerSelectionTableView.indexPath(for: cell) else { return }
-        let model = viewModel.getFilterdModel(idx: indexPath.row)
+    private func didTapAddImageButton(row: Int) {
+        let model = viewModel.getFilterdModel(idx: row)
         
-        if !cell.isAddImageButtonSelected && viewModel.getSelectedFlowerModelCount() < 3 {
-            cell.isAddImageButtonSelected = true
-            viewModel.pushFlowerModel(model: model)
-        } else {
-            cell.isAddImageButtonSelected = false
+        if viewModel.selectedFlowerModels.contains(model) {
             viewModel.popFlowerModel(model: model)
+        } else if viewModel.getSelectedFlowerModelCount() < 3 {
+            viewModel.pushFlowerModel(model: model)
         }
     }
 }
