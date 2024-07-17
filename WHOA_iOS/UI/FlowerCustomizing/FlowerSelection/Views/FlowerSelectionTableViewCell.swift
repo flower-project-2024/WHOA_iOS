@@ -7,23 +7,15 @@
 
 import UIKit
 
-protocol FlowerSelectionTableViewCellDelegate: AnyObject {
-    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell)
-}
-
 class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    
-    weak var delegate: FlowerSelectionTableViewCellDelegate?
     
     var isAddImageButtonSelected: Bool = false {
         didSet {
             updateAppearance(isAddImageButtonSelected)
         }
     }
-    
-    var addImageButtonClicked: (() -> Void)?
     
     // MARK: - UI
     
@@ -35,7 +27,6 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "튤립"
         label.textColor = .primary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
@@ -47,8 +38,6 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         imageView.tintColor = .gray9
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
-        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -129,13 +118,6 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         } else {
             flowerImageView.image = UIImage(named: "TempImage")
         }
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    func addImageButtonTapped() {
-        delegate?.didTapAddImageButton(in: self)
     }
 }
 
