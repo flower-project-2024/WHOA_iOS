@@ -64,7 +64,7 @@
 		08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9815A2C30877000F3CD45 /* UILabel+.swift */; };
 		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
-		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
+		08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		08C635EE2C01EB220088DE39 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635ED2C01EB220088DE39 /* UITabBar+.swift */; };
 		08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635EF2C01EB470088DE39 /* CALayer+.swift */; };
@@ -256,7 +256,7 @@
 		08B9815A2C30877000F3CD45 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
-		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		08C635ED2C01EB220088DE39 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		08C635EF2C01EB470088DE39 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -550,14 +550,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		08C0ADF72BA9B9250099EFE5 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 		08D0CF2F2BF6F8BE005CBECA /* ToolTip */ = {
 			isa = PBXGroup;
 			children = (
@@ -822,6 +814,7 @@
 		54EB17FF2BB4771E00717E6F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */,
 				54EB17E92BA9ED5700717E6F /* UIButton+.swift */,
 				54EB18002BB4773900717E6F /* UIColor+.swift */,
 				54EB18022BB5400F00717E6F /* UIFont+.swift */,
@@ -1001,7 +994,6 @@
 		54FD0F762B73CF2B00F964C3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				08C0ADF72BA9B9250099EFE5 /* Extension */,
 				54FD0F772B73CF6200F964C3 /* ImageManager.swift */,
 				08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */,
 			);
@@ -1317,7 +1309,7 @@
 				0833EF7A2BE534C40024FB2C /* BouquetAllAPI.swift in Sources */,
 				0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
-				08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */,
+				08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */,
 				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
