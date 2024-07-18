@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BorderLine: UIView {
+final class BorderLine: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         

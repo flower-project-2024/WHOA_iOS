@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SavedRequestCell: UITableViewCell {
+final class SavedRequestCell: UITableViewCell {
     
     // MARK: - Properties
     

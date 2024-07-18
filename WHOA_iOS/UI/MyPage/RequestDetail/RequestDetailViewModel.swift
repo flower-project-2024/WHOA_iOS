@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RequestDetailViewModel {
+final class RequestDetailViewModel {
     
     // MARK: - Properties
     

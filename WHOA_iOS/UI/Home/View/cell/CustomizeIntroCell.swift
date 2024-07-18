@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomizeIntroCell: UICollectionViewCell {
+final class CustomizeIntroCell: UICollectionViewCell {
     
     // MARK: - Properties
     

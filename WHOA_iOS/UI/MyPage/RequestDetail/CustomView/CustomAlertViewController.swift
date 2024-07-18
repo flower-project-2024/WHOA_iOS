@@ -12,7 +12,7 @@ protocol CustomAlertViewControllerDelegate: AnyObject {
     func deleteSuccessful(bouquetId: Int)
 }
 
-class CustomAlertViewController: UIViewController {
+final class CustomAlertViewController: UIViewController {
     // MARK: - AlertType
     enum AlertType: String {
         case modify = "수정"

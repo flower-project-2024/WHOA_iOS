@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RequestDetailView: UIView {
+final class RequestDetailView: UIView {
     
     // MARK: - Properties
     

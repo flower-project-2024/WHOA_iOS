@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BouquetListModel {
+final class BouquetListModel {
     
     // MARK: - Properties
     

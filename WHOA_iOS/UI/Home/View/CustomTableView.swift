@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomTableView: UITableView {
+final class CustomTableView: UITableView {
 
   override var intrinsicContentSize: CGSize {
     return self.contentSize

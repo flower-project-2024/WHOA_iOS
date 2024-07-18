@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CheapFlowerView: UIView {
+final class CheapFlowerView: UIView {
     
     // MARK: - Views
     

@@ -10,7 +10,7 @@ import UIKit
 /**
  * 요구서 > 꽃 종류 (꽃 이미지, 꽃 이름, 꽃말)
  */
-class FlowerTypeView: UIView {
+final class FlowerTypeView: UIView {
     
     // MARK: - Views
     let flowerImageView: UIImageView = {

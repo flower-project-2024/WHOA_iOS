@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoRequestCell: UITableViewCell {
+final class NoRequestCell: UITableViewCell {
     
     // MARK: - Properties
     

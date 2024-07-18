@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
+final class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
     
     // MARK: - Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheapFlowerInfoCell: UITableViewCell {
+final class CheapFlowerInfoCell: UITableViewCell {
     
     // MARK: - Properties
     

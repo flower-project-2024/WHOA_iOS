@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RequestCustomButton: UIButton {
+final class RequestCustomButton: UIButton {
     init(title: String) {
         super.init(frame: .zero)
         

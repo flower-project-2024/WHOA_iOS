@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ToolTipView: UIView {
+final class ToolTipView: UIView {
     
     // MARK: - Properties
     

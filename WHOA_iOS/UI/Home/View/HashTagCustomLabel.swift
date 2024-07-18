@@ -8,7 +8,7 @@
 import UIKit
 
 /* 꽃말 해시 label custom */
-class HashTagCustomLabel: UILabel {
+final class HashTagCustomLabel: UILabel {
     private var padding = UIEdgeInsets(top: 3.5, left: 10, bottom: 3.5, right: 10)
 
     // 생성 시 padding을 설정할 수 있도록

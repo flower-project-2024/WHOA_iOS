@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomButton: UIButton {
+final class CustomButton: UIButton {
     enum CustomButtonType: String {
         case todaysFlower = "오늘의 추천 꽃 구경하기"
         case customizing = "커스터마이징 살펴보기"

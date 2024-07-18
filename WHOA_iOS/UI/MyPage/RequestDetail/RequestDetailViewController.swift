@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RequestDetailViewController: UIViewController {
+final class RequestDetailViewController: UIViewController {
     
     // MARK: - Properties
     

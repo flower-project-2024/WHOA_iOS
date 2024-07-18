@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodaysFlowerViewCell: UICollectionViewCell {
+final class TodaysFlowerViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
