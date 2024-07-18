@@ -13,6 +13,7 @@ import UIKit
 final class FlowerTypeView: UIView {
     
     // MARK: - Views
+    
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -52,8 +53,8 @@ final class FlowerTypeView: UIView {
         return stackView
     }()
     
-    let flowerLanguageTagLabel1: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    let flowerLanguageTagLabel1: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "믿는 사랑"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -61,8 +62,8 @@ final class FlowerTypeView: UIView {
         return label
     }()
     
-    let flowerLanguageTagLabel2: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    let flowerLanguageTagLabel2: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "아름다운 추억"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -71,8 +72,8 @@ final class FlowerTypeView: UIView {
         return label
     }()
     
-    let flowerLanguageTagLabel3: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    let flowerLanguageTagLabel3: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "청춘의 기쁨"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -81,8 +82,8 @@ final class FlowerTypeView: UIView {
         return label
     }()
     
-    let flowerLanguageTagLabel4: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    let flowerLanguageTagLabel4: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "악뮤의 오날오밤"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)

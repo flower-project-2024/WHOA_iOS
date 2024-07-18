@@ -59,8 +59,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let buyingIntentContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let buyingIntentContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "생일/생신"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -87,8 +87,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let flowerColorContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let flowerColorContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "포인트컬러"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -180,8 +180,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let alternativesContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let alternativesContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "색감 위주"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -201,8 +201,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let wrappingContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let wrappingContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "사장님께 맡길게요"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -222,8 +222,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let priceContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let priceContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "20,000~30,000원"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
@@ -243,8 +243,8 @@ final class RequestDetailView: UIView {
         return label
     }()
     
-    private let additionalRequirementContentLabel: DetailCustomLabel = {
-        let label = DetailCustomLabel()
+    private let additionalRequirementContentLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 6.0, left: 12.0, bottom: 6.0, right: 12.0))
         label.text = "이쁘게 잘 만들어주세요! 감사합니다 :)"
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
