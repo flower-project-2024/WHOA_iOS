@@ -40,7 +40,7 @@ class ColorSelectionButton: UIButton {
     }
     
     private func updateButtonState() {
-        self.layer.borderColor = isActive ? UIColor.secondary3.cgColor : UIColor.gray04.cgColor
+        self.layer.borderColor = isActive ? UIColor.secondary03.cgColor : UIColor.gray04.cgColor
         self.setTitleColor( isActive ? .black : .gray08, for: .normal)
     }
 }

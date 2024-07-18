@@ -78,7 +78,7 @@ class PurposeButton: UIButton {
     }
     
     private func updateSelection() {
-        layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
+        layer.borderColor = isSelected ? UIColor.secondary03.cgColor : UIColor.clear.cgColor
         self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray02
         self.titleLabel?.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard()
         self.configuration?.baseForegroundColor = isSelected ? .primary : .gray08

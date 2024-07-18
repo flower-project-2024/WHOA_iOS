@@ -34,7 +34,7 @@ final class PhotoCell: UICollectionViewCell {
         view.backgroundColor = .clear
         view.layer.borderWidth = 5.0
         view.backgroundColor = .black.withAlphaComponent(0.5)
-        view.layer.borderColor = UIColor.secondary3.cgColor
+        view.layer.borderColor = UIColor.secondary03.cgColor
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -42,7 +42,7 @@ final class PhotoCell: UICollectionViewCell {
     private let orderLabel: UILabel = {
         let label = BasePaddingLabel(padding: UIEdgeInsets(top: 3.0, left: 9.0, bottom: 3.0, right: 9.0))
         label.textColor = .primary
-        label.backgroundColor = .secondary3
+        label.backgroundColor = .secondary03
         label.font = .Pretendard(size: 16, family: .SemiBold)
         label.layer.masksToBounds = true
         label.layer.cornerRadius = 13

@@ -45,7 +45,7 @@ class SpacebarButton: UIButton {
         config.attributedTitle = attString
         
         // Image
-        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: isSelected ? [.secondary3, .secondary3] : [.gray02, .gray05])
+        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: isSelected ? [.secondary03, .secondary03] : [.gray02, .gray05])
         config.image = UIImage(systemName: "button.programmable", withConfiguration: colorsConfig)
         config.imagePlacement = .leading
         config.imagePadding = 8

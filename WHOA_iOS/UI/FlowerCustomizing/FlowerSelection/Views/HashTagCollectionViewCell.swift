@@ -55,7 +55,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateAppearance() {
-        contentView.layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.gray04.cgColor
+        contentView.layer.borderColor = isSelected ? UIColor.secondary03.cgColor : UIColor.gray04.cgColor
         hashTagTitle.font = isSelected ? .Pretendard(family: .SemiBold) : .Pretendard()
         hashTagTitle.textColor = isSelected ? .primary : .gray08
     }

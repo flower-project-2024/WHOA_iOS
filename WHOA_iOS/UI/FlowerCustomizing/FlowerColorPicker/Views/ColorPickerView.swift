@@ -50,7 +50,7 @@ class ColorPickerView: UIView {
         button.backgroundColor = .gray02
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.secondary3.cgColor
+        button.layer.borderColor = UIColor.secondary03.cgColor
         button.layer.borderWidth = 2
         button.tag = 1
         button.addTarget(self, action: #selector(FlowerColorPickerButtonTapped), for: .touchUpInside)
@@ -111,7 +111,7 @@ class ColorPickerView: UIView {
     private let checkCircle1: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "checkmark.circle")
-        imageView.tintColor = .secondary3
+        imageView.tintColor = .secondary03
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -353,15 +353,15 @@ class ColorPickerView: UIView {
     
     // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
     private func updateSelectedFlowerColorPickerButton(with selectedButton: UIButton) {
-        selectedButton.layer.borderColor = UIColor.secondary3.cgColor
+        selectedButton.layer.borderColor = UIColor.secondary03.cgColor
         
         switch selectedButton.tag {
         case 1:
-            checkCircle1.tintColor = .secondary3
+            checkCircle1.tintColor = .secondary03
         case 2:
-            checkCircle2.tintColor = .secondary3
+            checkCircle2.tintColor = .secondary03
         case 3:
-            checkCircle3.tintColor = .secondary3
+            checkCircle3.tintColor = .secondary03
         default:
             break
         }
