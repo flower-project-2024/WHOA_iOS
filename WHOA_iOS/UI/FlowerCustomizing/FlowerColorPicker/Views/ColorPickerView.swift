@@ -47,7 +47,7 @@ class ColorPickerView: UIView {
     
     private let flowerColorPickerButton1: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .gray2
+        button.backgroundColor = .gray02
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.secondary3.cgColor
@@ -59,7 +59,7 @@ class ColorPickerView: UIView {
     
     private let flowerColorPickerButton2: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .gray2
+        button.backgroundColor = .gray02
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.clear.cgColor
@@ -71,7 +71,7 @@ class ColorPickerView: UIView {
     
     private let flowerColorPickerButton3: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .gray2
+        button.backgroundColor = .gray02
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderColor = UIColor.clear.cgColor
@@ -93,7 +93,7 @@ class ColorPickerView: UIView {
     private let pointLabel: UILabel = {
         let label = UILabel()
         label.text = "포인트컬러"
-        label.textColor = .gray7
+        label.textColor = .gray07
         label.font = .Pretendard(size: 12, family: .SemiBold)
         label.isHidden = true
         return label
@@ -102,7 +102,7 @@ class ColorPickerView: UIView {
     private let baseLabel: UILabel = {
         let label = UILabel()
         label.text = "베이스컬러"
-        label.textColor = .gray7
+        label.textColor = .gray07
         label.font = .Pretendard(size: 12, family: .SemiBold)
         label.isHidden = true
         return label
@@ -120,7 +120,7 @@ class ColorPickerView: UIView {
     private let checkCircle2: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "checkmark.circle")
-        imageView.tintColor = .gray5
+        imageView.tintColor = .gray05
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -129,7 +129,7 @@ class ColorPickerView: UIView {
     private let checkCircle3: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "checkmark.circle")
-        imageView.tintColor = .gray5
+        imageView.tintColor = .gray05
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -166,15 +166,15 @@ class ColorPickerView: UIView {
         
         let font = UIFont.Pretendard(family: .SemiBold)
         segmentedControl.setTitleTextAttributes(
-            [NSAttributedString.Key.foregroundColor: UIColor.gray6,
+            [NSAttributedString.Key.foregroundColor: UIColor.gray06,
              NSAttributedString.Key.font: font],
             for: .normal)
         segmentedControl.setTitleTextAttributes(
-            [NSAttributedString.Key.foregroundColor: UIColor.gray9,
+            [NSAttributedString.Key.foregroundColor: UIColor.gray09,
              NSAttributedString.Key.font: font],
             for: .selected)
-        segmentedControl.backgroundColor = .gray2
-        segmentedControl.selectedSegmentTintColor = .gray1
+        segmentedControl.backgroundColor = .gray02
+        segmentedControl.selectedSegmentTintColor = .gray01
         return segmentedControl
     }()
     
@@ -253,7 +253,7 @@ class ColorPickerView: UIView {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray4.cgColor
+        button.layer.borderColor = UIColor.gray04.cgColor
         button.addTarget(self, action: #selector(colorPaletteButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -348,7 +348,7 @@ class ColorPickerView: UIView {
     }
     
     private func deleteColors() {
-        flowerColorPickerButtons.forEach { $0.backgroundColor = .gray2 }
+        flowerColorPickerButtons.forEach { $0.backgroundColor = .gray02 }
     }
     
     // 도화지 클릭 시 해당 도화지가 이미 선택된 도화지가 아니면 UI(체크마크, 테두리색)를 변경해주는 메서드
@@ -369,7 +369,7 @@ class ColorPickerView: UIView {
     
     private func clearFlowerColorPickerButtons() {
         flowerColorPickerButtons.forEach { $0.layer.borderColor = UIColor.clear.cgColor }
-        [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray5 }
+        [checkCircle1, checkCircle2, checkCircle3].forEach { $0.tintColor = .gray05 }
     }
     
     func updatePaletteButtonCheckImage(with sender: UIButton?) {
@@ -377,11 +377,11 @@ class ColorPickerView: UIView {
             return
         }
         
-        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray1.withAlphaComponent(0.5) : UIColor.paletteCheckButton
+        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray01.withAlphaComponent(0.5) : UIColor.paletteCheckButton
         
         colorPaletteButtons.forEach {
             if $0.backgroundColor == backgroundColor {
-                let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, btnColor, btnColor])
+                let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray01, btnColor, btnColor])
                 $0.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
                 selectedButton = $0
             } else {
@@ -419,7 +419,7 @@ class ColorPickerView: UIView {
     
     private func restoreSelectedButton(_ segment: UISegmentedControl) {
         if selectedButton != nil {
-            let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, .paletteCheckButton, .paletteCheckButton])
+            let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray01, .paletteCheckButton, .paletteCheckButton])
             selectedButton?.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
             selectedButton?.isSelected = true
         }
@@ -469,8 +469,8 @@ class ColorPickerView: UIView {
         selectedButton = sender
         sender.isSelected = true
         
-        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray1.withAlphaComponent(0.5) : UIColor.paletteCheckButton
-        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray1, btnColor, btnColor])
+        let btnColor = self.segmentControl.selectedSegmentIndex == 1 ? UIColor.gray01.withAlphaComponent(0.5) : UIColor.paletteCheckButton
+        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray01, btnColor, btnColor])
         sender.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
         
         selectedFlowerColorPickerButton?.backgroundColor = sender.backgroundColor
@@ -481,7 +481,7 @@ class ColorPickerView: UIView {
         
         switch numberOfColors {
         case .oneColor:
-            if flowerColorPickerButton1.backgroundColor != .gray2 {
+            if flowerColorPickerButton1.backgroundColor != .gray02 {
                 colors = [flowerColorPickerButton1.backgroundColor].compactMap { $0?.toHexString() }
                 viewModel.setColors(colors: colors)
                 
@@ -490,8 +490,8 @@ class ColorPickerView: UIView {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
         case .twoColor, .pointColor:
-            if flowerColorPickerButton1.backgroundColor != .gray2 &&
-                flowerColorPickerButton2.backgroundColor != .gray2 {
+            if flowerColorPickerButton1.backgroundColor != .gray02 &&
+                flowerColorPickerButton2.backgroundColor != .gray02 {
                 colors = [flowerColorPickerButton1.backgroundColor, flowerColorPickerButton2.backgroundColor].compactMap { $0?.toHexString() }
                 viewModel.setColors(colors: colors)
                 
@@ -500,9 +500,9 @@ class ColorPickerView: UIView {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
         case .colorful:
-            if flowerColorPickerButton1.backgroundColor != .gray2 &&
-                flowerColorPickerButton2.backgroundColor != .gray2 &&
-                flowerColorPickerButton3.backgroundColor != .gray2 {
+            if flowerColorPickerButton1.backgroundColor != .gray02 &&
+                flowerColorPickerButton2.backgroundColor != .gray02 &&
+                flowerColorPickerButton3.backgroundColor != .gray02 {
                 colors = [
                     flowerColorPickerButton1.backgroundColor,
                     flowerColorPickerButton2.backgroundColor,

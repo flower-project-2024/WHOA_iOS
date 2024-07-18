@@ -24,7 +24,7 @@ class ShadowBorderLine: UIView {
     // MARK: - Functions
     
     private func setupView() {
-        backgroundColor = .gray1
+        backgroundColor = .gray01
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.1
         layer.shadowOffset = CGSize(width: 0, height: -2)

@@ -64,7 +64,7 @@ class PurposeButton: UIButton {
     
     private func setupUI(_ purposeType: PurposeType) {
         var config = UIButton.Configuration.gray()
-        config.baseBackgroundColor = .gray2
+        config.baseBackgroundColor = .gray02
         config.title = purposeType.rawValue
         config.image = getPurposeImage(purposeType)
         config.imagePlacement = .top
@@ -79,9 +79,9 @@ class PurposeButton: UIButton {
     
     private func updateSelection() {
         layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
-        self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
+        self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray02
         self.titleLabel?.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard()
-        self.configuration?.baseForegroundColor = isSelected ? .primary : .gray8
+        self.configuration?.baseForegroundColor = isSelected ? .primary : .gray08
     }
     
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {

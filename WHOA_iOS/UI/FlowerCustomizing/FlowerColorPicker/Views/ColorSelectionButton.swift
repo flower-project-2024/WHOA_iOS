@@ -32,7 +32,7 @@ class ColorSelectionButton: UIButton {
     private func setupView(_ numberOfColorsType: NumberOfColorsType) {
         self.setTitle(numberOfColorsType.rawValue, for: .normal)
         self.titleLabel?.font = .Pretendard()
-        self.backgroundColor = .gray1
+        self.backgroundColor = .gray01
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 18
         self.layer.borderWidth = 1
@@ -40,8 +40,8 @@ class ColorSelectionButton: UIButton {
     }
     
     private func updateButtonState() {
-        self.layer.borderColor = isActive ? UIColor.secondary3.cgColor : UIColor.gray4.cgColor
-        self.setTitleColor( isActive ? .black : .gray8, for: .normal)
+        self.layer.borderColor = isActive ? UIColor.secondary3.cgColor : UIColor.gray04.cgColor
+        self.setTitleColor( isActive ? .black : .gray08, for: .normal)
     }
 }
 

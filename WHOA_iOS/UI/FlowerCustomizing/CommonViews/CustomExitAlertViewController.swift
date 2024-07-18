@@ -35,7 +35,7 @@ class CustomExitAlertViewController: UIViewController {
         let label = UILabel()
         label.text = "페이지를 나가면 복구할 수 없습니다."
         label.font = .Pretendard()
-        label.textColor = .gray7
+        label.textColor = .gray07
         return label
     }()
     

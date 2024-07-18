@@ -35,8 +35,8 @@ class FlowerPriceViewController: UIViewController {
         slider.maxValue = 150000
         slider.lower = 0
         slider.upper = 150000
-        slider.trackColor = .gray2
-        slider.trackTintColor = .gray2
+        slider.trackColor = .gray02
+        slider.trackTintColor = .gray02
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
     }()

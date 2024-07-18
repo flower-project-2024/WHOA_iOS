@@ -35,7 +35,7 @@ class BackButton: UIButton {
     private func updateButtonState(_ isActive: Bool) {
         self.isEnabled = isActive
         self.layer.borderColor = UIColor( isActive ? .black : .clear).cgColor
-        self.setTitleColor( isActive ? .primary : .gray5, for: .normal)
-        self.backgroundColor = isActive ? .white : .gray3
+        self.setTitleColor( isActive ? .primary : .gray05, for: .normal)
+        self.backgroundColor = isActive ? .white : .gray03
     }
 }

@@ -78,7 +78,7 @@ class PhotoViewController: UIViewController {
     
     private let borderLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray3
+        view.backgroundColor = .gray03
         return view
     }()
     

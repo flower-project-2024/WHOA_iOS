@@ -22,7 +22,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     let hashTagTitle: UILabel = {
         let label = UILabel()
         label.font = .Pretendard()
-        label.textColor = .gray8
+        label.textColor = .gray08
         return label
     }()
     
@@ -42,7 +42,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     private func setupUI() {
         contentView.layer.cornerRadius = 18
-        contentView.layer.borderColor = UIColor.gray4.cgColor
+        contentView.layer.borderColor = UIColor.gray04.cgColor
         contentView.layer.borderWidth = 1
         
         addSubview(hashTagTitle)
@@ -55,9 +55,9 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateAppearance() {
-        contentView.layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.gray4.cgColor
+        contentView.layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.gray04.cgColor
         hashTagTitle.font = isSelected ? .Pretendard(family: .SemiBold) : .Pretendard()
-        hashTagTitle.textColor = isSelected ? .primary : .gray8
+        hashTagTitle.textColor = isSelected ? .primary : .gray08
     }
 }
 

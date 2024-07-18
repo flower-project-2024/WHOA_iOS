@@ -45,7 +45,7 @@ class SaveAlertViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard()
-        label.textColor = .gray6
+        label.textColor = .gray06
         return label
     }()
     

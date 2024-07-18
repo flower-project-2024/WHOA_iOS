@@ -35,7 +35,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "plus.app")
-        imageView.tintColor = .gray9
+        imageView.tintColor = .gray09
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
         return imageView
@@ -43,7 +43,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray8
+        label.textColor = .gray08
         label.font = .Pretendard(family: .Medium)
         label.numberOfLines = 3
         return label
@@ -51,7 +51,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private let flowerDescriptionView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray2
+        view.backgroundColor = .gray02
         return view
     }()
     
@@ -92,7 +92,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.gray3.cgColor
+        contentView.layer.borderColor = UIColor.gray03.cgColor
         
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)

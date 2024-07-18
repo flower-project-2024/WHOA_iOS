@@ -78,7 +78,7 @@ class FlowerColorPickerViewController: UIViewController {
     
     private let colorPickerBorderLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray2
+        view.backgroundColor = .gray02
         return view
     }()
     
@@ -92,7 +92,7 @@ class FlowerColorPickerViewController: UIViewController {
         let label = UILabel()
         label.text = "꽃집마다 가지고 있는 색들이 달라\n선택한 색감에 맞는 꽃으로 대체될 수 있습니다."
         label.font = .Pretendard(size: 12, family: .Regular)
-        label.textColor = .gray7
+        label.textColor = .gray07
         label.textAlignment = .center
         label.numberOfLines = 2
         return label

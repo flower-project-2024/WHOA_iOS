@@ -28,11 +28,11 @@ class FlowerSelectionViewController: UIViewController {
     private let flowerImageView1: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray4.cgColor
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         return imageView
     }()
     
@@ -51,11 +51,11 @@ class FlowerSelectionViewController: UIViewController {
     private let flowerImageView2: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray4.cgColor
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         return imageView
     }()
     
@@ -74,11 +74,11 @@ class FlowerSelectionViewController: UIViewController {
     private let flowerImageView3: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray4.cgColor
+        imageView.layer.borderColor = UIColor.gray04.cgColor
         return imageView
     }()
     
@@ -115,7 +115,7 @@ class FlowerSelectionViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.gray3.cgColor
+        collectionView.layer.borderColor = UIColor.gray03.cgColor
         
         return collectionView
     }()

@@ -26,7 +26,7 @@ class CustomDescriptionLabel: UILabel {
     private func setupView(_ text: String, _ numberOfLines: Int) {
         self.text = text
         self.font = .Pretendard(size: 16, family: .Regular)
-        self.textColor = .gray7
+        self.textColor = .gray07
         self.numberOfLines = numberOfLines
     }
 }

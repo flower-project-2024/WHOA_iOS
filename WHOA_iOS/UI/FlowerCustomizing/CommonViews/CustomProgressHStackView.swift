@@ -54,7 +54,7 @@ class CustomProgressView: UIProgressView {
     // MARK: - Functions
     
     private func setupView(percentage: Float) {
-        self.trackTintColor = .gray2
+        self.trackTintColor = .gray02
         self.progressTintColor = .black
         self.progress = percentage
         self.transform = CGAffineTransform(scaleX: 1.0, y: 0.5)
@@ -86,7 +86,7 @@ class CustomProgressLabel: UILabel {
         fullString.addAttributes(grayAttributes, range: (percentageText as NSString).range(of: "\(percentageText.split(separator: "/").first ?? "1")"))
         
         self.font = .Pretendard(size: 14, family: .Regular)
-        self.textColor = .gray6
+        self.textColor = .gray06
         self.attributedText = fullString
 
     }

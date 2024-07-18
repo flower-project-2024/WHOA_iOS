@@ -37,7 +37,7 @@ class PhotoSelectionViewController: UIViewController {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.gray6.cgColor
+        view.layer.borderColor = UIColor.gray06.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         return view
     }()
@@ -45,7 +45,7 @@ class PhotoSelectionViewController: UIViewController {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.text = "요구사항을 작성해주세요."
-        label.textColor = .gray6
+        label.textColor = .gray06
         label.font = .Pretendard()
         return label
     }()
@@ -65,7 +65,7 @@ class PhotoSelectionViewController: UIViewController {
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(photoImageViewTapped))
         imageView.addGestureRecognizer(tapGesture)
@@ -79,7 +79,7 @@ class PhotoSelectionViewController: UIViewController {
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -104,7 +104,7 @@ class PhotoSelectionViewController: UIViewController {
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -129,7 +129,7 @@ class PhotoSelectionViewController: UIViewController {
         imageView.contentMode = .center
         imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
-        imageView.backgroundColor = .gray2
+        imageView.backgroundColor = .gray02
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
@@ -457,7 +457,7 @@ extension PhotoSelectionViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.gray4.cgColor
+        requirementTextView.layer.borderColor = UIColor.gray04.cgColor
         
         if textView.text.count == 0 {
             placeholder.isHidden = false
