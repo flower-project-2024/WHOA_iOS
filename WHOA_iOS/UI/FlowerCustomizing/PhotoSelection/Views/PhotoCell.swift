@@ -40,7 +40,7 @@ final class PhotoCell: UICollectionViewCell {
     }()
     
     private let orderLabel: UILabel = {
-        let label = BasePaddingLabel(padding: UIEdgeInsets(top: 3.0, left: 9.0, bottom: 3.0, right: 9.0))
+        let label = HashTagCustomLabel(padding: UIEdgeInsets(top: 3.0, left: 9.0, bottom: 3.0, right: 9.0))
         label.textColor = .primary
         label.backgroundColor = .secondary03
         label.font = .Pretendard(size: 16, family: .SemiBold)
@@ -91,8 +91,8 @@ final class PhotoCell: UICollectionViewCell {
     }
     
     func getImage() -> UIImage? {
-            return imageView.image
-        }
+        return imageView.image
+    }
 }
 
 extension PhotoCell {

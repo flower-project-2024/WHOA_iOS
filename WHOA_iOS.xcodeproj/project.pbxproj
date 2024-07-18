@@ -142,7 +142,6 @@
 		54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17DF2BA2EA2600717E6F /* PhotoSelectionViewModel.swift */; };
 		54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */; };
 		54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E52BA354F400717E6F /* PhotoCell.swift */; };
-		54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */; };
 		54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* UIButton+.swift */; };
 		54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */; };
 		54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */; };
@@ -335,7 +334,6 @@
 		54EB17DF2BA2EA2600717E6F /* PhotoSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionViewModel.swift; sourceTree = "<group>"; };
 		54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		54EB17E52BA354F400717E6F /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
-		54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		54EB17E92BA9ED5700717E6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewController.swift; sourceTree = "<group>"; };
 		54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAlertViewController.swift; sourceTree = "<group>"; };
@@ -984,7 +982,6 @@
 				54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */,
 				54FD0F7E2B742C4900F964C3 /* BackButton.swift */,
 				54FD0F802B743C0000F964C3 /* NextButton.swift */,
-				54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */,
 				54D8565D2BDAFC390099D818 /* SpacebarButton.swift */,
 				54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */,
 			);
@@ -1301,7 +1298,6 @@
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				08DA470D2BF0ABD000956555 /* FlowerSearchDTO.swift in Sources */,
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
-				54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */,
 				0858C4AF2C241C8B00FAE6C3 /* FlowerDetailModel.swift in Sources */,
 				54EB18052BB56E5300717E6F /* ColorSelectionButton.swift in Sources */,
 				548C4AED2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift in Sources */,
