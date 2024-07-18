@@ -91,9 +91,9 @@ class HomeViewController: UIViewController {
         setupNavigation()
         setupConstraints()
         
-        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
-        print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
-        if(!isFirstLaunch){
+        let willShowTooltip = UserDefaults.standard.bool(forKey: "willShowTooltip")
+        if(!willShowTooltip){
+            UserDefaults.standard.setValue(true, forKey: "willShowTooltip")
             setupToolTipView()
         }
     }
