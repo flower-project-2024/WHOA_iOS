@@ -93,17 +93,17 @@ class TabBarViewController: UITabBarController {
             }
             
             items[0].title = "홈"
-            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-Regular", size: 12) as Any], for: .normal)
-            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 12) as Any], for: .selected)
+            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .Regular)], for: .normal)
+            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
 
             items[1].title = "커스터마이징"
 //            items[1].imageInsets = UIEdgeInsets(top: -21, left: 0, bottom: 10, right: 0)
-            items[1].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-Regular", size: 12) as Any], for: .normal)
-            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 12) as Any], for: .selected)
+            items[1].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .Regular)], for: .normal)
+            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
 
             items[2].title = "마이페이지"
-            items[2].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-Regular", size: 12) as Any], for: .normal)
-            items[2].setTitleTextAttributes([NSAttributedString.Key.font : UIFont(name: "Pretendard-SemiBold", size: 12) as Any], for: .selected)
+            items[2].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .Regular)], for: .normal)
+            items[2].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
         }
     }
     
