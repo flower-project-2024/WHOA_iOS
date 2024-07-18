@@ -116,7 +116,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         if let image = model.flowerImage {
             ImageProvider.shared.setImage(into: flowerImageView, qos: .userInitiated, from: image)
         } else {
-            flowerImageView.image = UIImage(named: "TempImage")
+            flowerImageView.image = .defaultFlower
         }
     }
 }

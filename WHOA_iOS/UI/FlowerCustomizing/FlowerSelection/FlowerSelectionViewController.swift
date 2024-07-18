@@ -312,7 +312,7 @@ class FlowerSelectionViewController: UIViewController {
         if let url = urlString {
             ImageProvider.shared.setImage(into: flowerImageView, from: url)
         } else {
-            flowerImageView.image = UIImage(named: "TempImage")
+            flowerImageView.image = .defaultFlower
         }
         
         minusImageView.isHidden = false
