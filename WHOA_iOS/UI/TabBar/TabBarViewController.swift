@@ -13,6 +13,7 @@ class TabBarViewController: UITabBarController {
     
     private var customizingCoordinator: CustomizingCoordinator?
     private var customizingNavVC: UINavigationController?
+    private var hasBottomInset: Bool?
     
     // MARK: - Lifecycle
     
@@ -21,6 +22,10 @@ class TabBarViewController: UITabBarController {
         
         self.delegate = self
 
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let firstWindow = windowScene?.windows.first
+        hasBottomInset = firstWindow?.safeAreaInsets.bottom ?? 0 > 0  // true면 베젤이 있음, false면 베젤 없음(=se)
+        
         tabBar.backgroundColor = .white
         tabBar.barTintColor = .white
         tabBar.tintColor = UIColor.primary
@@ -29,6 +34,7 @@ class TabBarViewController: UITabBarController {
         tabBar.layer.masksToBounds = false
         
         setTabBarHeightAndSettings()
+        setTabViewControllers()
         setTabBarItems()
         
         UITabBar.clearShadow()
@@ -37,11 +43,8 @@ class TabBarViewController: UITabBarController {
         self.selectedIndex = 0
     }
     
-    private func setTabBarItems() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let firstWindow = windowScene?.windows.first
-        let hasBottomInset = firstWindow?.safeAreaInsets.bottom ?? 0 > 0  // true면 베젤이 있음, false면 베젤 없음(=se)
-        
+    /// 탭바와 연결될 뷰컨트롤러 세팅하는 함수
+    private func setTabViewControllers() {
         let homeNavVC = UINavigationController(rootViewController: HomeViewController())
         
         customizingNavVC = UINavigationController()
@@ -59,9 +62,12 @@ class TabBarViewController: UITabBarController {
         } else {
             self.setViewControllers([homeNavVC, myPageNavVC], animated: true)
         }
-        
+    }
+    
+    /// 탭바의 각 탭 아이템들을 세팅하는 함수
+    private func setTabBarItems() {
         if let items = self.tabBar.items {
-            if hasBottomInset {
+            if hasBottomInset! {
                 items[0].selectedImage = UIImage.homeIconFilled
                 items[0].image = UIImage.homeIcon
                 items[0].titlePositionAdjustment = .init(horizontal: 20, vertical: 0)
@@ -97,9 +103,8 @@ class TabBarViewController: UITabBarController {
             items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
 
             items[1].title = "커스터마이징"
-//            items[1].imageInsets = UIEdgeInsets(top: -21, left: 0, bottom: 10, right: 0)
             items[1].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .Regular)], for: .normal)
-            items[0].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
+            items[1].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .SemiBold)], for: .selected)
 
             items[2].title = "마이페이지"
             items[2].setTitleTextAttributes([NSAttributedString.Key.font : UIFont.Pretendard(size: 12, family: .Regular)], for: .normal)
@@ -110,11 +115,7 @@ class TabBarViewController: UITabBarController {
     /// 탭바 높이 조정하는 메소드
     private func setTabBarHeightAndSettings() {
         let customTabBar = CustomTabBar()
-        
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let firstWindow = windowScene?.windows.first
-        let hasBottomInset = firstWindow?.safeAreaInsets.bottom ?? 0 > 0  // true면 베젤이 있음, false면 베젤 없음(=se)
-        customTabBar.customHeight = hasBottomInset ? 92 : 75 // 베젤이 있는 경우와 없는 경우의 높이 설정
+        customTabBar.customHeight = hasBottomInset! ? 92 : 75 // 베젤이 있는 경우와 없는 경우의 높이 설정
         
         customTabBar.barTintColor = .white
         customTabBar.tintColor = .primary
