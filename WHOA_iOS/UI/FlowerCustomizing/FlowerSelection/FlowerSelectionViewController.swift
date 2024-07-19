@@ -250,28 +250,13 @@ final class FlowerSelectionViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .compactMap { $0 }
             .sink { [weak self] error in
-                self?.fetchFailure(error)
+                self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
             .store(in: &viewModel.cancellables)
     }
     
     private func fetchData(keywordId: Int) {
         viewModel.fetchFlowerKeyword(keywordId: "\(keywordId)")
-    }
-    
-    private func fetchFailure(_ error: NetworkError) {
-        let networkAlertController = self.networkErrorAlert(error)
-        DispatchQueue.main.async { [unowned self] in
-            self.present(networkAlertController, animated: true)
-        }
-    }
-    
-    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
     
     private func setupCollectionView() {

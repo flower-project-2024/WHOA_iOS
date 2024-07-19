@@ -29,11 +29,7 @@ class BouquetListModel {
             case .success(let model):
                 self.bouquetModelList = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async {
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
     }
@@ -50,13 +46,5 @@ class BouquetListModel {
     
     func removeBouquet(withId bouquetId: Int) {
         bouquetModelList.removeAll { $0.bouquetId == bouquetId }
-    }
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
-        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
 }
