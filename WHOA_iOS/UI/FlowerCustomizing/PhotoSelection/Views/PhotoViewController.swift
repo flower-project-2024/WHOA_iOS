@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class PhotoViewController: UIViewController {
+final class PhotoViewController: UIViewController {
     private enum Const {
         static let numberOfColumns = 3.0
         static let cellSpace = 1.0

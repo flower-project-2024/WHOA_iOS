@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class FlowerSelectionViewModel {
+final class FlowerSelectionViewModel {
     
     // MARK: - Properties
     

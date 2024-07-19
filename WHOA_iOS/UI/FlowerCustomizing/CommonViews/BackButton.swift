@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BackButton: UIButton {
+final class BackButton: UIButton {
     
     // MARK: - Initialization
     

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomExitAlertViewController: UIViewController {
+final class CustomExitAlertViewController: UIViewController {
     
     // MARK: - Properties
     

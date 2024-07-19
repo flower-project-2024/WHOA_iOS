@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ColorSelectionButton: UIButton {
+final class ColorSelectionButton: UIButton {
     
     var isActive: Bool = false {
         didSet {

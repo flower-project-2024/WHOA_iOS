@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomizingCoordinator: Coordinator {
+final class CustomizingCoordinator: Coordinator {
     
     // MARK: - Properties
     

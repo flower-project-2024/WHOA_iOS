@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomProgressHStackView: UIStackView {
+final class CustomProgressHStackView: UIStackView {
     
     // MARK: - Initialization
     

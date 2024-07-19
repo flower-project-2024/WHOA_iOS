@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class PhotoSelectionViewController: UIViewController {
+final class PhotoSelectionViewController: UIViewController {
     
     // MARK: - Properties
     

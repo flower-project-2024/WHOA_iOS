@@ -14,7 +14,7 @@ enum ActionType {
     case update(bouquetId: Int?)
 }
 
-class CustomizingSummaryViewModel {
+final class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     

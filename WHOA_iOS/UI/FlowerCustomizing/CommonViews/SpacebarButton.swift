@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SpacebarButton: UIButton {
+final class SpacebarButton: UIButton {
     
     // MARK: - Initialization
     

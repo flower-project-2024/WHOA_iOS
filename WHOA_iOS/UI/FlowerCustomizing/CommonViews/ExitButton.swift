@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExitButton: UIImageView {
+final class ExitButton: UIImageView {
     
     // MARK: - Properties
     

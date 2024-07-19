@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class FlowerColorPickerViewController: UIViewController {
+final class FlowerColorPickerViewController: UIViewController {
     
     // MARK: - Properties
     

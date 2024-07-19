@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShadowBorderLine: UIView {
+final class ShadowBorderLine: UIView {
     
     // MARK: - Initialization
     

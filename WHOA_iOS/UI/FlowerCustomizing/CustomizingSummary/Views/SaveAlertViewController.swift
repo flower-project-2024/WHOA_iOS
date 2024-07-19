@@ -13,7 +13,7 @@ enum SaveResult {
     case duplicateError
 }
 
-class SaveAlertViewController: UIViewController {
+final class SaveAlertViewController: UIViewController {
     
     // MARK: - Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomTitleLabel: UILabel {
+final class CustomTitleLabel: UILabel {
     
     // MARK: - Initialization
     

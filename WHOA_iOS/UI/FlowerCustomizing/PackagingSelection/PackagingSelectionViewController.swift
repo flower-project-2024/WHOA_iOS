@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PackagingSelectionViewController: UIViewController {
+final class PackagingSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     

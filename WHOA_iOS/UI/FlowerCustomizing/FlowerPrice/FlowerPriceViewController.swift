@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlowerPriceViewController: UIViewController {
+final class FlowerPriceViewController: UIViewController {
     
     // MARK: - Properties
     

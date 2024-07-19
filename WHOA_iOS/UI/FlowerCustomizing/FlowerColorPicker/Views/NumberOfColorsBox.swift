@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NumberOfColorsBox: UIView {
+final class NumberOfColorsBox: UIView {
     
     // MARK: - Properties
     

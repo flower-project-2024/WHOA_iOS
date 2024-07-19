@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlowerSelectionTableViewCell: UITableViewCell {
+final class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     

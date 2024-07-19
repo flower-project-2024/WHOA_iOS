@@ -12,7 +12,7 @@ protocol FlowerColorPickerDelegate: AnyObject {
     func isNextButtonEnabled(isEnabled: Bool)
 }
 
-class ColorPickerView: UIView {
+final class ColorPickerView: UIView {
     
     // MARK: - Properties
     

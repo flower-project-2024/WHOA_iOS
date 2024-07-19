@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PackagingSelectionViewModel {
+final class PackagingSelectionViewModel {
     
     // MARK: - Properties
     

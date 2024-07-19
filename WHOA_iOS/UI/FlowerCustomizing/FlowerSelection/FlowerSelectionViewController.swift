@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class FlowerSelectionViewController: UIViewController {
+final class FlowerSelectionViewController: UIViewController {
     
     // MARK: - Properties
     

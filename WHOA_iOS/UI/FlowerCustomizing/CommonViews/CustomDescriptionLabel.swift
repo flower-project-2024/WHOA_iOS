@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomDescriptionLabel: UILabel {
+final class CustomDescriptionLabel: UILabel {
     
     // MARK: - Initialization
     
