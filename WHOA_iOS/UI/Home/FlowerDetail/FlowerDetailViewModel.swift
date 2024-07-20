@@ -110,7 +110,7 @@ class FlowerDetailViewModel {
     }
     
     /// 관리법, 보관법 리스트 만들기
-    private func setMethodList(){
+    private func setMethodList() {
         flowerDetailModel.managementMethod?.split(separator: "/").map {
             manageAndStorageMethodList.append(String($0))
         }

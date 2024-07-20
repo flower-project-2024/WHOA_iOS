@@ -67,7 +67,7 @@ class ColorSheetViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     init(viewModel: FlowerDetailViewModel) {
         self.viewModel = viewModel
@@ -87,7 +87,7 @@ class ColorSheetViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         view.addSubview(collectionView)
@@ -116,7 +116,7 @@ class ColorSheetViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
+// MARK: - Extension: UICollectionView
 
 extension ColorSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {

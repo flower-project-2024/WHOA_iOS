@@ -68,7 +68,7 @@ final class TodaysFlowerViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,7 +91,7 @@ final class TodaysFlowerViewCell: UICollectionViewCell {
         buttonCallbackMethod?()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         addSubview(todaysFlowerLabel)

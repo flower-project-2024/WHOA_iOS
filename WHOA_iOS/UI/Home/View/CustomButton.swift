@@ -8,10 +8,15 @@
 import UIKit
 
 final class CustomButton: UIButton {
+    
+    // MARK: - CustomButtonType
+    
     enum CustomButtonType: String {
         case todaysFlower = "오늘의 추천 꽃 구경하기"
         case customizing = "커스터마이징 살펴보기"
     }
+    
+    // MARK: - Init
     
     init(buttonType: CustomButtonType) {
         super.init(frame: .zero)

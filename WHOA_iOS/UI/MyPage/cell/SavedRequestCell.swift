@@ -67,7 +67,7 @@ final class SavedRequestCell: UITableViewCell {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,7 +90,7 @@ final class SavedRequestCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         contentView.addSubview(flowerImageView)

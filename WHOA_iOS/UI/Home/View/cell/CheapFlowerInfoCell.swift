@@ -74,7 +74,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
         return imageView
     }()
     
-    // MARK: - Initialziation
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

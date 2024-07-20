@@ -65,7 +65,7 @@ final class CustomizeIntroCell: UICollectionViewCell {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)

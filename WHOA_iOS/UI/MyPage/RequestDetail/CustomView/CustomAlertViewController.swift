@@ -126,7 +126,7 @@ final class CustomAlertViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
         self.init()
@@ -143,7 +143,7 @@ final class CustomAlertViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         view.addSubview(alertView)

@@ -296,7 +296,7 @@ final class RequestDetailView: UIView {
         return imageView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     init(requestDetailType: RequestDetailType) {
         self.requestDetailType = requestDetailType
@@ -315,7 +315,7 @@ final class RequestDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     func config(model: CustomizingSummaryModel) {
         configureBuyingIntent(model)

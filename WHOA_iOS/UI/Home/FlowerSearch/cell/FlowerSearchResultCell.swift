@@ -29,7 +29,7 @@ class FlowerSearchResultCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,7 +42,7 @@ class FlowerSearchResultCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         addSubview(searchImageView)

@@ -56,7 +56,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         setupConstraints()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
@@ -91,7 +91,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     }
 }
 
-// MARK: - Extension; TableView
+// MARK: - Extension: TableView
 
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

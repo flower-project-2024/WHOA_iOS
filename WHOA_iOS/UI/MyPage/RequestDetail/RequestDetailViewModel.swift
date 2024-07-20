@@ -22,7 +22,7 @@ final class RequestDetailViewModel {
     var customizingSummaryModelDidChaged: ((CustomizingSummaryModel?) -> Void)?
     var showError: ((NetworkError) -> Void)?
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     init(requestTitle: String, bouquetId: Int) {
         self.requestTitle = requestTitle

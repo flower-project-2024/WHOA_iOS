@@ -36,7 +36,7 @@ class ColorSheetHeaderCell: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         addSubview(titleLabel)

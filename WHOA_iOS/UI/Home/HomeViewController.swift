@@ -280,7 +280,7 @@ final class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions; TableView
+// MARK: - Extension: UITableView
 
 extension HomeViewController : UITableViewDataSource {
     // 섹션 당 셀 개수: 3
@@ -313,7 +313,7 @@ extension HomeViewController : UITableViewDelegate {
     }
 }
 
-// MARK: - Extensions; CollectionView
+// MARK: - Extension: UICollectionView
 
 extension HomeViewController: UICollectionViewDelegate {
     // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
@@ -380,7 +380,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Extensions; search bar
+// MARK: - Extension: UISearchBar
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

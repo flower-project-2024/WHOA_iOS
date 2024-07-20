@@ -39,7 +39,7 @@ class ManagementCell: UICollectionViewCell {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +66,7 @@ class ManagementCell: UICollectionViewCell {
         self.prepare(image: nil)
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     func prepare(image: UIImage?) {
       self.imageView.image = image

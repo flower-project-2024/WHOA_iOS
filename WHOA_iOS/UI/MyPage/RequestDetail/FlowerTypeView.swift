@@ -92,7 +92,7 @@ final class FlowerTypeView: UIView {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -105,7 +105,7 @@ final class FlowerTypeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         self.addSubview(flowerImageView)

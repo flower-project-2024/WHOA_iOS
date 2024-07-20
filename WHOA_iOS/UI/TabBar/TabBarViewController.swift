@@ -43,6 +43,8 @@ final class TabBarViewController: UITabBarController {
         self.selectedIndex = 0
     }
     
+    // MARK: - Functions
+    
     /// 탭바와 연결될 뷰컨트롤러 세팅하는 함수
     private func setTabViewControllers() {
         let homeNavVC = UINavigationController(rootViewController: HomeViewController())
@@ -123,7 +125,7 @@ final class TabBarViewController: UITabBarController {
     }
 }
 
-// MARK: - UITabBarControllerDelegate
+// MARK: - Extension: UITabBarControllerDelegate
 
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {

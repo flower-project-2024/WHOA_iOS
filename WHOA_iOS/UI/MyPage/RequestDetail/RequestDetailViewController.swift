@@ -46,7 +46,7 @@ final class RequestDetailViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     init(with BouquetModel: BouquetModel) {
         viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, bouquetId: BouquetModel.bouquetId)
@@ -71,7 +71,7 @@ final class RequestDetailViewController: UIViewController {
         viewModel.fetchBouquetDetail(bouquetId: viewModel.getBouquetId())
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func setupNavigation() {
         navigationController?.navigationBar.tintColor = .black

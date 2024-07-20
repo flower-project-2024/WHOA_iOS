@@ -41,7 +41,7 @@ class ManagementView: UIView {
         return collectionView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,7 +56,7 @@ class ManagementView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         addSubview(titleLabel)

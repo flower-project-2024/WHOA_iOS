@@ -8,6 +8,9 @@
 import UIKit
 
 class ColorChipButton: UIButton {
+    
+    // MARK: - Init
+    
     init(colorCode: String) {
         super.init(frame: .zero)
         

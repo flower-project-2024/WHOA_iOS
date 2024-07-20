@@ -9,6 +9,13 @@ import UIKit
 
 class FlowerSearchViewController: UIViewController {
     
+    // MARK: - Properties
+    
+    private let viewModel = FlowerSearchViewModel()
+    lazy var filteredItems: [FlowerSearchModel] = []
+    private var isFiltering: Bool = false
+    private var searchedText: String = ""
+    
     // MARK: - Views
     
     private let headerView = UIView()
@@ -52,13 +59,6 @@ class FlowerSearchViewController: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-
-    // MARK: - Properties
-    
-    private let viewModel = FlowerSearchViewModel()
-    lazy var filteredItems: [FlowerSearchModel] = []
-    private var isFiltering: Bool = false
-    private var searchedText: String = ""
     
     // MARK: - Lifecycle
     
@@ -94,7 +94,7 @@ class FlowerSearchViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     private func addViews() {
         view.addSubview(headerView)
@@ -148,7 +148,7 @@ class FlowerSearchViewController: UIViewController {
     }
 }
 
-// MARK: - Extension; TableView
+// MARK: - Extension: TableView
 
 extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -199,7 +199,7 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
     }
 }
 
-// MARK: - Extension; Search
+// MARK: - Extension: UISearchBarDelegate
 
 extension FlowerSearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

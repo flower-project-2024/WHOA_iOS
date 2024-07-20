@@ -564,7 +564,7 @@ class FlowerDetailViewController: UIViewController {
     }
 }
 
-// MARK: - Extensions
+// MARK: - Extensions: UIScrollView
 
 extension FlowerDetailViewController: UIScrollViewDelegate {
     // scrollView가 스와이프 될 때 발생 될 이벤트
@@ -573,6 +573,8 @@ extension FlowerDetailViewController: UIScrollViewDelegate {
         imagePageControl.currentPage = currentPage
     }
 }
+
+// MARK: - Extensions: UICollectionView
 
 extension FlowerDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -644,5 +646,7 @@ extension FlowerDetailViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
+
+// MARK: - Extension: UIGestureRecognizer
 
 extension FlowerDetailViewController: UIGestureRecognizerDelegate {}

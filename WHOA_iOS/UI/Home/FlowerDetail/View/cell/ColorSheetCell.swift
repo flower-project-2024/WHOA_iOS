@@ -60,7 +60,7 @@ class ColorSheetCell: UICollectionViewCell {
     }()
     
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,7 +77,7 @@ class ColorSheetCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Helpers
+    // MARK: - Functions
         
     func setupData(colorCode: String, colorDescription: String) {
         colorChipView.backgroundColor = UIColor(hex: colorCode)
