@@ -43,7 +43,6 @@
 		086E3D6E2C41792000C90787 /* NoRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086E3D6D2C41792000C90787 /* NoRequestCell.swift */; };
 		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
 		0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA642B957C87003779CE /* RequestDetailViewModel.swift */; };
-		0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA662B9580FE003779CE /* DetailCustomLabel.swift */; };
 		0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA682B962E3B003779CE /* FlowerTypeView.swift */; };
 		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
@@ -235,7 +234,6 @@
 		086E3D6D2C41792000C90787 /* NoRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRequestCell.swift; sourceTree = "<group>"; };
 		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
 		0886DA642B957C87003779CE /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
-		0886DA662B9580FE003779CE /* DetailCustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCustomLabel.swift; sourceTree = "<group>"; };
 		0886DA682B962E3B003779CE /* FlowerTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerTypeView.swift; sourceTree = "<group>"; };
 		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
@@ -481,7 +479,6 @@
 				08C0ADF02BA979B30099EFE5 /* View */,
 				0886DA622B957BB9003779CE /* RequestDetailViewController.swift */,
 				0886DA642B957C87003779CE /* RequestDetailViewModel.swift */,
-				0886DA662B9580FE003779CE /* DetailCustomLabel.swift */,
 				0886DA682B962E3B003779CE /* FlowerTypeView.swift */,
 			);
 			path = RequestDetail;
@@ -1259,7 +1256,6 @@
 				54F6959C2BF2A5C9009E3E4D /* KeychainManager.swift in Sources */,
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */,
-				0886DA672B9580FE003779CE /* DetailCustomLabel.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
 				08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */,
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
@@ -1533,7 +1529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 9.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1570,7 +1566,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 9.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
