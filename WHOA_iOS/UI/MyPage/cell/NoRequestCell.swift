@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoRequestCell: UITableViewCell {
+final class NoRequestCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -38,7 +38,7 @@ class NoRequestCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,7 +53,7 @@ class NoRequestCell: UITableViewCell {
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(noRequestImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)

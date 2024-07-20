@@ -7,11 +7,16 @@
 
 import UIKit
 
-class CustomButton: UIButton {
+final class CustomButton: UIButton {
+    
+    // MARK: - CustomButtonType
+    
     enum CustomButtonType: String {
         case todaysFlower = "오늘의 추천 꽃 구경하기"
         case customizing = "커스터마이징 살펴보기"
     }
+    
+    // MARK: - Init
     
     init(buttonType: CustomButtonType) {
         super.init(frame: .zero)
@@ -26,13 +31,11 @@ class CustomButton: UIButton {
         config.imagePlacement = .trailing
         config.imagePadding = 11
         
-        // 오늘의 추천 꽃 버튼인 경우
         if buttonType == .todaysFlower {
             config.baseBackgroundColor = UIColor.primary
             config.baseForegroundColor = UIColor.gray01
         }
         
-        // 커스터마이징 버튼인 경우
         else if buttonType == .customizing {
             config.image?.withTintColor(UIColor.primary)
             config.baseBackgroundColor = UIColor.secondary03

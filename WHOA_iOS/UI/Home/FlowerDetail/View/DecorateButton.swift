@@ -9,6 +9,8 @@ import UIKit
 
 class DecorateButton: UIButton {
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

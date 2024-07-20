@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodaysFlowerViewCell: UICollectionViewCell {
+final class TodaysFlowerViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -68,7 +68,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,13 +87,13 @@ class TodaysFlowerViewCell: UICollectionViewCell {
     
     // MARK: - Actions
     
-    @objc func goToFlowerDetail(){
+    @objc func goToFlowerDetail() {
         buttonCallbackMethod?()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         addSubview(todaysFlowerLabel)
         addSubview(todaysFlowerStackView)
         addSubview(flowerLanguageStackView)
@@ -104,7 +104,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         todaysFlowerStackView.addArrangedSubview(flowerNameLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         todaysFlowerLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(26)
         }
@@ -133,7 +133,7 @@ class TodaysFlowerViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(_ model: TodaysFlowerModel){
+    func configure(_ model: TodaysFlowerModel) {
         flowerId = model.flowerId
         flowerNameLabel.text = model.flowerName
         flowerNameLabel.setLetterSpacing(0.02)

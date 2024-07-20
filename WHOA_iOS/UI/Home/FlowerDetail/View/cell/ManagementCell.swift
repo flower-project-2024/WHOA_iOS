@@ -39,7 +39,7 @@ class ManagementCell: UICollectionViewCell {
         return label
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,25 +66,25 @@ class ManagementCell: UICollectionViewCell {
         self.prepare(image: nil)
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
     func prepare(image: UIImage?) {
       self.imageView.image = image
     }
     
-    func configure(content: [String]){
+    func configure(content: [String]) {
         managementTitleLabel.text = content[0]
         managementContentLabel.text = content[1]
         managementContentLabel.setLineHeight(lineHeight: 142)
     }
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(imageView)
         contentView.addSubview(managementTitleLabel)
         contentView.addSubview(managementContentLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(22)
             make.centerX.equalToSuperview()
@@ -100,7 +100,6 @@ class ManagementCell: UICollectionViewCell {
             make.leading.equalTo(managementTitleLabel.snp.leading)
             make.trailing.equalToSuperview().inset(22)
             make.top.equalTo(managementTitleLabel.snp.bottom).offset(6)
-//            make.bottom.equalToSuperview().inset(22)
         }
     }
 }

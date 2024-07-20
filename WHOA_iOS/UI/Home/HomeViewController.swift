@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     // MARK: - Properties
     
@@ -91,9 +91,9 @@ class HomeViewController: UIViewController {
         setupNavigation()
         setupConstraints()
         
-        let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
-        print("==home, 앱 최초 실행 is \(isFirstLaunch)==")
-        if(!isFirstLaunch){
+        let willShowTooltip = UserDefaults.standard.bool(forKey: "willShowTooltip")
+        if(!willShowTooltip) {
+            UserDefaults.standard.setValue(true, forKey: "willShowTooltip")
             setupToolTipView()
         }
     }
@@ -101,7 +101,6 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        scrollView.updateContentSize()
         contentView.layoutSubviews()
         searchBar.setBackgroundColor(size: searchBar.frame.size)
         
@@ -127,7 +126,7 @@ class HomeViewController: UIViewController {
 
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
@@ -137,8 +136,7 @@ class HomeViewController: UIViewController {
         contentView.addSubview(cheapFlowerView)
     }
     
-    private func setupNavigation(){
-        // 내비게이션 바에 로고 이미지
+    private func setupNavigation() {
         let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
         
@@ -153,7 +151,7 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -187,7 +185,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    private func setupCollectionView(){
+    private func setupCollectionView() {
         // minimumLineSpacing 고려하여 width 값 조절
         carouselView.layoutIfNeeded()
         cellSize = CGSize(width: carouselView.frame.width - (minimumLineSpacing * 4), height: 225)
@@ -197,12 +195,12 @@ class HomeViewController: UIViewController {
                                                  right: minimumLineSpacing)
     }
     
-    private func setupTableView(){
+    private func setupTableView() {
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
     }
     
-    private func setupToolTipView(){
+    private func setupToolTipView() {
         view.addSubview(tooltipView)
         
         tooltipView.parentVC = self
@@ -239,7 +237,7 @@ class HomeViewController: UIViewController {
         })
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.cheapFlowerRankingsDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.cheapFlowerView.topThreeTableView.reloadData()
@@ -263,7 +261,7 @@ class HomeViewController: UIViewController {
         var returnArray = ["", ""]
         
         // 월, 날짜가 한 자리 수인 경우 앞에 0을 제거해야 함
-        for i in 0...1{
+        for i in 0...1 {
             if splitArray[i].prefix(1) == "0" {
                 returnArray[i] = String(splitArray[i].suffix(1))
             }
@@ -274,21 +272,20 @@ class HomeViewController: UIViewController {
         return returnArray
     }
 
-    func removeToolTipView(){
+    func removeToolTipView() {
         tooltipIsClosed = true
         tooltipView.removeFromSuperview()
     }
 }
 
-// MARK: - Extensions; TableView
+// MARK: - Extension: UITableView
 
 extension HomeViewController : UITableViewDataSource {
-    // 섹션 당 셀 개수: 3
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getCheapFlowerModelCount()
     }
     
-    // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
         cell.rankingLabel.text = "\(indexPath.row + 1)"
@@ -313,7 +310,7 @@ extension HomeViewController : UITableViewDelegate {
     }
 }
 
-// MARK: - Extensions; CollectionView
+// MARK: - Extension: UICollectionView
 
 extension HomeViewController: UICollectionViewDelegate {
     // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
@@ -324,9 +321,11 @@ extension HomeViewController: UICollectionViewDelegate {
         let index: Int
         if velocity.x > 0 {
             index = Int(ceil(estimatedIndex))
-        } else if velocity.x < 0 {
+        } 
+        else if velocity.x < 0 {
             index = Int(floor(estimatedIndex))
-        } else {
+        } 
+        else {
             index = Int(round(estimatedIndex))
         }
 
@@ -378,7 +377,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - Extensions; search bar
+// MARK: - Extension: UISearchBar
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

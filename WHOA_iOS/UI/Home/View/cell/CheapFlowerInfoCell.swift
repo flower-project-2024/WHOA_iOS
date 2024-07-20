@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CheapFlowerInfoCell: UITableViewCell {
+final class CheapFlowerInfoCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -74,11 +74,12 @@ class CheapFlowerInfoCell: UITableViewCell {
         return imageView
     }()
     
-    // MARK: - Initialziation
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        addViews()
         setupConstraints()
     }
     
@@ -88,8 +89,7 @@ class CheapFlowerInfoCell: UITableViewCell {
     
     // MARK: - Functions
     
-    private func setupConstraints(){
-        // add view
+    private func addViews() {
         contentView.addSubview(flowerImageView)
         contentView.addSubview(rankingLabel)
         contentView.addSubview(flowerInfoStackView)
@@ -99,8 +99,9 @@ class CheapFlowerInfoCell: UITableViewCell {
         [flowerNameLabel, flowerLanguageStackView].forEach {
             flowerInfoStackView.addArrangedSubview($0)
         }
-        
-        // constraints
+    }
+    
+    private func setupConstraints() {
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview()
@@ -129,7 +130,7 @@ class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
-    func configure(model: CheapFlowerModel){
+    func configure(model: CheapFlowerModel) {
         flowerNameLabel.text = model.flowerRankingName
         
         var price = model.flowerRankingPrice

@@ -7,15 +7,17 @@
 
 import UIKit
 
-class CustomTableView: UITableView {
+final class CustomTableView: UITableView {
 
-  override var intrinsicContentSize: CGSize {
-    return self.contentSize
-  }
-
-  override var contentSize: CGSize {
-    didSet {
-        self.invalidateIntrinsicContentSize()
+    // MARK: - Properties
+    
+    override var intrinsicContentSize: CGSize {
+        return self.contentSize
     }
-  }
+
+    override var contentSize: CGSize {
+        didSet {
+            self.invalidateIntrinsicContentSize()
+        }
+    }
 }
