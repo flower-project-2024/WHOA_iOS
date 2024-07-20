@@ -15,7 +15,7 @@ class ColorSheetCell: UICollectionViewCell {
     static let identifier = "ColorSheetCell"
     
     override var isSelected: Bool {
-        didSet{
+        didSet {
             if isSelected {
                 colorDescriptionLabel.font = .Pretendard(size: 16, family: .SemiBold)
                 backgroundColor = UIColor(red: 213/255, green: 249/255, blue: 239/255, alpha: 1)
@@ -60,7 +60,7 @@ class ColorSheetCell: UICollectionViewCell {
     }()
     
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,7 +77,7 @@ class ColorSheetCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Helpers
+    // MARK: - Functions
         
     func setupData(colorCode: String, colorDescription: String) {
         colorChipView.backgroundColor = UIColor(hex: colorCode)
@@ -88,7 +88,7 @@ class ColorSheetCell: UICollectionViewCell {
         colorDescriptionLabel.text = colorDescription
     }
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(stackView)
         
         [colorChipView, colorDescriptionLabel].forEach {
@@ -96,7 +96,7 @@ class ColorSheetCell: UICollectionViewCell {
         }
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         stackView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.centerY.equalToSuperview()

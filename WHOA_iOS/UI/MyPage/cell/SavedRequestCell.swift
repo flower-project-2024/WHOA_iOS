@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SavedRequestCell: UITableViewCell {
+final class SavedRequestCell: UITableViewCell {
     
     // MARK: - Properties
     
@@ -67,7 +67,7 @@ class SavedRequestCell: UITableViewCell {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,9 +90,9 @@ class SavedRequestCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(flowerImageView)
         contentView.addSubview(detailView)
         
@@ -104,7 +104,7 @@ class SavedRequestCell: UITableViewCell {
         buttonStackView.addArrangedSubview(deleteButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         flowerImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.bottom.equalToSuperview()
@@ -135,7 +135,7 @@ class SavedRequestCell: UITableViewCell {
         }
     }
     
-    func configure(model: BouquetModel){
+    func configure(model: BouquetModel) {
         self.requestTitle = model.bouquetTitle
         
         requestTitleLabel.text = model.bouquetTitle
@@ -151,7 +151,7 @@ class SavedRequestCell: UITableViewCell {
     
     // MARK: - Actions
     
-    @objc func modifyBtnTapped(){
+    @objc func modifyBtnTapped() {
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.customizingCoordinator = customizingCoordinator
@@ -159,7 +159,7 @@ class SavedRequestCell: UITableViewCell {
         myPageVC?.present(customAlertVC, animated: false, completion: nil)
     }
     
-    @objc func deleteBtnTapped(){
+    @objc func deleteBtnTapped() {
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.delegate = myPageVC

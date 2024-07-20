@@ -21,7 +21,7 @@ class FlowerSearchViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowersForSearch(fromCurrentVC: UIViewController){
+    func fetchFlowersForSearch(fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchFlowersForSearch { result in
             switch result {
             case .success(let model):
@@ -32,7 +32,6 @@ class FlowerSearchViewModel {
         }
     }
     
-    // 꽃 1개 리턴 (인덱스에 해당하는)
     func getFlowerSearchModel(index: Int) -> FlowerSearchModel {
         return flowerSearchList[index]
     }

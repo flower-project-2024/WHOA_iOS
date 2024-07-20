@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RequestDetailViewController: UIViewController {
+final class RequestDetailViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -46,7 +46,7 @@ class RequestDetailViewController: UIViewController {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     init(with BouquetModel: BouquetModel) {
         viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, bouquetId: BouquetModel.bouquetId)
@@ -71,8 +71,9 @@ class RequestDetailViewController: UIViewController {
         viewModel.fetchBouquetDetail(bouquetId: viewModel.getBouquetId())
     }
     
-    // MARK: - Helpers
-    private func setupNavigation(){
+    // MARK: - Functions
+    
+    private func setupNavigation() {
         navigationController?.navigationBar.tintColor = .black
         self.navigationItem.title = viewModel.getRequestTitle()
         self.navigationController?.navigationBar.topItem?.title = ""
@@ -87,7 +88,7 @@ class RequestDetailViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = backbutton
     }
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
@@ -97,7 +98,7 @@ class RequestDetailViewController: UIViewController {
         contentView.addSubview(saveAsImageButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(4)
@@ -106,7 +107,6 @@ class RequestDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(scrollView.frameLayoutGuide)
-//            make.height.equalToSuperview()
         }
         
         requestDetailView.snp.makeConstraints { make in
@@ -136,7 +136,7 @@ class RequestDetailViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func saveAsImageButtonTapped(){
+    @objc func saveAsImageButtonTapped() {
         ImageSaver().saveAsImage(requestDetailView.transfromToImage()!, target: self) {
             let requestTitle = self.viewModel.getRequestTitle()
             let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .requestSaveAlert, currentVC: self)
@@ -145,15 +145,17 @@ class RequestDetailViewController: UIViewController {
         }
     }
     
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
 // MARK: - Extension; ScrollView
+
 extension RequestDetailViewController: UIScrollViewDelegate {
     
 }
 
 // MARK: - Extension; UIGestureRecognizer
+
 extension RequestDetailViewController: UIGestureRecognizerDelegate {}

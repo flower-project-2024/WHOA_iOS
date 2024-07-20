@@ -24,7 +24,7 @@ class FlowerDetailViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController){
+    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchFlowerDetail(flowerId: flowerId) { result in
             switch result {
             case .success(let model):
@@ -35,7 +35,7 @@ class FlowerDetailViewModel {
         }
     }
     
-    func getFlowerDetailModel() -> FlowerDetailModel{
+    func getFlowerDetailModel() -> FlowerDetailModel {
         print(flowerDetailModel)
         return flowerDetailModel
     }
@@ -106,7 +106,7 @@ class FlowerDetailViewModel {
     }
     
     /// 관리법, 보관법 리스트 만들기
-    private func setMethodList(){
+    private func setMethodList() {
         flowerDetailModel.managementMethod?.split(separator: "/").map {
             manageAndStorageMethodList.append(String($0))
         }
