@@ -45,10 +45,23 @@ final class CheapFlowerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        addViews()
+        setupConstraints()        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Functions
+    
+    private func addViews() {
         addSubview(cheapFlowerLabel)
         addSubview(baseDateLabel)
         addSubview(topThreeTableView)
-        
+    }
+    
+    private func setupConstraints() {
         cheapFlowerLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview()
@@ -65,12 +78,6 @@ final class CheapFlowerView: UIView {
             make.leading.trailing.equalToSuperview()
         }
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Functions
     
     func setBaseDateLabel(viewModel: HomeViewModel) {
         let data = viewModel.calculateCheapFlowerBaseDate()

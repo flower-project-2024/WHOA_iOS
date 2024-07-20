@@ -79,6 +79,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        addViews()
         setupConstraints()
     }
     
@@ -88,7 +89,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     
     // MARK: - Functions
     
-    private func setupConstraints() {
+    private func addViews() {
         contentView.addSubview(flowerImageView)
         contentView.addSubview(rankingLabel)
         contentView.addSubview(flowerInfoStackView)
@@ -98,7 +99,9 @@ final class CheapFlowerInfoCell: UITableViewCell {
         [flowerNameLabel, flowerLanguageStackView].forEach {
             flowerInfoStackView.addArrangedSubview($0)
         }
-        
+    }
+    
+    private func setupConstraints() {
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview()
