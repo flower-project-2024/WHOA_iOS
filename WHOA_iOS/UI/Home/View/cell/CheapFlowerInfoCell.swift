@@ -89,7 +89,6 @@ final class CheapFlowerInfoCell: UITableViewCell {
     // MARK: - Functions
     
     private func setupConstraints() {
-        // add view
         contentView.addSubview(flowerImageView)
         contentView.addSubview(rankingLabel)
         contentView.addSubview(flowerInfoStackView)
@@ -100,7 +99,6 @@ final class CheapFlowerInfoCell: UITableViewCell {
             flowerInfoStackView.addArrangedSubview($0)
         }
         
-        // constraints
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(8)
             make.leading.equalToSuperview()

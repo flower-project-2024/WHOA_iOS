@@ -17,7 +17,7 @@ class FlowerLanguageCell: UICollectionViewCell {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.font = .Pretendard()  // 기본 세팅 - regular, 14
+        label.font = .Pretendard()
         return label
     }()
     

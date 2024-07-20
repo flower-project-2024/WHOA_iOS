@@ -31,13 +31,11 @@ final class CustomButton: UIButton {
         config.imagePlacement = .trailing
         config.imagePadding = 11
         
-        // 오늘의 추천 꽃 버튼인 경우
         if buttonType == .todaysFlower {
             config.baseBackgroundColor = UIColor.primary
             config.baseForegroundColor = UIColor.gray01
         }
         
-        // 커스터마이징 버튼인 경우
         else if buttonType == .customizing {
             config.image?.withTintColor(UIColor.primary)
             config.baseBackgroundColor = UIColor.secondary03

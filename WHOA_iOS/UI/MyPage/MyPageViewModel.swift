@@ -38,12 +38,10 @@ final class BouquetListModel {
         }
     }
     
-    // 특정 요구서 1개 리턴
     func getBouquetModel(index: Int) -> BouquetModel {
         return bouquetModelList[index]
     }
     
-    // 요구서 개수 리턴
     func getBouquetModelCount() -> Int {
         return bouquetModelList.count
     }

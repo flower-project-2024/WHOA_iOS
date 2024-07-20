@@ -55,7 +55,7 @@ final class CustomAlertViewController: UIViewController {
             fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
             let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
-            attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
+            attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)
             label.attributedText = attributedText
         }
         

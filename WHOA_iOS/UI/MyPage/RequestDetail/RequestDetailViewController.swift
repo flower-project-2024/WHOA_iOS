@@ -107,7 +107,6 @@ final class RequestDetailViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView.contentLayoutGuide)
             make.width.equalTo(scrollView.frameLayoutGuide)
-//            make.height.equalToSuperview()
         }
         
         requestDetailView.snp.makeConstraints { make in

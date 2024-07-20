@@ -36,7 +36,6 @@ class FlowerSearchViewModel {
         }
     }
     
-    // 꽃 1개 리턴 (인덱스에 해당하는)
     func getFlowerSearchModel(index: Int) -> FlowerSearchModel {
         return flowerSearchList[index]
     }

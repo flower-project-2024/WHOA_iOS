@@ -308,8 +308,8 @@ class FlowerDetailViewController: UIViewController {
     }
     
     private func addSubViews() {
-        // add views
         view.addSubview(outerScrollView)
+        // TODO: 추후 '이 꽃으로 꾸미기' 기능 추가 시 주석 해제
         //view.addSubview(bottomFixedView)
         
         outerScrollView.addSubview(imageScrollView)
@@ -342,13 +342,15 @@ class FlowerDetailViewController: UIViewController {
             flowerColorStackView.addArrangedSubview($0)
         }
         
-        //bottomFixedView.addSubview(decorateButton)
+        // TODO: 추후 '이 꽃으로 꾸미기' 기능 추가 시 주석 해제
+        // bottomFixedView.addSubview(decorateButton)
     }
     
     private func setupConstraints() {
         outerScrollView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            // TODO: 추후 '이 꽃으로 꾸미기' 기능 추가 시 주석 해제
 //            make.bottom.equalTo(bottomFixedView.snp.top)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
@@ -444,6 +446,7 @@ class FlowerDetailViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
         
+        // TODO: 추후 '이 꽃으로 꾸미기' 기능 추가 시 주석 해제
 //        decorateButton.snp.makeConstraints { make in
 //            make.leading.trailing.equalToSuperview().inset(20)
 //            make.top.equalToSuperview().inset(20)
@@ -477,7 +480,8 @@ class FlowerDetailViewController: UIViewController {
         imagePageControl.numberOfPages = pages
     }
     
-    private func setScrollViewContent(images: [String]) { // scrolliVew에 imageView 추가하는 함수
+    /// scrolliVew에 imageView 추가하는 함수
+    private func setScrollViewContent(images: [String]) {
         view.setNeedsLayout()  // 정확한 크기를 얻기 위해
         view.layoutIfNeeded()
         
@@ -504,7 +508,7 @@ class FlowerDetailViewController: UIViewController {
                 let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
                 label.layer.cornerRadius = 16
                 label.text = date
-                label.font = .Pretendard()  // 폰트는 기본 세팅(regular, 14)
+                label.font = .Pretendard()
                 label.backgroundColor = .gray03
                 birthFlowerDateStackView.addArrangedSubview(label)
             }
@@ -514,7 +518,7 @@ class FlowerDetailViewController: UIViewController {
             let label = HashTagCustomLabel(padding: .init(top: 6, left: 12, bottom: 6, right: 12))
             label.text = "탄생일 없음"
             label.layer.cornerRadius = 16
-            label.font = .Pretendard()  // 폰트는 기본 세팅(regular, 14)
+            label.font = .Pretendard()
             label.backgroundColor = .gray03
             birthFlowerDateStackView.addArrangedSubview(label)
         }
@@ -545,9 +549,8 @@ class FlowerDetailViewController: UIViewController {
         
         colorSheetVC.modalPresentationStyle = .pageSheet
         if let sheet = colorSheetVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]  // 지원 크기 지정
-            //sheet.delegate = self
-            sheet.prefersGrabberVisible = true  // 상단에 그래버 표시
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
             sheet.selectedDetentIdentifier = .medium
             sheet.preferredCornerRadius = 20
         }
@@ -567,7 +570,7 @@ class FlowerDetailViewController: UIViewController {
 // MARK: - Extensions: UIScrollView
 
 extension FlowerDetailViewController: UIScrollViewDelegate {
-    // scrollView가 스와이프 될 때 발생 될 이벤트
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentPage = Int(scrollView.contentOffset.x/scrollView.frame.size.width)
         imagePageControl.currentPage = currentPage

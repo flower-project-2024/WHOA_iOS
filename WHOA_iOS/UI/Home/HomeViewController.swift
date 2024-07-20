@@ -101,7 +101,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        scrollView.updateContentSize()
         contentView.layoutSubviews()
         searchBar.setBackgroundColor(size: searchBar.frame.size)
         
@@ -138,7 +137,6 @@ final class HomeViewController: UIViewController {
     }
     
     private func setupNavigation() {
-        // 내비게이션 바에 로고 이미지
         let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
         
@@ -283,12 +281,11 @@ final class HomeViewController: UIViewController {
 // MARK: - Extension: UITableView
 
 extension HomeViewController : UITableViewDataSource {
-    // 섹션 당 셀 개수: 3
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getCheapFlowerModelCount()
     }
     
-    // 셀 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheapFlowerInfoCell.identifier, for: indexPath) as! CheapFlowerInfoCell
         cell.rankingLabel.text = "\(indexPath.row + 1)"

@@ -60,7 +60,6 @@ class ColorSheetViewController: UIViewController {
     
     private let decorateButton: DecorateButton = {
         let button = DecorateButton()
-        // 초기에 비활성화된 상태
         button.configuration?.background.backgroundColor = UIColor.gray03
         button.configuration?.baseForegroundColor = UIColor.gray05
         button.isEnabled = false

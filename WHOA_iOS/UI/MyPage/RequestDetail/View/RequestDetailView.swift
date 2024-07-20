@@ -522,7 +522,6 @@ final class RequestDetailView: UIView {
         }
         
         starIcon.snp.makeConstraints { make in
-//            make.center.equalToSuperview()
             make.edges.equalToSuperview().inset(9)
         }
         

@@ -11,7 +11,7 @@ final class CustomTabBar: UITabBar {
     
     // MARK: - Properties
     
-    var customHeight: CGFloat = 60 // 원하는 높이 설정
+    var customHeight: CGFloat = 60
 
     // MARK: - Functions
     

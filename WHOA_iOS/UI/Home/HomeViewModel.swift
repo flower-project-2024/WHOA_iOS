@@ -43,7 +43,6 @@ final class HomeViewModel {
         }
     }
     
-    // 저렴한 꽃 1개 리턴 (인덱스에 해당하는)
     func getCheapFlowerModel(index: Int) -> CheapFlowerModel {
         return cheapFlowerRankings[index]
     }

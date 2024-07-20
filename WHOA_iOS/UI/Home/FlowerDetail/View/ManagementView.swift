@@ -28,7 +28,7 @@ class ManagementView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = ManagementView.minimumLineSpacing
-        flowLayout.itemSize = ManagementView.cellSize //CGSize(width: 200, height: 258)
+        flowLayout.itemSize = ManagementView.cellSize
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.isScrollEnabled = true

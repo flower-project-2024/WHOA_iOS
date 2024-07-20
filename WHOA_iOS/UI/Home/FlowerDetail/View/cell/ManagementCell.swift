@@ -100,7 +100,6 @@ class ManagementCell: UICollectionViewCell {
             make.leading.equalTo(managementTitleLabel.snp.leading)
             make.trailing.equalToSuperview().inset(22)
             make.top.equalTo(managementTitleLabel.snp.bottom).offset(6)
-//            make.bottom.equalToSuperview().inset(22)
         }
     }
 }

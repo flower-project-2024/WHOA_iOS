@@ -45,12 +45,10 @@ final class CheapFlowerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // add ui elements
         addSubview(cheapFlowerLabel)
         addSubview(baseDateLabel)
         addSubview(topThreeTableView)
         
-        // constraints
         cheapFlowerLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview()
