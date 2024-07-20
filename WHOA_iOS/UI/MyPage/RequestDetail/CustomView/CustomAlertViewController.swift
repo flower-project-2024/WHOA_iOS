@@ -55,7 +55,7 @@ final class CustomAlertViewController: UIViewController {
             fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
             let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
-            attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)
+            attributedText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range)
             label.attributedText = attributedText
         }
         
@@ -84,11 +84,11 @@ final class CustomAlertViewController: UIViewController {
     private let cancelButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1) // gray02
+        config.baseBackgroundColor = UIColor.gray02 // gray02
         config.background.cornerRadius = 10
         config.attributedTitle = "아니요"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        config.baseForegroundColor = UIColor(red: 102/255, green: 102/255, blue: 103/255, alpha: 1)  // gray08
+        config.baseForegroundColor = UIColor.gray08  // gray08
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 39, bottom: 13, trailing: 39)
         
         button.configuration = config
@@ -99,7 +99,7 @@ final class CustomAlertViewController: UIViewController {
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)  // primary
+        config.baseBackgroundColor = UIColor.primary // primary
         config.background.cornerRadius = 10
         
         if alertType == .requestSaveAlert {
@@ -110,7 +110,7 @@ final class CustomAlertViewController: UIViewController {
         }
         
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        config.baseForegroundColor = .white   // gray01
+        config.baseForegroundColor = .white
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 41, bottom: 13, trailing: 41)
         
         button.configuration = config
@@ -138,7 +138,7 @@ final class CustomAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 0.5)  // primary color
+        self.view.backgroundColor = UIColor.primary // primary color
         addViews()
         setupConstraints()
     }
