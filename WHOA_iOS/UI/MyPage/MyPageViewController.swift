@@ -58,16 +58,16 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     // MARK: - Helpers
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(tableView)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(6)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -76,7 +76,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         }
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.bouquetModelListDidChage = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()

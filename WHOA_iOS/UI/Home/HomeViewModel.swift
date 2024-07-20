@@ -28,7 +28,7 @@ final class HomeViewModel {
     
     // MARK: - Functions
     
-    func fetchCheapFlowerRanking(fromCurrentVC: UIViewController){
+    func fetchCheapFlowerRanking(fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchCheapFlowerRanking { result in
             switch result {
             case .success(let model):
@@ -53,7 +53,7 @@ final class HomeViewModel {
     }
     
     /// 입력받은 날짜가 몇 월의 몇 째주인지 계산해주는 함수
-    func calculateCheapFlowerBaseDate() -> [String]{
+    func calculateCheapFlowerBaseDate() -> [String] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
@@ -93,7 +93,7 @@ final class HomeViewModel {
         })
     }
     
-    func getTodaysFlower() -> TodaysFlowerModel{
+    func getTodaysFlower() -> TodaysFlowerModel {
         return todaysFlower
     }
     
@@ -101,7 +101,7 @@ final class HomeViewModel {
         return 1
     }
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

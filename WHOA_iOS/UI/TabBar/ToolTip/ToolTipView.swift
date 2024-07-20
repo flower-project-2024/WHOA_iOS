@@ -45,7 +45,7 @@ final class ToolTipView: UIView {
 
     // MARK: - Initialization
 
-    override init (frame: CGRect){
+    override init (frame: CGRect) {
         super.init(frame: .zero)
 
         self.backgroundColor = .clear
@@ -71,7 +71,7 @@ final class ToolTipView: UIView {
         }
     }
     
-    private func setButton(){
+    private func setButton() {
         addSubview(closeButton)
         
         closeButton.snp.makeConstraints { make in
@@ -106,7 +106,7 @@ final class ToolTipView: UIView {
     
     // MARK: - Actions
     
-    @objc func closeButtonDidTap(){
+    @objc func closeButtonDidTap() {
         print("툴팁 닫기 선택됨")
         closeButton.removeFromSuperview()
         label.removeFromSuperview()

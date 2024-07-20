@@ -74,7 +74,7 @@ final class CheapFlowerView: UIView {
     
     // MARK: - Functions
     
-    func setBaseDateLabel(viewModel: HomeViewModel){
+    func setBaseDateLabel(viewModel: HomeViewModel) {
         let data = viewModel.calculateCheapFlowerBaseDate()
         baseDateLabel.text = "\(data[0])월 \(data[1]) 기준"
     }

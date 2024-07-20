@@ -13,7 +13,9 @@ protocol CustomAlertViewControllerDelegate: AnyObject {
 }
 
 final class CustomAlertViewController: UIViewController {
+    
     // MARK: - AlertType
+    
     enum AlertType: String {
         case modify = "수정"
         case delete = "삭제"
@@ -21,6 +23,7 @@ final class CustomAlertViewController: UIViewController {
     }
     
     // MARK: - Properties
+    
     private var requestTitle: String?
     private var alertType: AlertType?
     private var myPageVC: UIViewController?
@@ -30,6 +33,7 @@ final class CustomAlertViewController: UIViewController {
     weak var delegate: CustomAlertViewControllerDelegate?
     
     // MARK: - Views
+    
     private let alertView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -47,7 +51,7 @@ final class CustomAlertViewController: UIViewController {
         if alertType == .requestSaveAlert {
             label.text = alertType?.rawValue
         }
-        else{
+        else {
             fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
             let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
@@ -66,7 +70,7 @@ final class CustomAlertViewController: UIViewController {
             label.text = "삭제하면 복구할 수 없습니다."
         }
         
-        else if alertType == .modify{
+        else if alertType == .modify {
             label.text = "커스터마이징을 다시 시작합니다."
         }
         else {
@@ -101,7 +105,7 @@ final class CustomAlertViewController: UIViewController {
         if alertType == .requestSaveAlert {
             config.attributedTitle = AttributedString("확인")
         }
-        else{
+        else {
             config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
         }
         
@@ -123,6 +127,7 @@ final class CustomAlertViewController: UIViewController {
     }()
     
     // MARK: - Initialization
+    
     convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
         self.init()
         
@@ -139,7 +144,8 @@ final class CustomAlertViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    private func addViews(){
+    
+    private func addViews() {
         view.addSubview(alertView)
         alertView.addSubview(titleLabel)
         alertView.addSubview(descriptionLabel)
@@ -151,7 +157,7 @@ final class CustomAlertViewController: UIViewController {
         buttonStackView.addArrangedSubview(confirmButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         alertView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(20)
@@ -190,11 +196,12 @@ final class CustomAlertViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc func cancelBtnTapped(){
+    
+    @objc func cancelBtnTapped() {
         dismiss(animated: false)
     }
     
-    @objc func confirmBtnTapped(){
+    @objc func confirmBtnTapped() {
         if alertType == AlertType.modify {
             guard let bouquetId = bouquetId else { return }
 

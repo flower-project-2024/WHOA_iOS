@@ -243,7 +243,7 @@ class FlowerDetailViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(flowerId: Int){
+    init(flowerId: Int) {
         self.flowerId = flowerId
         
         super.init(nibName: nil, bundle: nil)
@@ -279,7 +279,7 @@ class FlowerDetailViewController: UIViewController {
     
     // MARK: - Functions
 
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationController?.navigationBar.topItem?.title = ""
         
         let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
@@ -290,12 +290,12 @@ class FlowerDetailViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
-    private func setupNavigationTitle(){
+    private func setupNavigationTitle() {
         titleView.text = viewModel.getFlowerName()
         self.navigationItem.titleView = titleView
     }
     
-    private func setupCollectionView(){
+    private func setupCollectionView() {
         managementView.collectionView.delegate = self
         managementView.collectionView.dataSource = self
         
@@ -307,7 +307,7 @@ class FlowerDetailViewController: UIViewController {
                                                                   right: ManagementView.minimumLineSpacing)
     }
     
-    private func addSubViews(){
+    private func addSubViews() {
         // add views
         view.addSubview(outerScrollView)
         //view.addSubview(bottomFixedView)
@@ -345,7 +345,7 @@ class FlowerDetailViewController: UIViewController {
         //bottomFixedView.addSubview(decorateButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         outerScrollView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview()
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -456,7 +456,7 @@ class FlowerDetailViewController: UIViewController {
 //        }
     }
     
-    private func generateColorChipButtons(_ colors: [String]?){
+    private func generateColorChipButtons(_ colors: [String]?) {
         if let colors = colors {
             for color in colors {
                 colorButtonList.append(ColorChipButton(colorCode: color))
@@ -520,7 +520,7 @@ class FlowerDetailViewController: UIViewController {
         }
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.flowerDetailDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.setupNavigationTitle()
@@ -540,7 +540,7 @@ class FlowerDetailViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func decorateBtnTapped(){
+    @objc func decorateBtnTapped() {
         let colorSheetVC = ColorSheetViewController(viewModel: viewModel)
         
         colorSheetVC.modalPresentationStyle = .pageSheet
@@ -554,11 +554,11 @@ class FlowerDetailViewController: UIViewController {
         present(colorSheetVC, animated: true)
     }
     
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func descButtonTapped(){
+    @objc func descButtonTapped() {
         flowerDescToggleButton.isSelected.toggle()
         flowerDescContentLabel.numberOfLines = flowerDescToggleButton.isSelected ? 0 : 2
     }

@@ -92,7 +92,7 @@ final class SavedRequestCell: UITableViewCell {
     
     // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(flowerImageView)
         contentView.addSubview(detailView)
         
@@ -104,7 +104,7 @@ final class SavedRequestCell: UITableViewCell {
         buttonStackView.addArrangedSubview(deleteButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         flowerImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.bottom.equalToSuperview()
@@ -135,7 +135,7 @@ final class SavedRequestCell: UITableViewCell {
         }
     }
     
-    func configure(model: BouquetModel){
+    func configure(model: BouquetModel) {
         self.requestTitle = model.bouquetTitle
         
         requestTitleLabel.text = model.bouquetTitle
@@ -151,7 +151,7 @@ final class SavedRequestCell: UITableViewCell {
     
     // MARK: - Actions
     
-    @objc func modifyBtnTapped(){
+    @objc func modifyBtnTapped() {
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.customizingCoordinator = customizingCoordinator
@@ -159,7 +159,7 @@ final class SavedRequestCell: UITableViewCell {
         myPageVC?.present(customAlertVC, animated: false, completion: nil)
     }
     
-    @objc func deleteBtnTapped(){
+    @objc func deleteBtnTapped() {
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.delegate = myPageVC

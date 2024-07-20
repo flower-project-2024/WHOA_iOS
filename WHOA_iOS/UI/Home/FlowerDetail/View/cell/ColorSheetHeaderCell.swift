@@ -24,6 +24,7 @@ class ColorSheetHeaderCell: UICollectionReusableView {
     }()
     
     // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,11 +37,12 @@ class ColorSheetHeaderCell: UICollectionReusableView {
     }
     
     // MARK: - Helpers
-    private func addViews(){
+    
+    private func addViews() {
         addSubview(titleLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.centerY.equalToSuperview()

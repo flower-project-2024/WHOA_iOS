@@ -54,13 +54,13 @@ class NoSearchResultCell: UITableViewCell {
     
    // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         addSubview(noResultImageView)
         addSubview(noResultLabel)
         addSubview(tryAgainLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         noResultImageView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(150)
             make.top.equalToSuperview().inset(40)

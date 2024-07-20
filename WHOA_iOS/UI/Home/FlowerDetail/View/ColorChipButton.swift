@@ -8,7 +8,7 @@
 import UIKit
 
 class ColorChipButton: UIButton {
-    init(colorCode: String){
+    init(colorCode: String) {
         super.init(frame: .zero)
         
         var config = UIButton.Configuration.plain()

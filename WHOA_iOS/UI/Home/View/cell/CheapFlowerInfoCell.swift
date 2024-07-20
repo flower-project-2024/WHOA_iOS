@@ -88,7 +88,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     
     // MARK: - Functions
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         // add view
         contentView.addSubview(flowerImageView)
         contentView.addSubview(rankingLabel)
@@ -129,7 +129,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
-    func configure(model: CheapFlowerModel){
+    func configure(model: CheapFlowerModel) {
         flowerNameLabel.text = model.flowerRankingName
         
         var price = model.flowerRankingPrice

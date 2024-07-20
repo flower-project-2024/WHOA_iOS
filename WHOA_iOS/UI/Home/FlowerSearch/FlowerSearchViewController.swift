@@ -89,14 +89,14 @@ class FlowerSearchViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
         self.navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(headerView)
         headerView.addSubview(backButton)
         headerView.addSubview(searchBar)
@@ -104,7 +104,7 @@ class FlowerSearchViewController: UIViewController {
         view.addSubview(searchTableView)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         backButton.snp.makeConstraints { make in
             make.height.equalTo(24)
             make.width.equalTo(backButton.snp.height).multipliedBy(1)
@@ -141,7 +141,7 @@ class FlowerSearchViewController: UIViewController {
         return image
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.flowerSearchListDidChange = {
             
         }
@@ -180,7 +180,7 @@ extension FlowerSearchViewController: UITableViewDelegate, UITableViewDataSource
                 }
             }
             // 검색 결과 없을 때의 셀
-            else{
+            else {
                 guard let noResultCell = tableView.dequeueReusableCell(withIdentifier: NoSearchResultCell.identifier, for: indexPath) as? NoSearchResultCell else { return UITableViewCell()}
                 return noResultCell
             }

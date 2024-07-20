@@ -72,7 +72,8 @@ final class RequestDetailViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    private func setupNavigation(){
+    
+    private func setupNavigation() {
         navigationController?.navigationBar.tintColor = .black
         self.navigationItem.title = viewModel.getRequestTitle()
         self.navigationController?.navigationBar.topItem?.title = ""
@@ -87,7 +88,7 @@ final class RequestDetailViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = backbutton
     }
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
@@ -97,7 +98,7 @@ final class RequestDetailViewController: UIViewController {
         contentView.addSubview(saveAsImageButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(4)
@@ -155,7 +156,7 @@ final class RequestDetailViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc func saveAsImageButtonTapped(){
+    @objc func saveAsImageButtonTapped() {
         ImageSaver().saveAsImage(requestDetailView.transfromToImage()!, target: self) {
             let requestTitle = self.viewModel.getRequestTitle()
             let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .requestSaveAlert, currentVC: self)
@@ -164,15 +165,17 @@ final class RequestDetailViewController: UIViewController {
         }
     }
     
-    @objc func goBack(){
+    @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
 // MARK: - Extension; ScrollView
+
 extension RequestDetailViewController: UIScrollViewDelegate {
     
 }
 
 // MARK: - Extension; UIGestureRecognizer
+
 extension RequestDetailViewController: UIGestureRecognizerDelegate {}

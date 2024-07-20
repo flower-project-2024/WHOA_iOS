@@ -40,11 +40,11 @@ class FlowerLanguageCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(label)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(6)
             make.leading.trailing.equalToSuperview().inset(12)

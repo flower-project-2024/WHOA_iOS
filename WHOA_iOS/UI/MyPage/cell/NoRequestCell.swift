@@ -53,7 +53,7 @@ final class NoRequestCell: UITableViewCell {
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(noRequestImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)

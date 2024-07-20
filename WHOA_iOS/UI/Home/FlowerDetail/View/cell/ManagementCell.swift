@@ -72,19 +72,19 @@ class ManagementCell: UICollectionViewCell {
       self.imageView.image = image
     }
     
-    func configure(content: [String]){
+    func configure(content: [String]) {
         managementTitleLabel.text = content[0]
         managementContentLabel.text = content[1]
         managementContentLabel.setLineHeight(lineHeight: 142)
     }
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(imageView)
         contentView.addSubview(managementTitleLabel)
         contentView.addSubview(managementContentLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         imageView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(22)
             make.centerX.equalToSuperview()

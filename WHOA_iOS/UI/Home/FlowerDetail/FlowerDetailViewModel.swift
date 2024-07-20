@@ -24,7 +24,7 @@ class FlowerDetailViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController){
+    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchFlowerDetail(flowerId: flowerId) { result in
             switch result {
             case .success(let model):
@@ -39,7 +39,7 @@ class FlowerDetailViewModel {
         }
     }
     
-    func getFlowerDetailModel() -> FlowerDetailModel{
+    func getFlowerDetailModel() -> FlowerDetailModel {
         print(flowerDetailModel)
         return flowerDetailModel
     }
@@ -122,7 +122,7 @@ class FlowerDetailViewModel {
         }
     }
     
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
+    private func networkErrorAlert(_ error: Error) -> UIAlertController {
         let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "확인", style: .default)
         alertController.addAction(confirmAction)

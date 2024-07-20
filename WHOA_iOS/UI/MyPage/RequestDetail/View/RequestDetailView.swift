@@ -296,7 +296,8 @@ final class RequestDetailView: UIView {
         return imageView
     }()
     
-    // MARK: -Initialization
+    // MARK: - Initialization
+    
     init(requestDetailType: RequestDetailType) {
         self.requestDetailType = requestDetailType
         super.init(frame: .zero)
@@ -314,7 +315,8 @@ final class RequestDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: -Helpers
+    // MARK: - Helpers
+    
     func config(model: CustomizingSummaryModel) {
         configureBuyingIntent(model)
         configureFlowerColors(model)
@@ -418,7 +420,7 @@ final class RequestDetailView: UIView {
         }
     }
     
-    private func addViews(){
+    private func addViews() {
         addSubview(requestTitleTextField)
         requestTitleTextField.addSubview(requestTitleTextFieldPlaceholder)
         addSubview(editButton)
@@ -471,7 +473,7 @@ final class RequestDetailView: UIView {
         
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         requestTitleTextField.snp.makeConstraints {
             $0.top.equalToSuperview().offset(25)
             $0.leading.equalToSuperview().offset(24)

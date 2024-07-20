@@ -84,13 +84,13 @@ final class CustomizeIntroCell: UICollectionViewCell {
     
     // MARK: - Actions
     
-    @objc private func goToCustomizing(){
+    @objc private func goToCustomizing() {
         goToCustomzingFromCustomizingCell?()
     }
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         addSubview(customizeStackView)
         addSubview(flowerDecoImageView)
         addSubview(customizeButton)
@@ -100,7 +100,7 @@ final class CustomizeIntroCell: UICollectionViewCell {
         }
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         customizeStackView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(26)
         }

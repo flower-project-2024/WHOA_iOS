@@ -69,7 +69,7 @@ class ColorSheetViewController: UIViewController {
     
     // MARK: - Initialization
     
-    init(viewModel: FlowerDetailViewModel){
+    init(viewModel: FlowerDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -89,14 +89,14 @@ class ColorSheetViewController: UIViewController {
     
     // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(collectionView)
         view.addSubview(bottomFixedView)
         
         bottomFixedView.addSubview(decorateButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().inset(24)

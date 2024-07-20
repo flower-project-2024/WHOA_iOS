@@ -93,6 +93,7 @@ final class FlowerTypeView: UIView {
     }()
     
     // MARK: - Initialization
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -105,7 +106,8 @@ final class FlowerTypeView: UIView {
     }
     
     // MARK: - Helpers
-    private func addViews(){
+    
+    private func addViews() {
         self.addSubview(flowerImageView)
         self.addSubview(flowerInfoStackView)
         
@@ -119,7 +121,7 @@ final class FlowerTypeView: UIView {
         flowerLanguageStackView.addArrangedSubview(flowerLanguageTagLabel4)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         flowerImageView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.equalToSuperview()

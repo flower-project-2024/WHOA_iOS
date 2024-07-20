@@ -58,12 +58,12 @@ class ManagementView: UIView {
     
     // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         addSubview(titleLabel)
         addSubview(collectionView)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(40)
             make.leading.equalToSuperview().inset(26)

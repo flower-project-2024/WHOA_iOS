@@ -44,12 +44,12 @@ class FlowerSearchResultCell: UITableViewCell {
     
     // MARK: - Helpers
     
-    private func addViews(){
+    private func addViews() {
         addSubview(searchImageView)
         addSubview(resultLabel)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         searchImageView.snp.makeConstraints { make in
             make.width.equalTo(21)
             make.height.equalTo(searchImageView.snp.width).multipliedBy(1)

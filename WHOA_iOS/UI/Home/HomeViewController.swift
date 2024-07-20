@@ -92,7 +92,7 @@ final class HomeViewController: UIViewController {
         setupConstraints()
         
         let willShowTooltip = UserDefaults.standard.bool(forKey: "willShowTooltip")
-        if(!willShowTooltip){
+        if(!willShowTooltip) {
             UserDefaults.standard.setValue(true, forKey: "willShowTooltip")
             setupToolTipView()
         }
@@ -127,7 +127,7 @@ final class HomeViewController: UIViewController {
 
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(scrollView)
         
         scrollView.addSubview(contentView)
@@ -137,7 +137,7 @@ final class HomeViewController: UIViewController {
         contentView.addSubview(cheapFlowerView)
     }
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         // 내비게이션 바에 로고 이미지
         let logoImageView = UIImageView(image: UIImage.whoaLogo)
         self.navigationItem.titleView = logoImageView
@@ -153,7 +153,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.scrollEdgeAppearance?.shadowColor = .white  // 스크롤하고 있는 상태
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         scrollView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -187,7 +187,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func setupCollectionView(){
+    private func setupCollectionView() {
         // minimumLineSpacing 고려하여 width 값 조절
         carouselView.layoutIfNeeded()
         cellSize = CGSize(width: carouselView.frame.width - (minimumLineSpacing * 4), height: 225)
@@ -197,12 +197,12 @@ final class HomeViewController: UIViewController {
                                                  right: minimumLineSpacing)
     }
     
-    private func setupTableView(){
+    private func setupTableView() {
         cheapFlowerView.topThreeTableView.dataSource = self
         cheapFlowerView.topThreeTableView.delegate = self
     }
     
-    private func setupToolTipView(){
+    private func setupToolTipView() {
         view.addSubview(tooltipView)
         
         tooltipView.parentVC = self
@@ -239,7 +239,7 @@ final class HomeViewController: UIViewController {
         })
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.cheapFlowerRankingsDidChange = { [weak self] in
             DispatchQueue.main.async {
                 self?.cheapFlowerView.topThreeTableView.reloadData()
@@ -263,7 +263,7 @@ final class HomeViewController: UIViewController {
         var returnArray = ["", ""]
         
         // 월, 날짜가 한 자리 수인 경우 앞에 0을 제거해야 함
-        for i in 0...1{
+        for i in 0...1 {
             if splitArray[i].prefix(1) == "0" {
                 returnArray[i] = String(splitArray[i].suffix(1))
             }
@@ -274,7 +274,7 @@ final class HomeViewController: UIViewController {
         return returnArray
     }
 
-    func removeToolTipView(){
+    func removeToolTipView() {
         tooltipIsClosed = true
         tooltipView.removeFromSuperview()
     }
@@ -324,9 +324,11 @@ extension HomeViewController: UICollectionViewDelegate {
         let index: Int
         if velocity.x > 0 {
             index = Int(ceil(estimatedIndex))
-        } else if velocity.x < 0 {
+        } 
+        else if velocity.x < 0 {
             index = Int(floor(estimatedIndex))
-        } else {
+        } 
+        else {
             index = Int(round(estimatedIndex))
         }
 
