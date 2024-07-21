@@ -7,23 +7,15 @@
 
 import UIKit
 
-protocol FlowerSelectionTableViewCellDelegate: AnyObject {
-    func didTapAddImageButton(in cell: FlowerSelectionTableViewCell)
-}
-
-class FlowerSelectionTableViewCell: UITableViewCell {
+final class FlowerSelectionTableViewCell: UITableViewCell {
     
     // MARK: - Properties
-    
-    weak var delegate: FlowerSelectionTableViewCellDelegate?
     
     var isAddImageButtonSelected: Bool = false {
         didSet {
             updateAppearance(isAddImageButtonSelected)
         }
     }
-    
-    var addImageButtonClicked: (() -> Void)?
     
     // MARK: - UI
     
@@ -35,7 +27,6 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "튤립"
         label.textColor = .primary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
@@ -44,17 +35,15 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "plus.app")
-        imageView.tintColor = .gray9
+        imageView.tintColor = .gray09
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
-        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
     private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .gray8
+        label.textColor = .gray08
         label.font = .Pretendard(family: .Medium)
         label.numberOfLines = 3
         return label
@@ -62,7 +51,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
     
     private let flowerDescriptionView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray2
+        view.backgroundColor = .gray02
         return view
     }()
     
@@ -103,7 +92,7 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.gray3.cgColor
+        contentView.layer.borderColor = UIColor.gray03.cgColor
         
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)
@@ -127,15 +116,8 @@ class FlowerSelectionTableViewCell: UITableViewCell {
         if let image = model.flowerImage {
             ImageProvider.shared.setImage(into: flowerImageView, qos: .userInitiated, from: image)
         } else {
-            flowerImageView.image = UIImage(named: "TempImage")
+            flowerImageView.image = .defaultFlower
         }
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    func addImageButtonTapped() {
-        delegate?.didTapAddImageButton(in: self)
     }
 }
 

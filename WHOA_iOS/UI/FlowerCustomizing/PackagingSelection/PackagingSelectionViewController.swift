@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PackagingSelectionViewController: UIViewController {
+final class PackagingSelectionViewController: UIViewController {
     
     // MARK: - Initialize
     
@@ -40,7 +40,7 @@ class PackagingSelectionViewController: UIViewController {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.gray4.cgColor
+        view.layer.borderColor = UIColor.gray04.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
         view.isHidden = true
         view.delegate = self
@@ -50,7 +50,7 @@ class PackagingSelectionViewController: UIViewController {
     private let placeholder: UILabel = {
         let label = UILabel()
         label.text = "요구사항을 작성해주세요."
-        label.textColor = .gray6
+        label.textColor = .gray06
         label.font = .Pretendard()
         return label
     }()
@@ -253,7 +253,7 @@ extension PackagingSelectionViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.gray4.cgColor
+        requirementTextView.layer.borderColor = UIColor.gray04.cgColor
         
         if textView.text.count == 0 {
             placeholder.isHidden = false

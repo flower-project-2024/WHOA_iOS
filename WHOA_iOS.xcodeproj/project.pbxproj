@@ -63,7 +63,7 @@
 		08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B9815A2C30877000F3CD45 /* UILabel+.swift */; };
 		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
-		08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */; };
+		08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */; };
 		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		08C635EE2C01EB220088DE39 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635ED2C01EB220088DE39 /* UITabBar+.swift */; };
 		08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635EF2C01EB470088DE39 /* CALayer+.swift */; };
@@ -141,7 +141,6 @@
 		54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17DF2BA2EA2600717E6F /* PhotoSelectionViewModel.swift */; };
 		54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */; };
 		54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E52BA354F400717E6F /* PhotoCell.swift */; };
-		54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */; };
 		54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17E92BA9ED5700717E6F /* UIButton+.swift */; };
 		54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */; };
 		54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */; };
@@ -169,7 +168,6 @@
 		54FD0F502B6FCE2E00F964C3 /* WHOA_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F4F2B6FCE2E00F964C3 /* WHOA_iOSUITests.swift */; };
 		54FD0F522B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */; };
 		54FD0F652B7000C000F964C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F642B7000C000F964C3 /* SnapKit */; };
-		54FD0F682B7002D300F964C3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F672B7002D300F964C3 /* Alamofire */; };
 		54FD0F6C2B701B9C00F964C3 /* PurposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6B2B701B9C00F964C3 /* PurposeViewController.swift */; };
 		54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */; };
 		54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F702B73BF4900F964C3 /* CustomTitleLabel.swift */; };
@@ -254,7 +252,7 @@
 		08B9815A2C30877000F3CD45 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
-		08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		08C635ED2C01EB220088DE39 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		08C635EF2C01EB470088DE39 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -333,7 +331,6 @@
 		54EB17DF2BA2EA2600717E6F /* PhotoSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionViewModel.swift; sourceTree = "<group>"; };
 		54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		54EB17E52BA354F400717E6F /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
-		54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
 		54EB17E92BA9ED5700717E6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewController.swift; sourceTree = "<group>"; };
 		54EB17F72BADA9D300717E6F /* SaveAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveAlertViewController.swift; sourceTree = "<group>"; };
@@ -381,7 +378,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54FD0F652B7000C000F964C3 /* SnapKit in Frameworks */,
-				54FD0F682B7002D300F964C3 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,14 +541,6 @@
 				08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		08C0ADF72BA9B9250099EFE5 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				08C0ADF52BA9B91D0099EFE5 /* UIView+Extension.swift */,
-			);
-			path = Extension;
 			sourceTree = "<group>";
 		};
 		08D0CF2F2BF6F8BE005CBECA /* ToolTip */ = {
@@ -794,8 +782,8 @@
 			children = (
 				54EB17EE2BAB2ED400717E6F /* Views */,
 				54EB17EC2BAB103900717E6F /* CustomizingSummaryViewController.swift */,
-				5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */,
 				5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */,
+				5413AA702BD5516E006AA160 /* CustomizingSummaryModel.swift */,
 			);
 			path = CustomizingSummary;
 			sourceTree = "<group>";
@@ -819,6 +807,7 @@
 		54EB17FF2BB4771E00717E6F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */,
 				54EB17E92BA9ED5700717E6F /* UIButton+.swift */,
 				54EB18002BB4773900717E6F /* UIColor+.swift */,
 				54EB18022BB5400F00717E6F /* UIFont+.swift */,
@@ -988,7 +977,6 @@
 				54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */,
 				54FD0F7E2B742C4900F964C3 /* BackButton.swift */,
 				54FD0F802B743C0000F964C3 /* NextButton.swift */,
-				54EB17E72BA4796700717E6F /* BasePaddingLabel.swift */,
 				54D8565D2BDAFC390099D818 /* SpacebarButton.swift */,
 				54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */,
 			);
@@ -998,7 +986,6 @@
 		54FD0F762B73CF2B00F964C3 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				08C0ADF72BA9B9250099EFE5 /* Extension */,
 				54FD0F772B73CF6200F964C3 /* ImageManager.swift */,
 				08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */,
 			);
@@ -1056,7 +1043,6 @@
 			name = WHOA_iOS;
 			packageProductDependencies = (
 				54FD0F642B7000C000F964C3 /* SnapKit */,
-				54FD0F672B7002D300F964C3 /* Alamofire */,
 			);
 			productName = WHOA_iOS;
 			productReference = 54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */;
@@ -1132,7 +1118,6 @@
 			mainGroup = 54FD0F222B6FCE2D00F964C3;
 			packageReferences = (
 				54FD0F632B7000C000F964C3 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				54FD0F662B7002D300F964C3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 54FD0F2C2B6FCE2D00F964C3 /* Products */;
 			projectDirPath = "";
@@ -1305,7 +1290,6 @@
 				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				08DA470D2BF0ABD000956555 /* FlowerSearchDTO.swift in Sources */,
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
-				54EB17E82BA4796700717E6F /* BasePaddingLabel.swift in Sources */,
 				0858C4AF2C241C8B00FAE6C3 /* FlowerDetailModel.swift in Sources */,
 				54EB18052BB56E5300717E6F /* ColorSelectionButton.swift in Sources */,
 				548C4AED2B8E98F6002F4FCB /* FlowerSelectionTableViewCell.swift in Sources */,
@@ -1313,7 +1297,7 @@
 				0833EF7A2BE534C40024FB2C /* BouquetAllAPI.swift in Sources */,
 				0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
-				08C0ADF62BA9B91D0099EFE5 /* UIView+Extension.swift in Sources */,
+				08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */,
 				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
@@ -1706,14 +1690,6 @@
 				minimumVersion = 5.7.0;
 			};
 		};
-		54FD0F662B7002D300F964C3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.8.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1721,11 +1697,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 54FD0F632B7000C000F964C3 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		54FD0F672B7002D300F964C3 /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 54FD0F662B7002D300F964C3 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -34,13 +34,10 @@ final class HomeViewModel {
             case .success(let model):
                 self.cheapFlowerRankings = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async { [unowned self] in
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
+        
     }
     
     func getCheapFlowerModel(index: Int) -> CheapFlowerModel {
@@ -62,7 +59,7 @@ final class HomeViewModel {
         let calendar = Calendar.current  // 어떤 종류의 달력인지
         let month = calendar.component(.month, from: date)
         let weekNumber = calendar.component(.weekOfMonth, from: date)
-               
+        
         if weekNumber == 1 {
             return [String(month), "첫째 주"]
         }
@@ -83,11 +80,7 @@ final class HomeViewModel {
             case .success(let model):
                 self.todaysFlower = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async { [unowned self] in
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         })
     }
@@ -98,13 +91,5 @@ final class HomeViewModel {
     
     func getTodaysFlowerCount() -> Int {
         return 1
-    }
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
 }

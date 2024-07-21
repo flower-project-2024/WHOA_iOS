@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIView{
+extension UIView {
     /// UIView를 이미지로 변환하는 함수
     /// - Returns: 뷰 내용을 담은 이미지
     func transfromToImage() -> UIImage? {

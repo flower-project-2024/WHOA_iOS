@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PurposeView: UIView {
+final class PurposeView: UIView {
     
     // MARK: - Properties
     

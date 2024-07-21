@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlternativesViewController: UIViewController {
+final class AlternativesViewController: UIViewController {
     
     // MARK: - Properties
     

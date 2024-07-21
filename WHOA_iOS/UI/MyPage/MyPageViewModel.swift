@@ -23,17 +23,12 @@ final class BouquetListModel {
     
     func fetchAllBouquets(fromCurrentVC: UIViewController) {
         guard let memberId = KeychainManager.shared.loadMemberId() else { return }
-        print("member id: \(memberId)")
         NetworkManager.shared.fetchAllBouquets(memberId: memberId) { result in
             switch result {
             case .success(let model):
                 self.bouquetModelList = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async {
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
     }
@@ -48,13 +43,5 @@ final class BouquetListModel {
     
     func removeBouquet(withId bouquetId: Int) {
         bouquetModelList.removeAll { $0.bouquetId == bouquetId }
-    }
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
 }

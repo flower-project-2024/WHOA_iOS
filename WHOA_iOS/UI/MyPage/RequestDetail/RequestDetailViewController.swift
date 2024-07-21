@@ -123,34 +123,15 @@ final class RequestDetailViewController: UIViewController {
     
     private func bind() {
         viewModel.customizingSummaryModelDidChaged = { [weak self] model in
-            guard let model = model else { return
-            }
+            guard let model = model else { return }
             DispatchQueue.main.async {
                 self?.requestDetailView.config(model: model)
             }
         }
         
         viewModel.showError = { [weak self] error in
-            print("showError")
-            DispatchQueue.main.async {
-                self?.fetchFailure(error)
-            }
+            self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
         }
-    }
-    
-    private func fetchFailure(_ error: NetworkError) {
-        let networkAlertController = self.networkErrorAlert(error)
-        DispatchQueue.main.async { [unowned self] in
-            self.present(networkAlertController, animated: true)
-        }
-    }
-    
-    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
     
     // MARK: - Actions

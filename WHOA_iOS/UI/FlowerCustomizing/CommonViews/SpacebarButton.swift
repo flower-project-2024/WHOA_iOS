@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SpacebarButton: UIButton {
+final class SpacebarButton: UIButton {
     
     // MARK: - Initialization
     
@@ -36,7 +36,7 @@ class SpacebarButton: UIButton {
     func configure(isSelected: Bool) -> UIButton.Configuration {
         var config = UIButton.Configuration.filled()
         config.titleAlignment = .leading
-        config.baseBackgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
+        config.baseBackgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray02
         config.baseForegroundColor = .primary
         
         // Title
@@ -45,7 +45,7 @@ class SpacebarButton: UIButton {
         config.attributedTitle = attString
         
         // Image
-        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: isSelected ? [.secondary3, .secondary3] : [.gray2, .gray5])
+        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: isSelected ? [.secondary03, .secondary03] : [.gray02, .gray05])
         config.image = UIImage(systemName: "button.programmable", withConfiguration: colorsConfig)
         config.imagePlacement = .leading
         config.imagePadding = 8

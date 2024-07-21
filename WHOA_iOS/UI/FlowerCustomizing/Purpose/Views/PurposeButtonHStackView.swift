@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PurposeButtonHStackView: UIStackView {
+final class PurposeButtonHStackView: UIStackView {
     
     // MARK: - Initialization
     
@@ -34,7 +34,7 @@ class PurposeButtonHStackView: UIStackView {
     }
 }
 
-class PurposeButton: UIButton {
+final class PurposeButton: UIButton {
     
     // MARK: - Properties
     
@@ -64,7 +64,7 @@ class PurposeButton: UIButton {
     
     private func setupUI(_ purposeType: PurposeType) {
         var config = UIButton.Configuration.gray()
-        config.baseBackgroundColor = .gray2
+        config.baseBackgroundColor = .gray02
         config.title = purposeType.rawValue
         config.image = getPurposeImage(purposeType)
         config.imagePlacement = .top
@@ -78,10 +78,13 @@ class PurposeButton: UIButton {
     }
     
     private func updateSelection() {
-        layer.borderColor = isSelected ? UIColor.secondary3.cgColor : UIColor.clear.cgColor
-        self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray2
-        self.titleLabel?.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard()
-        self.configuration?.baseForegroundColor = isSelected ? .primary : .gray8
+        layer.borderColor = isSelected ? UIColor.secondary03.cgColor : UIColor.clear.cgColor
+        self.backgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray02
+        self.configuration?.baseForegroundColor = isSelected ? .primary : .gray08
+        
+        var titleAttr = AttributedString(purposeType.rawValue)
+        titleAttr.font = isSelected ? .Pretendard(size: 16, family: .SemiBold) : .Pretendard(size: 16)
+        self.configuration?.attributedTitle = titleAttr
     }
     
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {

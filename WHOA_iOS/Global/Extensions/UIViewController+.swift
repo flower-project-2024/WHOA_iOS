@@ -30,4 +30,25 @@ extension UIViewController {
             toastLabel.removeFromSuperview()
         })
     }
+    
+    func showAlert(title: String = "", message: String = "", alertActions: [UIAlertAction] = []) {
+        let sheet = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        if alertActions.isEmpty {
+            let confirmAction = UIAlertAction(title: "확인", style: .default)
+            sheet.addAction(confirmAction)
+        } else {
+            alertActions.forEach { alertAction in
+                sheet.addAction(alertAction)
+            }
+        }
+        
+        DispatchQueue.main.async {
+            self.present(sheet, animated: true)
+        }
+    }
 }

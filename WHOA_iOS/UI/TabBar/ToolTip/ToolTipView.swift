@@ -107,7 +107,6 @@ final class ToolTipView: UIView {
     // MARK: - Actions
     
     @objc func closeButtonDidTap() {
-        print("툴팁 닫기 선택됨")
         closeButton.removeFromSuperview()
         label.removeFromSuperview()
         shape.removeFromSuperlayer()

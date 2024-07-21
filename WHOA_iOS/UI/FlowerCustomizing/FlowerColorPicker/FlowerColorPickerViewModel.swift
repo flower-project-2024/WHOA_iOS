@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class FlowerColorPickerViewModel {
+final class FlowerColorPickerViewModel {
     
     private var flowerColorPickerModel = FlowerColorPickerModel(numberOfColors: .oneColor, colors: [])
     @Published var iscolorSelectionHidden = true

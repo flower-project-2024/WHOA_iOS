@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PurposeModel {
+struct PurposeModel  {
     let purposeType: PurposeType
     
     init(purposeType: PurposeType) {

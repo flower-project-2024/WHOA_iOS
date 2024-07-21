@@ -17,7 +17,7 @@ final class FlowerTypeView: UIView {
     let flowerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "TempImage")
+        imageView.image = .defaultFlower
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
         imageView.layer.borderColor = UIColor.gray04.cgColor

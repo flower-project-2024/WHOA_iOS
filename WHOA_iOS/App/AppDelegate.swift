@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         
         if !isFirstLaunch {
-            print("첫 시작")
             initializeAppConfig()
         }
         
@@ -29,11 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
     
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-    }
-    
-    // MARK: - Functions
-    
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) { }
+}
+
+// MARK: - save MemberId in keychain
+extension AppDelegate {
     private func initializeAppConfig() {
         guard KeychainManager.shared.loadMemberId() == nil else { return }
         registerMember()
@@ -51,24 +50,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 UserDefaults.standard.set(true, forKey: "isFirstLaunch")
                 UserDefaults.standard.synchronize()
             case .failure(let error):
-                self?.networkErrorAlert(error)
-            }
-        }
-    }
-    
-    private func networkErrorAlert(_ error: NetworkError) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: "네트워크 에러 발생했습니다‼️", message: error.localizedDescription, preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "다시시도", style: .default) { _ in
-                self.registerMember()
-            }
-            
-            alertController.addAction(confirmAction)
-            
-            if let window = self.window, let rootVC = window.rootViewController {
-                rootVC.present(alertController, animated: true, completion: nil)
+                self?.handleError(error)
             }
         }
     }
 }
 
+// MARK: - Error -> Alert
+extension AppDelegate {
+    func handleError(_ error: NetworkError) {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        
+        if let presentViewController = window.rootViewController {
+            presentViewController.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+        } else {
+            fatalError(error.localizedDescription)
+        }
+    }
+}

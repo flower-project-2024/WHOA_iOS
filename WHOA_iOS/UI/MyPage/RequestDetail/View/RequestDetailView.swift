@@ -30,7 +30,7 @@ final class RequestDetailView: UIView {
     let requestTitleTextFieldPlaceholder: UILabel = {
         let label = UILabel()
         label.text = "꽃다발 요구서1"
-        label.textColor = .gray8
+        label.textColor = .gray08
         label.font = .Pretendard()
         return label
     }()

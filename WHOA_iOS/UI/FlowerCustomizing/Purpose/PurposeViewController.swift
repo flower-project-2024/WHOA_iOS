@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PurposeViewController: UIViewController {
+final class PurposeViewController: UIViewController {
     
     // MARK: - Properties
     
