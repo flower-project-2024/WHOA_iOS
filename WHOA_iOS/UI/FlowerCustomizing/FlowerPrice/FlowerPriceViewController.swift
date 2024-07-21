@@ -121,7 +121,6 @@ final class FlowerPriceViewController: UIViewController {
     private func bind() {
         viewModel.$flowerPriceModel
             .receive(on: RunLoop.main)
-            .print()
             .sink { [weak self] model in
                 self?.valueLabel.text = self?.viewModel.getPriceString()
             }

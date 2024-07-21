@@ -160,7 +160,6 @@ final class PhotoViewController: UIViewController {
     private func loadPHAssetsFromAlbums() {
         let album = albums[currentAlbumIndex]
         photoService.convertAlbumToPHAssets(album: album) { [weak self] phAssets in
-            print(phAssets)
         }
     }
     

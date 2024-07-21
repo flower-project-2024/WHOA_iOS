@@ -36,7 +36,6 @@ class FlowerDetailViewModel {
     }
     
     func getFlowerDetailModel() -> FlowerDetailModel {
-        print(flowerDetailModel)
         return flowerDetailModel
     }
     

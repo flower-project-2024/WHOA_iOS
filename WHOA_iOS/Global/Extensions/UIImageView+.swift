@@ -26,7 +26,6 @@ extension UIImageView {
 
 func urlStringToImageFile(urlString: String, filename: String, completion: @escaping (ImageFile?) -> Void) {
     guard let url = URL(string: urlString) else {
-        print("Error: Invalid URL string")
         completion(nil)
         return
     }
@@ -35,7 +34,6 @@ func urlStringToImageFile(urlString: String, filename: String, completion: @esca
         let imageView = UIImageView()
         imageView.load(url: url) { image in
             guard let image = image, let pngData = image.pngData() else {
-                print("Error: Could not create ImageFile from URL")
                 completion(nil)
                 return
             }

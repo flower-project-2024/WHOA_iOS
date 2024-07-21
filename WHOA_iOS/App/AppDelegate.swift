@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let isFirstLaunch = UserDefaults.standard.bool(forKey: "isFirstLaunch")
         
         if !isFirstLaunch {
-            print("첫 시작")
             initializeAppConfig()
         }
         
