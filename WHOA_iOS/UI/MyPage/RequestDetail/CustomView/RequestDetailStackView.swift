@@ -7,7 +7,10 @@
 
 import UIKit
 
-class RequestDetailStackView: UIStackView {
+final class RequestDetailStackView: UIStackView {
+    
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

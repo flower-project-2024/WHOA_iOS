@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CheapFlowerView: UIView {
+final class CheapFlowerView: UIView {
     
     // MARK: - Views
     
@@ -45,12 +45,23 @@ class CheapFlowerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        // add ui elements
+        addViews()
+        setupConstraints()        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Functions
+    
+    private func addViews() {
         addSubview(cheapFlowerLabel)
         addSubview(baseDateLabel)
         addSubview(topThreeTableView)
-        
-        // constraints
+    }
+    
+    private func setupConstraints() {
         cheapFlowerLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview()
@@ -68,13 +79,7 @@ class CheapFlowerView: UIView {
         }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Functions
-    
-    func setBaseDateLabel(viewModel: HomeViewModel){
+    func setBaseDateLabel(viewModel: HomeViewModel) {
         let data = viewModel.calculateCheapFlowerBaseDate()
         baseDateLabel.text = "\(data[0])월 \(data[1]) 기준"
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
+final class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate {
     
     // MARK: - Properties
     
@@ -56,18 +56,18 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
         setupConstraints()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func setupNavigation(){
+    private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(tableView)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(6)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
@@ -76,7 +76,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
         }
     }
     
-    private func bind(){
+    private func bind() {
         viewModel.bouquetModelListDidChage = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -91,7 +91,7 @@ class MyPageViewController: UIViewController, CustomAlertViewControllerDelegate 
     }
 }
 
-// MARK: - Extension; TableView
+// MARK: - Extension: TableView
 
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {

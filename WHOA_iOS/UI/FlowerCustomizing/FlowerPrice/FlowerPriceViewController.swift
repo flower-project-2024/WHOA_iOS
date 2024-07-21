@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FlowerPriceViewController: UIViewController {
+final class FlowerPriceViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -35,8 +35,8 @@ class FlowerPriceViewController: UIViewController {
         slider.maxValue = 150000
         slider.lower = 0
         slider.upper = 150000
-        slider.trackColor = .gray2
-        slider.trackTintColor = .gray2
+        slider.trackColor = .gray02
+        slider.trackTintColor = .gray02
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
     }()
@@ -121,7 +121,6 @@ class FlowerPriceViewController: UIViewController {
     private func bind() {
         viewModel.$flowerPriceModel
             .receive(on: RunLoop.main)
-            .print()
             .sink { [weak self] model in
                 self?.valueLabel.text = self?.viewModel.getPriceString()
             }

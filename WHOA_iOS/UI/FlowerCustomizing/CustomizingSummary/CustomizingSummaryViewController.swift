@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomizingSummaryViewController: UIViewController {
+final class CustomizingSummaryViewController: UIViewController {
     
     // MARK: - Properties
     

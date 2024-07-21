@@ -17,7 +17,7 @@ class FlowerLanguageCell: UICollectionViewCell {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.font = .Pretendard()  // 기본 세팅 - regular, 14
+        label.font = .Pretendard()
         return label
     }()
     
@@ -40,11 +40,11 @@ class FlowerLanguageCell: UICollectionViewCell {
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         contentView.addSubview(label)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         label.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(6)
             make.leading.trailing.equalToSuperview().inset(12)

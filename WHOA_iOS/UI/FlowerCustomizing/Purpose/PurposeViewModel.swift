@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PurposeViewModel {
+final class PurposeViewModel {
     
     // MARK: - Properties
     

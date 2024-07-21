@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-class PhotoViewController: UIViewController {
+final class PhotoViewController: UIViewController {
     private enum Const {
         static let numberOfColumns = 3.0
         static let cellSpace = 1.0
@@ -78,7 +78,7 @@ class PhotoViewController: UIViewController {
     
     private let borderLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray3
+        view.backgroundColor = .gray03
         return view
     }()
     
@@ -160,7 +160,6 @@ class PhotoViewController: UIViewController {
     private func loadPHAssetsFromAlbums() {
         let album = albums[currentAlbumIndex]
         photoService.convertAlbumToPHAssets(album: album) { [weak self] phAssets in
-            print(phAssets)
         }
     }
     

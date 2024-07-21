@@ -8,14 +8,14 @@
 import UIKit
 import SnapKit
 
-class NumberOfColorsBox: UIView {
+final class NumberOfColorsBox: UIView {
     
     // MARK: - Properties
     
     let colorSelectionLabel: UILabel = {
         let label = UILabel()
         label.text = "조합"
-        label.textColor = .gray9
+        label.textColor = .gray09
         label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         return label
     }()
@@ -43,7 +43,7 @@ class NumberOfColorsBox: UIView {
     // MARK: - Functions
     
     private func setupUI() {
-        backgroundColor = .gray2
+        backgroundColor = .gray02
         layer.cornerRadius = 10
         layer.masksToBounds = true
         

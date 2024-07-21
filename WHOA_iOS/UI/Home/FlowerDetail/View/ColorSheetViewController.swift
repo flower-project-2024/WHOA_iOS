@@ -60,16 +60,15 @@ class ColorSheetViewController: UIViewController {
     
     private let decorateButton: DecorateButton = {
         let button = DecorateButton()
-        // 초기에 비활성화된 상태
         button.configuration?.background.backgroundColor = UIColor.gray03
         button.configuration?.baseForegroundColor = UIColor.gray05
         button.isEnabled = false
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
-    init(viewModel: FlowerDetailViewModel){
+    init(viewModel: FlowerDetailViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -87,16 +86,16 @@ class ColorSheetViewController: UIViewController {
         setupConstraints()
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         view.addSubview(collectionView)
         view.addSubview(bottomFixedView)
         
         bottomFixedView.addSubview(decorateButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().inset(24)
@@ -116,7 +115,7 @@ class ColorSheetViewController: UIViewController {
     }
 }
 
-// MARK: - Extension
+// MARK: - Extension: UICollectionView
 
 extension ColorSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -21,7 +21,7 @@ enum NetworkError: Error {
 extension NetworkError {
     var localizedDescription: String {
         switch self {
-        case .disconnected: return "네트워크에 연결되어있지 않습니다."
+        case .disconnected: return "네트워크에 연결되어 있지 않습니다."
         case .apiIssue: return "요청 API에 문제가 있습니다."
         case .clientError: return "클라이언트에 문제가 있습니다."
         case .duplicateError: return "데이터 충돌이 있습니다."

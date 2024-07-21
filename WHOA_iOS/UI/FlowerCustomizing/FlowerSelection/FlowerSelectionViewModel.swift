@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class FlowerSelectionViewModel {
+final class FlowerSelectionViewModel {
     
     // MARK: - Properties
     
@@ -56,13 +56,8 @@ class FlowerSelectionViewModel {
         return selectedFlowerModels.count
     }
     
-    func getSelectedFlowerModelImagesURL() -> [URL?] {
-        return selectedFlowerModels.map {
-            guard let image = $0.flowerImage,
-                  let url = URL(string: image)
-            else { return nil }
-            return url
-        }
+    func getSelectedFlowerModelImagesURL() -> [String?] {
+        return selectedFlowerModels.map { $0.flowerImage }
     }
     
     func pushFlowerModel(model: FlowerKeywordModel) {

@@ -21,22 +21,17 @@ class FlowerSearchViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowersForSearch(fromCurrentVC: UIViewController){
+    func fetchFlowersForSearch(fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchFlowersForSearch { result in
             switch result {
             case .success(let model):
                 self.flowerSearchList = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async { [unowned self] in
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
     }
     
-    // 꽃 1개 리턴 (인덱스에 해당하는)
     func getFlowerSearchModel(index: Int) -> FlowerSearchModel {
         return flowerSearchList[index]
     }
@@ -47,13 +42,5 @@ class FlowerSearchViewModel {
     
     func getFilteredFlowers(searchedText: String) -> [FlowerSearchModel] {
         return flowerSearchList.filter { $0.flowerName.localizedCaseInsensitiveContains(searchedText) }
-    }
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
-        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
 }

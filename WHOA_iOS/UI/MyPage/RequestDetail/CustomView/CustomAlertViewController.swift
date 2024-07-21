@@ -12,8 +12,10 @@ protocol CustomAlertViewControllerDelegate: AnyObject {
     func deleteSuccessful(bouquetId: Int)
 }
 
-class CustomAlertViewController: UIViewController {
+final class CustomAlertViewController: UIViewController {
+    
     // MARK: - AlertType
+    
     enum AlertType: String {
         case modify = "수정"
         case delete = "삭제"
@@ -21,6 +23,7 @@ class CustomAlertViewController: UIViewController {
     }
     
     // MARK: - Properties
+    
     private var requestTitle: String?
     private var alertType: AlertType?
     private var myPageVC: UIViewController?
@@ -30,6 +33,7 @@ class CustomAlertViewController: UIViewController {
     weak var delegate: CustomAlertViewControllerDelegate?
     
     // MARK: - Views
+    
     private let alertView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -47,11 +51,11 @@ class CustomAlertViewController: UIViewController {
         if alertType == .requestSaveAlert {
             label.text = alertType?.rawValue
         }
-        else{
+        else {
             fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
             let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
-            attributedText.addAttribute(.foregroundColor, value: UIColor(red: 6/255, green: 198/255, blue: 163/255, alpha: 1), range: range)  // secondary color
+            attributedText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range)
             label.attributedText = attributedText
         }
         
@@ -66,7 +70,7 @@ class CustomAlertViewController: UIViewController {
             label.text = "삭제하면 복구할 수 없습니다."
         }
         
-        else if alertType == .modify{
+        else if alertType == .modify {
             label.text = "커스터마이징을 다시 시작합니다."
         }
         else {
@@ -80,11 +84,11 @@ class CustomAlertViewController: UIViewController {
     private let cancelButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(red: 249/255, green: 249/255, blue: 249/255, alpha: 1) // gray02
+        config.baseBackgroundColor = UIColor.gray02 // gray02
         config.background.cornerRadius = 10
         config.attributedTitle = "아니요"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        config.baseForegroundColor = UIColor(red: 102/255, green: 102/255, blue: 103/255, alpha: 1)  // gray08
+        config.baseForegroundColor = UIColor.gray08  // gray08
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 39, bottom: 13, trailing: 39)
         
         button.configuration = config
@@ -95,18 +99,18 @@ class CustomAlertViewController: UIViewController {
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1)  // primary
+        config.baseBackgroundColor = UIColor.primary // primary
         config.background.cornerRadius = 10
         
         if alertType == .requestSaveAlert {
             config.attributedTitle = AttributedString("확인")
         }
-        else{
+        else {
             config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
         }
         
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        config.baseForegroundColor = .white   // gray01
+        config.baseForegroundColor = .white
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 41, bottom: 13, trailing: 41)
         
         button.configuration = config
@@ -122,7 +126,8 @@ class CustomAlertViewController: UIViewController {
         return stackView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
+    
     convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
         self.init()
         
@@ -133,13 +138,14 @@ class CustomAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 0.5)  // primary color
+        self.view.backgroundColor = UIColor.primary // primary color
         addViews()
         setupConstraints()
     }
     
-    // MARK: - Helpers
-    private func addViews(){
+    // MARK: - Functions
+    
+    private func addViews() {
         view.addSubview(alertView)
         alertView.addSubview(titleLabel)
         alertView.addSubview(descriptionLabel)
@@ -151,7 +157,7 @@ class CustomAlertViewController: UIViewController {
         buttonStackView.addArrangedSubview(confirmButton)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         alertView.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.horizontalEdges.equalToSuperview().inset(20)
@@ -174,27 +180,13 @@ class CustomAlertViewController: UIViewController {
         }
     }
     
-    private func fetchFailure(_ error: NetworkError) {
-        let networkAlertController = self.networkErrorAlert(error)
-        DispatchQueue.main.async { [unowned self] in
-            self.present(networkAlertController, animated: true)
-        }
-    }
-    
-    private func networkErrorAlert(_ error: NetworkError) -> UIAlertController {
-        let alertController = UIAlertController(title: "네트워크 에러 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
-    }
-    
     // MARK: - Actions
-    @objc func cancelBtnTapped(){
+    
+    @objc func cancelBtnTapped() {
         dismiss(animated: false)
     }
     
-    @objc func confirmBtnTapped(){
+    @objc func confirmBtnTapped() {
         if alertType == AlertType.modify {
             guard let bouquetId = bouquetId else { return }
 
@@ -219,7 +211,7 @@ class CustomAlertViewController: UIViewController {
                         }
                     }
                 case .failure(let error):
-                    self.fetchFailure(error)
+                    self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
                 }
             }
         }

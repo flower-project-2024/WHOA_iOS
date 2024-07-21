@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NextButton: UIButton {
+final class NextButton: UIButton {
     
     var isActive: Bool = false {
         didSet {
@@ -40,7 +40,7 @@ class NextButton: UIButton {
     
     private func updateButtonState() {
         self.isEnabled = isActive
-        self.setTitleColor( isActive ? .white : .gray5, for: .normal)
-        self.backgroundColor = isActive ? .black : .gray3
+        self.setTitleColor( isActive ? .white : .gray05, for: .normal)
+        self.backgroundColor = isActive ? .black : .gray03
     }
 }

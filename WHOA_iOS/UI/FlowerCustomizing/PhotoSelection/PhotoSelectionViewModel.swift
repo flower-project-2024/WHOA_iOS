@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoSelectionViewModel {
+final class PhotoSelectionViewModel {
     
     // MARK: - Properties
     

@@ -24,23 +24,18 @@ class FlowerDetailViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController){
+    func fetchFlowerDetail(flowerId: Int, fromCurrentVC: UIViewController) {
         NetworkManager.shared.fetchFlowerDetail(flowerId: flowerId) { result in
             switch result {
             case .success(let model):
                 self.flowerDetailModel = model
             case .failure(let error):
-                let networkAlertController = self.networkErrorAlert(error)
-
-                DispatchQueue.main.async { [unowned self] in
-                    fromCurrentVC.present(networkAlertController, animated: true)
-                }
+                fromCurrentVC.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
     }
     
-    func getFlowerDetailModel() -> FlowerDetailModel{
-        print(flowerDetailModel)
+    func getFlowerDetailModel() -> FlowerDetailModel {
         return flowerDetailModel
     }
     
@@ -110,7 +105,7 @@ class FlowerDetailViewModel {
     }
     
     /// 관리법, 보관법 리스트 만들기
-    private func setMethodList(){
+    private func setMethodList() {
         flowerDetailModel.managementMethod?.split(separator: "/").map {
             manageAndStorageMethodList.append(String($0))
         }
@@ -120,13 +115,5 @@ class FlowerDetailViewModel {
                 manageAndStorageMethodList.append(String($0))
             }
         }
-    }
-    
-    private func networkErrorAlert(_ error: Error) -> UIAlertController{
-        let alertController = UIAlertController(title: "네트워크 에러가 발생했습니다.", message: error.localizedDescription, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "확인", style: .default)
-        alertController.addAction(confirmAction)
-        
-        return alertController
     }
 }

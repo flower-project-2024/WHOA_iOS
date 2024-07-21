@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PackagingSelectionViewModel {
+final class PackagingSelectionViewModel {
     
     // MARK: - Properties
     
@@ -22,7 +22,6 @@ class PackagingSelectionViewModel {
     
     init() {
         $packagingSelectionModel
-            .print()
             .map { model -> Bool in
                 return model.packagingAssignButtonType == .managerAssign ?
                 true : !model.text.isEmpty

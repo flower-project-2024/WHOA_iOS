@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CustomizeIntroCell: UICollectionViewCell {
+final class CustomizeIntroCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -65,7 +65,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         return button
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -84,13 +84,13 @@ class CustomizeIntroCell: UICollectionViewCell {
     
     // MARK: - Actions
     
-    @objc private func goToCustomizing(){
+    @objc private func goToCustomizing() {
         goToCustomzingFromCustomizingCell?()
     }
     
     // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         addSubview(customizeStackView)
         addSubview(flowerDecoImageView)
         addSubview(customizeButton)
@@ -100,7 +100,7 @@ class CustomizeIntroCell: UICollectionViewCell {
         }
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         customizeStackView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(26)
         }

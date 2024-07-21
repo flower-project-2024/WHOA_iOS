@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class FlowerPriceViewModel {
+final class FlowerPriceViewModel {
     
     // MARK: - Properties
     

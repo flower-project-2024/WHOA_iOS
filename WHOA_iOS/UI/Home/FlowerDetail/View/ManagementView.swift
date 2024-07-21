@@ -28,7 +28,7 @@ class ManagementView: UIView {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         flowLayout.minimumLineSpacing = ManagementView.minimumLineSpacing
-        flowLayout.itemSize = ManagementView.cellSize //CGSize(width: 200, height: 258)
+        flowLayout.itemSize = ManagementView.cellSize
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.isScrollEnabled = true
@@ -41,7 +41,7 @@ class ManagementView: UIView {
         return collectionView
     }()
     
-    // MARK: - Initialization
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,14 +56,14 @@ class ManagementView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Helpers
+    // MARK: - Functions
     
-    private func addViews(){
+    private func addViews() {
         addSubview(titleLabel)
         addSubview(collectionView)
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(40)
             make.leading.equalToSuperview().inset(26)

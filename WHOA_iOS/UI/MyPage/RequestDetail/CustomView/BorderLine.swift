@@ -7,7 +7,10 @@
 
 import UIKit
 
-class BorderLine: UIView {
+final class BorderLine: UIView {
+    
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
