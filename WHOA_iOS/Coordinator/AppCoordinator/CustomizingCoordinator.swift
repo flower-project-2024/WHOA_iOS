@@ -12,7 +12,7 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var purpose: PurposeType = .noPurpose
+    private var purpose: PurposeType = .none
     private var numberOfColors: NumberOfColorsType = .oneColor
     private var colors: [String] = []
     private var flowers: [Flower] = []
@@ -138,10 +138,10 @@ final class CustomizingCoordinator: Coordinator {
 }
 
 extension CustomizingCoordinator {
-    func showExitAlertVC(from currentVC: UIViewController) {
+    func showExitAlertVC(from currentVC: UIViewController?) {
         let customExitAlertVC = CustomExitAlertViewController(currentVC: currentVC)
         customExitAlertVC.modalPresentationStyle = .overFullScreen
-        currentVC.present(customExitAlertVC, animated: false)
+        currentVC?.present(customExitAlertVC, animated: false)
     }
     
     func showSaveAlert(from currentVC: UIViewController, saveResult: SaveResult) {
