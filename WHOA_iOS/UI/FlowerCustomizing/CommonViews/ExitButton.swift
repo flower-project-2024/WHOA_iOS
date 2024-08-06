@@ -11,12 +11,12 @@ final class ExitButton: UIImageView {
     
     // MARK: - Properties
     
-    let currentVC: UIViewController
+    let currentVC: UIViewController?
     let coordinator: CustomizingCoordinator?
     
     // MARK: - Initialize
     
-    init(currentVC: UIViewController, coordinator: CustomizingCoordinator?) {
+    init(currentVC: UIViewController?, coordinator: CustomizingCoordinator?) {
         self.currentVC = currentVC
         self.coordinator = coordinator
         super.init(frame: .zero)
@@ -32,7 +32,7 @@ final class ExitButton: UIImageView {
     // MARK: - Functions
     
     private func setupView() {
-        self.image = UIImage(named: "Xmark")
+        self.image = .xmark
         self.tintColor = .black
         self.contentMode = .scaleAspectFit
         self.isUserInteractionEnabled = true

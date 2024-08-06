@@ -88,6 +88,8 @@
 		5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */; };
 		5422927F2C132D22007E13C6 /* NumberOfColorsBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422927E2C132D22007E13C6 /* NumberOfColorsBox.swift */; };
 		542292842C18B5D8007E13C6 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542292832C18B5D8007E13C6 /* ImageFile.swift */; };
+		542ABB002C54FE080022E243 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542ABAFF2C54FE080022E243 /* CustomHeaderView.swift */; };
+		542ABB042C553CAA0022E243 /* CustomBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542ABB032C553CAA0022E243 /* CustomBottomView.swift */; };
 		542DD3E02B7669A700DBFCCC /* ExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3DF2B7669A700DBFCCC /* ExitButton.swift */; };
 		542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */; };
 		542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */; };
@@ -278,6 +280,8 @@
 		5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesType.swift; sourceTree = "<group>"; };
 		5422927E2C132D22007E13C6 /* NumberOfColorsBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberOfColorsBox.swift; sourceTree = "<group>"; };
 		542292832C18B5D8007E13C6 /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
+		542ABAFF2C54FE080022E243 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		542ABB032C553CAA0022E243 /* CustomBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomView.swift; sourceTree = "<group>"; };
 		542DD3DF2B7669A700DBFCCC /* ExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButton.swift; sourceTree = "<group>"; };
 		542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExitAlertViewController.swift; sourceTree = "<group>"; };
 		542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewModel.swift; sourceTree = "<group>"; };
@@ -996,7 +1000,9 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F7B2B73E13B00F964C3 /* PurposeButtonHStackView.swift */,
+				542ABAFF2C54FE080022E243 /* CustomHeaderView.swift */,
 				5413AA722BD5C12A006AA160 /* PurposeView.swift */,
+				542ABB032C553CAA0022E243 /* CustomBottomView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1225,6 +1231,7 @@
 				5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */,
 				54FD0F7C2B73E13B00F964C3 /* PurposeButtonHStackView.swift in Sources */,
 				54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */,
+				542ABB042C553CAA0022E243 /* CustomBottomView.swift in Sources */,
 				548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */,
 				0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */,
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
@@ -1297,6 +1304,7 @@
 				0833EF7A2BE534C40024FB2C /* BouquetAllAPI.swift in Sources */,
 				0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */,
 				54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */,
+				542ABB002C54FE080022E243 /* CustomHeaderView.swift in Sources */,
 				08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */,
 				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
@@ -1573,13 +1581,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "KSH.WHOA-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WHOA_iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WHOA_iOS";
 			};
 			name = Debug;
@@ -1593,13 +1605,17 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7G8HP2JBMK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "KSH.WHOA-iOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WHOA_iOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WHOA_iOS";
 			};
 			name = Release;

@@ -13,12 +13,13 @@ final class PurposeViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
-    
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
-    private lazy var purposeView: PurposeView = PurposeView(currentVC: self, coordinator: coordinator)
+    private lazy var headerView = CustomHeaderView(currentVC: self, coordinator: coordinator)
+    private let purposeView = PurposeView()
+    private let bottomView = CustomBottomView()
     
     // MARK: - Initialize
     
@@ -36,10 +37,8 @@ final class PurposeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind()
+
         setupUI()
-        setupButtonActions()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,54 +60,10 @@ final class PurposeViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
+        view.addSubview(headerView)
         view.addSubview(purposeView)
-        
+        view.addSubview(bottomView)
         setupAutoLayout()
-    }
-    
-    private func bind() {
-        viewModel.$purposeModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
-                guard let self = self else { return }
-                self.purposeView.nextButton.isActive = self.viewModel.updateNextButtonState()
-            }
-            .store(in: &viewModel.cancellables)
-    }
-    
-    private func setupButtonActions() {
-        let purposeButtons = [
-            purposeView.affectionButton, purposeView.birthdayButton,
-            purposeView.gratitudeButton, purposeView.proposeButton,
-            purposeView.partyButton, purposeView.employmentButton,
-            purposeView.promotionButton, purposeView.friendshipButton,
-        ]
-        
-        purposeButtons.forEach { $0.addTarget(self, action: #selector(purposeButtonTapped), for: .touchUpInside) }
-        purposeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    func purposeButtonTapped(sender: PurposeButton) {
-        let purposeButtons = [
-            purposeView.affectionButton, purposeView.birthdayButton,
-            purposeView.gratitudeButton, purposeView.proposeButton,
-            purposeView.partyButton, purposeView.employmentButton,
-            purposeView.promotionButton, purposeView.friendshipButton,
-        ]
-        
-        sender.isSelected.toggle()
-        
-        viewModel.updateButtonState(sender: sender, purposeButtons: purposeButtons)
-        viewModel.setPurposeType(sender.purposeType)
-    }
-    
-    @objc
-    func nextButtonTapped() {
-        guard let purpose = viewModel.getPurposeType() else { return }
-        coordinator?.showColorPickerVC(purposeType: purpose)
     }
 }
 
@@ -116,9 +71,22 @@ final class PurposeViewController: UIViewController {
 
 extension PurposeViewController {
     private func setupAutoLayout() {
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalToSuperview().offset(21)
+            $0.trailing.equalToSuperview().offset(-21)
+        }
+        
         purposeView.snp.makeConstraints {
-            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(headerView.snp.bottom).offset(32)
+            $0.leading.equalToSuperview().offset(21)
+            $0.trailing.equalToSuperview().offset(-21)
+            $0.bottom.equalTo(bottomView.snp.top).offset(-45.adjustedH(basedOnHeight: 852))
+        }
+        
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
