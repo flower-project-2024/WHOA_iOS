@@ -17,12 +17,19 @@ final class PurposeViewModel {
     }
     
     struct Output {
-        let updateViewPublisher: AnyPublisher<Void, Never>
+        let updateViewPublisher: AnyPublisher<PurposeType, Never>
     }
     
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Fuctions
     
+    func transform(input: Input) -> Output {
+        let updateViewPublisher = input.PurposePublisher.flatMap { purpose in
+            return Just(purpose)
+        }.eraseToAnyPublisher()
+        
+        return Output(updateViewPublisher: updateViewPublisher)
+    }
 
 }

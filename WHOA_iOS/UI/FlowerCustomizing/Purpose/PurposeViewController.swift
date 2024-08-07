@@ -7,12 +7,14 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 final class PurposeViewController: UIViewController {
     
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -37,8 +39,8 @@ final class PurposeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupUI()
+        bind()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,10 +62,22 @@ final class PurposeViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(headerView)
-        view.addSubview(purposeView)
-        view.addSubview(bottomView)
+        [
+            headerView,
+            purposeView,
+            bottomView
+        ].forEach(view.addSubview(_:))
+        
         setupAutoLayout()
+    }
+    
+    private func bind() {
+        let input = PurposeViewModel.Input(PurposePublisher: purposeView.valuePublisher)
+        let output = viewModel.transform(input: input)
+        
+        output.updateViewPublisher.sink { [unowned self] purpose in
+            self.bottomView.config(bool: purpose != .none)
+        }.store(in: &cancellables)
     }
 }
 

@@ -22,6 +22,7 @@ class CustomBottomView: UIView {
     private lazy var nextButton: UIButton = {
         let button = buildMoveButton(title: "다음")
         button.backgroundColor = .gray03
+        button.isEnabled = false
         return button
     }()
     
@@ -58,6 +59,18 @@ class CustomBottomView: UIView {
         ].forEach(addSubview(_:))
         
         setupAutoLayout()
+    }
+    
+    func config(bool: Bool) {
+        if bool {
+            nextButton.backgroundColor = .primary
+            nextButton.setTitleColor(.gray02, for: .normal)
+        } else {
+            nextButton.backgroundColor = .gray03
+            nextButton.setTitleColor(.gray05, for: .normal)
+        }
+        
+        nextButton.isEnabled = bool
     }
     
     private func buildMoveButton(title: String) -> UIButton {
