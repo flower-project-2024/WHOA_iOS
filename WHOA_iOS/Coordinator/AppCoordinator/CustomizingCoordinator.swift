@@ -45,7 +45,6 @@ final class CustomizingCoordinator: Coordinator {
     private func showPurposeVC() {
         let viewModel = PurposeViewModel()
         let purposeVC = PurposeViewController(viewModel: viewModel)
-        viewModel.purposeModel? = PurposeModel(purposeType: self.purpose)
         purposeVC.coordinator = self
         navigationController.pushViewController(purposeVC, animated: true)
     }

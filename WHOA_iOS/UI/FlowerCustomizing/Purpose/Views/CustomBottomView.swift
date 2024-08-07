@@ -12,8 +12,18 @@ class CustomBottomView: UIView {
     // MARK: - UI
     
     private let borderLine = ShadowBorderLine()
-    let backButton = BackButton(isActive: false)
-    let nextButton = NextButton()
+    
+    private lazy var backButton: UIButton = {
+        let button = buildMoveButton(title: "이전")
+        button.backgroundColor = .gray03
+        return button
+    }()
+    
+    private lazy var nextButton: UIButton = {
+        let button = buildMoveButton(title: "다음")
+        button.backgroundColor = .gray03
+        return button
+    }()
     
     private lazy var navigationHStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
@@ -37,6 +47,8 @@ class CustomBottomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Functions
+    
     private func setupUI() {
         backgroundColor = .white
         
@@ -46,6 +58,16 @@ class CustomBottomView: UIView {
         ].forEach(addSubview(_:))
         
         setupAutoLayout()
+    }
+    
+    private func buildMoveButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        button.setTitleColor(.gray05, for: .normal)
+        return button
     }
 }
 
