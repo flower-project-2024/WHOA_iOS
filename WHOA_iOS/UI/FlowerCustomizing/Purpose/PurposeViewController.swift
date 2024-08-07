@@ -21,7 +21,7 @@ final class PurposeViewController: UIViewController {
     
     private lazy var headerView = CustomHeaderView(currentVC: self, coordinator: coordinator)
     private let purposeView = PurposeView()
-    private let bottomView = CustomBottomView()
+    private lazy var bottomView = CustomBottomView(coordinator: coordinator)
     
     // MARK: - Initialize
     
@@ -45,16 +45,12 @@ final class PurposeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
@@ -85,17 +81,21 @@ final class PurposeViewController: UIViewController {
 
 extension PurposeViewController {
     private func setupAutoLayout() {
+        let sideMargin: CGFloat = 21
+        let verticalSpacing: CGFloat = 32
+        let bottomOffset: CGFloat = -45.adjustedH(basedOnHeight: 852)
+        
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.equalToSuperview().offset(21)
-            $0.trailing.equalToSuperview().offset(-21)
+            $0.leading.equalToSuperview().offset(sideMargin)
+            $0.trailing.equalToSuperview().offset(-sideMargin)
         }
         
         purposeView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(21)
-            $0.trailing.equalToSuperview().offset(-21)
-            $0.bottom.equalTo(bottomView.snp.top).offset(-45.adjustedH(basedOnHeight: 852))
+            $0.top.equalTo(headerView.snp.bottom).offset(verticalSpacing)
+            $0.leading.equalToSuperview().offset(sideMargin)
+            $0.trailing.equalToSuperview().offset(-sideMargin)
+            $0.bottom.equalTo(bottomView.snp.top).offset(bottomOffset)
         }
         
         bottomView.snp.makeConstraints {
