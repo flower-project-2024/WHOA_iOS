@@ -6,8 +6,14 @@
 //
 
 import UIKit
+import Combine
+import CombineCocoa
 
-class CustomBottomView: UIView {
+final class CustomBottomView: UIView {
+    
+    // MARK: - Properties
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI
     
@@ -27,10 +33,7 @@ class CustomBottomView: UIView {
     }()
     
     private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            backButton,
-            nextButton
-        ])
+        let stackView = UIStackView(arrangedSubviews: [backButton, nextButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 9
@@ -61,16 +64,18 @@ class CustomBottomView: UIView {
         setupAutoLayout()
     }
     
-    func config(bool: Bool) {
-        if bool {
-            nextButton.backgroundColor = .primary
-            nextButton.setTitleColor(.gray02, for: .normal)
-        } else {
-            nextButton.backgroundColor = .gray03
-            nextButton.setTitleColor(.gray05, for: .normal)
-        }
+    func bind(nextAction: @escaping () -> Void) {
+        cancellables.removeAll()
         
-        nextButton.isEnabled = bool
+        nextButton.tapPublisher
+            .sink { nextAction() }
+            .store(in: &cancellables)
+    }
+    
+    func config(isEnabled: Bool) {
+        nextButton.backgroundColor = isEnabled ? .primary : .gray03
+        nextButton.setTitleColor(isEnabled ? .gray02 : .gray05, for: .normal)
+        nextButton.isEnabled = isEnabled
     }
     
     private func buildMoveButton(title: String) -> UIButton {

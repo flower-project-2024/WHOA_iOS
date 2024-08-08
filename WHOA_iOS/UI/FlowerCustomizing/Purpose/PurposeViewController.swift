@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Combine
+import CombineCocoa
 
 final class PurposeViewController: UIViewController {
     
@@ -21,13 +22,12 @@ final class PurposeViewController: UIViewController {
     
     private lazy var headerView = CustomHeaderView(currentVC: self, coordinator: coordinator)
     private let purposeView = PurposeView()
-    private lazy var bottomView = CustomBottomView(coordinator: coordinator)
+    private let bottomView = CustomBottomView()
     
     // MARK: - Initialize
     
-    init(viewModel: PurposeViewModel) {
+    init(viewModel: PurposeViewModel = PurposeViewModel()) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,7 +57,6 @@ final class PurposeViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        
         [
             headerView,
             purposeView,
@@ -68,11 +67,14 @@ final class PurposeViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PurposeViewModel.Input(PurposePublisher: purposeView.valuePublisher)
+        let input = PurposeViewModel.Input(purposePublisher: purposeView.valuePublisher)
         let output = viewModel.transform(input: input)
         
         output.updateViewPublisher.sink { [unowned self] purpose in
-            self.bottomView.config(bool: purpose != .none)
+            self.bottomView.config(isEnabled: purpose != .none)
+            self.bottomView.bind {
+                self.coordinator?.showColorPickerVC(purposeType: purpose)
+            }
         }.store(in: &cancellables)
     }
 }

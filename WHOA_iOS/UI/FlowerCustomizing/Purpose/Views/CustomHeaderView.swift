@@ -11,8 +11,8 @@ final class CustomHeaderView: UIView {
     
     // MARK: - Properties
     
-    let currentVC: UIViewController?
-    let coordinator: CustomizingCoordinator?
+    private let currentVC: UIViewController?
+    private let coordinator: CustomizingCoordinator?
     
     private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
     private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
