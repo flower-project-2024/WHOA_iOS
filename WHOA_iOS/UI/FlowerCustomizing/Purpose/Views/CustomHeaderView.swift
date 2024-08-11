@@ -45,7 +45,7 @@ final class CustomHeaderView: UIView {
         
         setupAutoLayout()
     }
-
+    
 }
 
 extension CustomHeaderView {
@@ -69,7 +69,7 @@ extension CustomHeaderView {
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview()
-
+            
         }
     }
     

@@ -22,13 +22,14 @@ final class CustomBottomView: UIView {
     private lazy var backButton: UIButton = {
         let button = buildMoveButton(title: "이전")
         button.backgroundColor = .gray03
+        button.setTitleColor(.gray05, for: .normal)
         return button
     }()
     
     private lazy var nextButton: UIButton = {
         let button = buildMoveButton(title: "다음")
-        button.backgroundColor = .gray03
-        button.isEnabled = false
+        button.backgroundColor = .primary
+        button.setTitleColor(.gray05, for: .normal)
         return button
     }()
     
@@ -70,12 +71,6 @@ final class CustomBottomView: UIView {
         nextButton.tapPublisher
             .sink { nextAction() }
             .store(in: &cancellables)
-    }
-    
-    func config(isEnabled: Bool) {
-        nextButton.backgroundColor = isEnabled ? .primary : .gray03
-        nextButton.setTitleColor(isEnabled ? .gray02 : .gray05, for: .normal)
-        nextButton.isEnabled = isEnabled
     }
     
     private func buildMoveButton(title: String) -> UIButton {

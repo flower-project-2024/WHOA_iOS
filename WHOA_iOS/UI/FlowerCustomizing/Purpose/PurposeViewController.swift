@@ -67,15 +67,19 @@ final class PurposeViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PurposeViewModel.Input(purposePublisher: purposeView.valuePublisher)
+        let input = PurposeViewModel.Input(purposeChanged: purposeView.getSelectPurposePublisher())
         let output = viewModel.transform(input: input)
         
-        output.updateViewPublisher.sink { [unowned self] purpose in
-            self.bottomView.config(isEnabled: purpose != .none)
-            self.bottomView.bind {
-                self.coordinator?.showColorPickerVC(purposeType: purpose)
+        output.purposeType
+            .sink { [weak self] purpose in
+                self?.purposeView.resetView()
+                self?.purposeView.updateSelectedButton(for: purpose)
+                
+                self?.bottomView.bind {
+                    self?.coordinator?.showColorPickerVC(purposeType: purpose)
+                }
             }
-        }.store(in: &cancellables)
+            .store(in: &cancellables)
     }
 }
 

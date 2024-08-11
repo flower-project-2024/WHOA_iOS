@@ -8,24 +8,35 @@
 import Foundation
 import Combine
 
-final class PurposeViewModel {
+protocol ViewModel {
+    associatedtype Input
+    associatedtype Output
+    
+    func transform(input: Input) -> Output
+}
+
+final class PurposeViewModel: ViewModel {
     
     // MARK: - Properties
     
     struct Input {
-        let purposePublisher: AnyPublisher<PurposeType, Never>
+        let purposeChanged: AnyPublisher<PurposeType, Never>
     }
     
     struct Output {
-        let updateViewPublisher: AnyPublisher<PurposeType, Never>
+        let purposeType: AnyPublisher<PurposeType, Never>
     }
     
+    private let purposeSubject = CurrentValueSubject<PurposeType, Never>(.none)
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
-        let updateViewPublisher = input.purposePublisher
-        return Output(updateViewPublisher: updateViewPublisher)
+        input.purposeChanged
+            .subscribe(purposeSubject)
+            .store(in: &cancellables)
+        
+        return Output(purposeType: purposeSubject.eraseToAnyPublisher())
     }
 }
