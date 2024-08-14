@@ -7,13 +7,17 @@
 
 import UIKit
 import Combine
-import CombineCocoa
 
 final class CustomBottomView: UIView {
     
     // MARK: - Properties
     
+    private let nextButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
+    
+    var nextButtonTappedPublisher: AnyPublisher<Void, Never> {
+        nextButtonTappedSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - UI
     
@@ -30,6 +34,10 @@ final class CustomBottomView: UIView {
         let button = buildMoveButton(title: "다음")
         button.backgroundColor = .primary
         button.setTitleColor(.gray05, for: .normal)
+        
+        button.addAction(UIAction { [weak self] _ in
+            self?.nextButtonTappedSubject.send()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -63,14 +71,6 @@ final class CustomBottomView: UIView {
         ].forEach(addSubview(_:))
         
         setupAutoLayout()
-    }
-    
-    func bind(nextAction: @escaping () -> Void) {
-        cancellables.removeAll()
-        
-        nextButton.tapPublisher
-            .sink { nextAction() }
-            .store(in: &cancellables)
     }
     
     private func buildMoveButton(title: String) -> UIButton {

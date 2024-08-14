@@ -20,23 +20,36 @@ final class PurposeViewModel: ViewModel {
     // MARK: - Properties
     
     struct Input {
-        let purposeChanged: AnyPublisher<PurposeType, Never>
+        let purposeSelected: AnyPublisher<PurposeType, Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let purposeType: AnyPublisher<PurposeType, Never>
+        let showColorPicker: AnyPublisher<PurposeType, Never>
     }
     
     private let purposeSubject = CurrentValueSubject<PurposeType, Never>(.none)
+    private let showColorPickerSubject = PassthroughSubject<PurposeType, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
-        input.purposeChanged
-            .subscribe(purposeSubject)
+        input.purposeSelected
+            .assign(to: \.value, on: purposeSubject)
             .store(in: &cancellables)
         
-        return Output(purposeType: purposeSubject.eraseToAnyPublisher())
+        input.nextButtonTapped
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.showColorPickerSubject.send(self.purposeSubject.value)
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            purposeType: purposeSubject.eraseToAnyPublisher(),
+            showColorPicker: showColorPickerSubject.eraseToAnyPublisher()
+        )
     }
 }

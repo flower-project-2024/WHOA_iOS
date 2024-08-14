@@ -8,7 +8,6 @@
 import UIKit
 import SnapKit
 import Combine
-import CombineCocoa
 
 final class PurposeViewController: UIViewController {
     
@@ -67,17 +66,22 @@ final class PurposeViewController: UIViewController {
     }
     
     private func bind() {
-        let input = PurposeViewModel.Input(purposeChanged: purposeView.getSelectPurposePublisher())
+        let input = PurposeViewModel.Input(
+            purposeSelected: purposeView.valuePublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
         let output = viewModel.transform(input: input)
         
         output.purposeType
             .sink { [weak self] purpose in
                 self?.purposeView.resetView()
                 self?.purposeView.updateSelectedButton(for: purpose)
-                
-                self?.bottomView.bind {
-                    self?.coordinator?.showColorPickerVC(purposeType: purpose)
-                }
+            }
+            .store(in: &cancellables)
+        
+        output.showColorPicker
+            .sink { [weak self] purpose in
+                self?.coordinator?.showColorPickerVC(purposeType: purpose)
             }
             .store(in: &cancellables)
     }
