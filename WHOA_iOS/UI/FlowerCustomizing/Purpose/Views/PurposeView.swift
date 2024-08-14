@@ -8,9 +8,17 @@
 import UIKit
 import SnapKit
 import Combine
-import CombineCocoa
 
 final class PurposeView: UIView {
+    
+    // MARK: - Properties
+    
+    private let purposeSubject: CurrentValueSubject<PurposeType, Never> = .init(.none)
+    private var cancellables = Set<AnyCancellable>()
+    
+    var valuePublisher: AnyPublisher<PurposeType, Never> {
+        return purposeSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - UI
     
@@ -73,22 +81,6 @@ final class PurposeView: UIView {
         addSubview(purposeButtonVStackView)
         
         setupAutoLayout()
-    }
-    
-    func getSelectPurposePublisher() -> AnyPublisher<PurposeType, Never> {
-        let buttonPublishers = [
-            affectionButton.tapPublisher.map { PurposeType.affection },
-            birthdayButton.tapPublisher.map { PurposeType.birthday },
-            gratitudeButton.tapPublisher.map { PurposeType.gratitude },
-            proposeButton.tapPublisher.map { PurposeType.propose },
-            partyButton.tapPublisher.map { PurposeType.party },
-            employmentButton.tapPublisher.map { PurposeType.employment },
-            promotionButton.tapPublisher.map { PurposeType.promotion },
-            friendshipButton.tapPublisher.map { PurposeType.friendship }
-        ]
-        
-        return Publishers.MergeMany(buttonPublishers)
-            .eraseToAnyPublisher()
     }
     
     func updateSelectedButton(for purpose: PurposeType) {
@@ -205,7 +197,25 @@ final class PurposeView: UIView {
         var titleAttr = AttributedString(purpose.rawValue)
         titleAttr.font = .Pretendard(size: 16)
         button.configuration?.attributedTitle = titleAttr
+        
+        // 최신버전 버튼 액션
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            handleButtonTap(purpose: purpose)
+        }, for: .touchUpInside)
         return button
+    }
+    
+    private func handleButtonTap(purpose: PurposeType) {
+        let currentPurpose = self.purposeSubject.value
+        
+        if currentPurpose == purpose {
+            self.purposeSubject.send(.none)
+            self.updateSelectedButton(for: .none)
+        } else {
+            self.purposeSubject.send(purpose)
+            self.updateSelectedButton(for: purpose)
+        }
     }
     
     private func buildPurposeButtonHStackView(button1: UIButton, button2: UIButton) -> UIStackView {
