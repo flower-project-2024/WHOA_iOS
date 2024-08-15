@@ -76,6 +76,9 @@
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
+		54086BDF2C6DA1B400286BAE /* CustomStartViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */; };
+		54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */; };
+		54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE32C6DAB5A00286BAE /* CustomStartView.swift */; };
 		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
 		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
@@ -267,6 +270,9 @@
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
+		54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewContoller.swift; sourceTree = "<group>"; };
+		54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartHeaderView.swift; sourceTree = "<group>"; };
+		54086BE32C6DAB5A00286BAE /* CustomStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartView.swift; sourceTree = "<group>"; };
 		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
@@ -560,6 +566,24 @@
 				0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		54086BDD2C6DA15C00286BAE /* CustomStart */ = {
+			isa = PBXGroup;
+			children = (
+				54086BE02C6DA2BA00286BAE /* Views */,
+				54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */,
+			);
+			path = CustomStart;
+			sourceTree = "<group>";
+		};
+		54086BE02C6DA2BA00286BAE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */,
+				54086BE32C6DAB5A00286BAE /* CustomStartView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		54098F982C05E2E8000C3F70 /* Coordinator */ = {
@@ -946,6 +970,7 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F6D2B73416700F964C3 /* CommonViews */,
+				54086BDD2C6DA15C00286BAE /* CustomStart */,
 				54FD0F6A2B701B2000F964C3 /* Purpose */,
 				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 				546071152B87EAE30033B598 /* FlowerSelection */,
@@ -1229,6 +1254,7 @@
 				54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */,
 				542ABB042C553CAA0022E243 /* CustomBottomView.swift in Sources */,
 				548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */,
+				54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */,
 				0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */,
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
@@ -1284,6 +1310,7 @@
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
+				54086BDF2C6DA1B400286BAE /* CustomStartViewContoller.swift in Sources */,
 				54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */,
 				0857D6AE2C429F71006C1FEF /* CustomTabBar.swift in Sources */,
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,
@@ -1303,6 +1330,7 @@
 				542ABB002C54FE080022E243 /* CustomHeaderView.swift in Sources */,
 				08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */,
 				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
+				54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */,
