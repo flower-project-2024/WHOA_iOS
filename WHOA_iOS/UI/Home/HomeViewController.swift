@@ -16,6 +16,7 @@ final class HomeViewController: UIViewController {
     private var timer: Timer? = Timer()
     private let minimumLineSpacing: CGFloat = 0
     private var collectionViewCellCount: [String] = ["0", "1"]
+    private var bannerItems: [Any] = []
     
     var tooltipIsClosed = false
 
@@ -42,13 +43,14 @@ final class HomeViewController: UIViewController {
         flowlayout.scrollDirection = .horizontal
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        collectionView.showsHorizontalScrollIndicator = true
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         
         collectionView.delegate = self
         collectionView.dataSource = self
         
         collectionView.decelerationRate = .fast
+        collectionView.isScrollEnabled = true
         
         collectionView.register(TodaysFlowerViewCell.self, forCellWithReuseIdentifier: TodaysFlowerViewCell.identifier)
         collectionView.register(CustomizeIntroCell.self, forCellWithReuseIdentifier: CustomizeIntroCell.identifier)
@@ -113,10 +115,19 @@ final class HomeViewController: UIViewController {
                 cheapFlowerInfoCell.updateFlowerLanguageStackView()
             }
         }
+        
+//        carouselView.setContentOffset(.init(x: cellSize.width, y: carouselView.contentOffset.y), animated: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // 배너 무한 스크롤 - 현재 2, 1, 2, 1이라 2의 화면을 보여지고 있으므로 첫번째 1로 스크롤
+        carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
     }
     
     deinit {
@@ -232,6 +243,15 @@ final class HomeViewController: UIViewController {
             
             if self.collectionViewCellCount.count == 0 { return }
 
+//            if scrollView.contentOffset.x == 0 {
+//                scrollView.setContentOffset(.init(x: cellSize.width * Double(count-2), y: scrollView.contentOffset.y)
+//                                            ,animated: false)
+//            }
+//            if scrollView.contentOffset.x == Double(count-1) * cellSize.width {
+//                scrollView.setContentOffset(.init(x: cellSize.width, y: scrollView.contentOffset.y)
+//                                            ,animated: false)
+//            }
+            
             // 다음 지정된 인덱스로 스크롤
             self.carouselView.scrollToItem(at: IndexPath(item: next, section: 0), at: .centeredHorizontally, animated: true)
         })
@@ -247,8 +267,11 @@ final class HomeViewController: UIViewController {
         
         viewModel.todaysFlowerDidChange = { [weak self] in
             DispatchQueue.main.async {
+                // as -is: 1 2
+                // to -be: 2 1 2 1
+                self?.setBannerItems()
                 self?.carouselView.reloadData()
-                self?.resetTimer()
+                //self?.resetTimer()
             }
         }
     }
@@ -270,6 +293,13 @@ final class HomeViewController: UIViewController {
             }
         }
         return returnArray
+    }
+    
+    private func setBannerItems() {
+        bannerItems.append(CustomizeIntroCell())
+        bannerItems.append(viewModel.getTodaysFlower())
+        bannerItems.append(CustomizeIntroCell())
+        bannerItems.append(viewModel.getTodaysFlower())
     }
 
     func removeToolTipView() {
@@ -332,17 +362,41 @@ extension HomeViewController: UICollectionViewDelegate {
         targetContentOffset.pointee = CGPoint(x: (CGFloat(index) * cellWidthIncludingSpacing) - (minimumLineSpacing * 2), y: 0)
         
         // 직접 스크롤하면 타이머 초기화
-        resetTimer()
+        //resetTimer()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let count = bannerItems.count
+        let value = (scrollView.contentOffset.x / scrollView.frame.width)
+        
+        print("=== scrollViewDidEndDecelerating ===")
+        print(" >>> 다음으로 바꿈: \(value)")
+        
+        switch Int(round(value)) {
+        case 0:
+            let last = count - 2
+            carouselView.scrollToItem(at: [0, last], at: .left, animated: false)
+            
+//            UIView.animate(withDuration: 0.01, animations: { [weak self] in
+//                self?.carouselView.scrollToItem(at: [0, last], at: .left, animated: false)
+//            }, completion: { [weak self] _ in
+//                    })
+        case count - 1:
+            carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
+        default:
+            break
+        }
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getTodaysFlowerCount() + 1
+        //return viewModel.getTodaysFlowerCount() + 1
+        return bannerItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.item == 0 {
+        if indexPath.item == 1 || indexPath.item == 3 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
 
             cell.configure(viewModel.getTodaysFlower())
