@@ -90,8 +90,8 @@ extension CustomStartHeaderView {
         }
         
         bouquetImageView.snp.makeConstraints {
-            $0.trailing.equalToSuperview().offset(10)
-            $0.bottom.equalToSuperview().offset(60)
+            $0.trailing.equalToSuperview().offset(5)
+            $0.bottom.equalToSuperview().offset(70)
         }
     }
 }

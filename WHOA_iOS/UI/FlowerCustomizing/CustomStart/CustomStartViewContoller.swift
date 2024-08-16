@@ -60,17 +60,16 @@ final class CustomStartViewContoller: UIViewController {
 
 extension CustomStartViewContoller {
     private func setupAutoLayout() {
-        
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(375)
+            $0.height.equalTo(view.snp.height).multipliedBy(0.5)
         }
         
         customStartView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(view.snp.height).multipliedBy(0.18)
         }
     }
 }
