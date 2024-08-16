@@ -12,6 +12,7 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
+    private var requestTitle: String = ""
     private var purpose: PurposeType = .none
     private var numberOfColors: NumberOfColorsType = .oneColor
     private var colors: [String] = []
@@ -35,14 +36,18 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Functions
     
     func start() {
-        showPurposeVC()
+        let customStartVC = CustomStartViewContoller()
+        customStartVC.coordinator = self
+        navigationController.pushViewController(customStartVC, animated: true)
     }
     
     func setActionType(actionType: ActionType) {
         self.actionType = actionType
     }
     
-    private func showPurposeVC() {
+    func showPurposeVC(requestTitle: String) {
+        self.requestTitle = requestTitle
+        
         let viewModel = PurposeViewModel()
         let purposeVC = PurposeViewController(viewModel: viewModel)
         purposeVC.coordinator = self
@@ -130,6 +135,7 @@ final class CustomizingCoordinator: Coordinator {
         )
         
         let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model, actionType: self.actionType)
+        viewModel.requestTitle = requestTitle
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)
