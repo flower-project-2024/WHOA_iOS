@@ -16,6 +16,15 @@ final class CustomStartViewContoller: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
+    
     // MARK: - UI
     
     private let headerView = CustomStartHeaderView()
@@ -38,6 +47,7 @@ final class CustomStartViewContoller: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
+        observe()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -71,7 +81,7 @@ final class CustomStartViewContoller: UIViewController {
                 
                 if title.isEmpty {
                     self.customStartView.updateButtonState(isEnabled: false)
-                }else {
+                } else {
                     self.customStartView.updateButtonState(isEnabled: true)
                 }
             })
@@ -84,7 +94,13 @@ final class CustomStartViewContoller: UIViewController {
             .store(in: &cancellables)
     }
     
-
+    private func observe() {
+        viewTapPublisher
+            .sink { [weak self] in
+                self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - AutoLayout
