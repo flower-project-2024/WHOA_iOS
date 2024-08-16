@@ -79,6 +79,7 @@
 		54086BDF2C6DA1B400286BAE /* CustomStartViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */; };
 		54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */; };
 		54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE32C6DAB5A00286BAE /* CustomStartView.swift */; };
+		54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */; };
 		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
 		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
@@ -273,6 +274,7 @@
 		54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewContoller.swift; sourceTree = "<group>"; };
 		54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartHeaderView.swift; sourceTree = "<group>"; };
 		54086BE32C6DAB5A00286BAE /* CustomStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartView.swift; sourceTree = "<group>"; };
+		54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewModel.swift; sourceTree = "<group>"; };
 		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
@@ -573,6 +575,7 @@
 			children = (
 				54086BE02C6DA2BA00286BAE /* Views */,
 				54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */,
+				54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */,
 			);
 			path = CustomStart;
 			sourceTree = "<group>";
@@ -1240,6 +1243,7 @@
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
+				54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
 				0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */,

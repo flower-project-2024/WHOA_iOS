@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class CustomStartViewContoller: UIViewController {
     
     // MARK: - Properties
+    
+    private let viewModel: CustomStartViewModel
+    private var cancellables = Set<AnyCancellable>()
+    weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
@@ -18,7 +23,8 @@ final class CustomStartViewContoller: UIViewController {
     
     // MARK: - Initialize
     
-    init() {
+    init(viewModel: CustomStartViewModel = CustomStartViewModel()) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -53,7 +59,32 @@ final class CustomStartViewContoller: UIViewController {
     }
     
     private func bind() {
+        let input = CustomStartViewModel.Input(
+            textInput: customStartView.textInputTappedPublisher,
+            startButtonTapped: customStartView.startButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.requestTitle
+            .sink(receiveValue: { [weak self] title in
+                guard let self = self else { return }
+                
+                if title.isEmpty {
+                    self.customStartView.updateButtonState(isEnabled: false)
+                }else {
+                    self.customStartView.updateButtonState(isEnabled: true)
+                }
+            })
+            .store(in: &cancellables)
+        
+        output.showPurpose
+            .sink { [weak self] title in
+                self?.coordinator?.showPurposeVC(requestTitle: title)
+            }
+            .store(in: &cancellables)
     }
+    
+
 }
 
 // MARK: - AutoLayout
