@@ -82,6 +82,7 @@ final class CustomizingSummaryViewController: UIViewController {
         setupUI()
         setupTapGesture()
         requestDetailView.config(model: viewModel.customizingSummaryModel)
+        requestDetailView.configureRequestTitle(title: viewModel.requestTitle)
     }
     
     override func viewWillAppear(_ animated: Bool) {

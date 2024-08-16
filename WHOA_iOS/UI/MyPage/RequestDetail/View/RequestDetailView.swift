@@ -32,6 +32,7 @@ final class RequestDetailView: UIView {
         label.text = "꽃다발 요구서1"
         label.textColor = .gray08
         label.font = .Pretendard()
+        label.isHidden = true
         return label
     }()
     
@@ -327,6 +328,10 @@ final class RequestDetailView: UIView {
         configureAdditionalRequirements(model)
         configureReferenceImages(model)
         
+    }
+    
+    func configureRequestTitle(title: String?) {
+        requestTitleTextField.text = title
     }
     
     private func configureBuyingIntent(_ model: CustomizingSummaryModel) {
