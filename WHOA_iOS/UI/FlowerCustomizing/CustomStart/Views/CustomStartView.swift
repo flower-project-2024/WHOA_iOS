@@ -41,6 +41,8 @@ final class CustomStartView: UIView {
         textField.layer.borderColor = UIColor.gray04.cgColor
         textField.layer.masksToBounds = false
         textField.layer.cornerRadius = 8.0
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
         return textField
     }()
     
@@ -148,5 +150,10 @@ extension CustomStartView: UITextFieldDelegate {
         if textField.text?.isEmpty == true {
             placeholder.isHidden = false
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+      return true
     }
 }
