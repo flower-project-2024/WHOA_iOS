@@ -88,6 +88,8 @@ final class CustomBottomView: UIView {
 
 extension CustomBottomView {
     private func setupAutoLayout() {
+        let horizontalPadding: CGFloat = 18
+        
         borderLine.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
@@ -101,8 +103,8 @@ extension CustomBottomView {
         
         navigationHStackView.snp.makeConstraints {
             $0.top.equalTo(borderLine.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(18)
-            $0.trailing.equalToSuperview().offset(-18)
+            $0.leading.equalToSuperview().offset(horizontalPadding)
+            $0.trailing.equalToSuperview().offset(-horizontalPadding)
             $0.bottom.equalToSuperview()
         }
     }
