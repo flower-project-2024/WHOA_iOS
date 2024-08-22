@@ -15,8 +15,9 @@ final class HomeViewController: UIViewController {
     private var cellSize: CGSize = .zero
     private var timer: Timer? = Timer()
     private let minimumLineSpacing: CGFloat = 0
-    private var collectionViewCellCount: [String] = ["0", "1"]
+    //private var collectionViewCellCount: [String] = ["0", "1", "]
     private var bannerItems: [Any] = []
+    private var currentPage: Int = 1
     
     var tooltipIsClosed = false
 
@@ -115,8 +116,8 @@ final class HomeViewController: UIViewController {
                 cheapFlowerInfoCell.updateFlowerLanguageStackView()
             }
         }
-        
-//        carouselView.setContentOffset(.init(x: cellSize.width, y: carouselView.contentOffset.y), animated: false)
+        // 맨 처음 사진을 띄우기 위해 contentoffset.x을 한 번(기기 화면 너비만큼 = 셀 크기) 이동
+        carouselView.setContentOffset(.init(x: cellSize.width, y: carouselView.contentOffset.y), animated: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -125,9 +126,10 @@ final class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("=== viewDidAppear ===")
+        print("carouselView items: \(carouselView.visibleCells)")
         // 배너 무한 스크롤 - 현재 2, 1, 2, 1이라 2의 화면을 보여지고 있으므로 첫번째 1로 스크롤
-        carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
+//        carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
     }
     
     deinit {
@@ -231,30 +233,47 @@ final class HomeViewController: UIViewController {
     }
     
     private func resetTimer() {
+        print("== 타이머 세팅 ==")
         timer?.invalidate()
         timer = nil
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true, block: { timer in
-            let cellWidthIncludingSpacing: CGFloat = self.cellSize.width + self.minimumLineSpacing
-            let estimatedIndex = self.carouselView.contentOffset.x / cellWidthIncludingSpacing
-            let index = Int(round(estimatedIndex))
-
-            // 현재가 마지막 아이템이면 첫 인덱스로, 아니면 +1
-            let next = (index + 1 == self.collectionViewCellCount.count) ? 0 : index + 1
+        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] timer in
+            print("3초 타이머")
             
-            if self.collectionViewCellCount.count == 0 { return }
-
-//            if scrollView.contentOffset.x == 0 {
-//                scrollView.setContentOffset(.init(x: cellSize.width * Double(count-2), y: scrollView.contentOffset.y)
-//                                            ,animated: false)
-//            }
-//            if scrollView.contentOffset.x == Double(count-1) * cellSize.width {
-//                scrollView.setContentOffset(.init(x: cellSize.width, y: scrollView.contentOffset.y)
-//                                            ,animated: false)
-//            }
+            let visibleItem = self?.carouselView.indexPathsForVisibleItems[0].item  // 현재 화면에 보이는 아이템의 indexPath
+            let nextItem = (visibleItem ?? 0) + 1
             
-            // 다음 지정된 인덱스로 스크롤
-            self.carouselView.scrollToItem(at: IndexPath(item: next, section: 0), at: .centeredHorizontally, animated: true)
-        })
+            let actualCount = (self?.bannerItems.count)! - 2  // 배너 아이템의 실제 개수 (앞뒤 중복 빼고)
+            
+            print("현재 아이템:\(visibleItem), 다음 아이템: \(nextItem)")
+
+            // 다음 indexPath의 item으로 스크롤
+            self?.carouselView.scrollToItem(at: [0, nextItem], at: .centeredHorizontally, animated: true)
+
+            // 만약 다음번이 마지막이면 contentOffset을 맨 처음으로 설정해줘야 함
+            // DispatchQueue.main.asyncAfter없이 한다면 마지막에서 부자연스럽게(갑자기) 넘어가므로,
+            // 우선 다음번으로 scroll을 시키고, scroll 애니메이션이 다 끝났을 때 쯔음 contentOffset을 바꾸어줌
+            if visibleItem == actualCount {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.carouselView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: false)
+                }
+            }
+        }
+    }
+    
+    private func moveCarouselView() {
+        print("=== move carousel view ===")
+        print("currentPage: \(currentPage)")
+        
+        currentPage += 1
+        carouselView.scrollToItem(at: [0, currentPage], at: .right, animated: true)
+        
+        // 마지막 셀인 경우 다시 돌아가야 하므로 애니메이션이 실행되는 시간인 0.3초 딜레이 후에 1번 셀로 애니메이션 없이 이동 -> 눈속임
+        if self.currentPage == bannerItems.count - 1 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
+                self?.currentPage = 0
+            }
+        }
     }
     
     private func bind() {
@@ -271,7 +290,7 @@ final class HomeViewController: UIViewController {
                 // to -be: 2 1 2 1
                 self?.setBannerItems()
                 self?.carouselView.reloadData()
-                //self?.resetTimer()
+                self?.resetTimer()
             }
         }
     }
@@ -343,12 +362,15 @@ extension HomeViewController : UITableViewDelegate {
 // MARK: - Extension: UICollectionView
 
 extension HomeViewController: UICollectionViewDelegate {
-    // Tells the delegate when the user finishes scrolling the content. -> 다음 셀이 중앙에 오도록 하기
+    
+    // 직접 스크롤했을 경우 -> 다음 셀이 중앙에 오도록 하는 페이징 효과 위함
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print("== scrollViewWillEndDragging ==")
         let cellWidthIncludingSpacing: CGFloat = cellSize.width + minimumLineSpacing
 
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
         let index: Int
+        
         if velocity.x > 0 {
             index = Int(ceil(estimatedIndex))
         } 
@@ -363,28 +385,34 @@ extension HomeViewController: UICollectionViewDelegate {
         
         // 직접 스크롤하면 타이머 초기화
         //resetTimer()
+        // 어차피 이후 scrollViewDidEndDecelerating이 resetTimer 실행함
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let count = bannerItems.count
-        let value = (scrollView.contentOffset.x / scrollView.frame.width)
+        print("== scrollViewDidEndDecelerating ==")
+        // 2, 1, 2, 1 데이터가 있을때,
+        // 첫번째 2가 보일땐 3번째 2로 이동 (왼쪽에서 오른쪽으로 스크롤 헀을때 1이 나와야하므로)
+        // 마지막 1이 보일땐 첫번째 1로 이동 (오른쪽으로 계속 스크롤 되는것처럼 보이기)
+//        let count = bannerItems.count
+//            
+//        if scrollView.contentOffset.x == 0 {
+//            scrollView.setContentOffset(.init(x: cellSize.width * Double(count - 2), y: scrollView.contentOffset.y), animated: false)
+//        }
+//        if scrollView.contentOffset.x == Double(count - 1) * cellSize.width {
+//            scrollView.setContentOffset(.init(x: cellSize.width, y: scrollView.contentOffset.y), animated: false)
+//        }
         
-        print("=== scrollViewDidEndDecelerating ===")
-        print(" >>> 다음으로 바꿈: \(value)")
+        // resetTimer()
         
-        switch Int(round(value)) {
-        case 0:
-            let last = count - 2
-            carouselView.scrollToItem(at: [0, last], at: .left, animated: false)
-            
-//            UIView.animate(withDuration: 0.01, animations: { [weak self] in
-//                self?.carouselView.scrollToItem(at: [0, last], at: .left, animated: false)
-//            }, completion: { [weak self] _ in
-//                    })
-        case count - 1:
-            carouselView.scrollToItem(at: [0, 1], at: .left, animated: false)
-        default:
-            break
+        // 새로 적용
+        // 2 1 2 1
+        resetTimer()
+        
+        if scrollView.contentOffset.x == 0 { // 첫번째(2)가 보이면 2번째 index의 2로 이동시키기
+            scrollView.setContentOffset(.init(x: cellSize.width * 2, y: scrollView.contentOffset.y), animated: false)
+        }
+        else if scrollView.contentOffset.x == cellSize.width * 3 { // 마지막 1이 보이면 1번째 index의 1로 이동
+            scrollView.setContentOffset(.init(x: cellSize.width, y: scrollView.contentOffset.y), animated: false)
         }
     }
 }
@@ -397,6 +425,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 1 || indexPath.item == 3 {
+            print("=== 오늘의 꽃을 보여줍니다 ===")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TodaysFlowerViewCell.identifier, for: indexPath) as! TodaysFlowerViewCell
 
             cell.configure(viewModel.getTodaysFlower())
@@ -411,7 +440,9 @@ extension HomeViewController: UICollectionViewDataSource {
             return cell
         }
         else {
+            print("=== 커스터마이징을 보여줍니다 ===")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath) as! CustomizeIntroCell
+            print("CustomizeIntroCell: \(cell)")
             cell.goToCustomzingFromCustomizingCell = { [weak self] in
                 self?.tabBarController?.selectedIndex = 1
             }
