@@ -8,29 +8,48 @@
 import Foundation
 import Combine
 
-final class PurposeViewModel {
+protocol ViewModel {
+    associatedtype Input
+    associatedtype Output
+    
+    func transform(input: Input) -> Output
+}
+
+final class PurposeViewModel: ViewModel {
     
     // MARK: - Properties
     
-    @Published var purposeModel: PurposeModel?
-    
-    var cancellables = Set<AnyCancellable>()
-    
-    // MARK: - Fuctions
-    
-    func setPurposeType(_ selectedType: PurposeType) {
-        purposeModel = PurposeModel(purposeType: selectedType)
+    struct Input {
+        let purposeSelected: AnyPublisher<PurposeType, Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
-    func getPurposeType() -> PurposeType? {
-        return purposeModel?.purposeType
+    struct Output {
+        let purposeType: AnyPublisher<PurposeType, Never>
+        let showColorPicker: AnyPublisher<PurposeType, Never>
     }
     
-    func updateButtonState(sender: PurposeButton, purposeButtons: [PurposeButton]) {
-        purposeButtons.forEach { $0.isSelected = ($0 == sender) }
-    }
-
-    func updateNextButtonState() -> Bool {
-        return purposeModel?.purposeType != nil
+    private let purposeSubject = CurrentValueSubject<PurposeType, Never>(.none)
+    private let showColorPickerSubject = PassthroughSubject<PurposeType, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Functions
+    
+    func transform(input: Input) -> Output {
+        input.purposeSelected
+            .assign(to: \.value, on: purposeSubject)
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.showColorPickerSubject.send(self.purposeSubject.value)
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            purposeType: purposeSubject.eraseToAnyPublisher(),
+            showColorPicker: showColorPickerSubject.eraseToAnyPublisher()
+        )
     }
 }
