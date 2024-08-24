@@ -359,6 +359,8 @@ final class RequestDetailView: UIView {
             flowerColorChipView3.backgroundColor = UIColor(hex: colors.last ?? "")
             flowerColorChipView2.isHidden = false
             flowerColorChipView3.isHidden = false
+        case .none:
+            break
         }
     }
     

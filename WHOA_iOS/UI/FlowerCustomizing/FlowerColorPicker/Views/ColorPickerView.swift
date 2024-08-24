@@ -452,6 +452,8 @@ final class ColorPickerView: UIView {
             checkCircle3.isHidden = true
             pointLabel.isHidden = false
             baseLabel.isHidden = false
+        case .none:
+            break
         }
         configPointColorPickerStyle(numberOfColors)
     }
@@ -514,6 +516,8 @@ final class ColorPickerView: UIView {
             } else {
                 delegate?.isNextButtonEnabled(isEnabled: false)
             }
+        case .none:
+            break
         }
     }
     
