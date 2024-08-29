@@ -249,10 +249,23 @@ final class HomeViewController: UIViewController {
             // 다음 indexPath의 item으로 스크롤
             self?.carouselView.scrollToItem(at: [0, nextItem], at: .centeredHorizontally, animated: true)
 
-            // 만약 다음번이 마지막이면 contentOffset을 맨 처음으로 설정해줘야 함
-            // DispatchQueue.main.asyncAfter없이 한다면 마지막에서 부자연스럽게(갑자기) 넘어가므로,
-            // 우선 다음번으로 scroll을 시키고, scroll 애니메이션이 다 끝났을 때 쯔음 contentOffset을 바꾸어줌
-            if visibleItem == actualCount {
+//            // 만약 다음번이 마지막이면 contentOffset을 맨 처음으로 설정해줘야 함
+//            // DispatchQueue.main.asyncAfter없이 한다면 마지막에서 부자연스럽게(갑자기) 넘어가므로,
+//            // 우선 다음번으로 scroll을 시키고, scroll 애니메이션이 다 끝났을 때 쯔음 contentOffset을 바꾸어줌
+//            if visibleItem == actualCount {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                    self?.carouselView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: false)
+//                }
+//            }
+            
+            // 마지막 커스터마이징 셀에 있는 경우 ->
+            if nextItem == 2 {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self?.carouselView.scrollToItem(at: [0, 0], at: .centeredHorizontally, animated: false)
+                }
+            }
+            // 마지막 오늘의 꽃 셀에 있는 경우
+            else if nextItem == 3 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self?.carouselView.scrollToItem(at: [0, 1], at: .centeredHorizontally, animated: false)
                 }
@@ -442,7 +455,6 @@ extension HomeViewController: UICollectionViewDataSource {
         else {
             print("=== 커스터마이징을 보여줍니다 ===")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CustomizeIntroCell.identifier, for: indexPath) as! CustomizeIntroCell
-            print("CustomizeIntroCell: \(cell)")
             cell.goToCustomzingFromCustomizingCell = { [weak self] in
                 self?.tabBarController?.selectedIndex = 1
             }
