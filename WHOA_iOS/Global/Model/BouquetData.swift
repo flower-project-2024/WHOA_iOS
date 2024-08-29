@@ -8,13 +8,13 @@
 import Foundation
 
 struct BouquetData {
-    let purpose: PurposeType
-    let colorScheme: ColorScheme
-    let flowers: [Flower]
-    let alternative: AlternativesType
-    let assign: Assign
-    let price: Price
-    let requirement: Requirement
+    var purpose: PurposeType
+    var colorScheme: ColorScheme
+    var flowers: [Flower]
+    var alternative: AlternativesType
+    var assign: Assign
+    var price: Price
+    var requirement: Requirement
     
     struct ColorScheme {
         let numberOfColors: NumberOfColorsType
