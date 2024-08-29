@@ -13,7 +13,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private let viewModel = BouquetListModel()
     private let cellVerticalSpacing: CGFloat = 8
-    private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted(basedOnWidth: 390) * 2 - 15.adjusted(basedOnWidth: 390) * 2) / 3
+    private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted(basedOnWidth: 390) * 2) / 3
     private var noRequest = true
     var customizingCoordinator: CustomizingCoordinator?
     
@@ -31,11 +31,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         let view = UIView()
         view.backgroundColor = .white
         view.layer.masksToBounds = false
-//        view.layer.applyShadow(y: 47.,blur: 12)
-//        view.layer.shadowOffset = CGSize(width: 0, height: 4)
-//        view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowRadius = 8  // 반경?
-//        view.layer.shadowOpacity = 0.3  // alpha값입니다.
         return view
     }()
     
@@ -100,6 +95,18 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         
         // segment control에 그림자 추가
         segmentContainerView.layer.applyShadow(alpha: 0.04, height: 6, blur: 12 / UIScreen.main.scale)
+        segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition(_:)), for: .valueChanged)
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func changeSelectedSegmentLinePosition(_ segment: UISegmentedControl) {
+        lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
+        UIView.animate(withDuration: 0.3, animations: {
+            self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
+            }
+            self.view.layoutIfNeeded()
+        })
     }
     
     // MARK: - Functions
@@ -112,7 +119,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private func addViews() {
         view.addSubview(segmentContainerView)
         segmentContainerView.addSubview(segmentControl)
-//        view.addSubview(segmentControl)
+
         view.addSubview(segmentUnderLineView)
         view.addSubview(tableView)
     }
