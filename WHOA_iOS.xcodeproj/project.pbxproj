@@ -82,6 +82,7 @@
 		54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */; };
 		54086BE82C6FC42400286BAE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE72C6FC42400286BAE /* UITextField+.swift */; };
 		54086BEF2C7B5D1200286BAE /* BouquetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BEE2C7B5D1200286BAE /* BouquetData.swift */; };
+		54086BF12C7B5D8700286BAE /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BF02C7B5D8700286BAE /* DataManager.swift */; };
 		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
 		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
@@ -279,6 +280,7 @@
 		54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewModel.swift; sourceTree = "<group>"; };
 		54086BE72C6FC42400286BAE /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		54086BEE2C7B5D1200286BAE /* BouquetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetData.swift; sourceTree = "<group>"; };
+		54086BF02C7B5D8700286BAE /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 				54EB17FD2BB4768400717E6F /* Palette.swift */,
 				54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */,
 				54BF6D7E2C440C4800928B3F /* ImageProvider.swift */,
+				54086BF02C7B5D8700286BAE /* DataManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1283,6 +1286,7 @@
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
+				54086BF12C7B5D8700286BAE /* DataManager.swift in Sources */,
 				08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */,
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
 				08DA470B2BF0ABBE00956555 /* FlowerSearchAPI.swift in Sources */,
