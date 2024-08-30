@@ -13,11 +13,11 @@ final class BouquetListModel {
     
     private var bouquetModelList: [BouquetModel] = [] {
         didSet {
-            bouquetModelListDidChage?()
+            bouquetModelListDidChange?()
         }
     }
     
-    var bouquetModelListDidChage: (() -> Void)?
+    var bouquetModelListDidChange: (() -> Void)?
     
     // MARK: - Functions
     

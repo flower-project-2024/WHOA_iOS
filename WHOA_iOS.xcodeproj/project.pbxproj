@@ -75,6 +75,7 @@
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
+		08F2AE2D2C822E930096D75E /* MyPagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
 		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
 		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
@@ -265,6 +266,7 @@
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
+		08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePageViewController.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
 		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 		0887F6242B86777F00727F14 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				08F2AE2B2C822E7A0096D75E /* Pages */,
 				0886DA612B957BA6003779CE /* RequestDetail */,
 				0887F6272B867B9D00727F14 /* cell */,
 				0887F6252B8677BF00727F14 /* MyPageViewController.swift */,
@@ -549,6 +552,14 @@
 				08D0CF322BF70D5B005CBECA /* ToolTipView.swift */,
 			);
 			path = ToolTip;
+			sourceTree = "<group>";
+		};
+		08F2AE2B2C822E7A0096D75E /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */,
+			);
+			path = Pages;
 			sourceTree = "<group>";
 		};
 		08F7B29F2B823DD100DFD4F7 /* cell */ = {
@@ -1233,6 +1244,7 @@
 				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				54EA0E6B2BF5E398007B8F5A /* PostCustomBouquetDTO.swift in Sources */,
 				08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */,
+				08F2AE2D2C822E930096D75E /* MyPagePageViewController.swift in Sources */,
 				54EA0E722BF779C6007B8F5A /* PostCustomBouquetAPI.swift in Sources */,
 				544FC0B52C03A70D0091EEE2 /* BouquetDetailAPI.swift in Sources */,
 				542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */,

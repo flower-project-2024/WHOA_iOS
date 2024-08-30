@@ -78,17 +78,9 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         return view
     }()
     
-    private let vc1: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .red
-        return vc
-    }()
+    private lazy var vc1 = MyPagePageViewController(type: .all, parentVC: self)
     
-    private let vc2: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .green
-        return vc
-    }()
+    private lazy var vc2 = MyPagePageViewController(type: .saved, parentVC: self)
     
     private let vc3: UIViewController = {
         let vc = UIViewController()
@@ -135,6 +127,9 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         setupNavigation()
         addViews()
         setupConstraints()
+        
+        print("VC1: \(vc1)")
+        print("VC2: \(vc2)")
         
         // segment control에 그림자 추가
         segmentContainerView.layer.applyShadow(alpha: 0.04, height: 6, blur: 12 / UIScreen.main.scale)
@@ -220,9 +215,9 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     }
     
     private func bind() {
-        viewModel.bouquetModelListDidChage = { [weak self] in
+        viewModel.bouquetModelListDidChange = { [weak self] in
             DispatchQueue.main.async {
-                self?.tableView.reloadData()
+                self?.vc1.setTableViewData(self?.viewModel)
             }
         }
     }
