@@ -8,6 +8,7 @@
 import Foundation
 
 struct BouquetData {
+    var requestTitle: String
     var purpose: PurposeType
     var colorScheme: ColorScheme
     var flowers: [Flower]

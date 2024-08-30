@@ -11,6 +11,7 @@ protocol BouquetDataManaging {
     func reset()
     
     // MARK: - Set
+    func setRequestTitle(_ title: String)
     func setPurpose(_ purpose: PurposeType)
     func setColorScheme(_ colorScheme: BouquetData.ColorScheme)
     func setFlowers(_ flowers: [BouquetData.Flower])
@@ -20,6 +21,7 @@ protocol BouquetDataManaging {
     func setRequirement(_ requirement: BouquetData.Requirement)
     
     // MARK: - Get
+    func getRequestTitle() -> String
     func getPurpose() -> PurposeType
     func getColorScheme() -> BouquetData.ColorScheme
     func getFlowers() -> [BouquetData.Flower]
@@ -38,6 +40,7 @@ class DataManager: BouquetDataManaging {
     
     func reset() {
         bouquetData = BouquetData(
+            requestTitle: "",
             purpose: .none,
             colorScheme: .init(numberOfColors: .none, pointColor: nil, colors: []),
             flowers: [],
@@ -49,6 +52,11 @@ class DataManager: BouquetDataManaging {
     }
     
     // MARK: - Set
+    
+    func setRequestTitle(_ title: String) {
+        if bouquetData == nil { reset() }
+        bouquetData?.requestTitle = title
+    }
     
     func setPurpose(_ purpose: PurposeType) {
         if bouquetData == nil { reset() }
@@ -86,6 +94,10 @@ class DataManager: BouquetDataManaging {
     }
     
     // MARK: - Get
+    
+    func getRequestTitle() -> String {
+        return bouquetData?.requestTitle ?? ""
+    }
     
     func getPurpose() -> PurposeType {
         return bouquetData?.purpose ?? .none
