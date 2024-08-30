@@ -11,6 +11,7 @@ import Combine
 final class CustomStartView: UIView {
     
     // MARK: - Properties
+    
     private let startButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     

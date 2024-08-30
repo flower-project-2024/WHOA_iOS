@@ -81,20 +81,18 @@ final class CustomStartViewContoller: UIViewController {
         let output = viewModel.transform(input: input)
         
         output.requestTitle
-            .sink(receiveValue: { [weak self] title in
-                guard let self = self else { return }
-                
+            .sink { [weak self] title in
                 if title.isEmpty {
-                    self.customStartView.updateButtonState(isEnabled: false)
+                    self?.customStartView.updateButtonState(isEnabled: false)
                 } else {
-                    self.customStartView.updateButtonState(isEnabled: true)
+                    self?.customStartView.updateButtonState(isEnabled: true)
                 }
-            })
+            }
             .store(in: &cancellables)
         
         output.showPurpose
             .sink { [weak self] title in
-                self?.coordinator?.showPurposeVC(requestTitle: title)
+                self?.coordinator?.showPurposeVC()
             }
             .store(in: &cancellables)
     }

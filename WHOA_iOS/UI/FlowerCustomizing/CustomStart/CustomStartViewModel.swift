@@ -22,9 +22,16 @@ final class CustomStartViewModel: ViewModel {
         let showPurpose: AnyPublisher<String, Never>
     }
     
+    private let dataManager: BouquetDataManaging
     private let textInputSubject = CurrentValueSubject<String, Never>("")
     private let showPurposeSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Initialize
+    
+    init(dataManager: BouquetDataManaging = DataManager.shared) {
+        self.dataManager = dataManager
+    }
     
     // MARK: - Functions
     
@@ -36,6 +43,7 @@ final class CustomStartViewModel: ViewModel {
         input.startButtonTapped
             .sink { [weak self] in
                 guard let self = self else { return }
+                self.dataManager.setRequestTitle(self.textInputSubject.value)
                 self.showPurposeSubject.send(self.textInputSubject.value)
             }
             .store(in: &cancellables)
