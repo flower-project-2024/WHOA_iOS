@@ -82,11 +82,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private lazy var vc2 = MyPagePageViewController(type: .saved, parentVC: self)
     
-    private let vc3: UIViewController = {
-        let vc = UIViewController()
-        vc.view.backgroundColor = .blue
-        return vc
-    }()
+    private lazy var vc3 = MyPagePageViewController(type: .made, parentVC: self)
     
     private lazy var pageViewController: UIPageViewController = {
         pageViewControllerList = [vc1, vc2, vc3]
