@@ -83,6 +83,10 @@ final class PurposeView: UIView {
         setupAutoLayout()
     }
     
+    func config(with initialPurpose: PurposeType) {
+        purposeSubject.send(initialPurpose)
+    }
+    
     func updateSelectedButton(for purpose: PurposeType) {
         resetView()
         var selectedButton: UIButton?
@@ -105,7 +109,7 @@ final class PurposeView: UIView {
         case .friendship:
             selectedButton = friendshipButton
         case .none:
-            break
+            selectedButton = nil
         }
         
         configureButton(
@@ -117,7 +121,7 @@ final class PurposeView: UIView {
         )
     }
     
-    func resetView() {
+    private func resetView() {
         [
             affectionButton,
             birthdayButton,
@@ -201,21 +205,9 @@ final class PurposeView: UIView {
         // 최신버전 버튼 액션
         button.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
-            handleButtonTap(purpose: purpose)
+            self.purposeSubject.send(purpose)
         }, for: .touchUpInside)
         return button
-    }
-    
-    private func handleButtonTap(purpose: PurposeType) {
-        let currentPurpose = self.purposeSubject.value
-        
-        if currentPurpose == purpose {
-            self.purposeSubject.send(.none)
-            self.updateSelectedButton(for: .none)
-        } else {
-            self.purposeSubject.send(purpose)
-            self.updateSelectedButton(for: purpose)
-        }
     }
     
     private func buildPurposeButtonHStackView(button1: UIButton, button2: UIButton) -> UIStackView {

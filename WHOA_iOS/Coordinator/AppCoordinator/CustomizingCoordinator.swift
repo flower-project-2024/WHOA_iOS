@@ -12,7 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var purpose: PurposeType = .none
     private var numberOfColors: NumberOfColorsType = .oneColor
     private var colors: [String] = []
     private var flowers: [Flower] = []
@@ -51,9 +50,7 @@ final class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(purposeVC, animated: true)
     }
     
-    func showColorPickerVC(purposeType: PurposeType) {
-        self.purpose = purposeType
-        
+    func showColorPickerVC() {
         let viewModel = FlowerColorPickerViewModel()
         let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: viewModel)
         flowerColorPickerVC.coordinator = self
@@ -64,7 +61,8 @@ final class CustomizingCoordinator: Coordinator {
         self.numberOfColors = numberOfColors
         self.colors = colors
         
-        let viewModel = FlowerSelectionViewModel(purposeType: purpose)
+        // purposeType 주입코드 수정필요
+        let viewModel = FlowerSelectionViewModel(purposeType: .none)
         let flowerSelectionVC = FlowerSelectionViewController(viewModel: viewModel)
         flowerSelectionVC.coordinator = self
         navigationController.pushViewController(flowerSelectionVC, animated: true)
@@ -120,8 +118,9 @@ final class CustomizingCoordinator: Coordinator {
         self.requirementPhotos = requirementPhotos
         self.requirementText = requirementText
         
+        // 데이터 가져오는 로직 수정필요
         let model = CustomizingSummaryModel(
-            purpose: self.purpose,
+            purpose: .none,
             numberOfColors: self.numberOfColors,
             colors: self.colors,
             flowers: flowers,
