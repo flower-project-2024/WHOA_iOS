@@ -15,7 +15,21 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private let cellVerticalSpacing: CGFloat = 8
     private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted(basedOnWidth: 390) * 2) / 3
     private var noRequest = true
+    private var pageViewControllerList: [UIViewController] = []
     var customizingCoordinator: CustomizingCoordinator?
+    
+    private var currentPage: Int = 0 {
+        didSet {
+            print(oldValue, self.currentPage)
+            let direction: UIPageViewController.NavigationDirection = (oldValue <= self.currentPage) ? .forward : .reverse
+            self.pageViewController.setViewControllers(
+                [pageViewControllerList[self.currentPage]],
+                direction: direction,
+                animated: true,
+                completion: nil
+            )
+        }
+    }
     
     // MARK: - Views
         
@@ -64,6 +78,35 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         return view
     }()
     
+    private let vc1: UIViewController = {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .red
+        return vc
+    }()
+    
+    private let vc2: UIViewController = {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .green
+        return vc
+    }()
+    
+    private let vc3: UIViewController = {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .blue
+        return vc
+    }()
+    
+    private lazy var pageViewController: UIPageViewController = {
+        pageViewControllerList = [vc1, vc2, vc3]
+        
+        let vc = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        vc.setViewControllers([self.pageViewControllerList[0]], direction: .forward, animated: true)
+        vc.delegate = self
+        vc.dataSource = self
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        return vc
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.delegate = self
@@ -95,13 +138,28 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         
         // segment control에 그림자 추가
         segmentContainerView.layer.applyShadow(alpha: 0.04, height: 6, blur: 12 / UIScreen.main.scale)
-        segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition(_:)), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition), for: .valueChanged)
+        segmentControl.addTarget(self, action: #selector(segmentIndexDidChange(_:)), for: .valueChanged)
     }
     
     // MARK: - Actions
     
-    @objc private func changeSelectedSegmentLinePosition(_ segment: UISegmentedControl) {
+    @objc private func changeSelectedSegmentLinePosition() {
+        print("changeSelectedSegmentLinePosition")
         lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
+        UIView.animate(withDuration: 0.3, animations: {
+            self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
+            }
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc private func segmentIndexDidChange(_ segment: UISegmentedControl) {
+        print("선택된 세그먼트: \(segment.selectedSegmentIndex)")
+        currentPage = segment.selectedSegmentIndex
+        
+        lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
+        print("leadingValue: \(leadingValue)")
         UIView.animate(withDuration: 0.3, animations: {
             self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
             }
@@ -121,7 +179,8 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         segmentContainerView.addSubview(segmentControl)
 
         view.addSubview(segmentUnderLineView)
-        view.addSubview(tableView)
+//        view.addSubview(tableView)
+        view.addSubview(pageViewController.view)
     }
     
     private func setupConstraints() {
@@ -146,10 +205,16 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
             make.leading.equalTo(segmentControl.snp.leading)
         }
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(segmentControl.snp.bottom).offset(36)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//        tableView.snp.makeConstraints { make in
+//            make.top.equalTo(segmentControl.snp.bottom).offset(36)
+//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
+//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
+//            make.bottom.equalToSuperview()
+//        }
+        
+        pageViewController.view.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(segmentContainerView.snp.bottom)
             make.bottom.equalToSuperview()
         }
     }
@@ -213,5 +278,38 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
     }
+}
+
+// MARK: - Extension: UIPageViewController
+
+extension MyPageViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    // 이전 뷰를 설정
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let index = self.pageViewControllerList.firstIndex(of: viewController), index - 1 >= 0
+        else { return nil }
+        return self.pageViewControllerList[index - 1]
+    }
     
+    // 다음 뷰를 설정
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let index = self.pageViewControllerList.firstIndex(of: viewController), index + 1 < self.pageViewControllerList.count
+        else { return nil }
+        
+        return self.pageViewControllerList[index + 1]
+    }
+    
+    // 몇 번째 페이지가 로드되었는지 (-> segment control도 이동)
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        print("pageVC의 뷰컨들: \(pageViewController.viewControllers)")
+        guard let viewController = pageViewController.viewControllers?[0],
+                let index = self.pageViewControllerList.firstIndex(of: viewController)
+        else { return }
+        
+        self.currentPage = index
+        self.segmentControl.selectedSegmentIndex = index
+        changeSelectedSegmentLinePosition()
+    }
 }
