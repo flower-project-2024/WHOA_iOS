@@ -19,12 +19,12 @@ final class CustomStartViewModel: ViewModel {
     
     struct Output {
         let requestTitle: AnyPublisher<String, Never>
-        let showPurpose: AnyPublisher<String, Never>
+        let showPurpose: AnyPublisher<Void, Never>
     }
     
     private let dataManager: BouquetDataManaging
     private let textInputSubject = CurrentValueSubject<String, Never>("")
-    private let showPurposeSubject = PassthroughSubject<String, Never>()
+    private let showPurposeSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
@@ -44,7 +44,7 @@ final class CustomStartViewModel: ViewModel {
             .sink { [weak self] in
                 guard let self = self else { return }
                 self.dataManager.setRequestTitle(self.textInputSubject.value)
-                self.showPurposeSubject.send(self.textInputSubject.value)
+                self.showPurposeSubject.send()
             }
             .store(in: &cancellables)
         

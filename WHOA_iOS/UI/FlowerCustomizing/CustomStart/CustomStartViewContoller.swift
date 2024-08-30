@@ -91,7 +91,7 @@ final class CustomStartViewContoller: UIViewController {
             .store(in: &cancellables)
         
         output.showPurpose
-            .sink { [weak self] title in
+            .sink { [weak self] _ in
                 self?.coordinator?.showPurposeVC()
             }
             .store(in: &cancellables)
@@ -99,7 +99,7 @@ final class CustomStartViewContoller: UIViewController {
     
     private func observe() {
         viewTapPublisher
-            .sink { [weak self] in
+            .sink { [weak self] _ in
                 self?.view.endEditing(true)
             }
             .store(in: &cancellables)
