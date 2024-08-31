@@ -12,7 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var flowers: [Flower] = []
     private var alternative: AlternativesType = .colorOriented
     private var packagingAssign: PackagingAssignType = .managerAssign
     private var packagingRequirement: String?
@@ -57,15 +56,13 @@ final class CustomizingCoordinator: Coordinator {
     
     func showFlowerSelectionVC() {
         // purposeType 주입코드 수정필요
-        let viewModel = FlowerSelectionViewModel(purposeType: .none)
+        let viewModel = FlowerSelectionViewModel()
         let flowerSelectionVC = FlowerSelectionViewController(viewModel: viewModel)
         flowerSelectionVC.coordinator = self
         navigationController.pushViewController(flowerSelectionVC, animated: true)
     }
     
-    func showAlternativesVC(from currentVC: UIViewController, flowers: [Flower]) {
-        self.flowers = flowers
-        
+    func showAlternativesVC(from currentVC: UIViewController) {
         let viewModel = AlternativesViewModel()
         let alternativesVC = AlternativesViewController(viewModel: viewModel)
         alternativesVC.coordinator = self
@@ -118,7 +115,7 @@ final class CustomizingCoordinator: Coordinator {
             purpose: .none,
             numberOfColors: .none,
             colors: [],
-            flowers: flowers,
+            flowers: [],
             alternative: alternative,
             assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
             priceRange: price ?? "",

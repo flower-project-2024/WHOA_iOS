@@ -328,7 +328,8 @@ final class FlowerSelectionViewController: UIViewController {
     @objc
     func nextButtonTapped() {
         let flowers = viewModel.convertFlowerKeywordModelToFlower(with: viewModel.selectedFlowerModels)
-        coordinator?.showAlternativesVC(from: self, flowers: flowers)
+        viewModel.dataManager.setFlowers(flowers)
+        coordinator?.showAlternativesVC(from: self)
     }
 }
 
