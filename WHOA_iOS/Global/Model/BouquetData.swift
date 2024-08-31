@@ -25,9 +25,10 @@ struct BouquetData {
     
     struct Flower {
         let id: Int?
-        let photo: URL
+        let photo: String?
         let name: String
         let hashTag: [String]
+        let flowerKeyword: [String]
     }
     
     struct Price {
