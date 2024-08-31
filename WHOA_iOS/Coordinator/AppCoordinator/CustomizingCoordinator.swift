@@ -12,7 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var alternative: AlternativesType = .colorOriented
     private var packagingAssign: PackagingAssignType = .managerAssign
     private var packagingRequirement: String?
     private var price: String?
@@ -76,9 +75,7 @@ final class CustomizingCoordinator: Coordinator {
         currentVC.present(alternativesVC, animated: true)
     }
     
-    func showPackagingSelectionVC(from currentVC: UIViewController, alternative: AlternativesType) {
-        self.alternative = alternative
-        
+    func showPackagingSelectionVC(from currentVC: UIViewController) {
         let viewModel = PackagingSelectionViewModel()
         let packagingSelectionVC = PackagingSelectionViewController(viewModel: viewModel)
         packagingSelectionVC.coordinator = self
@@ -116,7 +113,7 @@ final class CustomizingCoordinator: Coordinator {
             numberOfColors: .none,
             colors: [],
             flowers: [],
-            alternative: alternative,
+            alternative: .none,
             assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
             priceRange: price ?? "",
             requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)

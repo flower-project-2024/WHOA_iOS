@@ -108,7 +108,8 @@ final class AlternativesViewController: UIViewController {
     @objc
     func nextButtonTapped() {
         guard let alternative = viewModel.alternativesModel?.AlternativesType else { return }
-        coordinator?.showPackagingSelectionVC(from: self, alternative: alternative)
+        viewModel.dataManager.setAlternative(alternative)
+        coordinator?.showPackagingSelectionVC(from: self)
     }
     
 }
