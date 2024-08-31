@@ -35,7 +35,7 @@ extension FlowerKeywordDTO {
         }
     }
     
-    private static func formatFlowerLanguage(_ language: String) -> String {
+    static func formatFlowerLanguage(_ language: String) -> String {
         let languageArray = language.components(separatedBy: ", ")
         
         guard !languageArray.isEmpty else  { return "" }
