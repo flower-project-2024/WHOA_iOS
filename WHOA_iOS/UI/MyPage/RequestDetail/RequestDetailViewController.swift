@@ -81,11 +81,14 @@ final class RequestDetailViewController: UIViewController {
         
         let backbutton = UIBarButtonItem(image: UIImage.chevronLeft, style: .done, target: self, action: #selector(goBack))
         
+        let moreActionButton = UIBarButtonItem(image: UIImage.moreIcon, style: .plain, target: self, action: #selector(showMoreActions))
+        
         // left bar button을 추가하면 기존에 되던 스와이프 pop 기능이 해제됨
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
         self.navigationItem.leftBarButtonItem = backbutton
+        self.navigationItem.rightBarButtonItem = moreActionButton
     }
     
     private func addViews() {
@@ -147,6 +150,10 @@ final class RequestDetailViewController: UIViewController {
     
     @objc func goBack() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func showMoreActions() {
+        print("케밥 버튼 선택됨")
     }
 }
 
