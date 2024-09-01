@@ -13,7 +13,7 @@ struct BouquetData {
     var colorScheme: ColorScheme
     var flowers: [Flower]
     var alternative: AlternativesType
-    var assign: Assign
+    var packagingAssign: PackagingAssign
     var price: Price
     var requirement: Requirement
     
@@ -29,6 +29,11 @@ struct BouquetData {
         let name: String
         let hashTag: [String]
         let flowerKeyword: [String]
+    }
+    
+    struct PackagingAssign {
+        let assign: PackagingAssignType
+        let text: String?
     }
     
     struct Price {

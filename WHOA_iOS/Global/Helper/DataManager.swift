@@ -16,7 +16,7 @@ protocol BouquetDataManaging {
     func setColorScheme(_ colorScheme: BouquetData.ColorScheme)
     func setFlowers(_ flowers: [BouquetData.Flower])
     func setAlternative(_ alternative: AlternativesType)
-    func setAssign(_ assign: Assign)
+    func setPackagingAssign(_ assign: BouquetData.PackagingAssign)
     func setPrice(_ price: BouquetData.Price)
     func setRequirement(_ requirement: BouquetData.Requirement)
     
@@ -26,7 +26,7 @@ protocol BouquetDataManaging {
     func getColorScheme() -> BouquetData.ColorScheme
     func getFlowers() -> [BouquetData.Flower]
     func getAlternative() -> AlternativesType
-    func getAssign() -> Assign
+    func getPackagingAssign() -> BouquetData.PackagingAssign
     func getPrice() -> BouquetData.Price
     func getRequirement() -> BouquetData.Requirement
 }
@@ -45,7 +45,7 @@ class DataManager: BouquetDataManaging {
             colorScheme: .init(numberOfColors: .none, pointColor: nil, colors: []),
             flowers: [],
             alternative: .none,
-            assign: Assign(packagingAssignType: .none, text: ""),
+            packagingAssign: .init(assign: .none, text: ""),
             price: .init(min: 0, max: 150000),
             requirement: .init(text: "", images: [])
         )
@@ -78,9 +78,9 @@ class DataManager: BouquetDataManaging {
         bouquetData?.alternative = alternative
     }
     
-    func setAssign(_ assign: Assign) {
+    func setPackagingAssign(_ assign: BouquetData.PackagingAssign) {
         if bouquetData == nil { reset() }
-        bouquetData?.assign = assign
+        bouquetData?.packagingAssign = assign
     }
     
     func setPrice(_ price: BouquetData.Price) {
@@ -115,8 +115,8 @@ class DataManager: BouquetDataManaging {
         return bouquetData?.alternative ?? .none
     }
     
-    func getAssign() -> Assign {
-        return bouquetData?.assign ?? Assign(packagingAssignType: .none, text: "")
+    func getPackagingAssign() -> BouquetData.PackagingAssign {
+        return bouquetData?.packagingAssign ?? .init(assign: .none, text: "")
     }
     
     func getPrice() -> BouquetData.Price {
