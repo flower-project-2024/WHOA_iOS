@@ -12,7 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var price: String?
     private var requirementPhotos: [ImageFile] = []
     private var requirementText: String?
     
@@ -90,8 +89,7 @@ final class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(FlowerPriceVC, animated: true)
     }
     
-    func showPhotoSelectionVC(price: String) {
-        self.price = price
+    func showPhotoSelectionVC() {
         let viewModel = PhotoSelectionViewModel()
         let photoSelectionVC = PhotoSelectionViewController(viewModel: viewModel)
         photoSelectionVC.coordinator = self
@@ -110,7 +108,7 @@ final class CustomizingCoordinator: Coordinator {
             flowers: [],
             alternative: .none,
             assign: Assign(packagingAssignType: .none, text: ""),
-            priceRange: price ?? "",
+            priceRange: "",
             requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
         )
         

@@ -12,9 +12,18 @@ final class FlowerPriceViewModel {
     
     // MARK: - Properties
     
+    let dataManager: BouquetDataManaging
     @Published var flowerPriceModel = FlowerPriceModel(minPrice: 0, maxPrice: 150000)
-    
     var cancellables = Set<AnyCancellable>()
+    
+    
+    // MARK: - Initialize
+    
+    init(dataManager: BouquetDataManaging = DataManager.shared) {
+        self.dataManager = dataManager
+        let price = dataManager.getPrice()
+        setPrice(min: Double(price.min), max: Double(price.max))
+    }
     
     // MARK: - Functions
     
