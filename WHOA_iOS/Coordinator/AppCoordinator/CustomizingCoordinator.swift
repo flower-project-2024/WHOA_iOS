@@ -12,8 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var packagingAssign: PackagingAssignType = .managerAssign
-    private var packagingRequirement: String?
     private var price: String?
     private var requirementPhotos: [ImageFile] = []
     private var requirementText: String?
@@ -85,10 +83,7 @@ final class CustomizingCoordinator: Coordinator {
         }
     }
     
-    func showFlowerPriceVC(packagingAssign: PackagingAssignType, packagingRequirement: String?) {
-        self.packagingAssign = packagingAssign
-        self.packagingRequirement = packagingRequirement
-        
+    func showFlowerPriceVC() {
         let viewModel = FlowerPriceViewModel()
         let FlowerPriceVC = FlowerPriceViewController(viewModel: viewModel)
         FlowerPriceVC.coordinator = self
@@ -114,7 +109,7 @@ final class CustomizingCoordinator: Coordinator {
             colors: [],
             flowers: [],
             alternative: .none,
-            assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
+            assign: Assign(packagingAssignType: .none, text: ""),
             priceRange: price ?? "",
             requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
         )
