@@ -5,16 +5,23 @@
 //  Created by KSH on 3/14/24.
 //
 
-import UIKit
+import Foundation
 
 final class PhotoSelectionViewModel {
     
     // MARK: - Properties
     
+    let dataManager: BouquetDataManaging
     let authService = MyPhotoAuthService()
+    var photoSelectionModel: PhotoSelectionModel
     
-    var photos = [UIImage?]()
-    private var photoSelectionModel = PhotoSelectionModel(imageFiles: [], text: nil)
+    // MARK: - Initialize
+    
+    init(dataManager: BouquetDataManaging = DataManager.shared) {
+        self.dataManager = dataManager
+        let requirement = dataManager.getRequirement()
+        photoSelectionModel = PhotoSelectionModel(photoDatas: requirement.images, text: requirement.text)
+    }
     
     // MARK: - Functions
     
@@ -22,35 +29,20 @@ final class PhotoSelectionViewModel {
         return photoSelectionModel
     }
     
-    func addPhotos(photos: [UIImage?]) {
-        self.photos.append(contentsOf: photos)
+    func addPhotos(photos: [Data]) {
+        photoSelectionModel.photoDatas.append(contentsOf: photos)
     }
     
-    func getPhoto(idx: Int) -> UIImage? {
-        if idx >= photos.count {
-            return nil
-        }
-        
-        return photos[idx]
+    func getPhoto(idx: Int) -> Data {
+        return photoSelectionModel.photoDatas[idx]
     }
     
-    func getPhotosArray() -> [UIImage?] {
-        return photos
+    func getPhotosArray() -> [Data] {
+        return photoSelectionModel.photoDatas
     }
     
     func getPhotosCount() -> Int {
-        return photos.count
-    }
-    
-    func convertPhotosToBase64() {
-        photoSelectionModel.imageFiles.removeAll()
-        
-        for i in 0..<photos.count {
-            if let pnaData = photos[i]?.pngData() {
-                let imageFile = ImageFile(filename: "RequirementImage\(i+1)", data: pnaData, type: "image/png")
-                photoSelectionModel.imageFiles.append(imageFile)
-            }
-        }
+        return photoSelectionModel.photoDatas.count
     }
     
     func updateText(_ text: String) {
