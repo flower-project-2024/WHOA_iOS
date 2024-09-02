@@ -12,9 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var requirementPhotos: [ImageFile] = []
-    private var requirementText: String?
-    
     private var actionType: ActionType = .create
     
     
@@ -96,10 +93,7 @@ final class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(photoSelectionVC, animated: true)
     }
     
-    func showCustomizingSummaryVC(requirementPhotos: [ImageFile], requirementText: String?) {
-        self.requirementPhotos = requirementPhotos
-        self.requirementText = requirementText
-        
+    func showCustomizingSummaryVC() {
         // 데이터 가져오는 로직 수정필요
         let model = CustomizingSummaryModel(
             purpose: .none,
@@ -109,7 +103,7 @@ final class CustomizingCoordinator: Coordinator {
             alternative: .none,
             assign: Assign(packagingAssignType: .none, text: ""),
             priceRange: "",
-            requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
+            requirement: Requirement(text: "", imageFiles: [])
         )
         
         let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model, actionType: self.actionType)
