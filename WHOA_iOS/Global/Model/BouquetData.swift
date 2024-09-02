@@ -43,6 +43,6 @@ struct BouquetData {
     
     struct Requirement {
         let text: String?
-        var images: [URL]
+        var images: [Data]
     }
 }
