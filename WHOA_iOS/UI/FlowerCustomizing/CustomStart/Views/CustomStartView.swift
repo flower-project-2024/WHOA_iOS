@@ -47,7 +47,10 @@ final class CustomStartView: UIView {
         // Placeholder
         textField.attributedPlaceholder = NSAttributedString(
             string: "엄마생신 꽃다발",
-            attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray05]
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor.gray05,
+                NSAttributedString.Key.font : UIFont.Pretendard()
+            ]
         )
         return textField
     }()
