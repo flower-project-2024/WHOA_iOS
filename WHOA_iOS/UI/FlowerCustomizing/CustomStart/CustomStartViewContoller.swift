@@ -115,11 +115,11 @@ extension CustomStartViewContoller {
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(view.snp.height).multipliedBy(0.5)
+            $0.height.equalTo(headerView.snp.width).multipliedBy(0.72)
         }
         
         customStartView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(24)
+            $0.top.equalTo(headerView.snp.bottom).offset(37)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(view.snp.height).multipliedBy(0.18)
         }

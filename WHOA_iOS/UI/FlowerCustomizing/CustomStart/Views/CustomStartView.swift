@@ -26,15 +26,15 @@ final class CustomStartView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "어떤 꽃다발을 만들까요?"
-        label.textColor = .gray09
+        label.text = "꽃다발 이름을 정해주세요."
+        label.textColor = .primary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.font = .Pretendard(size: 16, family: .SemiBold)
+        textField.font = .Pretendard(size: 16)
         textField.textColor = .black
         textField.textAlignment = .center
         textField.layer.borderWidth = 1
@@ -114,6 +114,8 @@ final class CustomStartView: UIView {
 
 extension CustomStartView {
     private func setupAutoLayout() {
+        let textFieldMargin = 20
+        
         descriptionLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
@@ -121,8 +123,8 @@ extension CustomStartView {
         
         textField.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(9)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
+            $0.leading.equalToSuperview().offset(textFieldMargin)
+            $0.trailing.equalToSuperview().offset(-textFieldMargin)
             $0.height.equalTo(textField.snp.width).multipliedBy(0.14)
         }
         
@@ -134,7 +136,7 @@ extension CustomStartView {
             $0.top.equalTo(textField.snp.bottom).offset(28)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(textField.snp.height)
-            $0.width.equalTo(startButton.snp.height).multipliedBy(3.5)
+            $0.width.equalTo(startButton.snp.height).multipliedBy(3.625)
         }
     }
 }
@@ -154,6 +156,6 @@ extension CustomStartView: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-      return true
+        return true
     }
 }
