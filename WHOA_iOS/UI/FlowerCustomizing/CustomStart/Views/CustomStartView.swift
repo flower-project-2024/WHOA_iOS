@@ -43,15 +43,13 @@ final class CustomStartView: UIView {
         textField.layer.cornerRadius = 8.0
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
+        
+        // Placeholder
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "엄마생신 꽃다발",
+            attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray05]
+        )
         return textField
-    }()
-    
-    private let placeholder: UILabel = {
-        let label = UILabel()
-        label.text = "엄마생신 꽃다발"
-        label.textColor = .gray05
-        label.font = .Pretendard()
-        return label
     }()
     
     private lazy var startButton: UIButton = {
@@ -92,7 +90,6 @@ final class CustomStartView: UIView {
             startButton
         ].forEach(addSubview(_:))
         
-        textField.addSubview(placeholder)
         textField.delegate = self
         setupAutoLayout()
     }
@@ -128,10 +125,6 @@ extension CustomStartView {
             $0.height.equalTo(textField.snp.width).multipliedBy(0.14)
         }
         
-        placeholder.snp.makeConstraints {
-            $0.centerX.centerY.equalToSuperview()
-        }
-        
         startButton.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom).offset(28)
             $0.centerX.equalToSuperview()
@@ -144,16 +137,6 @@ extension CustomStartView {
 // MARK: - UITextFieldDelegate
 
 extension CustomStartView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        placeholder.isHidden = true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text?.isEmpty == true {
-            placeholder.isHidden = false
-        }
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
