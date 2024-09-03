@@ -44,4 +44,19 @@ final class BouquetListModel {
     func removeBouquet(withId bouquetId: Int) {
         bouquetModelList.removeAll { $0.bouquetId == bouquetId }
     }
+    
+    func getBouquetsByType(_ type: BouquetStatusType) -> [BouquetModel] {
+        switch type {
+        case .made:
+            return bouquetModelList.filter { bouquet in
+                bouquet.bouquetStatus == .made
+            }
+        case .saved:
+            return bouquetModelList.filter { bouquet in
+                bouquet.bouquetStatus == .saved
+            }
+        default:
+            return bouquetModelList
+        }
+    }
 }
