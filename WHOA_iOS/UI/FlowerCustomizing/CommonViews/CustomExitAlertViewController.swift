@@ -109,6 +109,7 @@ final class CustomExitAlertViewController: UIViewController {
     @objc
     private func exitButtonTapped() {
         dismiss(animated: true) { [weak self] in
+            DataManager.shared.reset()
             self?.currentVC?.tabBarController?.selectedIndex = 0
             self?.currentVC?.navigationController?.popToRootViewController(animated: true)
             
