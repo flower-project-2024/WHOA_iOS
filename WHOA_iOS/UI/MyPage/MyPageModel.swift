@@ -10,4 +10,5 @@ struct BouquetModel {
     let bouquetTitle: String
     let bouquetCreatedAt: String
     let bouquetImgPaths: [String]
+    let bouquetStatus: BouquetStatusType
 }
