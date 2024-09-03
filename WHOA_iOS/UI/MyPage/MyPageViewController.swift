@@ -95,17 +95,17 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         return vc
     }()
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
-        tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
-        tableView.separatorStyle = .none
-        tableView.sectionHeaderHeight = .zero
-        tableView.sectionFooterHeight = cellVerticalSpacing
-        return tableView
-    }()
+//    private lazy var tableView: UITableView = {
+//        let tableView = UITableView()
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
+//        tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
+//        tableView.separatorStyle = .none
+//        tableView.sectionHeaderHeight = .zero
+//        tableView.sectionFooterHeight = cellVerticalSpacing
+//        return tableView
+//    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -213,7 +213,8 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private func bind() {
         viewModel.bouquetModelListDidChange = { [weak self] in
             DispatchQueue.main.async {
-                self?.vc1.setTableViewData(self?.viewModel)
+                self?.vc1.setTableViewData(self?.viewModel.getBouquetsByType(.all) ?? [])
+                self?.vc2.setTableViewData(self?.viewModel.getBouquetsByType(.saved) ?? [])
             }
         }
     }

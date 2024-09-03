@@ -8,22 +8,17 @@
 import UIKit
 import SnapKit
 
-enum MyPageType {
-    case all
-    case saved
-    case made
-}
-
 class MyPagePageViewController: UIViewController {
     
     // MARK: - Properties
     
-    let type: MyPageType
+    let type: BouquetStatusType
     let myPageVC: MyPageViewController
     
     private let cellVerticalSpacing: CGFloat = 24
     private var noRequest = true
-    private lazy var viewModel: BouquetListModel = BouquetListModel()
+    private var bouquetList: [BouquetModel] = []
+    //private lazy var viewModel: BouquetListModel = BouquetListModel()
     
     // MARK: - Views
     
@@ -51,7 +46,7 @@ class MyPagePageViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    init(type: MyPageType, parentVC: MyPageViewController) {
+    init(type: BouquetStatusType, parentVC: MyPageViewController) {
         self.type = type
         self.myPageVC = parentVC
 
@@ -86,8 +81,9 @@ class MyPagePageViewController: UIViewController {
         }
     }
     
-    func setTableViewData(_ viewModel: BouquetListModel?) {
-        self.viewModel = viewModel!
+    func setTableViewData(_ bouquetList: [BouquetModel]) {
+        //self.viewModel = viewModel!
+        self.bouquetList = bouquetList
         self.tableView.reloadData()
     }
 }
@@ -103,7 +99,7 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
 //    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = viewModel.getBouquetModelCount()
+        let count = bouquetList.count
         noRequest = count == 0 ? true : false
         return count == 0 ? 1 : count
     }
@@ -130,7 +126,8 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             
-            let model = viewModel.getBouquetModel(index: indexPath.row)
+            //let model = viewModel.getBouquetModel(index: indexPath.row)
+            let model = bouquetList[indexPath.row]
             print(model)
             cell.myPageVC = myPageVC
             cell.configure(model: model)
@@ -142,8 +139,9 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("noRequest: \(noRequest)")
         if !noRequest {
-            let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
-            let vc = RequestDetailViewController(with: bouquetModel)
+            //let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
+            let model = bouquetList[indexPath.row]
+            let vc = RequestDetailViewController(with: model)
             vc.hidesBottomBarWhenPushed = true
             myPageVC.navigationController?.pushViewController(vc, animated: true)
             return
