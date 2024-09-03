@@ -15,6 +15,8 @@ final class NetworkManager {
     private init() {}
     
     /// 요구서 전체를 조회하는 함수입니다.
+    /// - Parameters:
+    ///   - memberId: 멤버 id
     func fetchAllBouquets(
         memberId: String,
         _ networkService: NetworkServable = NetworkService(),
