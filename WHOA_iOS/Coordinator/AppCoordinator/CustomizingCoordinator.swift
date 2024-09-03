@@ -94,19 +94,7 @@ final class CustomizingCoordinator: Coordinator {
     }
     
     func showCustomizingSummaryVC() {
-        // 데이터 가져오는 로직 수정필요
-        let model = CustomizingSummaryModel(
-            purpose: .none,
-            numberOfColors: .none,
-            colors: [],
-            flowers: [],
-            alternative: .none,
-            assign: Assign(packagingAssignType: .none, text: ""),
-            priceRange: "",
-            requirement: Requirement(text: "", imageFiles: [])
-        )
-        
-        let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model, actionType: self.actionType)
+        let viewModel = CustomizingSummaryViewModel(actionType: self.actionType)
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)

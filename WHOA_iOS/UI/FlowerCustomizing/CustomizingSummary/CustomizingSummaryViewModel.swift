@@ -18,25 +18,30 @@ final class CustomizingSummaryViewModel {
     
     // MARK: - Properties
     
+    private let dataManager: BouquetDataManaging
     var customizingSummaryModel: CustomizingSummaryModel
     private let networkManager: NetworkManager
     var actionType: ActionType
     let memberId: String?
     
-    @Published var requestTitle = "꽃다발 요구서1"
+    @Published var requestTitle: String
     @Published var bouquetId: Int?
     @Published var networkError: NetworkError?
     @Published var imageUploadSuccess: Bool = false
     
     var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Initialize
+    
     init(
-        customizingSummaryModel: CustomizingSummaryModel,
+        dataManager: BouquetDataManaging = DataManager.shared,
         networkManager: NetworkManager = .shared,
         keychainManager: KeychainManager = .shared,
         actionType: ActionType = .create
     ) {
-        self.customizingSummaryModel = customizingSummaryModel
+        self.dataManager = dataManager
+        self.requestTitle = dataManager.getRequestTitle()
+        self.customizingSummaryModel = .init(from: dataManager.getBouquet())
         self.networkManager = networkManager
         self.memberId = keychainManager.loadMemberId()
         self.actionType = actionType
