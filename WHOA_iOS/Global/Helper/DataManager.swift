@@ -11,6 +11,8 @@ protocol BouquetDataManaging {
     func reset()
     
     // MARK: - Set
+    
+    func setBouquet(_ bouquetData: BouquetData)
     func setRequestTitle(_ title: String)
     func setPurpose(_ purpose: PurposeType)
     func setColorScheme(_ colorScheme: BouquetData.ColorScheme)
@@ -21,6 +23,8 @@ protocol BouquetDataManaging {
     func setRequirement(_ requirement: BouquetData.Requirement)
     
     // MARK: - Get
+    
+    func getBouquet() -> BouquetData
     func getRequestTitle() -> String
     func getPurpose() -> PurposeType
     func getColorScheme() -> BouquetData.ColorScheme
@@ -32,9 +36,19 @@ protocol BouquetDataManaging {
 }
 
 class DataManager: BouquetDataManaging {
+    
     static let shared = DataManager()
     
-    private var bouquetData: BouquetData?
+    private var bouquetData: BouquetData = BouquetData(
+        requestTitle: "",
+        purpose: .none,
+        colorScheme: .init(numberOfColors: .none, pointColor: nil, colors: []),
+        flowers: [],
+        alternative: .none,
+        packagingAssign: .init(assign: .none, text: ""),
+        price: .init(min: 0, max: 150000),
+        requirement: .init(text: "", images: [])
+    )
     
     private init() {}
     
@@ -53,77 +67,77 @@ class DataManager: BouquetDataManaging {
     
     // MARK: - Set
     
+    func setBouquet(_ bouquetData: BouquetData) {
+        self.bouquetData = bouquetData
+    }
+    
     func setRequestTitle(_ title: String) {
-        if bouquetData == nil { reset() }
-        bouquetData?.requestTitle = title
+        bouquetData.requestTitle = title
     }
     
     func setPurpose(_ purpose: PurposeType) {
-        if bouquetData == nil { reset() }
-        bouquetData?.purpose = purpose
+        bouquetData.purpose = purpose
     }
     
     func setColorScheme(_ colorScheme: BouquetData.ColorScheme) {
-        if bouquetData == nil { reset() }
-        bouquetData?.colorScheme = colorScheme
+        bouquetData.colorScheme = colorScheme
     }
     
     func setFlowers(_ flowers: [BouquetData.Flower]) {
-        if bouquetData == nil { reset() }
-        bouquetData?.flowers = flowers
+        bouquetData.flowers = flowers
     }
     
     func setAlternative(_ alternative: AlternativesType) {
-        if bouquetData == nil { reset() }
-        bouquetData?.alternative = alternative
+        bouquetData.alternative = alternative
     }
     
     func setPackagingAssign(_ assign: BouquetData.PackagingAssign) {
-        if bouquetData == nil { reset() }
-        bouquetData?.packagingAssign = assign
+        bouquetData.packagingAssign = assign
     }
     
     func setPrice(_ price: BouquetData.Price) {
-        if bouquetData == nil { reset() }
-        bouquetData?.price = price
+        bouquetData.price = price
     }
     
     func setRequirement(_ requirement: BouquetData.Requirement) {
-        if bouquetData == nil { reset() }
-        bouquetData?.requirement = requirement
+        bouquetData.requirement = requirement
     }
     
     // MARK: - Get
     
+    func getBouquet() -> BouquetData {
+        return bouquetData
+    }
+    
     func getRequestTitle() -> String {
-        return bouquetData?.requestTitle ?? ""
+        return bouquetData.requestTitle
     }
     
     func getPurpose() -> PurposeType {
-        return bouquetData?.purpose ?? .none
+        return bouquetData.purpose
     }
     
     func getColorScheme() -> BouquetData.ColorScheme {
-        return bouquetData?.colorScheme ?? BouquetData.ColorScheme(numberOfColors: .none, pointColor: nil, colors: [])
+        return bouquetData.colorScheme
     }
     
     func getFlowers() -> [BouquetData.Flower] {
-        return bouquetData?.flowers ?? []
+        return bouquetData.flowers
     }
     
     func getAlternative() -> AlternativesType {
-        return bouquetData?.alternative ?? .none
+        return bouquetData.alternative
     }
     
     func getPackagingAssign() -> BouquetData.PackagingAssign {
-        return bouquetData?.packagingAssign ?? .init(assign: .none, text: "")
+        return bouquetData.packagingAssign
     }
     
     func getPrice() -> BouquetData.Price {
-        return bouquetData?.price ?? BouquetData.Price(min: 0, max: 150000)
+        return bouquetData.price
     }
     
     func getRequirement() -> BouquetData.Requirement {
-        return bouquetData?.requirement ?? BouquetData.Requirement(text: "", images: [])
+        return bouquetData.requirement
     }
 }
