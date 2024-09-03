@@ -82,6 +82,7 @@ final class CustomizingSummaryViewController: UIViewController {
         setupUI()
         setupTapGesture()
         requestDetailView.config(model: viewModel.customizingSummaryModel)
+        requestDetailView.configureRequestTitle(title: viewModel.requestTitle)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -248,10 +249,6 @@ extension CustomizingSummaryViewController {
 // MARK: - UITextFieldDelegate
 
 extension CustomizingSummaryViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        requestDetailView.requestTitleTextFieldPlaceholder.isHidden = true
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -259,8 +256,7 @@ extension CustomizingSummaryViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.text == "" {
-            requestDetailView.requestTitleTextFieldPlaceholder.isHidden = false
-            viewModel.getRequestTitle(title: requestDetailView.requestTitleTextFieldPlaceholder.text)
+            viewModel.getRequestTitle(title: requestDetailView.requestTitleTextField.placeholder)
         } else {
             viewModel.getRequestTitle(title: textField.text)
         }
