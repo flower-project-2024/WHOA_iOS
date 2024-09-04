@@ -13,8 +13,8 @@ final class CustomStartViewContoller: UIViewController {
     // MARK: - Properties
     
     private let viewModel: CustomStartViewModel
-    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
+    private var cancellables = Set<AnyCancellable>()
     
     private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
         let tapGesture = UITapGestureRecognizer()
@@ -53,6 +53,7 @@ final class CustomStartViewContoller: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        customStartView.clearTextField()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -41,7 +41,7 @@ final class CustomStartViewModel: ViewModel {
             .store(in: &cancellables)
         
         input.startButtonTapped
-            .sink { [weak self] in
+            .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.dataManager.setRequestTitle(self.textInputSubject.value)
                 self.showPurposeSubject.send()
