@@ -75,7 +75,7 @@ final class CustomStartViewContoller: UIViewController {
     
     private func bind() {
         let input = CustomStartViewModel.Input(
-            textInput: customStartView.textInputTappedPublisher,
+            textInput: customStartView.textInputPublisher,
             startButtonTapped: customStartView.startButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)

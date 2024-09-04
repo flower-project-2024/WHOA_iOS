@@ -15,7 +15,7 @@ final class CustomStartView: UIView {
     private let startButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
-    var textInputTappedPublisher: AnyPublisher<String, Never> {
+    var textInputPublisher: AnyPublisher<String, Never> {
         textField.publisher
     }
     
