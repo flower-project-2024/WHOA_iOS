@@ -1,5 +1,5 @@
 //
-//  CustomStartViewContoller.swift
+//  CustomStartViewController.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 8/15/24.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class CustomStartViewContoller: UIViewController {
+final class CustomStartViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -109,7 +109,7 @@ final class CustomStartViewContoller: UIViewController {
 
 // MARK: - AutoLayout
 
-extension CustomStartViewContoller {
+extension CustomStartViewController {
     private func setupAutoLayout() {
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)

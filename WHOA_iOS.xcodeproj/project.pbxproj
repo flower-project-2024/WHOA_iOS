@@ -76,7 +76,7 @@
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
 		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
-		54086BDF2C6DA1B400286BAE /* CustomStartViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */; };
+		54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */; };
 		54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */; };
 		54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE32C6DAB5A00286BAE /* CustomStartView.swift */; };
 		54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */; };
@@ -273,7 +273,7 @@
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
 		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
-		54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewContoller.swift; sourceTree = "<group>"; };
+		54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewController.swift; sourceTree = "<group>"; };
 		54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartHeaderView.swift; sourceTree = "<group>"; };
 		54086BE32C6DAB5A00286BAE /* CustomStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartView.swift; sourceTree = "<group>"; };
 		54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewModel.swift; sourceTree = "<group>"; };
@@ -578,7 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				54086BE02C6DA2BA00286BAE /* Views */,
-				54086BDE2C6DA1B400286BAE /* CustomStartViewContoller.swift */,
+				54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */,
 				54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */,
 			);
 			path = CustomStart;
@@ -1322,7 +1322,7 @@
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
-				54086BDF2C6DA1B400286BAE /* CustomStartViewContoller.swift in Sources */,
+				54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */,
 				54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */,
 				0857D6AE2C429F71006C1FEF /* CustomTabBar.swift in Sources */,
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,

@@ -24,7 +24,7 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Functions
     
     func start() {
-        let customStartVC = CustomStartViewContoller()
+        let customStartVC = CustomStartViewController()
         customStartVC.coordinator = self
         navigationController.pushViewController(customStartVC, animated: true)
     }
