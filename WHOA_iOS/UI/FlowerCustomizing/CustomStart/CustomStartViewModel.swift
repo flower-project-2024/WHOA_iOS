@@ -29,7 +29,7 @@ final class CustomStartViewModel: ViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
     }
     

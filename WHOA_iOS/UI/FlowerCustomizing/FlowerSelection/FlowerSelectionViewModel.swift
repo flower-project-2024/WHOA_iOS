@@ -24,7 +24,7 @@ final class FlowerSelectionViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         self.purposeType = dataManager.getPurpose()
         dataManager.getFlowers().forEach { flower in

@@ -37,7 +37,7 @@ final class PurposeViewModel: ViewModel {
         
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         self.purposeSubject = CurrentValueSubject<PurposeType, Never>(dataManager.getPurpose())
     }

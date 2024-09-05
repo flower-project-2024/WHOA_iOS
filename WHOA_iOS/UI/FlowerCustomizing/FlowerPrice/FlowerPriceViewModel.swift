@@ -19,7 +19,7 @@ final class FlowerPriceViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         let price = dataManager.getPrice()
         setPrice(min: Double(price.min), max: Double(price.max))
