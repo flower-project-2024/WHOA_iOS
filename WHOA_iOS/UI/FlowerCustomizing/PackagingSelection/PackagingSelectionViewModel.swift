@@ -12,25 +12,35 @@ final class PackagingSelectionViewModel {
     
     // MARK: - Properties
     
+    let dataManager: BouquetDataManaging
     @Published var packagingSelectionModel = PackagingSelectionModel(packagingAssignButtonType: nil, text: "")
     @Published var isNextButtonActive = false
-    
     var cancellables = Set<AnyCancellable>()
     
     
-    // MARK: - Initialization
+    // MARK: - Initialize
     
-    init() {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
+        self.dataManager = dataManager
+        
         $packagingSelectionModel
             .map { model -> Bool in
-                return model.packagingAssignButtonType == .managerAssign ?
-                true : !model.text.isEmpty
+                guard model.packagingAssignButtonType != .none else { return false }
+                return model.packagingAssignButtonType == .managerAssign ? true : !model.text.isEmpty
             }
             .assign(to: \.isNextButtonActive, on: self)
             .store(in: &cancellables)
+        configData(dataManager.getPackagingAssign())
     }
     
     // MARK: - Functions
+    
+    private func configData(_ assign: BouquetData.PackagingAssign) {
+        getPackagingAssign(packagingAssign: assign.assign)
+        if let text = assign.text, !text.isEmpty {
+            updateText(text)
+        }
+    }
     
     func updateText(_ text: String) {
         packagingSelectionModel.text = text

@@ -11,11 +11,13 @@ import Combine
 final class CustomStartView: UIView {
     
     // MARK: - Properties
+    
     private let startButtonTappedSubject = PassthroughSubject<Void, Never>()
+    private let textInputSubject = CurrentValueSubject<String, Never>("")
     private var cancellables = Set<AnyCancellable>()
     
-    var textInputTappedPublisher: AnyPublisher<String, Never> {
-        textField.publisher
+    var textInputPublisher: AnyPublisher<String, Never> {
+        textInputSubject.eraseToAnyPublisher()
     }
     
     var startButtonTappedPublisher: AnyPublisher<Void, Never> {
@@ -76,6 +78,7 @@ final class CustomStartView: UIView {
     init() {
         super.init(frame: .zero)
         setupUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -95,6 +98,19 @@ final class CustomStartView: UIView {
         
         textField.delegate = self
         setupAutoLayout()
+    }
+    
+    private func bind() {
+        textField.publisher
+            .sink { [weak self] text in
+                self?.textInputSubject.send(text)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func clearTextField() {
+        textInputSubject.send("")
+        textField.text = ""
     }
     
     func updateButtonState(isEnabled: Bool) {

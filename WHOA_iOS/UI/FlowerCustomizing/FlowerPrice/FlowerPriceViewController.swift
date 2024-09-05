@@ -123,6 +123,10 @@ final class FlowerPriceViewController: UIViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] model in
                 self?.valueLabel.text = self?.viewModel.getPriceString()
+                self?.rangeSlider.lower = Double(model.minPrice)
+                self?.rangeSlider.upper = Double(model.maxPrice)
+                self?.nextButton.isActive = true
+                self?.rangeSlider.trackTintColor = .second1
             }
             .store(in: &viewModel.cancellables)
     }
@@ -131,8 +135,6 @@ final class FlowerPriceViewController: UIViewController {
     
     @objc
     private func changeValue() {
-        nextButton.isActive = true
-        rangeSlider.trackTintColor = .second1
         viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
     }
     
@@ -143,7 +145,9 @@ final class FlowerPriceViewController: UIViewController {
     
     @objc
     private func nextButtonTapped() {
-        coordinator?.showPhotoSelectionVC(price: viewModel.getPriceString())
+        let price = viewModel.flowerPriceModel
+        viewModel.dataManager.setPrice(BouquetData.Price(min: price.minPrice, max: price.maxPrice))
+        coordinator?.showPhotoSelectionVC()
     }
 }
 

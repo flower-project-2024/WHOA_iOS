@@ -1,5 +1,5 @@
 //
-//  CustomStartViewContoller.swift
+//  CustomStartViewController.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 8/15/24.
@@ -8,13 +8,13 @@
 import UIKit
 import Combine
 
-final class CustomStartViewContoller: UIViewController {
+final class CustomStartViewController: UIViewController {
     
     // MARK: - Properties
     
     private let viewModel: CustomStartViewModel
-    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
+    private var cancellables = Set<AnyCancellable>()
     
     private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
         let tapGesture = UITapGestureRecognizer()
@@ -53,6 +53,7 @@ final class CustomStartViewContoller: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
+        customStartView.clearTextField()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -75,33 +76,31 @@ final class CustomStartViewContoller: UIViewController {
     
     private func bind() {
         let input = CustomStartViewModel.Input(
-            textInput: customStartView.textInputTappedPublisher,
+            textInput: customStartView.textInputPublisher,
             startButtonTapped: customStartView.startButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)
         
         output.requestTitle
-            .sink(receiveValue: { [weak self] title in
-                guard let self = self else { return }
-                
+            .sink { [weak self] title in
                 if title.isEmpty {
-                    self.customStartView.updateButtonState(isEnabled: false)
+                    self?.customStartView.updateButtonState(isEnabled: false)
                 } else {
-                    self.customStartView.updateButtonState(isEnabled: true)
+                    self?.customStartView.updateButtonState(isEnabled: true)
                 }
-            })
+            }
             .store(in: &cancellables)
         
         output.showPurpose
-            .sink { [weak self] title in
-                self?.coordinator?.showPurposeVC(requestTitle: title)
+            .sink { [weak self] _ in
+                self?.coordinator?.showPurposeVC()
             }
             .store(in: &cancellables)
     }
     
     private func observe() {
         viewTapPublisher
-            .sink { [weak self] in
+            .sink { [weak self] _ in
                 self?.view.endEditing(true)
             }
             .store(in: &cancellables)
@@ -110,7 +109,7 @@ final class CustomStartViewContoller: UIViewController {
 
 // MARK: - AutoLayout
 
-extension CustomStartViewContoller {
+extension CustomStartViewController {
     private func setupAutoLayout() {
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)

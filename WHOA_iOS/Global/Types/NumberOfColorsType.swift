@@ -13,6 +13,7 @@ enum NumberOfColorsType: String {
     case twoColor = "두 가지 색"
     case colorful = "컬러풀"
     case pointColor = "포인트 컬러"
+    case none
     
     func toDTOString() -> String {
             switch self {
@@ -24,6 +25,8 @@ enum NumberOfColorsType: String {
                 return "COLORFULL"
             case .pointColor:
                 return "POINT_COLOR"
+            case .none:
+                return "none"
             }
         }
 }

@@ -13,7 +13,6 @@ final class FlowerColorPickerViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: FlowerColorPickerViewModel
-    
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -251,7 +250,18 @@ final class FlowerColorPickerViewController: UIViewController {
     
     @objc
     func nextButtonTapped() {
-        coordinator?.showFlowerSelectionVC(numberOfColors: viewModel.getNumberOfColors(), colors: viewModel.getColors())
+        let numberOfColors = viewModel.getNumberOfColors()
+        var colors: [String] = viewModel.getColors()
+        var pointColor: String?
+        
+        if numberOfColors == .pointColor {
+            pointColor = colors.removeFirst()
+        }
+        
+        let colorScheme = BouquetData.ColorScheme(numberOfColors: numberOfColors, pointColor: pointColor, colors: colors)
+        
+        viewModel.dataManager.setColorScheme(colorScheme)
+        coordinator?.showFlowerSelectionVC()
     }
 }
 
