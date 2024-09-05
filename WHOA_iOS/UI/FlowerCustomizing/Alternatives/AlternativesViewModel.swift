@@ -20,7 +20,7 @@ final class AlternativesViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         getAlternatives(alternatives: dataManager.getAlternative())
     }

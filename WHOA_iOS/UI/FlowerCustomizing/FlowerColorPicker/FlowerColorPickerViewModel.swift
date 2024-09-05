@@ -20,7 +20,7 @@ final class FlowerColorPickerViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         let colorScheme = dataManager.getColorScheme()
         flowerColorPickerModel.numberOfColors = colorScheme.numberOfColors

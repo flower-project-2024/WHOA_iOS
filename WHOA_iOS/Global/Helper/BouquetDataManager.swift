@@ -1,5 +1,5 @@
 //
-//  DataManager.swift
+//  BouquetDataManager.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 8/25/24.
@@ -35,9 +35,9 @@ protocol BouquetDataManaging {
     func getRequirement() -> BouquetData.Requirement
 }
 
-class DataManager: BouquetDataManaging {
+class BouquetDataManager: BouquetDataManaging {
     
-    static let shared = DataManager()
+    static let shared = BouquetDataManager()
     
     private var bouquetData: BouquetData = BouquetData(
         requestTitle: "",

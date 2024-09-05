@@ -34,7 +34,7 @@ final class CustomizingSummaryViewModel {
     // MARK: - Initialize
     
     init(
-        dataManager: BouquetDataManaging = DataManager.shared,
+        dataManager: BouquetDataManaging = BouquetDataManager.shared,
         networkManager: NetworkManager = .shared,
         keychainManager: KeychainManager = .shared,
         actionType: ActionType = .create

@@ -17,7 +17,7 @@ final class PhotoSelectionViewModel {
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = DataManager.shared) {
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         let requirement = dataManager.getRequirement()
         photoSelectionModel = PhotoSelectionModel(photoDatas: requirement.images, text: requirement.text)
