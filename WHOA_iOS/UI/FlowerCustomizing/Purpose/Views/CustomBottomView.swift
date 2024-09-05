@@ -12,8 +12,19 @@ final class CustomBottomView: UIView {
     
     // MARK: - Properties
     
+    enum ButtonState {
+        case disabled
+        case enabled
+        case hidden
+    }
+    
+    private let backButtonTappedSubject = PassthroughSubject<Void, Never>()
     private let nextButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
+    
+    var backButtonTappedPublisher: AnyPublisher<Void, Never> {
+        nextButtonTappedSubject.eraseToAnyPublisher()
+    }
     
     var nextButtonTappedPublisher: AnyPublisher<Void, Never> {
         nextButtonTappedSubject.eraseToAnyPublisher()
@@ -25,16 +36,15 @@ final class CustomBottomView: UIView {
     
     private lazy var backButton: UIButton = {
         let button = buildMoveButton(title: "이전")
-        button.backgroundColor = .gray03
-        button.setTitleColor(.gray05, for: .normal)
+        button.layer.borderWidth = 1
+        button.addAction(UIAction { [weak self] _ in
+            self?.backButtonTappedSubject.send()
+        }, for: .touchUpInside)
         return button
     }()
     
     private lazy var nextButton: UIButton = {
         let button = buildMoveButton(title: "다음")
-        button.backgroundColor = .primary
-        button.setTitleColor(.gray05, for: .normal)
-        
         button.addAction(UIAction { [weak self] _ in
             self?.nextButtonTappedSubject.send()
         }, for: .touchUpInside)
@@ -51,8 +61,10 @@ final class CustomBottomView: UIView {
     
     // MARK: - Initialize
     
-    init() {
+    init(backButtonState: ButtonState, nextButtonEnabled: Bool) {
         super.init(frame: .zero)
+        configBackButton(backButtonState)
+        configNextButton(nextButtonEnabled)
         setupUI()
     }
     
@@ -81,6 +93,29 @@ final class CustomBottomView: UIView {
         button.layer.cornerRadius = 10
         button.setTitleColor(.gray05, for: .normal)
         return button
+    }
+    
+    private func configBackButton(_ backButtonState: ButtonState) {
+        switch backButtonState {
+        case .enabled:
+            backButton.isEnabled = true
+            backButton.backgroundColor = .gray01
+            backButton.setTitleColor(.primary, for: .normal)
+            backButton.layer.borderColor = UIColor.primary.cgColor
+        case .disabled:
+            backButton.isEnabled = false
+            backButton.backgroundColor = .gray03
+            backButton.setTitleColor(.gray05, for: .normal)
+            backButton.layer.borderColor = UIColor.clear.cgColor
+        case .hidden:
+            backButton.isHidden = true
+        }
+    }
+    
+    private func configNextButton(_ nextButtonState: Bool) {
+        nextButton.isEnabled = nextButtonState
+        nextButton.backgroundColor = nextButtonState ? .primary : .gray03
+        nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)
     }
 }
 

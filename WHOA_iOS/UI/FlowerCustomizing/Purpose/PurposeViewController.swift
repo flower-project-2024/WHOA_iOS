@@ -27,7 +27,7 @@ final class PurposeViewController: UIViewController {
         description: "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요"
     )
     private let purposeView = PurposeView()
-    private let bottomView = CustomBottomView()
+    private let bottomView = CustomBottomView(backButtonState: .disabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
