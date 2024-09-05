@@ -15,15 +15,24 @@ final class CustomHeaderView: UIView {
     private let coordinator: CustomizingCoordinator?
     
     private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
-    private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요", numberOfLines: 2)
+    private let progressHStackView: CustomProgressHStackView
+    private let titleLabel: CustomTitleLabel
+    private let descriptionLabel: CustomDescriptionLabel
     
     // MARK: - Initialize
     
-    init(currentVC: UIViewController, coordinator: CustomizingCoordinator?) {
+    init(
+        currentVC: UIViewController,
+        coordinator: CustomizingCoordinator?,
+        numerator: Float,
+        title: String,
+        description: String
+    ) {
         self.currentVC = currentVC
         self.coordinator = coordinator
+        self.progressHStackView = CustomProgressHStackView(numerator: numerator, denominator: 7)
+        self.titleLabel = CustomTitleLabel(text: title)
+        self.descriptionLabel = CustomDescriptionLabel(text: description, numberOfLines: 2)
         super.init(frame: .zero)
         
         setupUI()

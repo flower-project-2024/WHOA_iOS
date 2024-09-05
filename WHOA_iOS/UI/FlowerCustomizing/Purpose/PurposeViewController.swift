@@ -19,7 +19,13 @@ final class PurposeViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var headerView = CustomHeaderView(currentVC: self, coordinator: coordinator)
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 1,
+        title: "꽃다발 구매 목적",
+        description: "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요"
+    )
     private let purposeView = PurposeView()
     private let bottomView = CustomBottomView()
     
