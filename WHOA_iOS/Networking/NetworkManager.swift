@@ -246,4 +246,25 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 꽃다발의 status를 제작 완료로 처리하는 함수입니다.
+    /// - Parameters:
+    ///   - memberId: 멤버 id
+    ///   - bouquetId: 꽃다발 요구서 id
+    func patchBouquetStatus(memberId: String,
+                            bouquetId: Int,
+                            _ networkService: NetworkServable = NetworkService(),
+                            completion: @escaping (Result<BouquetStatusDTO, NetworkError>) -> Void
+    ) {
+        let api = PatchBouquetStatusAPI(memberID: memberId, bouquetId: bouquetId)
+        
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
