@@ -12,17 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var purpose: PurposeType = .none
-    private var numberOfColors: NumberOfColorsType = .oneColor
-    private var colors: [String] = []
-    private var flowers: [Flower] = []
-    private var alternative: AlternativesType = .colorOriented
-    private var packagingAssign: PackagingAssignType = .managerAssign
-    private var packagingRequirement: String?
-    private var price: String?
-    private var requirementPhotos: [ImageFile] = []
-    private var requirementText: String?
-    
     private var actionType: ActionType = .create
     
     
@@ -35,42 +24,38 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Functions
     
     func start() {
-        showPurposeVC()
+        let customStartVC = CustomStartViewController()
+        customStartVC.coordinator = self
+        navigationController.pushViewController(customStartVC, animated: true)
     }
     
     func setActionType(actionType: ActionType) {
         self.actionType = actionType
     }
     
-    private func showPurposeVC() {
+    func showPurposeVC() {
         let viewModel = PurposeViewModel()
         let purposeVC = PurposeViewController(viewModel: viewModel)
         purposeVC.coordinator = self
         navigationController.pushViewController(purposeVC, animated: true)
     }
     
-    func showColorPickerVC(purposeType: PurposeType) {
-        self.purpose = purposeType
-        
+    func showColorPickerVC() {
         let viewModel = FlowerColorPickerViewModel()
         let flowerColorPickerVC = FlowerColorPickerViewController(viewModel: viewModel)
         flowerColorPickerVC.coordinator = self
         navigationController.pushViewController(flowerColorPickerVC, animated: true)
     }
     
-    func showFlowerSelectionVC(numberOfColors: NumberOfColorsType, colors: [String]) {
-        self.numberOfColors = numberOfColors
-        self.colors = colors
-        
-        let viewModel = FlowerSelectionViewModel(purposeType: purpose)
+    func showFlowerSelectionVC() {
+        // purposeType 주입코드 수정필요
+        let viewModel = FlowerSelectionViewModel()
         let flowerSelectionVC = FlowerSelectionViewController(viewModel: viewModel)
         flowerSelectionVC.coordinator = self
         navigationController.pushViewController(flowerSelectionVC, animated: true)
     }
     
-    func showAlternativesVC(from currentVC: UIViewController, flowers: [Flower]) {
-        self.flowers = flowers
-        
+    func showAlternativesVC(from currentVC: UIViewController) {
         let viewModel = AlternativesViewModel()
         let alternativesVC = AlternativesViewController(viewModel: viewModel)
         alternativesVC.coordinator = self
@@ -84,9 +69,7 @@ final class CustomizingCoordinator: Coordinator {
         currentVC.present(alternativesVC, animated: true)
     }
     
-    func showPackagingSelectionVC(from currentVC: UIViewController, alternative: AlternativesType) {
-        self.alternative = alternative
-        
+    func showPackagingSelectionVC(from currentVC: UIViewController) {
         let viewModel = PackagingSelectionViewModel()
         let packagingSelectionVC = PackagingSelectionViewController(viewModel: viewModel)
         packagingSelectionVC.coordinator = self
@@ -96,40 +79,22 @@ final class CustomizingCoordinator: Coordinator {
         }
     }
     
-    func showFlowerPriceVC(packagingAssign: PackagingAssignType, packagingRequirement: String?) {
-        self.packagingAssign = packagingAssign
-        self.packagingRequirement = packagingRequirement
-        
+    func showFlowerPriceVC() {
         let viewModel = FlowerPriceViewModel()
         let FlowerPriceVC = FlowerPriceViewController(viewModel: viewModel)
         FlowerPriceVC.coordinator = self
         navigationController.pushViewController(FlowerPriceVC, animated: true)
     }
     
-    func showPhotoSelectionVC(price: String) {
-        self.price = price
+    func showPhotoSelectionVC() {
         let viewModel = PhotoSelectionViewModel()
         let photoSelectionVC = PhotoSelectionViewController(viewModel: viewModel)
         photoSelectionVC.coordinator = self
         navigationController.pushViewController(photoSelectionVC, animated: true)
     }
     
-    func showCustomizingSummaryVC(requirementPhotos: [ImageFile], requirementText: String?) {
-        self.requirementPhotos = requirementPhotos
-        self.requirementText = requirementText
-        
-        let model = CustomizingSummaryModel(
-            purpose: self.purpose,
-            numberOfColors: self.numberOfColors,
-            colors: self.colors,
-            flowers: flowers,
-            alternative: alternative,
-            assign: Assign(packagingAssignType: packagingAssign, text: packagingRequirement),
-            priceRange: price ?? "",
-            requirement: Requirement(text: requirementText, imageFiles: requirementPhotos)
-        )
-        
-        let viewModel = CustomizingSummaryViewModel(customizingSummaryModel: model, actionType: self.actionType)
+    func showCustomizingSummaryVC() {
+        let viewModel = CustomizingSummaryViewModel(actionType: self.actionType)
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)

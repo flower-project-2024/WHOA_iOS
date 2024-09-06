@@ -88,7 +88,8 @@ final class AlternativesViewController: UIViewController {
         viewModel.$alternativesModel
             .receive(on: RunLoop.main)
             .map { alternatives in
-                return alternatives != nil
+                guard let alternative = alternatives?.AlternativesType else { return false }
+                return alternative != .none
             }
             .assign(to: \.isActive, on: nextButton)
             .store(in: &viewModel.cancellables)
@@ -107,7 +108,8 @@ final class AlternativesViewController: UIViewController {
     @objc
     func nextButtonTapped() {
         guard let alternative = viewModel.alternativesModel?.AlternativesType else { return }
-        coordinator?.showPackagingSelectionVC(from: self, alternative: alternative)
+        viewModel.dataManager.setAlternative(alternative)
+        coordinator?.showPackagingSelectionVC(from: self)
     }
     
 }

@@ -72,16 +72,21 @@ final class PurposeViewController: UIViewController {
         )
         let output = viewModel.transform(input: input)
         
+        output.initialPurpose
+            .sink { [weak self] initialPurpose in
+                self?.purposeView.config(with: initialPurpose)
+            }
+            .store(in: &cancellables)
+
         output.purposeType
             .sink { [weak self] purpose in
-                self?.purposeView.resetView()
                 self?.purposeView.updateSelectedButton(for: purpose)
             }
             .store(in: &cancellables)
         
         output.showColorPicker
-            .sink { [weak self] purpose in
-                self?.coordinator?.showColorPickerVC(purposeType: purpose)
+            .sink { [weak self] _ in
+                self?.coordinator?.showColorPickerVC()
             }
             .store(in: &cancellables)
     }

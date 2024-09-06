@@ -17,22 +17,26 @@ final class RequestDetailView: UIView {
     
     let requestTitleTextField: UITextField = {
         let textField = UITextField()
+        textField.font = .Pretendard()
         textField.backgroundColor = .gray03
         textField.textColor = .black
         textField.frame.size.height = 40
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 6
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
         textField.layer.masksToBounds = true
         textField.isHidden = true
+        
+        // Placeholder
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "꽃다발 요구서1",
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor.gray08,
+                NSAttributedString.Key.font : UIFont.Pretendard()
+            ]
+        )
         return textField
-    }()
-    
-    let requestTitleTextFieldPlaceholder: UILabel = {
-        let label = UILabel()
-        label.text = "꽃다발 요구서1"
-        label.textColor = .gray08
-        label.font = .Pretendard()
-        return label
     }()
     
     lazy var editButton: UIButton = {
@@ -329,6 +333,10 @@ final class RequestDetailView: UIView {
         
     }
     
+    func configureRequestTitle(title: String?) {
+        requestTitleTextField.text = title
+    }
+    
     private func configureBuyingIntent(_ model: CustomizingSummaryModel) {
         buyingIntentContentLabel.text = model.purpose.rawValue
     }
@@ -354,6 +362,8 @@ final class RequestDetailView: UIView {
             flowerColorChipView3.backgroundColor = UIColor(hex: colors.last ?? "")
             flowerColorChipView2.isHidden = false
             flowerColorChipView3.isHidden = false
+        case .none:
+            break
         }
     }
     
@@ -422,7 +432,6 @@ final class RequestDetailView: UIView {
     
     private func addViews() {
         addSubview(requestTitleTextField)
-        requestTitleTextField.addSubview(requestTitleTextFieldPlaceholder)
         addSubview(editButton)
         addSubview(borderLine)
         
@@ -478,11 +487,6 @@ final class RequestDetailView: UIView {
             $0.top.equalToSuperview().offset(25)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().inset(20)
-        }
-        
-        requestTitleTextFieldPlaceholder.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalTo(12)
         }
         
         editButton.snp.makeConstraints {

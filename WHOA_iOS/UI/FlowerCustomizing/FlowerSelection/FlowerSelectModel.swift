@@ -8,7 +8,7 @@
 import Foundation
 
 struct FlowerKeywordModel {
-    let id: Int
+    let id: Int?
     let flowerName: String
     let flowerImage: String?
     let flowerKeyword: [String]

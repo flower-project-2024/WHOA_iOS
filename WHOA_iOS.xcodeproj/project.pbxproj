@@ -82,6 +82,13 @@
 		08EBBC4C2C844525002FDE12 /* MoreActionsSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBBC4B2C844525002FDE12 /* MoreActionsSheetViewController.swift */; };
 		08F2AE2D2C822E930096D75E /* MyPagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
+		54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */; };
+		54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */; };
+		54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE32C6DAB5A00286BAE /* CustomStartView.swift */; };
+		54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */; };
+		54086BE82C6FC42400286BAE /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BE72C6FC42400286BAE /* UITextField+.swift */; };
+		54086BEF2C7B5D1200286BAE /* BouquetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BEE2C7B5D1200286BAE /* BouquetData.swift */; };
+		54086BF12C7B5D8700286BAE /* BouquetDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54086BF02C7B5D8700286BAE /* BouquetDataManager.swift */; };
 		54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F992C05E34D000C3F70 /* Coordinator.swift */; };
 		54098F9D2C05E420000C3F70 /* CustomizingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */; };
 		5411BA362BDF8529002A85F0 /* AlternativesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5411BA352BDF8529002A85F0 /* AlternativesModel.swift */; };
@@ -278,6 +285,13 @@
 		08EBBC4B2C844525002FDE12 /* MoreActionsSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreActionsSheetViewController.swift; sourceTree = "<group>"; };
 		08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePageViewController.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
+		54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewController.swift; sourceTree = "<group>"; };
+		54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartHeaderView.swift; sourceTree = "<group>"; };
+		54086BE32C6DAB5A00286BAE /* CustomStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartView.swift; sourceTree = "<group>"; };
+		54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStartViewModel.swift; sourceTree = "<group>"; };
+		54086BE72C6FC42400286BAE /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
+		54086BEE2C7B5D1200286BAE /* BouquetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetData.swift; sourceTree = "<group>"; };
+		54086BF02C7B5D8700286BAE /* BouquetDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetDataManager.swift; sourceTree = "<group>"; };
 		54098F992C05E34D000C3F70 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		54098F9C2C05E420000C3F70 /* CustomizingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingCoordinator.swift; sourceTree = "<group>"; };
 		5411BA352BDF8529002A85F0 /* AlternativesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesModel.swift; sourceTree = "<group>"; };
@@ -583,6 +597,25 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		54086BDD2C6DA15C00286BAE /* CustomStart */ = {
+			isa = PBXGroup;
+			children = (
+				54086BE02C6DA2BA00286BAE /* Views */,
+				54086BDE2C6DA1B400286BAE /* CustomStartViewController.swift */,
+				54086BE52C6F49DC00286BAE /* CustomStartViewModel.swift */,
+			);
+			path = CustomStart;
+			sourceTree = "<group>";
+		};
+		54086BE02C6DA2BA00286BAE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54086BE12C6DA2C100286BAE /* CustomStartHeaderView.swift */,
+				54086BE32C6DAB5A00286BAE /* CustomStartView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		54098F982C05E2E8000C3F70 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				542292832C18B5D8007E13C6 /* ImageFile.swift */,
+				54086BEE2C7B5D1200286BAE /* BouquetData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -706,6 +740,7 @@
 				54EB17FD2BB4768400717E6F /* Palette.swift */,
 				54F6959B2BF2A5C9009E3E4D /* KeychainManager.swift */,
 				54BF6D7E2C440C4800928B3F /* ImageProvider.swift */,
+				54086BF02C7B5D8700286BAE /* BouquetDataManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -840,6 +875,7 @@
 				54EB180A2BBD686300717E6F /* UIViewController+.swift */,
 				54EB18142BC018C900717E6F /* UIImageView+.swift */,
 				5411BA392BE11DD8002A85F0 /* UITextView+.swift */,
+				54086BE72C6FC42400286BAE /* UITextField+.swift */,
 				54D5BB002BE406F400C538E1 /* Int+.swift */,
 				08C635ED2C01EB220088DE39 /* UITabBar+.swift */,
 				08C635EF2C01EB470088DE39 /* CALayer+.swift */,
@@ -969,6 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				54FD0F6D2B73416700F964C3 /* CommonViews */,
+				54086BDD2C6DA15C00286BAE /* CustomStart */,
 				54FD0F6A2B701B2000F964C3 /* Purpose */,
 				542DD3E82B78F4D000DBFCCC /* FlowerColorPicker */,
 				546071152B87EAE30033B598 /* FlowerSelection */,
@@ -1199,6 +1236,7 @@
 				089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */,
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */,
+				54086BE82C6FC42400286BAE /* UITextField+.swift in Sources */,
 				544FC0B92C03C44B0091EEE2 /* DeleteBouquetAPI.swift in Sources */,
 				54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */,
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
@@ -1225,6 +1263,7 @@
 				08A540192BB133C500710A7D /* ManagementView.swift in Sources */,
 				0858C4AD2C241C5900FAE6C3 /* FlowerDetailViewModel.swift in Sources */,
 				08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */,
+				54086BEF2C7B5D1200286BAE /* BouquetData.swift in Sources */,
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
@@ -1238,6 +1277,7 @@
 				54FD0F712B73BF4900F964C3 /* CustomTitleLabel.swift in Sources */,
 				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
+				54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */,
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
 				0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */,
@@ -1252,6 +1292,7 @@
 				54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */,
 				542ABB042C553CAA0022E243 /* CustomBottomView.swift in Sources */,
 				548C4AE72B8E694A002F4FCB /* Constants.swift in Sources */,
+				54086BE42C6DAB5A00286BAE /* CustomStartView.swift in Sources */,
 				0833EF7E2BE55B9F0024FB2C /* MyPageModel.swift in Sources */,
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
@@ -1269,6 +1310,7 @@
 				54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */,
 				08B9815B2C30877000F3CD45 /* UILabel+.swift in Sources */,
 				0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */,
+				54086BF12C7B5D8700286BAE /* BouquetDataManager.swift in Sources */,
 				08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */,
 				08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */,
 				080D50202C887F8C0080CD85 /* BouquetStatusDTO.swift in Sources */,
@@ -1310,6 +1352,7 @@
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
+				54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */,
 				54BF6D7D2C4057A900928B3F /* SizeAdjustments+.swift in Sources */,
 				0824C5162C8B713F00A06348 /* RequestMadeSuccessAlertController.swift in Sources */,
 				0857D6AE2C429F71006C1FEF /* CustomTabBar.swift in Sources */,
@@ -1329,6 +1372,7 @@
 				542ABB002C54FE080022E243 /* CustomHeaderView.swift in Sources */,
 				08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */,
 				0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */,
+				54086BE22C6DA2C100286BAE /* CustomStartHeaderView.swift in Sources */,
 				0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */,
 				542DD3E52B77BC8200DBFCCC /* CustomExitAlertViewController.swift in Sources */,
 				08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */,

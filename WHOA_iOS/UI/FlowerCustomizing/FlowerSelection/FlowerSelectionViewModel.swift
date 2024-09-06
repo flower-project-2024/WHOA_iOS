@@ -12,6 +12,7 @@ final class FlowerSelectionViewModel {
     
     // MARK: - Properties
     
+    let dataManager: BouquetDataManaging
     private let purposeType: PurposeType
     let keyword = KeywordType.allCases
     var flowerKeywordModels: [FlowerKeywordModel] = []
@@ -21,8 +22,22 @@ final class FlowerSelectionViewModel {
     
     var cancellables = Set<AnyCancellable>()
     
-    init(purposeType: PurposeType) {
-        self.purposeType = purposeType
+    // MARK: - Initialize
+    
+    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
+        self.dataManager = dataManager
+        self.purposeType = dataManager.getPurpose()
+        dataManager.getFlowers().forEach { flower in
+            selectedFlowerModels.append(
+                FlowerKeywordModel(
+                    id: flower.id,
+                    flowerName: flower.name,
+                    flowerImage: flower.photo,
+                    flowerKeyword: flower.flowerKeyword,
+                    flowerLanguage: FlowerKeywordDTO.formatFlowerLanguage(flower.hashTag.joined(separator: ", "))
+                )
+            )
+        }
     }
     
     // MARK: - Functions
@@ -93,13 +108,14 @@ final class FlowerSelectionViewModel {
         return filteredModels[idx]
     }
     
-    func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [Flower] {
-        return flowerKeywordModel.map { 
-            Flower(
+    func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [BouquetData.Flower] {
+        return flowerKeywordModel.map {
+            BouquetData.Flower(
                 id: $0.id,
                 photo: $0.flowerImage,
                 name: $0.flowerName,
-                hashTag: convertLanguageStringToArray($0.flowerLanguage)
+                hashTag: convertLanguageStringToArray($0.flowerLanguage),
+                flowerKeyword: $0.flowerKeyword
             )
         }
     }

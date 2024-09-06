@@ -157,6 +157,11 @@ final class PackagingSelectionViewController: UIViewController {
         
         managerAssignButton.configuration = managerAssignButton.configure(isSelected: managerAssignButton.isSelected)
         myselfAssignButton.configuration = myselfAssignButton.configure(isSelected: myselfAssignButton.isSelected)
+        
+        if model.packagingAssignButtonType == .myselfAssign {
+            requirementTextView.text = model.text
+            placeholder.isHidden = !model.text.isEmpty
+        }
     }
     
     // MARK: - Actions
@@ -177,12 +182,10 @@ final class PackagingSelectionViewController: UIViewController {
     @objc
     func nextButtonTapped() {
         let model = viewModel.packagingSelectionModel
-        guard let packagingType = model.packagingAssignButtonType else { return }
-        
-        coordinator?.showFlowerPriceVC(
-            packagingAssign: packagingType,
-            packagingRequirement: model.text
-        )
+        let text = model.packagingAssignButtonType == .myselfAssign ? model.text : nil
+        let assign = BouquetData.PackagingAssign(assign: model.packagingAssignButtonType ?? .none, text: text)
+        viewModel.dataManager.setPackagingAssign(assign)
+        coordinator?.showFlowerPriceVC()
     }
 }
 

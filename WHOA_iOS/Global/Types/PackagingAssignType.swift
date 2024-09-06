@@ -11,4 +11,5 @@ import Foundation
 enum PackagingAssignType: String {
     case managerAssign = "사장님께 맡길게요"
     case myselfAssign = "제가 작성할게요"
+    case none
 }

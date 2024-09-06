@@ -11,6 +11,7 @@ import Foundation
 enum AlternativesType: String {
     case colorOriented = "색감 위주"
     case hashTagOriented = "꽃말 위주"
+    case none
     
     func toDTOString() -> String {
         switch self {
@@ -18,6 +19,8 @@ enum AlternativesType: String {
             return "FOCUS_ON_COLOR"
         case .hashTagOriented:
             return "FOCUS_ON_FLOWER_LANGUAGE"
+        case .none:
+            return "none"
         }
     }
 }
