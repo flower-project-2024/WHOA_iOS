@@ -215,6 +215,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
             DispatchQueue.main.async {
                 self?.vc1.setTableViewData(self?.viewModel.getBouquetsByType(.all) ?? [])
                 self?.vc2.setTableViewData(self?.viewModel.getBouquetsByType(.saved) ?? [])
+                self?.vc3.setTableViewData(self?.viewModel.getBouquetsByType(.made) ?? [])
             }
         }
     }
