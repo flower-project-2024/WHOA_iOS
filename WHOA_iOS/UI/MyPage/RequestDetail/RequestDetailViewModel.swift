@@ -16,10 +16,17 @@ final class RequestDetailViewModel {
             customizingSummaryModelDidChaged?(customizingSummaryModel)
         }
     }
+    var bouquetStatus: Bool? {
+        didSet {
+            bouquetStatusDidChange?(bouquetStatus)
+        }
+    }
+    
     private let requestTitle: String
     private let bouquetId: Int
     
     var customizingSummaryModelDidChaged: ((CustomizingSummaryModel?) -> Void)?
+    var bouquetStatusDidChange: ((Bool?) -> Void)?
     var showError: ((NetworkError) -> Void)?
     
     // MARK: - Init
@@ -54,5 +61,18 @@ final class RequestDetailViewModel {
     
     func getBouquetId() -> Int {
         return bouquetId
+    }
+    
+    func patchBouquetStatus() {
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        
+        NetworkManager.shared.patchBouquetStatus(memberId: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let dto):
+                self.bouquetStatus = dto.success
+            case .failure(let error):
+                self.showError?(error)
+            }
+        }
     }
 }

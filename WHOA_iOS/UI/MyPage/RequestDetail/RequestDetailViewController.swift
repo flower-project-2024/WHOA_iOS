@@ -137,6 +137,12 @@ final class RequestDetailViewController: UIViewController {
         }
     }
     
+    func showMadeSuccessAlert() {
+        let alertVC = RequestMadeSuccessAlertController()
+        alertVC.modalPresentationStyle = .overFullScreen
+        self.present(alertVC, animated: false, completion: nil)
+    }
+    
     // MARK: - Actions
     
     @objc func saveAsImageButtonTapped() {
@@ -154,6 +160,20 @@ final class RequestDetailViewController: UIViewController {
     
     @objc private func showMoreActions() {
         print("케밥 버튼 선택됨")
+        
+        let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(), 
+                                                                bouquetId: viewModel.getBouquetId(),
+                                                                from: self)
+        
+        moreActionsSheetVC.modalPresentationStyle = .pageSheet
+        if let sheet = moreActionsSheetVC.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.selectedDetentIdentifier = .medium
+            sheet.preferredCornerRadius = 20
+        }
+        
+        present(moreActionsSheetVC, animated: true)
     }
 }
 
