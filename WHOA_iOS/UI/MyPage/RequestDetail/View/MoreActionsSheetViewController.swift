@@ -13,7 +13,10 @@ class MoreActionsSheetViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: RequestDetailViewModel
+    private var bouquetId: Int?
     private var requestDetailVC: RequestDetailViewController
+    
+    weak var delegate: CustomAlertViewControllerDelegate?
     
     // MARK: - Views
     
@@ -98,6 +101,7 @@ class MoreActionsSheetViewController: UIViewController {
     
     init(title: String, bouquetId: Int, from currentVC: RequestDetailViewController) {
         viewModel = RequestDetailViewModel(requestTitle: title, bouquetId: bouquetId)
+        self.bouquetId = bouquetId
         requestDetailVC = currentVC
         
         super.init(nibName: nil, bundle: nil)
@@ -127,11 +131,31 @@ class MoreActionsSheetViewController: UIViewController {
     }
     
     @objc private func modifyButtonDidTap() {
+        // TODO: 수정 기능 구현!!
         print("수정하기!")
     }
     
     @objc private func deleteButtonDidTap() {
         print("삭제하기!")
+        
+        guard 
+            let id = KeychainManager.shared.loadMemberId(),
+            let bouquetId = bouquetId
+        else { return }
+        
+        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self.dismiss(animated: false) {
+                        self.delegate?.deleteSuccessful(bouquetId: bouquetId)
+                        self.requestDetailVC.navigationController?.popViewController(animated: true)
+                    }
+                }
+            case .failure(let error):
+                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Functions
@@ -175,3 +199,11 @@ class MoreActionsSheetViewController: UIViewController {
         }
     }
 }
+
+// MARK: - Extension: CustomAlertViewControllerDelegate
+
+//extension MoreActionsSheetViewController: CustomAlertViewControllerDelegate {
+//    func deleteSuccessful(bouquetId: Int) {
+//        viewModel.remove
+//    }
+//}
