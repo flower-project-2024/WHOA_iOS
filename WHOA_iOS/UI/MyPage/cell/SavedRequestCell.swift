@@ -180,17 +180,21 @@ final class SavedRequestCell: UITableViewCell {
     
     func configure(model: BouquetModel) {
         self.requestTitle = model.bouquetTitle
-        print(requestTitleLabel.text)
         
         requestTitleLabel.text = model.bouquetTitle
-        print(requestTitleLabel.text)
 
+        if model.bouquetStatus == .made {
+            productionCompleteLabel.isHidden = false
+        }
+        else {
+            productionCompleteLabel.isHidden = true
+        }
+        
         bouquetId = model.bouquetId
         writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
         
         if !model.bouquetImgPaths.isEmpty {
             flowerImageStackView.removeArrangedSubviews()
-            print("bouquet img paths: \(model.bouquetImgPaths)")
             for image in model.bouquetImgPaths {
                 let imageView = UIImageView()
                 imageView.contentMode = .scaleAspectFill
@@ -198,11 +202,9 @@ final class SavedRequestCell: UITableViewCell {
                 flowerImageStackView.addArrangedSubview(imageView)
                 
                 if let url = URL(string: image) {
-                    print("image: \(url)")
                     ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
                 }
             }
-            print("flowerImageStackView subviews: \(flowerImageStackView.subviews)")
             
 //            for image in model.bouquetImgPaths {
 //                if let url = URL(string: image) {
