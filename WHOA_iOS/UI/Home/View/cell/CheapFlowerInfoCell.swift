@@ -135,7 +135,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
         
         var price = model.flowerRankingPrice
         
-        if price.count > 3{
+        if price.count > 3 {
             let endIndex = price.endIndex
             let thirdLastIndex = price.index(endIndex, offsetBy: -3)  // 뒤에서 3번째 인덱스 자리를 구함
             price.insert(",", at: thirdLastIndex)
@@ -153,9 +153,14 @@ final class CheapFlowerInfoCell: UITableViewCell {
                 ImageProvider.shared.setImage(into: flowerImageView, from: img)
             }
         }
-        else{
+        else {
+            let illustArray = [UIImage.flowerIllust1,
+                               UIImage.flowerIllust2,
+                               UIImage.flowerIllust3,
+                               UIImage.flowerIllust4]
+            
             moveToDetailImageView.isHidden = true
-            flowerImageView.image = UIImage.defaultFlower
+            flowerImageView.image = illustArray.randomElement()
         }
         
         flowerLanguage = model.flowerRankingLanguage
