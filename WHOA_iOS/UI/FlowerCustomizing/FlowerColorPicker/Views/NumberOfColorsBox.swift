@@ -16,7 +16,7 @@ final class NumberOfColorsBox: UIView {
         let label = UILabel()
         label.text = "조합"
         label.textColor = .gray09
-        label.font = UIFont.Pretendard(size: 16, family: .SemiBold)
+        label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()
     
@@ -32,7 +32,6 @@ final class NumberOfColorsBox: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUI()
     }
     
@@ -47,8 +46,10 @@ final class NumberOfColorsBox: UIView {
         layer.cornerRadius = 10
         layer.masksToBounds = true
         
-        addSubview(colorSelectionLabel)
-        addSubview(chevronImageView)
+        [
+            colorSelectionLabel,
+            chevronImageView
+        ].forEach(addSubview(_:))
         
         setupAutoLayout()
     }
@@ -56,14 +57,16 @@ final class NumberOfColorsBox: UIView {
 
 extension NumberOfColorsBox {
     private func setupAutoLayout() {
+        let sideMargin = 12
+        
         colorSelectionLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(12)
+            $0.leading.equalToSuperview().offset(sideMargin)
         }
         
         chevronImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.trailing.equalToSuperview().offset(-sideMargin)
         }
     }
 }
