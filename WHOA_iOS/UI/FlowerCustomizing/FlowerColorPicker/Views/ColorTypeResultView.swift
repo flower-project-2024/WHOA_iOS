@@ -1,5 +1,5 @@
 //
-//  NumberOfColorsBox.swift
+//  ColorTypeResultView.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 6/7/24.
@@ -8,9 +8,11 @@
 import UIKit
 import SnapKit
 
-final class NumberOfColorsBox: UIView {
+final class ColorTypeResultView: UIView {
     
     // MARK: - Properties
+    
+    // MARK: - UI
     
     let colorSelectionLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +57,9 @@ final class NumberOfColorsBox: UIView {
     }
 }
 
-extension NumberOfColorsBox {
+// MARK: - AutoLayout
+
+extension ColorTypeResultView {
     private func setupAutoLayout() {
         let sideMargin = 12
         
