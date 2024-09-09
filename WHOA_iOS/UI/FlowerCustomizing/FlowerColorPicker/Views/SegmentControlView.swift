@@ -11,7 +11,7 @@ final class SegmentControlView: UIView {
     
     // MARK: - Properties
     
-    private lazy var colorButtons: [UIButton] = (1...8).map { _ in buildColorButton() }
+    private lazy var colorButtons: [UIButton] = (0...7).map { i in buildColorButton(backgroundColor: segmentColors[0][i]) }
     private let segmentColors: [[UIColor]] = [
         [.default1, .default2, .default3, .default4, .default5, .default6, .default7, .default8],
         [.dark1, .dark2, .dark3, .dark4, .dark5, .dark6, .dark7, .dark8],
@@ -45,19 +45,18 @@ final class SegmentControlView: UIView {
         return segment
     }()
     
-    private lazy var colorHstackView1 = buildColorHStackView(views: Array(colorButtons[0...3]))
-    private lazy var colorHstackView2 = buildColorHStackView(views: Array(colorButtons[4...7]))
-    
-    private lazy var colorVStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            colorHstackView1,
-            colorHstackView2
-        ])
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 8
-        return stackView
-    }()
+    private lazy var colorHstackView1 = buildColorStackView(
+        views: Array(colorButtons[0...3]),
+        axis: .horizontal
+    )
+    private lazy var colorHstackView2 = buildColorStackView(
+        views: Array(colorButtons[4...7]),
+        axis: .horizontal
+    )
+    private lazy var colorVStackView = buildColorStackView(
+        views: [colorHstackView1, colorHstackView2],
+        axis: .vertical
+    )
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
@@ -92,13 +91,6 @@ final class SegmentControlView: UIView {
         setupAutoLayout()
     }
     
-    private func segmentChanged(sender: UISegmentedControl) {
-        let colors = segmentColors[sender.selectedSegmentIndex]
-        zip(colorButtons, colors).forEach { button, color in
-            button.backgroundColor = color
-        }
-    }
-    
     private func buildColorButton(
         cornerRadius: CGFloat = 10,
         backgroundColor: UIColor = .red
@@ -112,12 +104,24 @@ final class SegmentControlView: UIView {
         return button
     }
     
-    private func buildColorHStackView(views: [UIButton]) -> UIStackView {
+    private func buildColorStackView(
+        views: [UIView],
+        axis: NSLayoutConstraint.Axis
+    ) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: views)
-        stackView.axis = .horizontal
+        stackView.axis = axis
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         return stackView
+    }
+    
+    // MARK: - Actions
+    
+    private func segmentChanged(sender: UISegmentedControl) {
+        let colors = segmentColors[sender.selectedSegmentIndex]
+        zip(colorButtons, colors).forEach { button, color in
+            button.backgroundColor = color
+        }
     }
 }
 
