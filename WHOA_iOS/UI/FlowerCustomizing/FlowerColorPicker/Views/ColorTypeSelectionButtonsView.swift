@@ -46,6 +46,8 @@ final class ColorTypeSelectionButtonsView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
+        isHidden = true
+        
         [
             colorTypeButtonHStackView
         ].forEach(addSubview(_:))

@@ -82,6 +82,8 @@ final class SegmentControlView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
+        isHidden = true
+        
         [
             segmentControl,
             colorVStackView,

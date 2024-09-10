@@ -71,6 +71,8 @@ final class ColorSelectionResultView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
+        isHidden = true
+        
         [
             borderLine,
             colorChoiceLabel,
