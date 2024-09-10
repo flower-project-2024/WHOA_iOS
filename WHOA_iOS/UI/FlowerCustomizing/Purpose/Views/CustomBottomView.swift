@@ -23,7 +23,7 @@ final class CustomBottomView: UIView {
     private var cancellables = Set<AnyCancellable>()
     
     var backButtonTappedPublisher: AnyPublisher<Void, Never> {
-        nextButtonTappedSubject.eraseToAnyPublisher()
+        backButtonTappedSubject.eraseToAnyPublisher()
     }
     
     var nextButtonTappedPublisher: AnyPublisher<Void, Never> {
