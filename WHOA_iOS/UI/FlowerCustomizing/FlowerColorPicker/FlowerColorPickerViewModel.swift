@@ -8,46 +8,51 @@
 import Foundation
 import Combine
 
-final class FlowerColorPickerViewModel {
+final class FlowerColorPickerViewModel: ViewModel {
     
     // MARK: - Properties
     
-    let dataManager: BouquetDataManaging
-    private var flowerColorPickerModel = FlowerColorPickerModel(numberOfColors: .oneColor, colors: [])
-    @Published var iscolorSelectionHidden = true
+    struct Input {
+        let backButtonTapped: AnyPublisher<Void, Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
+    }
     
-    var cancellables = Set<AnyCancellable>()
+    struct Output {
+        let dismissView: AnyPublisher<Void, Never>
+        let showFlowerSelection: AnyPublisher<Void, Never>
+    }
+    
+    private let dataManager: BouquetDataManaging
+    private let dismissSubject = PassthroughSubject<Void, Never>()
+    private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
     
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
-        let colorScheme = dataManager.getColorScheme()
-        flowerColorPickerModel.numberOfColors = colorScheme.numberOfColors
-        
-        if let pointColor = colorScheme.pointColor {
-            flowerColorPickerModel.colors.append(pointColor)
-        }
-        
-        flowerColorPickerModel.colors.append(contentsOf: colorScheme.colors)
     }
     
     // MARK: - Functions
     
-    func setNumberOfColors(numberOfColors: NumberOfColorsType) {
-        flowerColorPickerModel.numberOfColors = numberOfColors
-        flowerColorPickerModel.colors.removeAll()
-    }
-    
-    func setColors(colors: [String]) {
-        flowerColorPickerModel.colors = colors
-    }
-    
-    func getNumberOfColors() -> NumberOfColorsType {
-        return flowerColorPickerModel.numberOfColors
-    }
-    
-    func getColors() -> [String] {
-        return flowerColorPickerModel.colors
+    func transform(input: Input) -> Output {
+        
+        input.backButtonTapped
+            .sink { [weak self] _ in
+                self?.dismissSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .sink { [weak self] _ in
+                // DataManager Data 전달 로직 추가 필요
+                self?.showFlowerSelectionSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            dismissView: dismissSubject.eraseToAnyPublisher(),
+            showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher()
+        )
     }
 }

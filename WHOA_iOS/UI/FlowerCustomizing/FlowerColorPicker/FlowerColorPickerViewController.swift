@@ -94,6 +94,24 @@ final class FlowerColorPickerViewController: UIViewController {
     }
     
     private func bind() {
+        let input = FlowerColorPickerViewModel.Input(
+            backButtonTapped: bottomView.backButtonTappedPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        
+        output.dismissView
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
+        
+        output.showFlowerSelection
+            .sink { [weak self] _ in
+                self?.coordinator?.showFlowerSelectionVC()
+            }
+            .store(in: &cancellables)
     }
 }
 
