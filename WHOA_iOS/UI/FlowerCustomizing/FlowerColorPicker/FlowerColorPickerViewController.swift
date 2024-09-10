@@ -17,12 +17,21 @@ final class FlowerColorPickerViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
+    private lazy var colorTypeResultViewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        colorTypeResultView.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
+    
     // MARK: - UI
     
     private let scrollView: UIScrollView = {
-      let scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
-      return scrollView
+        return scrollView
     }()
     
     private let contentView: UIView = {
@@ -60,6 +69,7 @@ final class FlowerColorPickerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
+        bindTapGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +122,20 @@ final class FlowerColorPickerViewController: UIViewController {
                 self?.coordinator?.showFlowerSelectionVC()
             }
             .store(in: &cancellables)
+    }
+    
+    private func bindTapGesture() {
+        colorTypeResultViewTapPublisher
+            .sink { [weak self] _ in
+                self?.toggleDropdown()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func toggleDropdown() {
+        let isHidden = colorTypeSelectionButtonsView.isHidden
+        colorTypeSelectionButtonsView.isHidden.toggle()
+        colorTypeResultView.updateChevronImage(isExpanded: !isHidden)
     }
 }
 

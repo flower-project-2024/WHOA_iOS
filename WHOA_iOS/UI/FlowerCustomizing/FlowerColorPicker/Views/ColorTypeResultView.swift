@@ -55,6 +55,11 @@ final class ColorTypeResultView: UIView {
         
         setupAutoLayout()
     }
+    
+    func updateChevronImage(isExpanded: Bool) {
+        let chevronImage = isExpanded ? "chevron.up" : "chevron.down"
+        chevronImageView.image = UIImage(systemName: chevronImage)
+    }
 }
 
 // MARK: - AutoLayout
