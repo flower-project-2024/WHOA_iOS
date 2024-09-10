@@ -7,12 +7,14 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 final class FlowerColorPickerViewController: UIViewController {
     
     // MARK: - Properties
     
     private let viewModel: FlowerColorPickerViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -58,6 +60,16 @@ final class FlowerColorPickerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configNavigationBar(isHidden: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
