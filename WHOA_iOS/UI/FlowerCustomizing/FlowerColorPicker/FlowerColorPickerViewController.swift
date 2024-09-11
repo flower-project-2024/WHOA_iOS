@@ -33,12 +33,8 @@ final class FlowerColorPickerViewController: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
-    
-    private let contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
+    private let contentView = UIView()
+
     private lazy var headerView = CustomHeaderView(
         currentVC: self,
         coordinator: coordinator,
@@ -105,11 +101,17 @@ final class FlowerColorPickerViewController: UIViewController {
     
     private func bind() {
         let input = FlowerColorPickerViewModel.Input(
+            colorTypeSelected: colorTypeSelectionButtonsView.valuePublisher,
             backButtonTapped: bottomView.backButtonTappedPublisher,
             nextButtonTapped: bottomView.nextButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)
         
+        output.initialColorType
+            .sink { [weak self] colorType in
+                self?.updateUI(for: colorType)
+            }
+            .store(in: &cancellables)
         
         output.dismissView
             .sink { [weak self] _ in
@@ -130,6 +132,19 @@ final class FlowerColorPickerViewController: UIViewController {
                 self?.toggleDropdown()
             }
             .store(in: &cancellables)
+    }
+    
+    private func updateUI(for colorType: NumberOfColorsType) {
+        colorTypeResultView.updateSelectionLabel(colorType)
+        colorTypeSelectionButtonsView.updateButton(colorType)
+        colorSelectionResultView.config(colorType)
+        updateViewVisibility(colorType)
+    }
+    
+    private func updateViewVisibility(_ colorType: NumberOfColorsType) {
+        let hasValidColorType = colorType != .none
+        colorSelectionResultView.isHidden = !hasValidColorType
+        segmentControlView.isHidden = !hasValidColorType
     }
     
     private func toggleDropdown() {

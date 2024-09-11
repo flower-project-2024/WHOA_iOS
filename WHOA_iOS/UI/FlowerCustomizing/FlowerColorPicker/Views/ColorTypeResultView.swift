@@ -60,6 +60,10 @@ final class ColorTypeResultView: UIView {
         let chevronImage = isExpanded ? "chevron.up" : "chevron.down"
         chevronImageView.image = UIImage(systemName: chevronImage)
     }
+    
+    func updateSelectionLabel(_ colorType: NumberOfColorsType) {
+        colorSelectionLabel.text = (colorType == .none) ? "조합" : colorType.rawValue
+    }
 }
 
 // MARK: - AutoLayout

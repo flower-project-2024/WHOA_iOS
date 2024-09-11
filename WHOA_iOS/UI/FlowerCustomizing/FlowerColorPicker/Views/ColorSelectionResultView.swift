@@ -71,8 +71,6 @@ final class ColorSelectionResultView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
-        isHidden = true
-        
         [
             borderLine,
             colorChoiceLabel,
@@ -83,6 +81,40 @@ final class ColorSelectionResultView: UIView {
         ].forEach(addSubview(_:))
         
         setupAutoLayout()
+    }
+    
+    func config(_ colorType: NumberOfColorsType) {
+        reset()
+        
+        switch colorType {
+        case .oneColor:
+            break
+        case .twoColor:
+            show(secondColorButton, secondCheckCircle)
+        case .colorful:
+            show(secondColorButton, secondCheckCircle)
+            show(thirdColorButton, thirdCheckCircle)
+        case .pointColor:
+            show(secondColorButton, secondCheckCircle)
+            show(pointColorLabel, baseColorLabel)
+        case .none:
+            isHidden = true
+        }
+    }
+    
+    private func reset() {
+        [
+            secondColorButton,
+            thirdColorButton,
+            pointColorLabel,
+            baseColorLabel,
+            secondCheckCircle,
+            thirdCheckCircle
+        ].forEach{ $0.isHidden = true }
+    }
+    
+    private func show(_ views: UIView...) {
+        views.forEach { $0.isHidden = false }
     }
     
     private func buildColorButton() -> UIButton {

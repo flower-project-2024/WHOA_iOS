@@ -13,16 +13,19 @@ final class FlowerColorPickerViewModel: ViewModel {
     // MARK: - Properties
     
     struct Input {
+        let colorTypeSelected: AnyPublisher<NumberOfColorsType, Never>
         let backButtonTapped: AnyPublisher<Void, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
+        let initialColorType: AnyPublisher<NumberOfColorsType, Never>
         let dismissView: AnyPublisher<Void, Never>
         let showFlowerSelection: AnyPublisher<Void, Never>
     }
     
     private let dataManager: BouquetDataManaging
+    private let colorTypeeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
     private let dismissSubject = PassthroughSubject<Void, Never>()
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -36,6 +39,12 @@ final class FlowerColorPickerViewModel: ViewModel {
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
+        
+        input.colorTypeSelected
+            .sink { [weak self] colorType in
+                self?.colorTypeeSubject.send(colorType)
+            }
+            .store(in: &cancellables)
         
         input.backButtonTapped
             .sink { [weak self] _ in
@@ -51,6 +60,7 @@ final class FlowerColorPickerViewModel: ViewModel {
             .store(in: &cancellables)
         
         return Output(
+            initialColorType: colorTypeeSubject.eraseToAnyPublisher(),
             dismissView: dismissSubject.eraseToAnyPublisher(),
             showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher()
         )

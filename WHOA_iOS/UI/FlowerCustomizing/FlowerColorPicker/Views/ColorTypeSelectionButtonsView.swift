@@ -6,15 +6,23 @@
 //
 
 import UIKit
+import Combine
 
 final class ColorTypeSelectionButtonsView: UIView {
     
     // MARK: - Properties
     
+    private let colorTypeSubject: CurrentValueSubject<NumberOfColorsType, Never> = .init(.none)
+    private var cancellables = Set<AnyCancellable>()
+    
+    var valuePublisher: AnyPublisher<NumberOfColorsType, Never> {
+        return colorTypeSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - UI
     
     private lazy var oneColorButton = buildColorTypeButton(colorType: .oneColor)
-    private lazy var twoColorButton = buildColorTypeButton(colorType: .oneColor)
+    private lazy var twoColorButton = buildColorTypeButton(colorType: .twoColor)
     private lazy var colorfulButton = buildColorTypeButton(colorType: .colorful)
     private lazy var pointColorButton = buildColorTypeButton(colorType: .pointColor)
     
@@ -55,6 +63,47 @@ final class ColorTypeSelectionButtonsView: UIView {
         setupAutoLayout()
     }
     
+    func updateButton(_ colorType: NumberOfColorsType) {
+        resetAllButtons()
+        
+        guard let selectedButton = button(for: colorType) else { return }
+        updateSelectedButton(selectedButton)
+    }
+    
+    private func resetAllButtons() {
+        [
+            oneColorButton,
+            twoColorButton,
+            colorfulButton,
+            pointColorButton
+        ].forEach { button in
+            button.setTitleColor(.gray08, for: .normal)
+            button.titleLabel?.font = .Pretendard()
+            button.layer.borderColor = UIColor.gray04.cgColor
+        }
+    }
+    
+    private func button(for colorType: NumberOfColorsType) -> UIButton? {
+        switch colorType {
+        case .oneColor:
+            return oneColorButton
+        case .twoColor:
+            return twoColorButton
+        case .colorful:
+            return colorfulButton
+        case .pointColor:
+            return pointColorButton
+        case .none:
+            return nil
+        }
+    }
+    
+    private func updateSelectedButton(_ button: UIButton) {
+        button.setTitleColor(.primary, for: .normal)
+        button.titleLabel?.font = .Pretendard(family: .SemiBold)
+        button.layer.borderColor = UIColor.secondary03.cgColor
+    }
+    
     private func buildColorTypeButton(colorType: NumberOfColorsType) -> UIButton {
         let button = UIButton()
         button.setTitle(colorType.rawValue, for: .normal)
@@ -65,6 +114,11 @@ final class ColorTypeSelectionButtonsView: UIView {
         button.layer.cornerRadius = 18
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray04.cgColor
+        
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.colorTypeSubject.send(colorType)
+        }, for: .touchUpInside)
         return button
     }
 }
