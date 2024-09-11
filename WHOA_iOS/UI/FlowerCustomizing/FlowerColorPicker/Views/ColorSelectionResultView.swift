@@ -23,39 +23,46 @@ final class ColorSelectionResultView: UIView {
         return label
     }()
     
-    private lazy var firstColorButton: UIButton = buildColorButton()
-    private lazy var secondColorButton: UIButton = buildColorButton()
-    private lazy var thirdColorButton: UIButton = buildColorButton()
+    private lazy var firstColorButton = buildColorButton()
+    private lazy var secondColorButton = buildColorButton()
+    private lazy var thirdColorButton = buildColorButton()
     
-    private lazy var colorButtonHStackView: UIStackView = {
+    private lazy var firstCheckCircle = buildCheckCircle()
+    private lazy var secondCheckCircle = buildCheckCircle()
+    private lazy var thirdCheckCircle = buildCheckCircle()
+    
+    private lazy var pointColorLabel = buildLabel(text: "포인트컬러")
+    private lazy var baseColorLabel = buildLabel(text: "베이스컬러")
+    
+    private lazy var pointVStackView = buildColorVStackView(
+        button: firstColorButton,
+        label: pointColorLabel,
+        checkCircle: firstCheckCircle
+    )
+    
+    private lazy var baseVStackView = buildColorVStackView(
+        button: secondColorButton,
+        label: baseColorLabel,
+        checkCircle: secondCheckCircle
+    )
+    
+    private lazy var thirdVStackView = buildColorVStackView(
+        button: thirdColorButton,
+        label: nil,
+        checkCircle: thirdCheckCircle
+    )
+    
+    private lazy var mainHStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
-            firstColorButton,
-            secondColorButton,
-            thirdColorButton
+            pointVStackView,
+            baseVStackView,
+            thirdVStackView
         ])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 8
         return stackView
     }()
-    
-    private lazy var firstCheckCircle: UIImageView = buildCheckCircle()
-    private lazy var secondCheckCircle: UIImageView = buildCheckCircle()
-    private lazy var thirdCheckCircle: UIImageView = buildCheckCircle()
-    
-    private lazy var pointColorLabel: UILabel = buildLabel(text: "포인트컬러")
-    private lazy var baseColorLabel: UILabel = buildLabel(text: "베이스컬러")
-    
-    
-    private lazy var pointVStackView: UIStackView = buildColorVStackView(
-        label: pointColorLabel,
-        checkCircle: firstCheckCircle
-    )
-    
-    private lazy var baseVStackView: UIStackView = buildColorVStackView(
-        label: baseColorLabel,
-        checkCircle: secondCheckCircle
-    )
     
     // MARK: - Initialize
     
@@ -74,43 +81,35 @@ final class ColorSelectionResultView: UIView {
         [
             borderLine,
             colorChoiceLabel,
-            colorButtonHStackView,
-            pointVStackView,
-            baseVStackView,
-            thirdCheckCircle,
+            mainHStackView,
         ].forEach(addSubview(_:))
-        
         setupAutoLayout()
     }
     
     func config(_ colorType: NumberOfColorsType) {
-        reset()
+        resetView()
         
         switch colorType {
         case .oneColor:
             break
         case .twoColor:
-            show(secondColorButton, secondCheckCircle)
+            show(baseVStackView)
         case .colorful:
-            show(secondColorButton, secondCheckCircle)
-            show(thirdColorButton, thirdCheckCircle)
+            show(baseVStackView, thirdVStackView)
         case .pointColor:
-            show(secondColorButton, secondCheckCircle)
-            show(pointColorLabel, baseColorLabel)
+            show(baseVStackView, baseColorLabel, pointColorLabel)
         case .none:
             isHidden = true
         }
     }
     
-    private func reset() {
+    private func resetView() {
         [
-            secondColorButton,
-            thirdColorButton,
+            baseVStackView,
+            thirdVStackView,
             pointColorLabel,
-            baseColorLabel,
-            secondCheckCircle,
-            thirdCheckCircle
-        ].forEach{ $0.isHidden = true }
+            baseColorLabel
+        ].forEach { $0.isHidden = true }
     }
     
     private func show(_ views: UIView...) {
@@ -120,8 +119,8 @@ final class ColorSelectionResultView: UIView {
     private func buildColorButton() -> UIButton {
         let button = UIButton(type: .custom)
         button.backgroundColor = .gray02
-        button.layer.masksToBounds = true
         button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
         button.layer.borderColor = UIColor.clear.cgColor
         button.layer.borderWidth = 2
         return button
@@ -141,17 +140,24 @@ final class ColorSelectionResultView: UIView {
         label.text = text
         label.textColor = .gray07
         label.font = .Pretendard(size: 12, family: .SemiBold)
-        label.isHidden = false
+        label.textAlignment = .center
+        label.isHidden = true
         return label
     }
     
-    private func buildColorVStackView(label: UILabel, checkCircle: UIImageView) -> UIStackView {
-        let stackView = UIStackView(arrangedSubviews: [
-            label,
-            checkCircle
-        ])
+    private func buildColorVStackView(
+        button: UIButton,
+        label: UILabel?,
+        checkCircle: UIImageView
+    ) -> UIStackView {
+        var arrangedSubviews: [UIView] = [button, checkCircle]
+        if let label = label {
+            arrangedSubviews.insert(label, at: 1)
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
         stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
+        stackView.alignment = .fill
         stackView.spacing = 4
         return stackView
     }
@@ -172,26 +178,15 @@ extension ColorSelectionResultView {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        colorButtonHStackView.snp.makeConstraints {
+        [firstColorButton, secondColorButton, thirdColorButton].forEach { button in
+            button.snp.makeConstraints {
+                $0.height.equalTo(96)
+            }
+        }
+        
+        mainHStackView.snp.makeConstraints {
             $0.top.equalTo(colorChoiceLabel.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(96)
-        }
-        
-        pointVStackView.snp.makeConstraints {
-            $0.centerX.equalTo(firstColorButton.snp.centerX)
-            $0.top.equalTo(firstColorButton.snp.bottom).offset(4)
-        }
-        
-        baseVStackView.snp.makeConstraints {
-            $0.centerX.equalTo(secondColorButton.snp.centerX)
-            $0.top.equalTo(secondColorButton.snp.bottom).offset(4)
-        }
-        
-        thirdCheckCircle.snp.makeConstraints {
-            $0.centerX.equalTo(thirdColorButton.snp.centerX)
-            $0.top.equalTo(thirdColorButton.snp.bottom).offset(4)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
     }
 }
