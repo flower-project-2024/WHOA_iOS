@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import Combine
 
 final class SegmentControlView: UIView {
     
     // MARK: - Properties
     
-    private lazy var colorButtons: [UIButton] = (0...7).map { i in buildColorButton(backgroundColor: segmentColors[0][i]) }
+    private let hexColorSubject = PassthroughSubject<String, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    var valuePublisher: AnyPublisher<String, Never>  {
+        return hexColorSubject.eraseToAnyPublisher()
+    }
+    
     private let segmentColors: [[UIColor]] = [
         [.default1, .default2, .default3, .default4, .default5, .default6, .default7, .default8],
         [.dark1, .dark2, .dark3, .dark4, .dark5, .dark6, .dark7, .dark8],
@@ -44,6 +51,8 @@ final class SegmentControlView: UIView {
         }), for: .valueChanged)
         return segment
     }()
+    
+    private lazy var colorButtons: [UIButton] = (0...7).map { i in buildColorButton(backgroundColor: segmentColors[0][i]) }
     
     private lazy var colorHstackView1 = buildColorStackView(
         views: Array(colorButtons[0...3]),
@@ -89,13 +98,12 @@ final class SegmentControlView: UIView {
             colorVStackView,
             descriptionLabel
         ].forEach(addSubview(_:))
-        
         setupAutoLayout()
     }
     
     private func buildColorButton(
         cornerRadius: CGFloat = 10,
-        backgroundColor: UIColor = .red
+        backgroundColor: UIColor
     ) -> UIButton {
         let button = UIButton()
         button.layer.masksToBounds = true
@@ -103,6 +111,14 @@ final class SegmentControlView: UIView {
         button.backgroundColor = backgroundColor
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray04.cgColor
+        
+        button.addAction(UIAction { [weak self] action in
+            if let button = action.sender as? UIButton,
+               let color = button.backgroundColor {
+                self?.hexColorSubject.send(color.toHexString())
+                self?.updateSelectedButton(button)
+            }
+        }, for: .touchUpInside)
         return button
     }
     
@@ -124,6 +140,14 @@ final class SegmentControlView: UIView {
         zip(colorButtons, colors).forEach { button, color in
             button.backgroundColor = color
         }
+    }
+    
+    private func updateSelectedButton(_ button: UIButton) {
+        colorButtons.forEach{ $0.setImage(nil, for: .normal) }
+        
+        let btnColor = UIColor.paletteCheckButton
+        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray01, btnColor, btnColor])
+        button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
     }
 }
 
