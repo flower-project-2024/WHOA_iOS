@@ -15,10 +15,23 @@ final class ColorSelectionResultView: UIView {
     private let selectedButtonSubject = CurrentValueSubject<UIButton?, Never>(nil)
     private var cancellables = Set<AnyCancellable>()
     
+    var selectedButtonIndexPublisher: AnyPublisher<Int, Never> {
+        selectedButtonSubject
+            .map { [weak self] button in
+                switch button {
+                case self?.firstResultButton: return 0
+                case self?.secondResultButton: return 1
+                case self?.thirdResultButton: return 2
+                default: return 0
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
     // MARK: - UI
     
     private let borderLine = ShadowBorderLine()
-
+    
     private let colorChoiceLabel: UILabel = {
         let label = UILabel()
         label.text = "색을 선택해주세요"
@@ -27,9 +40,9 @@ final class ColorSelectionResultView: UIView {
         return label
     }()
     
-    private lazy var firstColorButton = buildColorButton()
-    private lazy var secondColorButton = buildColorButton()
-    private lazy var thirdColorButton = buildColorButton()
+    private lazy var firstResultButton = buildColorButton()
+    private lazy var secondResultButton = buildColorButton()
+    private lazy var thirdResultButton = buildColorButton()
     
     private lazy var firstCheckCircle = buildCheckCircle()
     private lazy var secondCheckCircle = buildCheckCircle()
@@ -39,19 +52,19 @@ final class ColorSelectionResultView: UIView {
     private lazy var baseColorLabel = buildLabel(text: "베이스컬러")
     
     private lazy var pointVStackView = buildColorVStackView(
-        button: firstColorButton,
+        button: firstResultButton,
         label: pointColorLabel,
         checkCircle: firstCheckCircle
     )
     
     private lazy var baseVStackView = buildColorVStackView(
-        button: secondColorButton,
+        button: secondResultButton,
         label: baseColorLabel,
         checkCircle: secondCheckCircle
     )
     
     private lazy var thirdVStackView = buildColorVStackView(
-        button: thirdColorButton,
+        button: thirdResultButton,
         label: nil,
         checkCircle: thirdCheckCircle
     )
@@ -73,7 +86,6 @@ final class ColorSelectionResultView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -91,18 +103,9 @@ final class ColorSelectionResultView: UIView {
         setupAutoLayout()
     }
     
-    private func bind() {
-        selectedButtonSubject
-            .sink { [weak self] selectedButton in
-                self?.resetUIState()
-                self?.updateSelectedButton(selectedButton)
-            }
-            .store(in: &cancellables)
-    }
-    
     func config(_ colorType: NumberOfColorsType) {
         hideAllViews()
-        resetUIState()
+        resetColor()
         
         switch colorType {
         case .oneColor: break
@@ -112,28 +115,64 @@ final class ColorSelectionResultView: UIView {
         case .none: isHidden = true
         }
         
-        updateSelectedButton(firstColorButton)
-        selectedButtonSubject.send(firstColorButton)
+        updateSelectedButton(firstResultButton)
     }
     
-    func updateSelectedButton(_ selectedButton: UIButton?) {
+    private func updateSelectedButton(_ selectedButton: UIButton?) {
+        resetUIState()
+        selectedButtonSubject.send(selectedButton)
         selectedButton?.layer.borderColor = UIColor.secondary03.cgColor
         
         switch selectedButton {
-        case firstColorButton: firstCheckCircle.tintColor = .secondary03
-        case secondColorButton: secondCheckCircle.tintColor = .secondary03
-        case thirdColorButton: thirdCheckCircle.tintColor = .secondary03
+        case firstResultButton: firstCheckCircle.tintColor = .secondary03
+        case secondResultButton: secondCheckCircle.tintColor = .secondary03
+        case thirdResultButton: thirdCheckCircle.tintColor = .secondary03
         default: break
         }
     }
     
+    private func resetColor() {
+        [
+            firstResultButton,
+            secondResultButton,
+            thirdResultButton
+        ].forEach { button in
+            button.backgroundColor = .gray02
+        }
+    }
+    
+    func updateColorSelection(hexString: String) {
+        guard let selectedButton = selectedButtonSubject.value else { return }
+        selectedButton.backgroundColor = UIColor(hex: hexString)
+        updateNextButtonSelection(after: selectedButton)
+    }
+    
+    private func updateNextButtonSelection(after selectedButton: UIButton) {
+        let buttonsWithStackViews: [(UIButton, UIStackView)] = [
+            (firstResultButton, pointVStackView),
+            (secondResultButton, baseVStackView),
+            (thirdResultButton, thirdVStackView)
+        ]
+        
+        let visibleButtons = buttonsWithStackViews
+            .filter { !$0.1.isHidden }
+            .map { $0.0 }
+        
+        guard let currentIndex = visibleButtons.firstIndex(of: selectedButton),
+              currentIndex < visibleButtons.count - 1 else {
+            return
+        }
+        
+        updateSelectedButton(visibleButtons[currentIndex + 1])
+    }
+    
     private func resetUIState() {
         [
-            firstColorButton,
-            secondColorButton,
-            thirdColorButton
+            firstResultButton,
+            secondResultButton,
+            thirdResultButton
         ].forEach { button in
-            button.layer.borderColor = UIColor.clear.cgColor
+            button.layer.borderColor = UIColor.gray02.cgColor
         }
         
         [
@@ -163,13 +202,11 @@ final class ColorSelectionResultView: UIView {
         button.backgroundColor = .gray02
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
-        button.layer.borderColor = UIColor.clear.cgColor
+        button.layer.borderColor = UIColor.gray02.cgColor
         button.layer.borderWidth = 2
         
-        button.addAction(UIAction { [weak self] action in
-            if let button = action.sender as? UIButton {
-                self?.selectedButtonSubject.send(button)
-            }
+        button.addAction(UIAction { [weak self] _ in
+            self?.updateSelectedButton(button)
         }, for: .touchUpInside)
         return button
     }
@@ -224,7 +261,7 @@ extension ColorSelectionResultView {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        [firstColorButton, secondColorButton, thirdColorButton].forEach { button in
+        [firstResultButton, secondResultButton, thirdResultButton].forEach { button in
             button.snp.makeConstraints {
                 $0.height.equalTo(96)
             }

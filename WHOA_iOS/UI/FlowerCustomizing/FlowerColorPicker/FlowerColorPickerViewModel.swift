@@ -14,18 +14,23 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     struct Input {
         let colorTypeSelected: AnyPublisher<NumberOfColorsType, Never>
+        let hexColorSelected: AnyPublisher<String, Never>
+        let resultButtonIndex: AnyPublisher<Int, Never>
         let backButtonTapped: AnyPublisher<Void, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let initialColorType: AnyPublisher<NumberOfColorsType, Never>
+        let initialHexColor: AnyPublisher<String, Never>
         let dismissView: AnyPublisher<Void, Never>
         let showFlowerSelection: AnyPublisher<Void, Never>
     }
     
     private let dataManager: BouquetDataManaging
-    private let colorTypeeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
+    private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
+    private let hexColorsSubject = CurrentValueSubject<[String], Never>([])
+    private let resultButtonIndexSubject = CurrentValueSubject<Int, Never>(0)
     private let dismissSubject = PassthroughSubject<Void, Never>()
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -42,8 +47,20 @@ final class FlowerColorPickerViewModel: ViewModel {
         
         input.colorTypeSelected
             .sink { [weak self] colorType in
-                self?.colorTypeeSubject.send(colorType)
+                self?.colorTypeSubject.send(colorType)
+                self?.updateHexColorsArray(for: colorType)
             }
+            .store(in: &cancellables)
+        
+        input.hexColorSelected
+            .sink { [weak self] hexColor in
+                guard let self = self else { return }
+                self.addHexColor(hexColor, self.resultButtonIndexSubject.value)
+            }
+            .store(in: &cancellables)
+        
+        input.resultButtonIndex
+            .assign(to: \.value, on: resultButtonIndexSubject)
             .store(in: &cancellables)
         
         input.backButtonTapped
@@ -60,9 +77,30 @@ final class FlowerColorPickerViewModel: ViewModel {
             .store(in: &cancellables)
         
         return Output(
-            initialColorType: colorTypeeSubject.eraseToAnyPublisher(),
+            initialColorType: colorTypeSubject.eraseToAnyPublisher(),
+            initialHexColor: input.hexColorSelected.eraseToAnyPublisher(),
             dismissView: dismissSubject.eraseToAnyPublisher(),
             showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher()
         )
+    }
+    
+    private func updateHexColorsArray(for colorType: NumberOfColorsType) {
+        switch colorType {
+        case .oneColor:
+            hexColorsSubject.send([""])
+        case .twoColor, .pointColor:
+            hexColorsSubject.send(["", ""])
+        case .colorful:
+            hexColorsSubject.send(["", "", ""])
+        default:
+            hexColorsSubject.send([""])
+        }
+    }
+    
+    private func addHexColor(_ hexColor: String, _ resultButtonIndex: Int) {
+        var hexColors = hexColorsSubject.value
+        let colorType = colorTypeSubject.value
+        hexColors[resultButtonIndex] = hexColor
+        hexColorsSubject.send(hexColors)
     }
 }

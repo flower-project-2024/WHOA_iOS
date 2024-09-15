@@ -102,6 +102,8 @@ final class FlowerColorPickerViewController: UIViewController {
     private func bind() {
         let input = FlowerColorPickerViewModel.Input(
             colorTypeSelected: colorTypeSelectionButtonsView.valuePublisher,
+            hexColorSelected: segmentControlView.valuePublisher,
+            resultButtonIndex: colorSelectionResultView.selectedButtonIndexPublisher,
             backButtonTapped: bottomView.backButtonTappedPublisher,
             nextButtonTapped: bottomView.nextButtonTappedPublisher
         )
@@ -110,6 +112,12 @@ final class FlowerColorPickerViewController: UIViewController {
         output.initialColorType
             .sink { [weak self] colorType in
                 self?.updateUI(for: colorType)
+            }
+            .store(in: &cancellables)
+        
+        output.initialHexColor
+            .sink { [weak self] hexColor in
+                self?.colorSelectionResultView.updateColorSelection(hexString: hexColor)
             }
             .store(in: &cancellables)
         
