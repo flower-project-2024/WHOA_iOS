@@ -112,7 +112,7 @@ final class CustomBottomView: UIView {
         }
     }
     
-    private func configNextButton(_ nextButtonState: Bool) {
+    func configNextButton(_ nextButtonState: Bool) {
         nextButton.isEnabled = nextButtonState
         nextButton.backgroundColor = nextButtonState ? .primary : .gray03
         nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)

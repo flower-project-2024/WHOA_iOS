@@ -132,6 +132,12 @@ final class FlowerColorPickerViewController: UIViewController {
                 self?.coordinator?.showFlowerSelectionVC()
             }
             .store(in: &cancellables)
+        
+        output.isNextButtonEnabled
+            .sink { [weak self] bool in
+                self?.bottomView.configNextButton(bool)
+            }
+            .store(in: &cancellables)
     }
     
     private func bindTapGesture() {
