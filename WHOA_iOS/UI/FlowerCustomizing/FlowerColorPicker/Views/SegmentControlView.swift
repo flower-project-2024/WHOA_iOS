@@ -12,6 +12,7 @@ final class SegmentControlView: UIView {
     
     // MARK: - Properties
     
+    private var selectedHexColor: String?
     private let hexColorSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -19,53 +20,31 @@ final class SegmentControlView: UIView {
         return hexColorSubject.eraseToAnyPublisher()
     }
     
+    // MARK: - UI
+    
     private let segmentColors: [[UIColor]] = [
         [.default1, .default2, .default3, .default4, .default5, .default6, .default7, .default8],
         [.dark1, .dark2, .dark3, .dark4, .dark5, .dark6, .dark7, .dark8],
         [.light1, .light2, .light3, .light4, .light5, .light6, .light7, .light8]
     ]
     
-    // MARK: - UI
-    
     private lazy var segmentControl: UISegmentedControl = {
         let segment = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
         segment.selectedSegmentIndex = 0
-        
-        // 기본 폰트
-        let font = UIFont.Pretendard(family: .SemiBold)
-        let normalAttributes = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: UIColor.gray06
-        ]
-        segment.setTitleTextAttributes(normalAttributes, for: .normal)
-        
-        // 선택된 폰트
-        let selectedAttributes = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: UIColor.gray09
-        ]
-        segment.setTitleTextAttributes(selectedAttributes, for: .selected)
-        
-        segment.addAction(UIAction(handler: { [weak self] _ in
-            self?.segmentChanged(sender: segment)
-        }), for: .valueChanged)
+        configSegmentControl(segment)
+        segment.addAction(UIAction(handler: segmentChanged), for: .valueChanged)
         return segment
     }()
     
-    private lazy var colorButtons: [UIButton] = (0...7).map { i in buildColorButton(backgroundColor: segmentColors[0][i]) }
+    private lazy var colorButtons: [UIButton] = (0...7).map { i in
+        buildColorButton(backgroundColor: segmentColors[0][i])
+    }
     
-    private lazy var colorHstackView1 = buildColorStackView(
-        views: Array(colorButtons[0...3]),
-        axis: .horizontal
-    )
-    private lazy var colorHstackView2 = buildColorStackView(
-        views: Array(colorButtons[4...7]),
-        axis: .horizontal
-    )
-    private lazy var colorVStackView = buildColorStackView(
-        views: [colorHstackView1, colorHstackView2],
-        axis: .vertical
-    )
+    private lazy var colorVStackView: UIStackView = {
+        let hStack1 = buildColorStackView(views: Array(colorButtons[0...3]), axis: .horizontal)
+        let hStack2 = buildColorStackView(views: Array(colorButtons[4...7]), axis: .horizontal)
+        return buildColorStackView(views: [hStack1, hStack2], axis: .vertical)
+    }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
@@ -101,25 +80,59 @@ final class SegmentControlView: UIView {
         setupAutoLayout()
     }
     
-    private func buildColorButton(
-        cornerRadius: CGFloat = 10,
-        backgroundColor: UIColor
-    ) -> UIButton {
+    
+    func bind(with selectedColorPublisher: AnyPublisher<String, Never>) {
+        selectedColorPublisher
+            .sink { [weak self] selectedColor in
+                self?.selectedHexColor = selectedColor
+                self?.updateCheckmark(for: selectedColor)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func configSegmentControl(_ segment: UISegmentedControl) {
+        let font = UIFont.Pretendard(family: .SemiBold)
+        let normalAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.gray06
+        ]
+        segment.setTitleTextAttributes(normalAttributes, for: .normal)
+        
+        let selectedAttributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: UIColor.gray09
+        ]
+        segment.setTitleTextAttributes(selectedAttributes, for: .selected)
+    }
+    
+    private func updateCheckmark(for color: String) {
+        if let button = colorButtons.first(where: { $0.backgroundColor?.toHexString() == color }) {
+            updateSelectedButton(button)
+        } else {
+            resetColorButtons()
+        }
+    }
+    
+    func resetColorButtons() {
+        colorButtons.forEach { $0.setImage(nil, for: .normal) }
+    }
+    
+    private func buildColorButton(backgroundColor: UIColor) -> UIButton {
         let button = UIButton()
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = cornerRadius
+        button.layer.cornerRadius = 10
         button.backgroundColor = backgroundColor
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray04.cgColor
-        
-        button.addAction(UIAction { [weak self] action in
-            if let button = action.sender as? UIButton,
-               let color = button.backgroundColor {
-                self?.hexColorSubject.send(color.toHexString())
-                self?.updateSelectedButton(button)
-            }
-        }, for: .touchUpInside)
+        button.addAction(UIAction(handler: buttonTapped), for: .touchUpInside)
         return button
+    }
+    
+    private func buttonTapped(action: UIAction) {
+        guard let button = action.sender as? UIButton,
+              let color = button.backgroundColor else { return }
+        hexColorSubject.send(color.toHexString())
+        updateSelectedButton(button)
     }
     
     private func buildColorStackView(
@@ -135,19 +148,33 @@ final class SegmentControlView: UIView {
     
     // MARK: - Actions
     
-    private func segmentChanged(sender: UISegmentedControl) {
-        let colors = segmentColors[sender.selectedSegmentIndex]
+    private func segmentChanged(action: UIAction) {
+        guard let segment = action.sender as? UISegmentedControl else { return }
+        let colors = segmentColors[segment.selectedSegmentIndex]
         zip(colorButtons, colors).forEach { button, color in
             button.backgroundColor = color
+        }
+        
+        if let selectedHexColor = selectedHexColor {
+            updateCheckmark(for: selectedHexColor)
+        } else {
+            resetColorButtons()
         }
     }
     
     private func updateSelectedButton(_ button: UIButton) {
-        colorButtons.forEach{ $0.setImage(nil, for: .normal) }
-        
-        let btnColor = UIColor.paletteCheckButton
-        let colorsConfig = UIImage.SymbolConfiguration(paletteColors: [.gray01, btnColor, btnColor])
-        button.setImage(UIImage(systemName: "checkmark.circle.fill", withConfiguration: colorsConfig), for: .normal)
+        resetColorButtons()
+        let checkmarkImage = UIImage(
+            systemName: "checkmark.circle.fill",
+            withConfiguration: UIImage.SymbolConfiguration(
+                paletteColors: [
+                    .gray01,
+                    UIColor.paletteCheckButton,
+                    UIColor.paletteCheckButton
+                ]
+            )
+        )
+        button.setImage(checkmarkImage, for: .normal)
     }
 }
 

@@ -112,6 +112,7 @@ final class FlowerColorPickerViewController: UIViewController {
         output.initialColorType
             .sink { [weak self] colorType in
                 self?.updateUI(for: colorType)
+                self?.segmentControlView.resetColorButtons()
             }
             .store(in: &cancellables)
         
@@ -138,6 +139,8 @@ final class FlowerColorPickerViewController: UIViewController {
                 self?.bottomView.configNextButton(bool)
             }
             .store(in: &cancellables)
+        
+        segmentControlView.bind(with: colorSelectionResultView.selectedColorPublisher)
     }
     
     private func bindTapGesture() {

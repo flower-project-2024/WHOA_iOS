@@ -16,7 +16,7 @@ final class ColorSelectionResultView: UIView {
     private var cancellables = Set<AnyCancellable>()
     
     var selectedButtonIndexPublisher: AnyPublisher<Int, Never> {
-        selectedButtonSubject
+        return selectedButtonSubject
             .map { [weak self] button in
                 switch button {
                 case self?.firstResultButton: return 0
@@ -25,6 +25,14 @@ final class ColorSelectionResultView: UIView {
                 default: return 0
                 }
             }
+            .eraseToAnyPublisher()
+    }
+    
+    var selectedColorPublisher: AnyPublisher<String, Never> {
+        return selectedButtonSubject
+            .compactMap({ button in
+                button?.backgroundColor?.toHexString()
+            })
             .eraseToAnyPublisher()
     }
     
