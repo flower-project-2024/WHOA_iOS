@@ -132,7 +132,6 @@ final class SegmentControlView: UIView {
         guard let button = action.sender as? UIButton,
               let color = button.backgroundColor else { return }
         hexColorSubject.send(color.toHexString())
-        updateSelectedButton(button)
     }
     
     private func buildColorStackView(

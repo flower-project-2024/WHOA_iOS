@@ -168,7 +168,7 @@ final class ColorSelectionResultView: UIView {
         
         guard let currentIndex = visibleButtons.firstIndex(of: selectedButton),
               currentIndex < visibleButtons.count - 1 else {
-            return
+            return updateSelectedButton(visibleButtons.last)
         }
         
         updateSelectedButton(visibleButtons[currentIndex + 1])
