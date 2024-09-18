@@ -165,9 +165,23 @@ final class FlowerColorPickerViewController: UIViewController {
     }
     
     private func toggleDropdown() {
-        let isHidden = colorTypeSelectionButtonsView.isHidden
         colorTypeSelectionButtonsView.isHidden.toggle()
-        colorTypeResultView.updateChevronImage(isExpanded: !isHidden)
+        
+        let isHidden = colorTypeSelectionButtonsView.isHidden
+        updateLayoutForDropdownState(isHidden: isHidden)
+        colorTypeResultView.updateChevronImage(isExpanded: isHidden)
+    }
+    
+    private func updateLayoutForDropdownState(isHidden: Bool) {
+        colorSelectionResultView.snp.remakeConstraints {
+            if isHidden {
+                $0.top.equalTo(colorTypeResultView.snp.bottom).offset(24)
+            } else {
+                $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(44)
+            }
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(217)
+        }
     }
 }
 
@@ -199,7 +213,7 @@ extension FlowerColorPickerViewController {
         colorTypeResultView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(32)
             $0.leading.trailing.equalToSuperview().inset(margin)
-            $0.height.equalToSuperview().multipliedBy(0.07)
+            $0.height.equalTo(56)
         }
         
         colorTypeSelectionButtonsView.snp.makeConstraints {
@@ -211,7 +225,7 @@ extension FlowerColorPickerViewController {
         colorSelectionResultView.snp.makeConstraints {
             $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(margin + vSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.269)
+            $0.height.equalTo(217)
         }
         
         segmentControlView.snp.makeConstraints {
