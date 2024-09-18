@@ -122,7 +122,7 @@ final class ColorSelectionResultView: UIView {
         case .pointColor: show(baseVStackView, pointColorLabel, baseColorLabel)
         case .none: isHidden = true
         }
-        
+        adjustButtonSizes(for: colorType)
         updateSelectedButton(firstResultButton)
     }
     
@@ -203,6 +203,16 @@ final class ColorSelectionResultView: UIView {
     
     private func show(_ views: UIView...) {
         views.forEach { $0.isHidden = false }
+    }
+    
+    func adjustButtonSizes(for colorType: NumberOfColorsType) {
+        mainHStackView.distribution = (colorType == .pointColor) ? .fill : .fillEqually
+        
+        if colorType == .pointColor {
+            firstResultButton.snp.makeConstraints {
+                $0.width.equalTo(mainHStackView.snp.width).multipliedBy(0.318).priority(2)
+            }
+        }
     }
     
     private func buildColorButton() -> UIButton {
