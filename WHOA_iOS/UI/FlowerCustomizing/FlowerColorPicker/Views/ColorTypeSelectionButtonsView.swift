@@ -36,7 +36,6 @@ final class ColorTypeSelectionButtonsView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.spacing = 8
-        stackView.isHidden = false
         return stackView
     }()
     
@@ -54,8 +53,6 @@ final class ColorTypeSelectionButtonsView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
-        isHidden = true
-        
         [
             colorTypeButtonHStackView
         ].forEach(addSubview(_:))
