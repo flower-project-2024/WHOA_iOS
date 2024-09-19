@@ -18,7 +18,8 @@ struct Bouquet: Codable {
     let bouquetId: Int
     let bouquetName: String
     let createdAt: String
-    let imgPaths: [String]
+    let selectedAllFlowersImagePathes: [String]
+    let realBouquetImagePath: String?
     let bouquetStatus: String
 }
 
@@ -29,7 +30,7 @@ extension BouquetAllDTO {
                 bouquetId: $0.bouquetId,
                 bouquetTitle: $0.bouquetName,
                 bouquetCreatedAt: $0.createdAt,
-                bouquetImgPaths: $0.imgPaths,
+                bouquetImgPaths: $0.selectedAllFlowersImagePathes,
                 bouquetStatus: BouquetStatusType.init(rawValue: $0.bouquetStatus) ?? .made
             )
         }
