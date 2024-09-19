@@ -149,8 +149,15 @@ final class ColorSelectionResultView: UIView {
         }
     }
     
-    func updateColorSelection(hexString: String) {
-        guard let selectedButton = selectedButtonSubject.value else { return }
+    func updateColorSelection(hexString: String, for index: Int) {
+        guard hexString != "" else { return }
+        let selectedButton: UIButton
+        switch index {
+        case 0: selectedButton = firstResultButton
+        case 1: selectedButton = secondResultButton
+        case 2: selectedButton = thirdResultButton
+        default: return
+        }
         selectedButton.backgroundColor = UIColor(hex: hexString)
         updateNextButtonSelection(after: selectedButton)
     }

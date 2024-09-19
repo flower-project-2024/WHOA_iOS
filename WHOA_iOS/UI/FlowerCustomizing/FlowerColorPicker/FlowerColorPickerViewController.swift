@@ -111,14 +111,18 @@ final class FlowerColorPickerViewController: UIViewController {
         
         output.initialColorType
             .sink { [weak self] colorType in
-                self?.updateUI(for: colorType)
-                self?.segmentControlView.resetColorButtons()
+                guard let self = self else { return }
+                self.updateUI(for: colorType)
+                self.segmentControlView.resetColorButtons()
             }
             .store(in: &cancellables)
         
         output.initialHexColor
-            .sink { [weak self] hexColor in
-                self?.colorSelectionResultView.updateColorSelection(hexString: hexColor)
+            .sink { [weak self] hexColors in
+                guard let self = self else { return }
+                hexColors.enumerated().forEach { index, hexColor in
+                    self.colorSelectionResultView.updateColorSelection(hexString: hexColor, for: index)
+                }
             }
             .store(in: &cancellables)
         

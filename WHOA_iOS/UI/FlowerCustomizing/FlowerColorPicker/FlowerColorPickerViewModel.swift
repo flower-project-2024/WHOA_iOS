@@ -22,7 +22,7 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     struct Output {
         let initialColorType: AnyPublisher<NumberOfColorsType, Never>
-        let initialHexColor: AnyPublisher<String, Never>
+        let initialHexColor: AnyPublisher<[String], Never>
         let dismissView: AnyPublisher<Void, Never>
         let showFlowerSelection: AnyPublisher<Void, Never>
         let isNextButtonEnabled: AnyPublisher<Bool, Never>
@@ -40,13 +40,14 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
+        initColorScheme(colorScheme: dataManager.getColorScheme())
     }
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
-        
         input.colorTypeSelected
+            .dropFirst()
             .sink { [weak self] colorType in
                 self?.colorTypeSubject.send(colorType)
                 self?.updateHexColorsArray(for: colorType)
@@ -72,20 +73,23 @@ final class FlowerColorPickerViewModel: ViewModel {
         
         input.nextButtonTapped
             .sink { [weak self] _ in
-                // DataManager Data 전달 로직 추가 필요
-                self?.showFlowerSelectionSubject.send()
+                guard let self = self else { return }
+                let colorType = self.colorTypeSubject.value
+                let colorScheme = createColorScheme(for: colorType)
+                self.dataManager.setColorScheme(colorScheme)
+                self.showFlowerSelectionSubject.send()
             }
             .store(in: &cancellables)
         
         let isNextButtonEnabled = hexColorsSubject
             .map { hexColors in
-                return !hexColors.contains("")
+                return !hexColors.contains("") && !hexColors.isEmpty
             }
             .removeDuplicates()
         
         return Output(
             initialColorType: colorTypeSubject.eraseToAnyPublisher(),
-            initialHexColor: input.hexColorSelected.eraseToAnyPublisher(),
+            initialHexColor: hexColorsSubject.eraseToAnyPublisher(),
             dismissView: dismissSubject.eraseToAnyPublisher(),
             showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher(),
             isNextButtonEnabled: isNextButtonEnabled.eraseToAnyPublisher()
@@ -109,5 +113,28 @@ final class FlowerColorPickerViewModel: ViewModel {
         var hexColors = hexColorsSubject.value
         hexColors[resultButtonIndex] = hexColor
         hexColorsSubject.send(hexColors)
+    }
+    
+    private func initColorScheme(colorScheme: BouquetData.ColorScheme) {
+        var colors = colorScheme.colors
+        
+        if let pointColor = colorScheme.pointColor {
+            colors.insert(pointColor, at: 0)
+        }
+        
+        colorTypeSubject.send(colorScheme.numberOfColors)
+        hexColorsSubject.send(colors)
+    }
+    
+    private func createColorScheme(for colorType: NumberOfColorsType) -> BouquetData.ColorScheme {
+        let colors = hexColorsSubject.value
+        let pointColor = colorType == .pointColor ? colors.first : nil
+        let filteredColors = colorType == .pointColor ? Array(colors.dropFirst()) : colors
+        
+        return BouquetData.ColorScheme(
+            numberOfColors: colorType,
+            pointColor: pointColor,
+            colors: filteredColors
+        )
     }
 }
