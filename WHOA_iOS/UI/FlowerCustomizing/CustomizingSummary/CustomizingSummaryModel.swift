@@ -53,7 +53,13 @@ extension CustomizingSummaryModel {
     init(from bouquetData: BouquetData) {
         self.purpose = bouquetData.purpose
         self.numberOfColors = bouquetData.colorScheme.numberOfColors
-        self.colors = bouquetData.colorScheme.colors
+        
+        var colors = bouquetData.colorScheme.colors
+        if let pointColor = bouquetData.colorScheme.pointColor {
+            colors.insert(pointColor, at: 0)
+        }
+        self.colors = colors
+        
         self.flowers = bouquetData.flowers.map {
             Flower(
                 id: $0.id,
