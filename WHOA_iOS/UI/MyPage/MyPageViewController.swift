@@ -95,18 +95,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         return vc
     }()
     
-//    private lazy var tableView: UITableView = {
-//        let tableView = UITableView()
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
-//        tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
-//        tableView.separatorStyle = .none
-//        tableView.sectionHeaderHeight = .zero
-//        tableView.sectionFooterHeight = cellVerticalSpacing
-//        return tableView
-//    }()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.fetchAllBouquets(fromCurrentVC: self)
@@ -170,7 +158,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         segmentContainerView.addSubview(segmentControl)
 
         view.addSubview(segmentUnderLineView)
-//        view.addSubview(tableView)
         view.addSubview(pageViewController.view)
     }
     
@@ -195,13 +182,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
             make.width.equalTo(underlineViewWidth)
             make.leading.equalTo(segmentControl.snp.leading)
         }
-        
-//        tableView.snp.makeConstraints { make in
-//            make.top.equalTo(segmentControl.snp.bottom).offset(36)
-//            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
-//            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-//            make.bottom.equalToSuperview()
-//        }
         
         pageViewController.view.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
