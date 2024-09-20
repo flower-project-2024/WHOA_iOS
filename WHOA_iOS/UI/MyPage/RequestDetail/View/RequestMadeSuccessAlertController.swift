@@ -51,7 +51,10 @@ class RequestMadeSuccessAlertController: UIViewController {
         config.attributedTitle = "안할래요"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         config.baseForegroundColor = UIColor.gray08
-        config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 30, bottom: 13, trailing: 30)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 13.adjustedH(basedOnHeight: 852),
+                                                       leading: 30.adjusted(basedOnWidth: 390),
+                                                       bottom: 13.adjustedH(basedOnHeight: 852),
+                                                       trailing: 30.adjusted(basedOnWidth: 390))
         
         button.configuration = config
         button.addTarget(self, action: #selector(noButtonDidTap), for: .touchUpInside)
@@ -67,7 +70,10 @@ class RequestMadeSuccessAlertController: UIViewController {
         config.attributedTitle = "갤러리에서 선택"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         config.baseForegroundColor = .white
-        config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 36, bottom: 13, trailing: 36)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 13.adjustedH(basedOnHeight: 852),
+                                                       leading: 36.adjusted(basedOnWidth: 390),
+                                                       bottom: 13.adjustedH(basedOnHeight: 852),
+                                                       trailing: 36.adjusted(basedOnWidth: 390))
         
         button.configuration = config
         button.addTarget(self, action: #selector(chooseFromGalleryButtonDidTap), for: .touchUpInside)
@@ -78,7 +84,7 @@ class RequestMadeSuccessAlertController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        stackView.spacing = 8
+        stackView.spacing = 8.adjusted(basedOnWidth: 390)
         return stackView
     }()
     
@@ -96,7 +102,7 @@ class RequestMadeSuccessAlertController: UIViewController {
     // MARK: - Actions
     
     @objc private func noButtonDidTap() {
-        dismiss(animated: false)
+        dismiss(animated: true)
     }
     
     @objc private func chooseFromGalleryButtonDidTap() {
@@ -120,28 +126,28 @@ class RequestMadeSuccessAlertController: UIViewController {
     private func setupConstraints() {
         alertView.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.horizontalEdges.equalToSuperview().inset(20)
+            make.horizontalEdges.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
         }
         
         imageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(42)
+            make.top.equalToSuperview().inset(42.adjustedH(basedOnHeight: 852))
             make.centerX.equalToSuperview()
         }
         
         subtitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(21)
+            make.top.equalTo(imageView.snp.bottom).offset(21.adjustedH(basedOnHeight: 852))
             make.centerX.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(subtitleLabel.snp.bottom).offset(8)
+            make.top.equalTo(subtitleLabel.snp.bottom).offset(8.adjustedH(basedOnHeight: 852))
             make.centerX.equalToSuperview()
         }
         
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(24)
-            make.horizontalEdges.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(24)
+            make.top.equalTo(titleLabel.snp.bottom).offset(24.adjustedH(basedOnHeight: 852))
+            make.horizontalEdges.equalToSuperview().inset(24.adjusted(basedOnWidth: 390))
+            make.bottom.equalToSuperview().inset(24.adjustedH(basedOnHeight: 852))
         }
     }
 }
