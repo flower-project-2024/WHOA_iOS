@@ -36,7 +36,10 @@ class MoreActionsSheetViewController: UIViewController {
         config.subtitle = "실제 꽃다발을 만들었다면 완료해주세요."
         config.attributedSubtitle?.font = .Pretendard(size: 16, family: .Regular)
         config.titlePadding = 10.adjustedH()
-        config.contentInsets = .init(top: 23.adjustedH(), leading: 33.adjusted(), bottom: 23.adjustedH(), trailing: 33.adjusted())
+        config.contentInsets = .init(top: 23.adjustedH(), 
+                                     leading: 33.adjusted(),
+                                     bottom: 23.adjustedH(),
+                                     trailing: 33.adjusted())
         config.baseForegroundColor = .primary
         config.baseBackgroundColor = .gray02
         config.background.cornerRadius = 8
