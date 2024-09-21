@@ -42,8 +42,11 @@ final class FlowerSelectionViewModel {
     
     // MARK: - Functions
     
-    func fetchFlowerKeyword(keywordId: String) {
-        NetworkManager.shared.fetchFlowerKeyword(keywordId: keywordId) { result in
+    func fetchFlowerKeyword(keywordId: Int = 0) {
+        NetworkManager.shared.fetchFlowerKeyword(
+            customizingPurposeId: purposeType.id,
+            keywordId: keywordId
+        ) { result in
             switch result {
             case .success(let DTO):
                 let models = FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)
