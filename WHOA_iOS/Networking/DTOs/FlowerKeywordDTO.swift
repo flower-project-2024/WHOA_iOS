@@ -18,7 +18,7 @@ struct FlowerKeywordDTO: Codable {
         let flowerName: String
         let flowerImageUrl: String?
         let flowerLanguage: String
-        let flowerKeyword: [String]
+        let keywords: [String]
     }
 }
 
@@ -29,7 +29,7 @@ extension FlowerKeywordDTO {
                 id: $0.id,
                 flowerName: $0.flowerName,
                 flowerImage: $0.flowerImageUrl,
-                flowerKeyword: $0.flowerKeyword,
+                flowerKeyword: $0.keywords,
                 flowerLanguage: formatFlowerLanguage($0.flowerLanguage)
             )
         }
