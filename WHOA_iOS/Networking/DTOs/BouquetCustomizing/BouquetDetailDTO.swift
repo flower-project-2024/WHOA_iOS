@@ -112,7 +112,7 @@ extension BouquetDetailDTO {
         
         // PackagingAssign
         let packagingAssign = BouquetData.PackagingAssign(
-            assign: PackagingAssignType(rawValue: detail.wrappingType) ?? .none,
+            assign: PackagingAssignType(rawValue: detail.wrappingType) ?? .myselfAssign,
             text: detail.wrappingType
         )
         
