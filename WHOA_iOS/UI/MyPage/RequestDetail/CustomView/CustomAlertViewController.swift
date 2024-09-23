@@ -24,9 +24,10 @@ final class CustomAlertViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var requestTitle: String?
-    private var alertType: AlertType?
+    private var requestTitle: String
+    private var alertType: AlertType
     private var myPageVC: UIViewController?
+    private var dataManager: BouquetDataManaging
     var bouquetId: Int?
     
     var customizingCoordinator: CustomizingCoordinator?
@@ -49,12 +50,12 @@ final class CustomAlertViewController: UIViewController {
         
         // 이미지 저장 팝업인 경우만 attribute 필요 없음
         if alertType == .requestSaveAlert {
-            label.text = alertType?.rawValue
+            label.text = alertType.rawValue
         }
         else {
-            fullTitle = "\(requestTitle!)을 \(alertType!.rawValue)할까요?"
+            fullTitle = "\(requestTitle)을 \(alertType.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
-            let range = (fullTitle as NSString).range(of: requestTitle ?? "꽃다발 요구서")
+            let range = (fullTitle as NSString).range(of: requestTitle)
             attributedText.addAttribute(.foregroundColor, value: UIColor.secondary04, range: range)
             label.attributedText = attributedText
         }
@@ -106,7 +107,7 @@ final class CustomAlertViewController: UIViewController {
             config.attributedTitle = AttributedString("확인")
         }
         else {
-            config.attributedTitle = AttributedString("\(alertType!.rawValue)할래요")
+            config.attributedTitle = AttributedString("\(alertType.rawValue)할래요")
         }
         
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
@@ -128,12 +129,19 @@ final class CustomAlertViewController: UIViewController {
     
     // MARK: - Init
     
-    convenience init(requestTitle: String? = nil, alertType: AlertType, currentVC: UIViewController) {
-        self.init()
-        
+    init(requestTitle: String,
+         alertType: AlertType,
+         currentVC: UIViewController,
+         dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.requestTitle = requestTitle
         self.alertType = alertType
         self.myPageVC = currentVC
+        self.dataManager = dataManager
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -189,10 +197,10 @@ final class CustomAlertViewController: UIViewController {
     @objc func confirmBtnTapped() {
         if alertType == AlertType.modify {
             guard let bouquetId = bouquetId else { return }
-
+            fetchBouquetDetail(requestTitle: requestTitle, bouquetId: bouquetId)
             dismiss(animated: true) { [weak self] in
                 self?.myPageVC?.tabBarController?.selectedIndex = 1
-                self?.customizingCoordinator?.setActionType(actionType: .update(bouquetId: bouquetId))
+                self?.customizingCoordinator?.showPurposeVC()
             }
 
         }
@@ -204,7 +212,7 @@ final class CustomAlertViewController: UIViewController {
             
             NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { reuslt in
                 switch reuslt {
-                case .success(let success):
+                case .success(let _):
                     DispatchQueue.main.async {
                         self.dismiss(animated: false) {
                             self.delegate?.deleteSuccessful(bouquetId: bouquetId)
@@ -217,6 +225,23 @@ final class CustomAlertViewController: UIViewController {
         }
         else if alertType == .requestSaveAlert {
             dismiss(animated: true)
+        }
+    }
+    
+    func fetchBouquetDetail(requestTitle: String, bouquetId: Int) {
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        NetworkManager.shared.fetchBouquetDetail(memberID: id, bouquetId: bouquetId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let dto):
+                BouquetDetailDTO.convertDTOToModelBouquetData(
+                    requestTitle: requestTitle,
+                    dto: dto,
+                    dataManager: self.dataManager
+                )
+            case .failure(let error):
+                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+            }
         }
     }
 }
