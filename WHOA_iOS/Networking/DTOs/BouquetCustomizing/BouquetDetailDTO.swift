@@ -82,6 +82,74 @@ extension BouquetDetailDTO {
             completion(model)
         }
     }
+    
+    static func convertDTOToModelBouquetData(requestTitle: String, dto: BouquetDetailDTO, dataManager: BouquetDataManaging) {
+        let detail = dto.data
+        
+        // Purpose Type
+        let purpose = PurposeType(rawValue: detail.purpose) ?? .none
+        
+        // Color Scheme
+        let colorScheme = BouquetData.ColorScheme(
+            numberOfColors: NumberOfColorsType(rawValue: detail.colorType) ?? .none,
+            pointColor: detail.pointColor,
+            colors: detail.colorName.components(separatedBy: ",")
+        )
+        
+        // Flowers
+        let flowers = detail.selectedFlowersInfoList.map {
+            BouquetData.Flower(
+                id: Int($0.id),
+                photo: $0.flowerImageUrl,
+                name: $0.flowerName,
+                hashTag: $0.flowerLanguage.components(separatedBy: ", "),
+                flowerKeyword: $0.flowerKeywords.components(separatedBy: ", ")
+            )
+        }
+        
+        // Alternative
+        let alternative = AlternativesType(rawValue: detail.substitutionType) ?? .none
+        
+        // PackagingAssign
+        let packagingAssign = BouquetData.PackagingAssign(
+            assign: PackagingAssignType(rawValue: detail.wrappingType) ?? .none,
+            text: detail.wrappingType
+        )
+        
+        // Price
+        let priceData: BouquetData.Price? = {
+            let priceSplit = detail.priceRange.components(separatedBy: " ~ ")
+            guard priceSplit.count == 2,
+                  let minPrice = Int(priceSplit[0].replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)),
+                  let maxPrice = Int(priceSplit[1].replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)) else {
+                print("Error converting price strings to integers")
+                return nil
+            }
+            return BouquetData.Price(min: minPrice, max: maxPrice)
+        }()
+        
+        // Requirement
+        let requirement = BouquetData.Requirement(
+            text: detail.requirement,
+            images: detail.uploadedBouquetImagesInfoList
+                .compactMap { URL(string: $0.bouquetImageUrl) }
+                .compactMap { try? Data(contentsOf: $0) }
+        )
+        
+        if let priceData = priceData {
+            let bouquetData = BouquetData(
+                requestTitle: requestTitle,
+                purpose: purpose,
+                colorScheme: colorScheme,
+                flowers: flowers,
+                alternative: alternative,
+                packagingAssign: packagingAssign,
+                price: priceData,
+                requirement: requirement
+            )
+            dataManager.setBouquet(bouquetData)
+        }
+    }
 }
 
 
