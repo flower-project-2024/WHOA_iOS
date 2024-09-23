@@ -14,7 +14,7 @@ struct BouquetDetailAPI: ServableAPI {
     let bouquetId: Int
     
     var method: HTTPMethod { .get }
-    var path: String { "/api/bouquet/" }
+    var path: String { "/api/v2/bouquet/" }
     var params: String { "\(bouquetId)" }
     var headers: [String : String]? {
         [
