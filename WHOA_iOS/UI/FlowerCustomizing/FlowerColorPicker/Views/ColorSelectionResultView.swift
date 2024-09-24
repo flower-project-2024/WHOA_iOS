@@ -14,10 +14,10 @@ final class ColorSelectionResultView: UIView {
     
     /// Metrics
     private enum Metric {
-        static let borderLineHeight: CGFloat = 4.0
-        static let buttonHeight: CGFloat = 96.0
-        static let elementVerticalSpacing: CGFloat = 24.0
-        static let sideInset: CGFloat = 20.0
+        static let borderLineHeight = 4.0
+        static let buttonHeight = 96.0
+        static let elementVerticalSpacing = 24.0
+        static let sideInset = 20.0
     }
     
     /// Attributes

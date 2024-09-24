@@ -15,9 +15,9 @@ final class PurposeViewController: UIViewController {
     
     /// Metrics
     private enum Metric {
-        static let sideMargin: CGFloat = 21.0
-        static let verticalSpacing: CGFloat = 32.0
-        static let bottomOffset: CGFloat = -45.0.adjustedH(basedOnHeight: 852)
+        static let sideMargin = 21.0
+        static let verticalSpacing = 32.0
+        static let bottomOffset = -45.0.adjustedH(basedOnHeight: 852)
     }
     
     /// Attributes

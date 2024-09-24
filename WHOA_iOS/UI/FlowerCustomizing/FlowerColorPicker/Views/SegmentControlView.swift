@@ -14,8 +14,8 @@ final class SegmentControlView: UIView {
     
     /// Metrics
     private enum Metric {
-        static let elementVerticalSpacing: CGFloat = 20.0
-        static let colorVStackHeightMultiplier: CGFloat = 0.25
+        static let elementVerticalSpacing = 20.0
+        static let colorVStackHeightMultiplier = 0.25
     }
     
     /// Attributes
