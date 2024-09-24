@@ -9,11 +9,26 @@ import UIKit
 
 final class CustomStartHeaderView: UIView {
     
+    // MARK: - Enum
+    
+    /// Metrics
+    private enum Metric {
+        static let titleLabelTopOffset = 39.0
+        static let titleLabelLeadingOffset = 20.0
+        static let descriptionLabelTopOffset = 10.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let titleLabelText = "꽃다발 커스터마이징으로\n나만의 꽃다발을 만들어보세요"
+        static let descriptionLabelText = "의미가 가득담긴 꽃다발을\n만들 수 있도록 도와드려요!"
+    }
+    
     // MARK: - Properties
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃다발 커스터마이징으로\n나만의 꽃다발을 만들어보세요"
+        label.text = Attributes.titleLabelText
         label.font = UIFont.Pretendard(size: 24, family: .Bold)
         label.numberOfLines = 0
         return label
@@ -21,7 +36,7 @@ final class CustomStartHeaderView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "의미가 가득담긴 꽃다발을\n만들 수 있도록 도와드려요!"
+        label.text = Attributes.descriptionLabelText
         label.textColor = .gray09
         label.font = .Pretendard(size: 16)
         label.numberOfLines = 0
@@ -65,12 +80,12 @@ final class CustomStartHeaderView: UIView {
 extension CustomStartHeaderView {
     private func setupAutoLayout() {
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(39)
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(Metric.titleLabelTopOffset)
+            $0.leading.equalToSuperview().offset(Metric.titleLabelLeadingOffset)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
             $0.leading.equalTo(titleLabel.snp.leading)
         }
         

@@ -10,6 +10,24 @@ import Combine
 
 final class CustomStartView: UIView {
     
+    // MARK: - Enum
+    
+    /// Metrics
+    private enum Metric {
+        static let textFieldTopOffset = 9.0
+        static let textFieldMargin = 20.0
+        static let textFieldHeightMultiplier = 0.14
+        static let startButtonTopOffset = 28.0
+        static let startButtonWidthMultiplier = 3.625
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let descriptionLabelText = "꽃다발 이름을 정해주세요."
+        static let PlaceholderText = "엄마생신 꽃다발"
+        static let startButtonText = "커스터마이징 시작하기"
+    }
+    
     // MARK: - Properties
     
     private let startButtonTappedSubject = PassthroughSubject<Void, Never>()
@@ -28,7 +46,7 @@ final class CustomStartView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃다발 이름을 정해주세요."
+        label.text = Attributes.descriptionLabelText
         label.textColor = .primary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
@@ -48,7 +66,7 @@ final class CustomStartView: UIView {
         
         // Placeholder
         textField.attributedPlaceholder = NSAttributedString(
-            string: "엄마생신 꽃다발",
+            string: Attributes.PlaceholderText,
             attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor.gray05,
                 NSAttributedString.Key.font : UIFont.Pretendard()
@@ -59,7 +77,7 @@ final class CustomStartView: UIView {
     
     private lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setTitle("커스터마이징 시작하기", for: .normal)
+        button.setTitle(Attributes.startButtonText, for: .normal)
         button.titleLabel?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         button.setTitleColor(.gray05, for: .normal)
         button.backgroundColor = .gray03
@@ -130,25 +148,22 @@ final class CustomStartView: UIView {
 
 extension CustomStartView {
     private func setupAutoLayout() {
-        let textFieldMargin = 20
-        
         descriptionLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
         }
         
         textField.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(9)
-            $0.leading.equalToSuperview().offset(textFieldMargin)
-            $0.trailing.equalToSuperview().offset(-textFieldMargin)
-            $0.height.equalTo(textField.snp.width).multipliedBy(0.14)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(Metric.textFieldTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.textFieldMargin)
+            $0.height.equalTo(textField.snp.width).multipliedBy(Metric.textFieldHeightMultiplier)
         }
         
         startButton.snp.makeConstraints {
-            $0.top.equalTo(textField.snp.bottom).offset(28)
+            $0.top.equalTo(textField.snp.bottom).offset(Metric.startButtonTopOffset)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(textField.snp.height)
-            $0.width.equalTo(startButton.snp.height).multipliedBy(3.625)
+            $0.width.equalTo(startButton.snp.height).multipliedBy(Metric.startButtonWidthMultiplier)
         }
     }
 }
