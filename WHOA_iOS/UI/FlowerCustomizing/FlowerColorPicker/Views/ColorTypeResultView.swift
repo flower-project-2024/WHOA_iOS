@@ -10,13 +10,28 @@ import SnapKit
 
 final class ColorTypeResultView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let cornerRadius = 10.0
+        static let sideMargin = 12.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let defaultLabelText = "조합"
+        static let chevronDownImage = "chevron.down"
+        static let chevronUpImage = "chevron.up"
+    }
+    
     // MARK: - Properties
     
     // MARK: - UI
     
     let colorSelectionLabel: UILabel = {
         let label = UILabel()
-        label.text = "조합"
+        label.text = Attributes.defaultLabelText
         label.textColor = .gray09
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
@@ -24,7 +39,7 @@ final class ColorTypeResultView: UIView {
     
     let chevronImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.down")
+        imageView.image = UIImage(systemName: Attributes.chevronDownImage)
         imageView.tintColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -45,7 +60,7 @@ final class ColorTypeResultView: UIView {
     
     private func setupUI() {
         backgroundColor = .gray02
-        layer.cornerRadius = 10
+        layer.cornerRadius = Metric.cornerRadius
         layer.masksToBounds = true
         
         [
@@ -57,12 +72,12 @@ final class ColorTypeResultView: UIView {
     }
     
     func updateChevronImage(isExpanded: Bool) {
-        let chevronImage = isExpanded ? "chevron.up" : "chevron.down"
+        let chevronImage = isExpanded ? Attributes.chevronUpImage : Attributes.chevronDownImage
         chevronImageView.image = UIImage(systemName: chevronImage)
     }
     
     func updateSelectionLabel(_ colorType: NumberOfColorsType) {
-        colorSelectionLabel.text = (colorType == .none) ? "조합" : colorType.rawValue
+        colorSelectionLabel.text = (colorType == .none) ? Attributes.defaultLabelText : colorType.rawValue
     }
 }
 
@@ -70,16 +85,14 @@ final class ColorTypeResultView: UIView {
 
 extension ColorTypeResultView {
     private func setupAutoLayout() {
-        let sideMargin = 12
-        
         colorSelectionLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().offset(sideMargin)
+            $0.leading.equalToSuperview().offset(Metric.sideMargin)
         }
         
         chevronImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-sideMargin)
+            $0.trailing.equalToSuperview().offset(-Metric.sideMargin)
         }
     }
 }

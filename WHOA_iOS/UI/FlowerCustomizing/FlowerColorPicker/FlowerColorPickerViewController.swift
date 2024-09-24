@@ -11,6 +11,25 @@ import Combine
 
 final class FlowerColorPickerViewController: UIViewController {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+        static let headerViewHeight = 178.0
+        static let colorTypeResultViewTopOffset = 32.0
+        static let colorTypeResultViewHeight = 56.0
+        static let colorTypeSelectionButtonsHeightMultiplier = 0.045
+        static let elementVerticalSpacing = 24.0
+        static let colorSelectionResultViewHeight = 217.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewTitle = "꽃 조합 색"
+        static let headerViewDescription = "원하는 느낌의 꽃 조합 색을 선택해주세요"
+    }
+    
     // MARK: - Properties
     
     private let viewModel: FlowerColorPickerViewModel
@@ -39,8 +58,8 @@ final class FlowerColorPickerViewController: UIViewController {
         currentVC: self,
         coordinator: coordinator,
         numerator: 2,
-        title: "꽃 조합 색",
-        description: "원하는 느낌의 꽃 조합 색을 선택해주세요"
+        title: Attributes.headerViewTitle,
+        description: Attributes.headerViewDescription
     )
     private let colorTypeResultView = ColorTypeResultView()
     private let colorTypeSelectionButtonsView = ColorTypeSelectionButtonsView()
@@ -179,12 +198,12 @@ final class FlowerColorPickerViewController: UIViewController {
     private func updateLayoutForDropdownState(isHidden: Bool) {
         colorSelectionResultView.snp.remakeConstraints {
             if isHidden {
-                $0.top.equalTo(colorTypeResultView.snp.bottom).offset(24)
+                $0.top.equalTo(colorTypeResultView.snp.bottom).offset(Metric.elementVerticalSpacing)
             } else {
-                $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(44)
+                $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(Metric.sideMargin + Metric.elementVerticalSpacing)
             }
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(217)
+            $0.height.equalTo(Metric.colorSelectionResultViewHeight)
         }
     }
 }
@@ -194,9 +213,6 @@ final class FlowerColorPickerViewController: UIViewController {
 // 고민사항 multipliedBy와 고정 height 어떤 기준을 사용하는게 좋을까?
 extension FlowerColorPickerViewController {
     private func setupAutoLayout() {
-        let margin: CGFloat = 20
-        let vSpacing: CGFloat = 24
-        
         scrollView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
@@ -210,31 +226,31 @@ extension FlowerColorPickerViewController {
         
         headerView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(margin)
-            $0.height.equalTo(178)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(Metric.headerViewHeight)
         }
         
         colorTypeResultView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(32)
-            $0.leading.trailing.equalToSuperview().inset(margin)
-            $0.height.equalTo(56)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.colorTypeResultViewTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(Metric.colorTypeResultViewHeight)
         }
         
         colorTypeSelectionButtonsView.snp.makeConstraints {
-            $0.top.equalTo(colorTypeResultView.snp.bottom).offset(margin)
-            $0.leading.trailing.equalToSuperview().inset(margin)
-            $0.height.equalToSuperview().multipliedBy(0.045)
+            $0.top.equalTo(colorTypeResultView.snp.bottom).offset(Metric.sideMargin)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalToSuperview().multipliedBy(Metric.colorTypeSelectionButtonsHeightMultiplier)
         }
         
         colorSelectionResultView.snp.makeConstraints {
-            $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(margin + vSpacing)
+            $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(Metric.sideMargin + Metric.elementVerticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(217)
+            $0.height.equalTo(Metric.colorSelectionResultViewHeight)
         }
         
         segmentControlView.snp.makeConstraints {
-            $0.top.equalTo(colorSelectionResultView.snp.bottom).offset(vSpacing)
-            $0.leading.trailing.bottom.equalToSuperview().inset(margin)
+            $0.top.equalTo(colorSelectionResultView.snp.bottom).offset(Metric.elementVerticalSpacing)
+            $0.leading.trailing.bottom.equalToSuperview().inset(Metric.sideMargin)
         }
         
         bottomView.snp.makeConstraints {
