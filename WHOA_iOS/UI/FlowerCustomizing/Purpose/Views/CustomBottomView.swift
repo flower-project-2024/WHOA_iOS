@@ -10,6 +10,23 @@ import Combine
 
 final class CustomBottomView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let horizontalPadding = 18.0
+        static let borderLineHeight = 2.0
+        static let backButtonWidth = 110.0
+        static let backButtonHeightMultiplier = 0.5
+        static let navigationHStackViewTopOffset = 20.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let backButtonTitle = "이전"
+        static let nextButtonTitle = "다음"
+    }
+    
     // MARK: - Properties
     
     enum ButtonState {
@@ -35,7 +52,7 @@ final class CustomBottomView: UIView {
     private let borderLine = ShadowBorderLine()
     
     private lazy var backButton: UIButton = {
-        let button = buildMoveButton(title: "이전")
+        let button = buildMoveButton(title: Attributes.backButtonTitle)
         button.layer.borderWidth = 1
         button.addAction(UIAction { [weak self] _ in
             self?.backButtonTappedSubject.send()
@@ -44,7 +61,7 @@ final class CustomBottomView: UIView {
     }()
     
     private lazy var nextButton: UIButton = {
-        let button = buildMoveButton(title: "다음")
+        let button = buildMoveButton(title: Attributes.nextButtonTitle)
         button.addAction(UIAction { [weak self] _ in
             self?.nextButtonTappedSubject.send()
         }, for: .touchUpInside)
@@ -123,23 +140,20 @@ final class CustomBottomView: UIView {
 
 extension CustomBottomView {
     private func setupAutoLayout() {
-        let horizontalPadding: CGFloat = 18
-        
         borderLine.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
+            $0.height.equalTo(Metric.borderLineHeight)
         }
         
         backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(backButton.snp.width).multipliedBy(0.5)
+            $0.width.equalTo(Metric.backButtonWidth)
+            $0.height.equalTo(backButton.snp.width).multipliedBy(Metric.backButtonHeightMultiplier)
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.top.equalTo(borderLine.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(horizontalPadding)
-            $0.trailing.equalToSuperview().offset(-horizontalPadding)
+            $0.top.equalTo(borderLine.snp.bottom).offset(Metric.navigationHStackViewTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.horizontalPadding)
             $0.bottom.equalToSuperview()
         }
     }

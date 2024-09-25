@@ -10,6 +10,21 @@ import Combine
 
 final class SegmentControlView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let elementVerticalSpacing = 20.0
+        static let colorVStackHeightMultiplier = 0.25
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let segmentItems = ["기본 색감", "진한 색감", "연한 색감"]
+        static let descriptionLabelText = "꽃집마다 가지고 있는 색들이 달라\n선택한 색감에 맞는 꽃으로 대체될 수 있습니다."
+        static let checkmarkImageName = "checkmark.circle.fill"
+    }
+    
     // MARK: - Properties
     
     private var selectedHexColor: String?
@@ -29,7 +44,7 @@ final class SegmentControlView: UIView {
     ]
     
     private lazy var segmentControl: UISegmentedControl = {
-        let segment = UISegmentedControl(items: ["기본 색감", "진한 색감", "연한 색감"])
+        let segment = UISegmentedControl(items: Attributes.segmentItems)
         segment.selectedSegmentIndex = 0
         configSegmentControl(segment)
         segment.addAction(UIAction(handler: segmentChanged), for: .valueChanged)
@@ -48,7 +63,7 @@ final class SegmentControlView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃집마다 가지고 있는 색들이 달라\n선택한 색감에 맞는 꽃으로 대체될 수 있습니다."
+        label.text = Attributes.descriptionLabelText
         label.font = .Pretendard(size: 12)
         label.textColor = .gray07
         label.textAlignment = .center
@@ -164,7 +179,7 @@ final class SegmentControlView: UIView {
     private func updateSelectedButton(_ button: UIButton) {
         resetColorButtons()
         let checkmarkImage = UIImage(
-            systemName: "checkmark.circle.fill",
+            systemName: Attributes.checkmarkImageName,
             withConfiguration: UIImage.SymbolConfiguration(
                 paletteColors: [
                     .gray01,
@@ -181,20 +196,18 @@ final class SegmentControlView: UIView {
 
 extension SegmentControlView {
     private func setupAutoLayout() {
-        let vSpacing = 20
-        
         segmentControl.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
         }
         
         colorVStackView.snp.makeConstraints {
-            $0.top.equalTo(segmentControl.snp.bottom).offset(vSpacing)
+            $0.top.equalTo(segmentControl.snp.bottom).offset(Metric.elementVerticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(colorVStackView.snp.width).multipliedBy(0.25)
+            $0.height.equalTo(colorVStackView.snp.width).multipliedBy(Metric.colorVStackHeightMultiplier)
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(colorVStackView.snp.bottom).offset(vSpacing)
+            $0.top.equalTo(colorVStackView.snp.bottom).offset(Metric.elementVerticalSpacing)
             $0.centerX.bottom.equalToSuperview()
         }
     }

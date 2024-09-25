@@ -10,6 +10,24 @@ import Combine
 
 final class ColorSelectionResultView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let borderLineHeight = 4.0
+        static let buttonHeight = 96.0
+        static let elementVerticalSpacing = 24.0
+        static let sideInset = 20.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let colorChoiceLabelText = "색을 선택해주세요"
+        static let pointColorLabelText = "포인트컬러"
+        static let baseColorLabelText = "베이스컬러"
+        static let checkCircleImage = UIImage(systemName: "checkmark.circle")
+    }
+    
     // MARK: - Properties
     
     private let selectedButtonSubject = CurrentValueSubject<UIButton?, Never>(nil)
@@ -42,7 +60,7 @@ final class ColorSelectionResultView: UIView {
     
     private let colorChoiceLabel: UILabel = {
         let label = UILabel()
-        label.text = "색을 선택해주세요"
+        label.text = Attributes.colorChoiceLabelText
         label.textColor = .gray09
         label.font = .Pretendard(size: 20, family: .Bold)
         return label
@@ -56,8 +74,8 @@ final class ColorSelectionResultView: UIView {
     private lazy var secondCheckCircle = buildCheckCircle()
     private lazy var thirdCheckCircle = buildCheckCircle()
     
-    private lazy var pointColorLabel = buildLabel(text: "포인트컬러")
-    private lazy var baseColorLabel = buildLabel(text: "베이스컬러")
+    private lazy var pointColorLabel = buildLabel(text: Attributes.pointColorLabelText)
+    private lazy var baseColorLabel = buildLabel(text: Attributes.baseColorLabelText)
     
     private lazy var pointVStackView = buildColorVStackView(
         button: firstResultButton,
@@ -238,7 +256,7 @@ final class ColorSelectionResultView: UIView {
     
     private func buildCheckCircle() -> UIImageView {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "checkmark.circle")
+        imageView.image = Attributes.checkCircleImage
         imageView.tintColor = .gray05
         imageView.preferredSymbolConfiguration = .init(pointSize: 24)
         imageView.contentMode = .scaleAspectFit
@@ -278,23 +296,23 @@ extension ColorSelectionResultView {
         borderLine.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(4)
+            $0.height.equalTo(Metric.borderLineHeight)
         }
         
         colorChoiceLabel.snp.makeConstraints {
-            $0.top.equalTo(borderLine.snp.bottom).offset(24)
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalTo(borderLine.snp.bottom).offset(Metric.elementVerticalSpacing)
+            $0.leading.equalToSuperview().offset(Metric.sideInset)
         }
         
         [firstResultButton, secondResultButton, thirdResultButton].forEach { button in
             button.snp.makeConstraints {
-                $0.height.equalTo(96)
+                $0.height.equalTo(Metric.buttonHeight)
             }
         }
         
         mainHStackView.snp.makeConstraints {
-            $0.top.equalTo(colorChoiceLabel.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(colorChoiceLabel.snp.bottom).offset(Metric.elementVerticalSpacing)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideInset)
         }
     }
 }

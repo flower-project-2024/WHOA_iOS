@@ -9,6 +9,17 @@ import UIKit
 
 final class CustomHeaderView: UIView {
     
+    // MARK: - Enum
+    
+    /// Metrics
+    private enum Metric {
+        static let exitButtonTopOffset = 17.0
+        static let progressViewTopOffset = 25.0
+        static let progressViewHeight = 12.75
+        static let titleLabelTopOffset = 24.0
+        static let descriptionLabelTopOffset = 12.0
+    }
+    
     // MARK: - Properties
     
     private let currentVC: UIViewController?
@@ -60,23 +71,23 @@ final class CustomHeaderView: UIView {
 extension CustomHeaderView {
     private func setupAutoLayout() {
         exitButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(17)
+            $0.top.equalToSuperview().offset(Metric.exitButtonTopOffset)
             $0.leading.equalToSuperview()
         }
         
         progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(25)
+            $0.top.equalTo(exitButton.snp.bottom).offset(Metric.progressViewTopOffset)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(12.75)
+            $0.height.equalTo(Metric.progressViewHeight)
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(24)
+            $0.top.equalTo(progressHStackView.snp.bottom).offset(Metric.titleLabelTopOffset)
             $0.leading.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
             $0.leading.equalToSuperview()
             
         }
