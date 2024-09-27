@@ -149,6 +149,14 @@ class FlowerDetailViewController: UIViewController {
         return stackView
     }()
     
+    private let colorChipDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "색상 별 다양한 꽃말을 확인해보세요"
+        label.font = .Pretendard(size: 16)
+        label.textColor = .gray06
+        return label
+    }()
+    
     private let birthFlowerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -329,7 +337,7 @@ class FlowerDetailViewController: UIViewController {
             flowerNameStackView.addArrangedSubview($0)
         }
         
-        [flowerColorLabel, flowerColorChipHStackView].forEach{
+        [flowerColorLabel, flowerColorChipHStackView, colorChipDescriptionLabel].forEach {
             flowerColorStackView.addArrangedSubview($0)
         }
         
@@ -396,7 +404,7 @@ class FlowerDetailViewController: UIViewController {
             make.top.equalTo(thickBorderLine).offset(40)
             make.leading.equalToSuperview().inset(26)
         }
-        //flowerColorStackView
+
         flowerColorStackView.snp.makeConstraints { make in
             make.top.equalTo(infoLabel.snp.bottom).offset(27)
             make.leading.equalToSuperview().inset(28)
