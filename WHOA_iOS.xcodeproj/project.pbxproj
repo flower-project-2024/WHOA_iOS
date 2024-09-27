@@ -125,6 +125,7 @@
 		5460712A2B88C4D30033B598 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071292B88C4D30033B598 /* NetworkService.swift */; };
 		546071322B88C6A30033B598 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071312B88C6A30033B598 /* NetworkManager.swift */; };
 		546071342B88D7490033B598 /* FlowerColorPickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546071332B88D7490033B598 /* FlowerColorPickerModel.swift */; };
+		5467F00F2CA6C2F8008E3F5F /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5467F00E2CA6C2F8008E3F5F /* OnboardingViewController.swift */; };
 		5468C0CE2C8B1F89001D999F /* ColorTypeSelectionButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468C0CD2C8B1F89001D999F /* ColorTypeSelectionButtonsView.swift */; };
 		5468C0D02C8BDFDF001D999F /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468C0CF2C8BDFDF001D999F /* SegmentControlView.swift */; };
 		5468C0D22C8BE107001D999F /* ColorSelectionResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468C0D12C8BE107001D999F /* ColorSelectionResultView.swift */; };
@@ -335,6 +336,7 @@
 		546071292B88C4D30033B598 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		546071312B88C6A30033B598 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		546071332B88D7490033B598 /* FlowerColorPickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerModel.swift; sourceTree = "<group>"; };
+		5467F00E2CA6C2F8008E3F5F /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		5468C0CD2C8B1F89001D999F /* ColorTypeSelectionButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTypeSelectionButtonsView.swift; sourceTree = "<group>"; };
 		5468C0CF2C8BDFDF001D999F /* SegmentControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
 		5468C0D12C8BE107001D999F /* ColorSelectionResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionResultView.swift; sourceTree = "<group>"; };
@@ -750,6 +752,14 @@
 			path = DTOs;
 			sourceTree = "<group>";
 		};
+		5467F00D2CA6C2E0008E3F5F /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				5467F00E2CA6C2F8008E3F5F /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		548C4AE52B8E691D002F4FCB /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -997,6 +1007,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5467F00D2CA6C2E0008E3F5F /* Onboarding */,
 				08478E3A2BEBAFE6003970B9 /* TabBar */,
 				0887F6242B86777F00727F14 /* MyPage */,
 				54FD0F762B73CF2B00F964C3 /* Common */,
@@ -1306,6 +1317,7 @@
 				54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */,
 				54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */,
 				54EB17F82BADA9D300717E6F /* SaveAlertViewController.swift in Sources */,
+				5467F00F2CA6C2F8008E3F5F /* OnboardingViewController.swift in Sources */,
 				54EB17D82BA1D2A400717E6F /* MediaType.swift in Sources */,
 				546071262B88C2740033B598 /* NetworkError.swift in Sources */,
 				086BC17E2CB2B579004BCC76 /* MoreActionCustomButton.swift in Sources */,
