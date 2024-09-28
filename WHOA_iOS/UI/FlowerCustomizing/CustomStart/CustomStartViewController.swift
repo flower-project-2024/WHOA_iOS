@@ -10,6 +10,15 @@ import Combine
 
 final class CustomStartViewController: UIViewController {
     
+    // MARK: - Enum
+    
+    /// Metrics
+    private enum Metric {
+        static let headerViewHeightMultiplier = 0.72
+        static let customStartViewTopOffset = 37.0
+        static let customStartViewHeightMultiplier = 0.18
+    }
+    
     // MARK: - Properties
     
     private let viewModel: CustomStartViewModel
@@ -83,11 +92,7 @@ final class CustomStartViewController: UIViewController {
         
         output.requestTitle
             .sink { [weak self] title in
-                if title.isEmpty {
-                    self?.customStartView.updateButtonState(isEnabled: false)
-                } else {
-                    self?.customStartView.updateButtonState(isEnabled: true)
-                }
+                self?.customStartView.updateButtonState(isEnabled: !title.isEmpty)
             }
             .store(in: &cancellables)
         
@@ -114,13 +119,13 @@ extension CustomStartViewController {
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(headerView.snp.width).multipliedBy(0.72)
+            $0.height.equalTo(headerView.snp.width).multipliedBy(Metric.headerViewHeightMultiplier)
         }
         
         customStartView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(37)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.customStartViewTopOffset)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(view.snp.height).multipliedBy(0.18)
+            $0.height.equalTo(view.snp.height).multipliedBy(Metric.customStartViewHeightMultiplier)
         }
     }
 }
