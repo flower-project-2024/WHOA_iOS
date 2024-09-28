@@ -24,6 +24,7 @@ final class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
         view.isScrollEnabled = true
         view.isUserInteractionEnabled = true
         return view
