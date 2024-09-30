@@ -146,14 +146,19 @@ final class CheapFlowerInfoCell: UITableViewCell {
 //            priceLabel.text = "\(model.flowerRankingPrice)원"
 //        }
         
-        /* 서버에 있는 꽃인 경우와 없는 꽃인 경우 분기 */
+        // DB에 있는 꽃일 경우
         if let id = model.flowerId {
             self.flowerId = id
             moveToDetailImageView.isHidden = false
+            
             if let img = model.flowerRankingImg {
                 ImageProvider.shared.setImage(into: flowerImageView, from: img)
             }
+            else {
+                flowerImageView.image = .defaultFlower
+            }
         }
+        // DB에 없는 꽃일 경우
         else {
             let illustArray = [UIImage.flowerIllust1,
                                UIImage.flowerIllust2,
