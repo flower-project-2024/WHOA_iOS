@@ -133,18 +133,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     func configure(model: CheapFlowerModel) {
         flowerNameLabel.text = model.flowerRankingName
         
-        var price = model.flowerRankingPrice
-        
-        priceLabel.text = "\(price.formatNumberInThousands())원"
-//        if price.count > 3{
-//            let endIndex = price.endIndex
-//            let thirdLastIndex = price.index(endIndex, offsetBy: -3)  // 뒤에서 3번째 인덱스 자리를 구함
-//            price.insert(",", at: thirdLastIndex)
-//            priceLabel.text = "\(price)원"
-//        }
-//        else {
-//            priceLabel.text = "\(model.flowerRankingPrice)원"
-//        }
+        priceLabel.text = "\(model.flowerRankingPrice.formatNumberInThousands())원"
         
         // DB에 있는 꽃일 경우
         if let id = model.flowerId {
