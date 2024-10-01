@@ -137,6 +137,10 @@ final class CustomBottomView: UIView {
         nextButton.backgroundColor = nextButtonState ? .primary : .gray03
         nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)
     }
+    
+    func setNextButtonTitle(_ title: String) {
+        nextButton.setTitle(title, for: .normal)
+    }
 }
 
 // MARK: - AutoLayout
