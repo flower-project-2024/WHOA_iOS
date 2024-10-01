@@ -16,6 +16,10 @@ final class CheapFlowerInfoCell: UITableViewCell {
     var flowerId: Int?
     
     private var flowerLanguage: String?
+    private let illustImageArray = [UIImage.flowerIllust1,
+                                    UIImage.flowerIllust2,
+                                    UIImage.flowerIllust3,
+                                    UIImage.flowerIllust4]
         
     // MARK: - Views
     
@@ -130,11 +134,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
-    func configure(model: CheapFlowerModel) {
-        flowerNameLabel.text = model.flowerRankingName
-        
-        priceLabel.text = "\(model.flowerRankingPrice.formatNumberInThousands())원"
-        
+    private func setFlowerImage(model: CheapFlowerModel) {
         // DB에 있는 꽃일 경우
         if let id = model.flowerId {
             self.flowerId = id
@@ -149,18 +149,21 @@ final class CheapFlowerInfoCell: UITableViewCell {
         }
         // DB에 없는 꽃일 경우
         else {
-            let illustArray = [UIImage.flowerIllust1,
-                               UIImage.flowerIllust2,
-                               UIImage.flowerIllust3,
-                               UIImage.flowerIllust4]
-            
             moveToDetailImageView.isHidden = true
-            flowerImageView.image = illustArray.randomElement()
+            flowerImageView.image = illustImageArray.randomElement()
         }
-        
-        flowerLanguage = model.flowerRankingLanguage
     }
     
+    func configure(model: CheapFlowerModel) {
+        flowerNameLabel.text = model.flowerRankingName
+        priceLabel.text = "\(model.flowerRankingPrice.formatNumberInThousands())원"
+        
+        flowerLanguage = model.flowerRankingLanguage
+        
+        setFlowerImage(model: model)
+    }
+    
+    /// 홈 탭 뷰컨트롤러의 뷰들이 모두 레이아웃 된 후 viewDidLayoutSubviews() 에서 호출되는 메소드
     func updateFlowerLanguageStackView() {
         flowerLanguageStackView.removeArrangedSubviews()
                 
