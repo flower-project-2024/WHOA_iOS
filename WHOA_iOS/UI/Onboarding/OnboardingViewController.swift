@@ -16,6 +16,7 @@ final class OnboardingViewController: UIViewController {
     /// Metrics
     private enum Metric {
         static let verticalSpacing = 43
+        static let scrollViewHeightMultiplier = 587.0 / 375.0
     }
     
     /// Attributes
@@ -28,8 +29,9 @@ final class OnboardingViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var currentPage: Int = 0
+    private let currentPageSubject: CurrentValueSubject<Int, Never> = .init(0)
     private var cancellables = Set<AnyCancellable>()
+    
     private let onboardingImageNames = [
         Attributes.onboardingStep01,
         Attributes.onboardingStep02,
@@ -44,6 +46,7 @@ final class OnboardingViewController: UIViewController {
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = .gray04
         pageControl.currentPageIndicatorTintColor = .secondary03
+        pageControl.numberOfPages = 4
         return pageControl
     }()
     
@@ -51,11 +54,8 @@ final class OnboardingViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.alwaysBounceVertical = false
         scrollView.bounces = false
         scrollView.delegate = self
-        pageControl.numberOfPages = onboardingImageNames.count
         return scrollView
     }()
     
@@ -63,14 +63,11 @@ final class OnboardingViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.alignment = .fill
-        stackView.spacing = 0
         
         // 이미지 추가
-        for imageName in onboardingImageNames {
+        onboardingImageNames.forEach { imageName in
             let imageView = UIImageView(image: UIImage(named: imageName))
             imageView.contentMode = .scaleAspectFit
-            imageView.clipsToBounds = true
             stackView.addArrangedSubview(imageView)
         }
         return stackView
@@ -94,7 +91,6 @@ final class OnboardingViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .gray02
-        
         [   pageControl,
             scrollView,
             bottomView
@@ -104,6 +100,47 @@ final class OnboardingViewController: UIViewController {
     }
     
     private func bind() {
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.showHomeVC()
+            }
+            .store(in: &cancellables)
+        
+        bottomView.nextButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.handleNextButtonTapped()
+            }
+            .store(in: &cancellables)
+        
+        currentPageSubject
+            .sink { [weak self] pageNumber in
+                guard let self = self else { return }
+                self.pageControl.currentPage = pageNumber
+                let buttonTitle = pageNumber >= self.onboardingImageNames.count - 1 ? "시작하기" : "다음"
+                self.bottomView.setNextButtonTitle(buttonTitle)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func handleNextButtonTapped() {
+        let nextPage = currentPageSubject.value + 1
+        
+        if nextPage >= onboardingImageNames.count {
+            showHomeVC()
+        } else {
+            currentPageSubject.send(nextPage)
+            let offsetX = CGFloat(nextPage) * scrollView.frame.width
+            scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        }
+    }
+    
+    private func showHomeVC() {
+        let tabBarVC = TabBarViewController()
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = tabBarVC
+            UIView.transition(with: window, duration: 0.5, options: .transitionCrossDissolve, animations: nil)
+        }
     }
 }
 
@@ -119,7 +156,7 @@ extension OnboardingViewController {
         scrollView.snp.makeConstraints {
             $0.top.equalTo(pageControl.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(scrollView.snp.width).multipliedBy(587.0 / 375.0)
+            $0.height.equalTo(scrollView.snp.width).multipliedBy(Metric.scrollViewHeightMultiplier)
         }
         
         imageHstackView.snp.makeConstraints {
@@ -140,7 +177,7 @@ extension OnboardingViewController {
 extension OnboardingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x / view.frame.width)
-        pageControl.currentPage = Int(pageIndex)
+        currentPageSubject.send(Int(pageIndex))
     }
 }
 
