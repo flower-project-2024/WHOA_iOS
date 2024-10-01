@@ -10,10 +10,38 @@ import Combine
 
 final class CustomBottomView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let horizontalPadding = 18.0
+        static let borderLineHeight = 2.0
+        static let backButtonWidth = 110.0
+        static let backButtonHeightMultiplier = 0.5
+        static let navigationHStackViewTopOffset = 20.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let backButtonTitle = "이전"
+        static let nextButtonTitle = "다음"
+    }
+    
     // MARK: - Properties
     
+    enum ButtonState {
+        case disabled
+        case enabled
+        case hidden
+    }
+    
+    private let backButtonTappedSubject = PassthroughSubject<Void, Never>()
     private let nextButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
+    
+    var backButtonTappedPublisher: AnyPublisher<Void, Never> {
+        backButtonTappedSubject.eraseToAnyPublisher()
+    }
     
     var nextButtonTappedPublisher: AnyPublisher<Void, Never> {
         nextButtonTappedSubject.eraseToAnyPublisher()
@@ -24,17 +52,16 @@ final class CustomBottomView: UIView {
     private let borderLine = ShadowBorderLine()
     
     private lazy var backButton: UIButton = {
-        let button = buildMoveButton(title: "이전")
-        button.backgroundColor = .gray03
-        button.setTitleColor(.gray05, for: .normal)
+        let button = buildMoveButton(title: Attributes.backButtonTitle)
+        button.layer.borderWidth = 1
+        button.addAction(UIAction { [weak self] _ in
+            self?.backButtonTappedSubject.send()
+        }, for: .touchUpInside)
         return button
     }()
     
     private lazy var nextButton: UIButton = {
-        let button = buildMoveButton(title: "다음")
-        button.backgroundColor = .primary
-        button.setTitleColor(.gray05, for: .normal)
-        
+        let button = buildMoveButton(title: Attributes.nextButtonTitle)
         button.addAction(UIAction { [weak self] _ in
             self?.nextButtonTappedSubject.send()
         }, for: .touchUpInside)
@@ -51,8 +78,10 @@ final class CustomBottomView: UIView {
     
     // MARK: - Initialize
     
-    init() {
+    init(backButtonState: ButtonState, nextButtonEnabled: Bool) {
         super.init(frame: .zero)
+        configBackButton(backButtonState)
+        configNextButton(nextButtonEnabled)
         setupUI()
     }
     
@@ -82,29 +111,49 @@ final class CustomBottomView: UIView {
         button.setTitleColor(.gray05, for: .normal)
         return button
     }
+    
+    private func configBackButton(_ backButtonState: ButtonState) {
+        switch backButtonState {
+        case .enabled:
+            backButton.isEnabled = true
+            backButton.backgroundColor = .gray01
+            backButton.setTitleColor(.primary, for: .normal)
+            backButton.layer.borderColor = UIColor.primary.cgColor
+        case .disabled:
+            backButton.isEnabled = false
+            backButton.backgroundColor = .gray03
+            backButton.setTitleColor(.gray05, for: .normal)
+            backButton.layer.borderColor = UIColor.clear.cgColor
+        case .hidden:
+            backButton.isHidden = true
+        }
+    }
+    
+    func configNextButton(_ nextButtonState: Bool) {
+        nextButton.isEnabled = nextButtonState
+        nextButton.backgroundColor = nextButtonState ? .primary : .gray03
+        nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)
+    }
 }
 
 // MARK: - AutoLayout
 
 extension CustomBottomView {
     private func setupAutoLayout() {
-        let horizontalPadding: CGFloat = 18
-        
         borderLine.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
+            $0.height.equalTo(Metric.borderLineHeight)
         }
         
         backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(backButton.snp.width).multipliedBy(0.5)
+            $0.width.equalTo(Metric.backButtonWidth)
+            $0.height.equalTo(backButton.snp.width).multipliedBy(Metric.backButtonHeightMultiplier)
         }
         
         navigationHStackView.snp.makeConstraints {
-            $0.top.equalTo(borderLine.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(horizontalPadding)
-            $0.trailing.equalToSuperview().offset(-horizontalPadding)
+            $0.top.equalTo(borderLine.snp.bottom).offset(Metric.navigationHStackViewTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.horizontalPadding)
             $0.bottom.equalToSuperview()
         }
     }

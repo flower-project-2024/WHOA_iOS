@@ -11,6 +11,13 @@ import Combine
 
 final class PurposeView: UIView {
     
+    // MARK: - Enum
+    
+    /// Metrics
+    private enum Metric {
+        static let buttonHeight = 94.0.adjustedH()
+    }
+    
     // MARK: - Properties
     
     private let purposeSubject: CurrentValueSubject<PurposeType, Never> = .init(.none)
@@ -77,9 +84,7 @@ final class PurposeView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
-        
         addSubview(purposeButtonVStackView)
-        
         setupAutoLayout()
     }
     
@@ -233,7 +238,7 @@ extension PurposeView {
             promotionButton,
         ].forEach { button in
             button.snp.makeConstraints { make in
-                make.height.equalTo(94.adjustedH())
+                make.height.equalTo(Metric.buttonHeight)
             }
         }
         

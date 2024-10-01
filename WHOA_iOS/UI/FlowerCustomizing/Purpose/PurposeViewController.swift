@@ -11,6 +11,21 @@ import Combine
 
 final class PurposeViewController: UIViewController {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 21.0
+        static let verticalSpacing = 32.0
+        static let bottomOffset = -45.0.adjustedH(basedOnHeight: 852)
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerTitleText = "꽃다발 구매 목적"
+        static let headerDescriptionText = "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요"
+    }
+    
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
@@ -19,9 +34,15 @@ final class PurposeViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var headerView = CustomHeaderView(currentVC: self, coordinator: coordinator)
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 1,
+        title: Attributes.headerTitleText,
+        description: Attributes.headerDescriptionText
+    )
     private let purposeView = PurposeView()
-    private let bottomView = CustomBottomView()
+    private let bottomView = CustomBottomView(backButtonState: .disabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
@@ -96,21 +117,15 @@ final class PurposeViewController: UIViewController {
 
 extension PurposeViewController {
     private func setupAutoLayout() {
-        let sideMargin: CGFloat = 21
-        let verticalSpacing: CGFloat = 32
-        let bottomOffset: CGFloat = -45.adjustedH(basedOnHeight: 852)
-        
         headerView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.equalToSuperview().offset(sideMargin)
-            $0.trailing.equalToSuperview().offset(-sideMargin)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
         purposeView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(verticalSpacing)
-            $0.leading.equalToSuperview().offset(sideMargin)
-            $0.trailing.equalToSuperview().offset(-sideMargin)
-            $0.bottom.equalTo(bottomView.snp.top).offset(bottomOffset)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.verticalSpacing)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.bottom.equalTo(bottomView.snp.top).offset(Metric.bottomOffset)
         }
         
         bottomView.snp.makeConstraints {
