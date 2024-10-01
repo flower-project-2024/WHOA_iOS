@@ -29,6 +29,49 @@ final class RequestDetailViewController: UIViewController {
         return view
     }()
     
+    private let madeCompleteLabel: HashTagCustomLabel = {
+        let label = HashTagCustomLabel(padding: .init(top: 9.adjustedH(basedOnHeight: 844),
+                                                      left: 24.adjusted(basedOnWidth: 390),
+                                                      bottom: 9.adjustedH(basedOnHeight: 844),
+                                                      right: 24.adjusted(basedOnWidth: 390)))
+        label.text = "제작 완료"
+        label.font = .Pretendard(size: 16, family: .SemiBold)
+        label.setLineHeight(lineHeight: 140)
+        label.textColor = .white
+        label.backgroundColor = .init(hex: "141414", alpha: 0.5)
+        label.layer.cornerRadius = 20
+        return label
+    }()
+    
+    private let flowerImageStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 0
+        view.distribution = .fillEqually
+        return view
+    }()
+    
+    private let saveAsImageSmallButton: UIButton = {
+        let button = UIButton()
+        
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = UIColor(hex: "F6F6F6", alpha: 0.8)
+        config.baseForegroundColor = .gray09
+        config.background.cornerRadius = 21
+        config.attributedTitle = AttributedString("이미지로 저장", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(family: .SemiBold)]))
+        config.image = .downloadIcon
+        config.imagePadding = 4.adjusted(basedOnWidth: 390)
+        config.imagePlacement = .leading
+        config.contentInsets = .init(top: 8.adjustedH(basedOnHeight: 844),
+                                     leading: 20.adjusted(basedOnWidth: 390),
+                                     bottom: 8.adjustedH(basedOnHeight: 844),
+                                     trailing: 18.adjusted(basedOnWidth: 390))
+        
+        button.configuration = config
+        button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
     private let requestDetailView = RequestDetailView(requestDetailType: .myPage)
     
     private let saveAsImageButton: UIButton = {
@@ -96,8 +139,10 @@ final class RequestDetailViewController: UIViewController {
         
         scrollView.addSubview(contentView)
         
+        contentView.addSubview(flowerImageStackView)
+        contentView.addSubview(madeCompleteLabel)
+        contentView.addSubview(saveAsImageSmallButton)
         contentView.addSubview(requestDetailView)
-        
         contentView.addSubview(saveAsImageButton)
     }
     
@@ -112,8 +157,24 @@ final class RequestDetailViewController: UIViewController {
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
         
+        madeCompleteLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(24)
+            make.leading.equalToSuperview().inset(20)
+        }
+        
+        flowerImageStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(flowerImageStackView.snp.width).multipliedBy(1)
+        }
+        
+        saveAsImageSmallButton.snp.makeConstraints { make in
+            make.bottom.equalTo(requestDetailView.snp.top).offset(-11)
+            make.leading.trailing.equalToSuperview().inset(124)
+        }
+        
         requestDetailView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
+            make.top.equalTo(flowerImageStackView.snp.bottom).inset(64.adjustedH(basedOnHeight: 844))
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
@@ -124,11 +185,54 @@ final class RequestDetailViewController: UIViewController {
         }
     }
     
+    private func setImageViewGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+
+        gradientLayer.colors = [UIColor.white.withAlphaComponent(0).cgColor, UIColor.white.cgColor]
+        gradientLayer.locations = [0.76, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1.0)
+        
+        gradientLayer.frame = flowerImageStackView.bounds
+        
+        flowerImageStackView.layer.addSublayer(gradientLayer)
+    }
+    
+    private func configureFlowerImage(imageURLs: [String?]) {
+        flowerImageStackView.removeArrangedSubviews()
+        
+        for imageURL in imageURLs {
+            if let urlString = imageURL {
+                let imageView = UIImageView()
+                imageView.contentMode = .scaleAspectFill
+                imageView.clipsToBounds = true
+                flowerImageStackView.addArrangedSubview(imageView)
+                
+                if let url = URL(string: urlString) {
+                    ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
+                }
+            }
+        }
+        
+        setImageViewGradientLayer()
+    }
+    
+    private func configureSaveAsImageSmallButton(isHidden: Bool) {
+        saveAsImageSmallButton.isHidden = isHidden
+    }
+    
+    private func configureMadeCompleteLabel(isHidden: Bool) {
+        madeCompleteLabel.isHidden = isHidden
+    }
+    
     private func bind() {
         viewModel.customizingSummaryModelDidChaged = { [weak self] model in
             guard let model = model else { return }
             DispatchQueue.main.async {
                 self?.requestDetailView.config(model: model)
+                self?.configureFlowerImage(imageURLs: model.flowers.map({ $0.photo }))
+                self?.configureSaveAsImageSmallButton(isHidden: false)
+                self?.configureMadeCompleteLabel(isHidden: false)
             }
         }
         
