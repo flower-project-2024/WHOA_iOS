@@ -39,7 +39,7 @@ final class RequestDetailViewController: UIViewController {
         label.setLineHeight(lineHeight: 140)
         label.textColor = .white
         label.backgroundColor = .init(hex: "141414", alpha: 0.5)
-        label.layer.cornerRadius = 20
+        label.layer.cornerRadius = 20.adjustedH(basedOnHeight: 844)
         return label
     }()
     
@@ -82,7 +82,10 @@ final class RequestDetailViewController: UIViewController {
         config.baseForegroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1)
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10
-        config.contentInsets = NSDirectionalEdgeInsets(top: 17, leading: 0, bottom: 17, trailing: 0)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 17.adjustedH(basedOnHeight: 844),
+                                                       leading: 0,
+                                                       bottom: 17.adjustedH(basedOnHeight: 844),
+                                                       trailing: 0)
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
@@ -158,8 +161,8 @@ final class RequestDetailViewController: UIViewController {
         }
         
         madeCompleteLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24)
-            make.leading.equalToSuperview().inset(20)
+            make.top.equalToSuperview().inset(24.adjustedH(basedOnHeight: 844))
+            make.leading.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
         }
         
         flowerImageStackView.snp.makeConstraints { make in
@@ -169,19 +172,19 @@ final class RequestDetailViewController: UIViewController {
         }
         
         saveAsImageSmallButton.snp.makeConstraints { make in
-            make.bottom.equalTo(requestDetailView.snp.top).offset(-11)
-            make.leading.trailing.equalToSuperview().inset(124)
+            make.bottom.equalTo(requestDetailView.snp.top).offset(-11.adjustedH(basedOnHeight: 844))
+            make.centerX.equalToSuperview()
         }
         
         requestDetailView.snp.makeConstraints { make in
             make.top.equalTo(flowerImageStackView.snp.bottom).inset(64.adjustedH(basedOnHeight: 844))
-            make.leading.trailing.equalToSuperview().inset(20)
+            make.leading.trailing.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
         }
         
         saveAsImageButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(requestDetailView.snp.bottom).offset(28)
-            make.bottom.equalToSuperview().inset(10)
+            make.leading.trailing.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
+            make.top.equalTo(requestDetailView.snp.bottom).offset(28.adjustedH(basedOnHeight: 844))
+            make.bottom.equalToSuperview().inset(10.adjustedH(basedOnHeight: 844))
         }
     }
     
