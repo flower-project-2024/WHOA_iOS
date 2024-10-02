@@ -10,7 +10,7 @@ import Combine
 
 final class CustomStartViewController: UIViewController {
     
-    // MARK: - Enum
+    // MARK: - Enums
     
     /// Metrics
     private enum Metric {

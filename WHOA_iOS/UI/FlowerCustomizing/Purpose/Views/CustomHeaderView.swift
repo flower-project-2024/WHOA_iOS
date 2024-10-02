@@ -9,7 +9,7 @@ import UIKit
 
 final class CustomHeaderView: UIView {
     
-    // MARK: - Enum
+    // MARK: - Enums
     
     /// Metrics
     private enum Metric {

@@ -11,7 +11,7 @@ import Combine
 
 final class PurposeView: UIView {
     
-    // MARK: - Enum
+    // MARK: - Enums
     
     /// Metrics
     private enum Metric {
