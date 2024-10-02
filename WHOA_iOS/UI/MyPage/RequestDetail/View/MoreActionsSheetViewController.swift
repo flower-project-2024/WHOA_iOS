@@ -14,6 +14,7 @@ class MoreActionsSheetViewController: UIViewController {
     
     private let viewModel: RequestDetailViewModel
     private var bouquetId: Int?
+    private let isProducted: Bool
     private var requestDetailVC: RequestDetailViewController
     static private var hasBezel: Bool {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -107,9 +108,10 @@ class MoreActionsSheetViewController: UIViewController {
     
     // MARK: - Init
     
-    init(title: String, bouquetId: Int, from currentVC: RequestDetailViewController) {
+    init(title: String, bouquetId: Int, isProducted: Bool, from currentVC: RequestDetailViewController) {
         viewModel = RequestDetailViewModel(requestTitle: title, bouquetId: bouquetId)
         self.bouquetId = bouquetId
+        self.isProducted = isProducted
         requestDetailVC = currentVC
         
         super.init(nibName: nil, bundle: nil)
@@ -170,7 +172,11 @@ class MoreActionsSheetViewController: UIViewController {
     
     private func addViews() {
         view.addSubview(menuStackView)
-        menuStackView.addArrangedSubview(productionCompletedButton)
+        
+        // 제작 완료가 되지 않은 상태에서만 제작 완료 버튼이 뜨도록
+        if !isProducted {
+            menuStackView.addArrangedSubview(productionCompletedButton)
+        }
         menuStackView.addArrangedSubview(modifyButton)
         menuStackView.addArrangedSubview(deleteButton)
         

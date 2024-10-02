@@ -95,7 +95,8 @@ final class RequestDetailViewController: UIViewController {
     // MARK: - Init
     
     init(with BouquetModel: BouquetModel) {
-        viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, bouquetId: BouquetModel.bouquetId)
+        viewModel = RequestDetailViewModel(requestTitle: BouquetModel.bouquetTitle, 
+                                           bouquetId: BouquetModel.bouquetId)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -270,6 +271,7 @@ final class RequestDetailViewController: UIViewController {
         
         let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(), 
                                                                 bouquetId: viewModel.getBouquetId(),
+                                                                isProducted: (viewModel.getRequestDetailModel().status == .producted) ? true : false,
                                                                 from: self)
         
         moreActionsSheetVC.modalPresentationStyle = .pageSheet

@@ -63,6 +63,10 @@ final class RequestDetailViewModel {
         return bouquetId
     }
     
+    func getRequestDetailModel() -> RequestDetailModel {
+        return requestDetailModel!
+    }
+    
     func patchBouquetStatus() {
         guard let id = KeychainManager.shared.loadMemberId() else { return }
         
