@@ -213,11 +213,3 @@ final class MoreActionsSheetViewController: UIViewController {
         }
     }
 }
-
-// MARK: - Extension: CustomAlertViewControllerDelegate
-
-//extension MoreActionsSheetViewController: CustomAlertViewControllerDelegate {
-//    func deleteSuccessful(bouquetId: Int) {
-//        viewModel.remove
-//    }
-//}

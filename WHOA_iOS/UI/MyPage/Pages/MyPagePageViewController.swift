@@ -15,10 +15,8 @@ final class MyPagePageViewController: UIViewController {
     let type: BouquetStatusType
     let myPageVC: MyPageViewController
     
-    private let cellVerticalSpacing: CGFloat = 24
     private var noRequest = true
     private var bouquetList: [BouquetModel] = []
-    //private lazy var viewModel: BouquetListModel = BouquetListModel()
     
     // MARK: - Views
     
@@ -39,8 +37,6 @@ final class MyPagePageViewController: UIViewController {
         tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = .init(top: 0, left: 20, bottom: 0, right: 20)
-//        tableView.sectionHeaderHeight = cellVerticalSpacing
-//        tableView.sectionFooterHeight = cellVerticalSpacing
         return tableView
     }()
     
@@ -63,9 +59,7 @@ final class MyPagePageViewController: UIViewController {
         addViews()
         setupConstraints()
     }
-    
-    // MARK: - Actions
-    
+
     // MARK: - Functions
     
     private func addViews() {
@@ -82,7 +76,6 @@ final class MyPagePageViewController: UIViewController {
     }
     
     func setTableViewData(_ bouquetList: [BouquetModel]) {
-        //self.viewModel = viewModel!
         self.bouquetList = bouquetList
         self.tableView.reloadData()
     }
@@ -92,25 +85,11 @@ final class MyPagePageViewController: UIViewController {
 
 extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        let count = viewModel.getBouquetModelCount()
-//        noRequest = count == 0 ? true : false
-//        return count == 0 ? 1 : count
-//    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = bouquetList.count
         noRequest = count == 0 ? true : false
         return count == 0 ? 1 : count
     }
-    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return cellVerticalSpacing
-//    }
-//    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return cellVerticalSpacing
-//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if noRequest {
@@ -126,7 +105,6 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SavedRequestCell.identifier, for: indexPath) as? SavedRequestCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             
-            //let model = viewModel.getBouquetModel(index: indexPath.row)
             let model = bouquetList[indexPath.row]
             print(model)
             cell.myPageVC = myPageVC
@@ -139,7 +117,6 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("noRequest: \(noRequest)")
         if !noRequest {
-            //let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
             let model = bouquetList[indexPath.row]
             let vc = RequestDetailViewController(with: model)
             vc.hidesBottomBarWhenPushed = true

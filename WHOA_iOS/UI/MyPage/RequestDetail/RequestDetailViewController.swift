@@ -189,6 +189,7 @@ final class RequestDetailViewController: UIViewController {
         }
     }
     
+    /// 이미지 하단에 흰색 그라데이션 레이어 추가
     private func setImageViewGradientLayer() {
         let gradientLayer = CAGradientLayer()
 
