@@ -22,15 +22,6 @@ final class MyPagePageViewController: UIViewController {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        if type == .all {
-            tableView.backgroundColor = .secondary01
-        }
-        else if type == .saved {
-            tableView.backgroundColor = .secondary02
-        }
-        else {
-            tableView.backgroundColor = .secondary03
-        }
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
