@@ -39,6 +39,13 @@ final class CheapFlowerView: UIView {
         return tableView
     }()
     
+    private let flowerInfoSourceLabel: UILabel = {
+        let label = UILabel()
+        label.font = .Pretendard(size: 12)
+        label.text = "화훼유통정보시스템에 기반한 데이터입니다."
+        label.textColor = .gray07
+        return label
+    }()
     
     // MARK: - Init
     
@@ -59,6 +66,7 @@ final class CheapFlowerView: UIView {
         addSubview(cheapFlowerLabel)
         addSubview(baseDateLabel)
         addSubview(topThreeTableView)
+        addSubview(flowerInfoSourceLabel)
     }
     
     private func setupConstraints() {
@@ -74,8 +82,13 @@ final class CheapFlowerView: UIView {
         
         topThreeTableView.snp.makeConstraints { make in
             make.top.equalTo(cheapFlowerLabel.snp.bottom).offset(12)
-            make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
+        }
+        
+        flowerInfoSourceLabel.snp.makeConstraints { make in
+            make.top.equalTo(topThreeTableView.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     

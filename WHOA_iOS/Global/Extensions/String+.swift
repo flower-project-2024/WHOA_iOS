@@ -33,4 +33,18 @@ extension String {
             return UIImage.caution
         }
     }
+    
+    /// 숫자로 이루어진 String을 천 단위에 끊어 쉼표를 추가해 포맷팅해주는 메소드입니다. (ex. 3000 -> 3,000)
+    /// - Returns: 천 단위에 ,(쉼표)가 들어간 새로운 문자열 (전달받은 String이 천 단위보다 작은 경우 원본 문자열을 리턴)
+    func formatNumberInThousands() -> String {
+        var numString = self
+        if self.count > 3 {
+            let thirdLastIndex = self.index(self.endIndex, offsetBy: -3)  // 뒤에서 3번째 인덱스 자리를 구함
+            numString.insert(",", at: thirdLastIndex)
+            return numString
+        }
+        else {
+            return self
+        }
+    }
 }
