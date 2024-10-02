@@ -29,7 +29,7 @@ final class MoreActionsSheetViewController: UIViewController {
     private let menuStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.spacing = 12
+        view.spacing = 12.adjustedH()
         return view
     }()
     
@@ -62,7 +62,10 @@ final class MoreActionsSheetViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         config.title = "수정하기"
         config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
-        config.contentInsets = .init(top: 23.adjustedH(), leading: 33.adjusted(), bottom: 23.adjustedH(), trailing: 33.adjusted())
+        config.contentInsets = .init(top: 23.adjustedH(), 
+                                     leading: 33.adjusted(),
+                                     bottom: 23.adjustedH(),
+                                     trailing: 33.adjusted())
         config.titleAlignment = .leading
         config.baseForegroundColor = .primary
         config.baseBackgroundColor = .gray02
@@ -80,7 +83,10 @@ final class MoreActionsSheetViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         config.title = "삭제하기"
         config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
-        config.contentInsets = .init(top: 23.adjustedH(), leading: 33.adjusted(), bottom: 23.adjustedH(), trailing: 33.adjusted())
+        config.contentInsets = .init(top: 23.adjustedH(), 
+                                     leading: 33.adjusted(),
+                                     bottom: 23.adjustedH(),
+                                     trailing: 33.adjusted())
         config.baseForegroundColor = .primary
         config.baseBackgroundColor = .gray02
         config.background.cornerRadius = 8
@@ -99,7 +105,10 @@ final class MoreActionsSheetViewController: UIViewController {
         config.attributedTitle?.font = .Pretendard(size: 16, family: .SemiBold)
         config.background.backgroundColor = UIColor.primary
         config.background.cornerRadius = 10
-        config.contentInsets = .init(top: 17.adjustedH(), leading: 15.adjusted(), bottom: 17.adjustedH(), trailing: 15.adjusted())
+        config.contentInsets = .init(top: 17.adjustedH(), 
+                                     leading: 15.adjusted(),
+                                     bottom: 17.adjustedH(),
+                                     trailing: 15.adjusted())
         config.baseForegroundColor = UIColor(hex: "F9F9FB")
 
         button.configuration = config

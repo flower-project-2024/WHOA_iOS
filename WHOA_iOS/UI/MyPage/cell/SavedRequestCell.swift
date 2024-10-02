@@ -30,15 +30,6 @@ final class SavedRequestCell: UITableViewCell {
         return view
     }()
     
-//    private let flowerImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
-//        imageView.layer.cornerRadius = 10
-//        imageView.backgroundColor = UIColor(hex: "F9F9FB")
-//        return imageView
-//    }()
-    
     private let detailStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -77,7 +68,7 @@ final class SavedRequestCell: UITableViewCell {
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 3
+        stackView.spacing = 3.adjusted()
         return stackView
     }()
     
@@ -98,10 +89,6 @@ final class SavedRequestCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-//        contentView.layer.cornerRadius = 10
-//        contentView.layer.borderWidth = 1
-//        contentView.layer.borderColor = UIColor.gray03.cgColor
-//        contentView.layer.masksToBounds = true
         addViews()
         setupConstraints()
     }
@@ -122,7 +109,6 @@ final class SavedRequestCell: UITableViewCell {
     // MARK: - Functions
     
     private func addViews() {
-//        contentView.addSubview(flowerImageView)
         contentView.addSubview(flowerImageStackView)
         contentView.addSubview(detailStackView)
         contentView.addSubview(productionCompleteLabel)
@@ -130,7 +116,6 @@ final class SavedRequestCell: UITableViewCell {
         
         detailStackView.addArrangedSubview(requestTitleLabel)
         detailStackView.addArrangedSubview(writtenDateLabel)
-//        detailStackView.addSubview(buttonStackView)
         
         buttonStackView.addArrangedSubview(modifyButton)
         buttonStackView.addArrangedSubview(deleteButton)
@@ -140,16 +125,8 @@ final class SavedRequestCell: UITableViewCell {
         flowerImageStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.bottom.equalToSuperview().inset(24.adjustedH())
-//            make.height.equalTo(204)
             make.width.equalTo(flowerImageStackView.snp.height).multipliedBy(4.0 / 5.0)
         }
-        
-//        flowerImageView.snp.makeConstraints { make in
-//            make.leading.equalToSuperview()
-//            make.top.bottom.equalToSuperview().inset(24)
-//            make.height.equalTo(204)
-//            make.width.equalTo(flowerImageView.snp.height).multipliedBy(4.0 / 5.0)
-//        }
         
         detailStackView.snp.makeConstraints { make in
             make.top.equalTo(flowerImageStackView.snp.top).inset(9.5.adjustedH())
@@ -161,17 +138,6 @@ final class SavedRequestCell: UITableViewCell {
             make.leading.equalTo(detailStackView.snp.leading)
             make.top.equalTo(detailStackView.snp.bottom).offset(14.adjustedH())
         }
-        
-//        requestTitleLabel.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().inset(20)
-//            make.trailing.greaterThanOrEqualToSuperview().inset(20)
-//            make.top.equalToSuperview().inset(27)
-//        }
-//        
-//        writtenDateLabel.snp.makeConstraints { make in
-//            make.leading.equalTo(requestTitleLabel.snp.leading)
-//            make.top.equalTo(requestTitleLabel.snp.bottom).offset(6)
-//        }
         
         buttonStackView.snp.makeConstraints { make in
             make.leading.equalTo(flowerImageStackView.snp.trailing).offset(16.adjusted())
@@ -220,16 +186,6 @@ final class SavedRequestCell: UITableViewCell {
                     ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
                 }
             }
-            
-//            for image in model.bouquetImgPaths {
-//                if let url = URL(string: image) {
-//                    print("image: \(url)")
-//                    ImageProvider.shared.setImage(into: flowerImageStackView.sub, from: url.absoluteString)
-//                }
-//            }
-//            if let url = URL(string: model.bouquetImgPaths[0]) {
-//                ImageProvider.shared.setImage(into: flowerImageView, from: url.absoluteString)
-//            }
         }
     }
     

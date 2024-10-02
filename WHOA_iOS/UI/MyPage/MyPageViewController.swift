@@ -12,7 +12,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     // MARK: - Properties
     
     private let viewModel = BouquetListModel()
-    private let cellVerticalSpacing: CGFloat = 8
+    private let cellVerticalSpacing: CGFloat = 8.adjustedH()
     private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted() * 2) / 3
     private var noRequest = true
     private var pageViewControllerList: [UIViewController] = []
@@ -175,11 +175,9 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
             make.leading.equalToSuperview().inset(20.adjusted())
             make.trailing.equalToSuperview().inset(20.adjusted())
             make.top.equalToSuperview()
-//            make.bottom.equalToSuperview()
         }
         
         segmentUnderLineView.snp.makeConstraints { make in
-//            make.bottom.equalTo(segmentControl.snp.bottom)
             make.top.equalTo(segmentControl.snp.bottom)
             make.height.equalTo(4.adjustedH())
             make.width.equalTo(underlineViewWidth)

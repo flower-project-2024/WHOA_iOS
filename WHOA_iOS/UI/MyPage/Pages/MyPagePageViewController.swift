@@ -36,7 +36,10 @@ final class MyPagePageViewController: UIViewController {
         tableView.register(SavedRequestCell.self, forCellReuseIdentifier: SavedRequestCell.identifier)
         tableView.register(NoRequestCell.self, forCellReuseIdentifier: NoRequestCell.identifier)
         tableView.separatorStyle = .singleLine
-        tableView.separatorInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+        tableView.separatorInset = .init(top: 0,
+                                         left: 20.adjusted(),
+                                         bottom: 0,
+                                         right: 20.adjusted())
         return tableView
     }()
     
