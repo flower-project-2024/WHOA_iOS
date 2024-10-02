@@ -267,4 +267,27 @@ final class NetworkManager {
             }
         }
     }
+    
+    /// 꽃다발을 제작 완료 처리한 후 실제 제작한 꽃다발 사진을 업로드하는 함수입니다.
+    /// - Parameters:
+    ///   - memberID: 멤버 id
+    ///   - bouquetId: 꽃다발 요구서 id
+    ///   - imageFile: 등록하려는 이미지 imageFile
+    func postProductedBouquetImage(memberID: String,
+                            bouquetId: Int,
+                            imageFile: [ImageFile]?,
+                            _ networkService: NetworkServable = NetworkService(),
+                            completion: @escaping (Result<PostProductedBouquetImageDTO, NetworkError>) -> Void
+    ) {
+        let api = PostProductedBouquetImageAPI(memberID: memberID, bouquetId: bouquetId, imageUrl: imageFile)
+        
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }
