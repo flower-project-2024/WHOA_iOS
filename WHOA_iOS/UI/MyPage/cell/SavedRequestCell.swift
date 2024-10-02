@@ -186,7 +186,7 @@ final class SavedRequestCell: UITableViewCell {
         
         requestTitleLabel.text = model.bouquetTitle
 
-        if model.bouquetStatus == .made {
+        if model.bouquetStatus == .producted {
             productionCompleteLabel.isHidden = false
         }
         else {

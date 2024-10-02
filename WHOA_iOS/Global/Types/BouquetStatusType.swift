@@ -9,5 +9,5 @@
 enum BouquetStatusType: String {
     case all = "전체"
     case saved = "저장 완료"
-    case made = "제작 완료"
+    case producted = "제작 완료"
 }

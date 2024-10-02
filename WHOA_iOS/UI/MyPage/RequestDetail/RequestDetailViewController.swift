@@ -29,7 +29,7 @@ final class RequestDetailViewController: UIViewController {
         return view
     }()
     
-    private let madeCompleteLabel: HashTagCustomLabel = {
+    private let productionCompletedLabel: HashTagCustomLabel = {
         let label = HashTagCustomLabel(padding: .init(top: 9.adjustedH(basedOnHeight: 844),
                                                       left: 24.adjusted(basedOnWidth: 390),
                                                       bottom: 9.adjustedH(basedOnHeight: 844),
@@ -143,7 +143,7 @@ final class RequestDetailViewController: UIViewController {
         scrollView.addSubview(contentView)
         
         contentView.addSubview(flowerImageStackView)
-        contentView.addSubview(madeCompleteLabel)
+        contentView.addSubview(productionCompletedLabel)
         contentView.addSubview(saveAsImageSmallButton)
         contentView.addSubview(requestDetailView)
         contentView.addSubview(saveAsImageButton)
@@ -160,7 +160,7 @@ final class RequestDetailViewController: UIViewController {
             make.width.equalTo(scrollView.frameLayoutGuide)
         }
         
-        madeCompleteLabel.snp.makeConstraints { make in
+        productionCompletedLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(24.adjustedH(basedOnHeight: 844))
             make.leading.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
         }
@@ -224,8 +224,8 @@ final class RequestDetailViewController: UIViewController {
         saveAsImageSmallButton.isHidden = isHidden
     }
     
-    private func configureMadeCompleteLabel(isHidden: Bool) {
-        madeCompleteLabel.isHidden = isHidden
+    private func configureProductionCompletedLabel(isHidden: Bool) {
+        productionCompletedLabel.isHidden = isHidden
     }
     
     private func bind() {
@@ -235,7 +235,7 @@ final class RequestDetailViewController: UIViewController {
                 self?.requestDetailView.config(model: model)
                 self?.configureFlowerImage(imageURLs: model.flowers.map({ $0.photo }))
                 self?.configureSaveAsImageSmallButton(isHidden: false)
-                self?.configureMadeCompleteLabel(isHidden: false)
+                self?.configureProductionCompletedLabel(isHidden: false)
             }
         }
         
@@ -244,8 +244,8 @@ final class RequestDetailViewController: UIViewController {
         }
     }
     
-    func showMadeSuccessAlert() {
-        let alertVC = RequestMadeSuccessAlertController()
+    func showProductionSuccessAlert() {
+        let alertVC = BouquetProductionSuccessAlertController()
         alertVC.modalPresentationStyle = .overFullScreen
         self.present(alertVC, animated: false, completion: nil)
     }

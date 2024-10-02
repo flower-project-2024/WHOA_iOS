@@ -47,9 +47,9 @@ final class BouquetListModel {
     
     func getBouquetsByType(_ type: BouquetStatusType) -> [BouquetModel] {
         switch type {
-        case .made:
+        case .producted:
             return bouquetModelList.filter { bouquet in
-                bouquet.bouquetStatus == .made
+                bouquet.bouquetStatus == .producted
             }
         case .saved:
             return bouquetModelList.filter { bouquet in

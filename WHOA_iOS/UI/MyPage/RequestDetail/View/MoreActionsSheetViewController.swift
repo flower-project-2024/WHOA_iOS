@@ -51,7 +51,7 @@ class MoreActionsSheetViewController: UIViewController {
         
         button.configuration = config
         button.contentHorizontalAlignment = .leading
-        button.addTarget(self, action: #selector(changeBouquetStatusToMade), for: .touchUpInside)
+        button.addTarget(self, action: #selector(changeBouquetStatusToProducted), for: .touchUpInside)
         return button
     }()
     
@@ -133,7 +133,7 @@ class MoreActionsSheetViewController: UIViewController {
     
     // MARK: - Actions
     
-    @objc private func changeBouquetStatusToMade() {
+    @objc private func changeBouquetStatusToProducted() {
         print("제작 완료!")
         viewModel.patchBouquetStatus()
     }
@@ -197,7 +197,7 @@ class MoreActionsSheetViewController: UIViewController {
             if statusDidChange {
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true)
-                    self?.requestDetailVC.showMadeSuccessAlert()
+                    self?.requestDetailVC.showProductionSuccessAlert()
                 }
             }
         }
