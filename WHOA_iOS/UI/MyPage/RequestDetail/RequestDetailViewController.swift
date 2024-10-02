@@ -229,13 +229,13 @@ final class RequestDetailViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.customizingSummaryModelDidChaged = { [weak self] model in
+        viewModel.requestDetailModelDidChange = { [weak self] model in
             guard let model = model else { return }
             DispatchQueue.main.async {
-                self?.requestDetailView.config(model: model)
-                self?.configureFlowerImage(imageURLs: model.flowers.map({ $0.photo }))
-                self?.configureSaveAsImageSmallButton(isHidden: false)
-                self?.configureProductionCompletedLabel(isHidden: false)
+                self?.requestDetailView.config(model: model.customizingSummaryModel)
+                self?.configureFlowerImage(imageURLs: model.customizingSummaryModel.flowers.map({ $0.photo }))
+                self?.configureSaveAsImageSmallButton(isHidden: model.status == .producted ? true : false)
+                self?.configureProductionCompletedLabel(isHidden: model.status == .producted ? false : true)
             }
         }
         

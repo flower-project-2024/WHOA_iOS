@@ -11,9 +11,9 @@ final class RequestDetailViewModel {
     
     // MARK: - Properties
     
-    var customizingSummaryModel: CustomizingSummaryModel? {
+    var requestDetailModel: RequestDetailModel? {
         didSet {
-            customizingSummaryModelDidChaged?(customizingSummaryModel)
+            requestDetailModelDidChange?(requestDetailModel)
         }
     }
     var bouquetStatus: Bool? {
@@ -25,7 +25,7 @@ final class RequestDetailViewModel {
     private let requestTitle: String
     private let bouquetId: Int
     
-    var customizingSummaryModelDidChaged: ((CustomizingSummaryModel?) -> Void)?
+    var requestDetailModelDidChange: ((RequestDetailModel?) -> Void)?
     var bouquetStatusDidChange: ((Bool?) -> Void)?
     var showError: ((NetworkError) -> Void)?
     
@@ -46,7 +46,7 @@ final class RequestDetailViewModel {
             case .success(let dto):
                 BouquetDetailDTO.convertBouquetDetailDTOToModel(dto) { model in
                     if let model = model {
-                        self.customizingSummaryModel = model
+                        self.requestDetailModel = model
                     }
                 }
             case .failure(let error):
