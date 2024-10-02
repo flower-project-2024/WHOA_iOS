@@ -231,10 +231,20 @@ final class RequestDetailViewController: UIViewController {
     
     private func bind() {
         viewModel.requestDetailModelDidChange = { [weak self] model in
+            print("============")
+            print(model)
+            print("============")
             guard let model = model else { return }
             DispatchQueue.main.async {
                 self?.requestDetailView.config(model: model.customizingSummaryModel)
-                self?.configureFlowerImage(imageURLs: model.customizingSummaryModel.flowers.map({ $0.photo }))
+                
+                // 사용자가 등록한 실제 꽃다발 사진이 있는 경우 해당 사진을 보여주도록
+                if let realBouquetImage = model.bouquetRealImage {
+                    self?.configureFlowerImage(imageURLs: [realBouquetImage])
+                }
+                else {
+                    self?.configureFlowerImage(imageURLs: model.customizingSummaryModel.flowers.map({ $0.photo }))
+                }
                 self?.configureSaveAsImageSmallButton(isHidden: model.status == .producted ? true : false)
                 self?.configureProductionCompletedLabel(isHidden: model.status == .producted ? false : true)
             }

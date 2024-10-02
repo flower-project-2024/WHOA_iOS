@@ -196,8 +196,20 @@ final class SavedRequestCell: UITableViewCell {
         bouquetId = model.bouquetId
         writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
         
-        if !model.bouquetImgPaths.isEmpty {
-            flowerImageStackView.removeArrangedSubviews()
+        flowerImageStackView.removeArrangedSubviews()
+        
+        if let realBouquet = model.bouquetRealImage {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            flowerImageStackView.addArrangedSubview(imageView)
+            
+            if let url = URL(string: realBouquet) {
+                ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
+            }
+        }
+        
+        else if !model.bouquetImgPaths.isEmpty {
             for image in model.bouquetImgPaths {
                 let imageView = UIImageView()
                 imageView.contentMode = .scaleAspectFill

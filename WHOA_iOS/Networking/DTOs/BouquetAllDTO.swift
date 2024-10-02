@@ -31,7 +31,8 @@ extension BouquetAllDTO {
                 bouquetTitle: $0.bouquetName,
                 bouquetCreatedAt: $0.createdAt,
                 bouquetImgPaths: $0.selectedAllFlowersImagePathes,
-                bouquetStatus: BouquetStatusType.init(rawValue: $0.bouquetStatus) ?? .producted
+                bouquetStatus: BouquetStatusType.init(rawValue: $0.bouquetStatus) ?? .producted, 
+                bouquetRealImage: $0.realBouquetImagePath
             )
         }
     }
