@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MoreActionsSheetViewController: UIViewController {
+final class MoreActionsSheetViewController: UIViewController {
     
     // MARK: - Properties
     

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class BouquetProductionSuccessAlertController: UIViewController {
+final class BouquetProductionSuccessAlertController: UIViewController {
     
     // MARK: - Views
     

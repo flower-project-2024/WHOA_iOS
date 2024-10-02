@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MyPagePageViewController: UIViewController {
+final class MyPagePageViewController: UIViewController {
     
     // MARK: - Properties
     
