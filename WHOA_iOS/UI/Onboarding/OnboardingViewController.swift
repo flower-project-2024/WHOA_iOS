@@ -21,10 +21,8 @@ final class OnboardingViewController: UIViewController {
     
     /// Attributes
     private enum Attributes {
-        static let onboardingStep01 = "OnboardingStep01"
-        static let onboardingStep02 = "OnboardingStep02"
-        static let onboardingStep03 = "OnboardingStep03"
-        static let onboardingStep04 = "OnboardingStep04"
+        static let startText = "시작하기"
+        static let nextText = "다음"
     }
     
     // MARK: - Properties
@@ -33,10 +31,10 @@ final class OnboardingViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     private let onboardingImageNames = [
-        Attributes.onboardingStep01,
-        Attributes.onboardingStep02,
-        Attributes.onboardingStep03,
-        Attributes.onboardingStep04
+        UIImage.onboardingStep01,
+        UIImage.onboardingStep02,
+        UIImage.onboardingStep03,
+        UIImage.onboardingStep04
     ]
     
     // MARK: - UI
@@ -66,7 +64,7 @@ final class OnboardingViewController: UIViewController {
         
         // 이미지 추가
         onboardingImageNames.forEach { imageName in
-            let imageView = UIImageView(image: UIImage(named: imageName))
+            let imageView = UIImageView(image: imageName)
             imageView.contentMode = .scaleAspectFit
             stackView.addArrangedSubview(imageView)
         }
@@ -113,10 +111,11 @@ final class OnboardingViewController: UIViewController {
             .store(in: &cancellables)
         
         currentPageSubject
+            .removeDuplicates()
             .sink { [weak self] pageNumber in
                 guard let self = self else { return }
                 self.pageControl.currentPage = pageNumber
-                let buttonTitle = pageNumber >= self.onboardingImageNames.count - 1 ? "시작하기" : "다음"
+                let buttonTitle = pageNumber >= self.onboardingImageNames.count - 1 ? Attributes.startText : Attributes.nextText
                 self.bottomView.setNextButtonTitle(buttonTitle)
             }
             .store(in: &cancellables)
@@ -128,9 +127,12 @@ final class OnboardingViewController: UIViewController {
         if nextPage >= onboardingImageNames.count {
             showHomeVC()
         } else {
-            currentPageSubject.send(nextPage)
-            let offsetX = CGFloat(nextPage) * scrollView.frame.width
-            scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+            UIView.animate(withDuration: 0.3) {
+                let offsetX = CGFloat(nextPage) * self.scrollView.frame.width
+                self.scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: false)
+            } completion: { _ in
+                self.currentPageSubject.send(nextPage)
+            }
         }
     }
     
