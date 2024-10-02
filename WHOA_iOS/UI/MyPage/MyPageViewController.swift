@@ -13,7 +13,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private let viewModel = BouquetListModel()
     private let cellVerticalSpacing: CGFloat = 8
-    private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted(basedOnWidth: 390) * 2) / 3
+    private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted() * 2) / 3
     private var noRequest = true
     private var pageViewControllerList: [UIViewController] = []
     var customizingCoordinator: CustomizingCoordinator?
@@ -82,7 +82,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private lazy var vc2 = MyPagePageViewController(type: .saved, parentVC: self)
     
-    private lazy var vc3 = MyPagePageViewController(type: .made, parentVC: self)
+    private lazy var vc3 = MyPagePageViewController(type: .producted, parentVC: self)
     
     private lazy var pageViewController: UIPageViewController = {
         pageViewControllerList = [vc1, vc2, vc3]
@@ -116,7 +116,8 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         print("VC2: \(vc2)")
         
         // segment control에 그림자 추가
-        segmentContainerView.layer.applyShadow(alpha: 0.04, height: 6, blur: 12 / UIScreen.main.scale)
+        // TODO: bezier path로 변경해보기
+        segmentContainerView.layer.applyShadow(alpha: 1, height: 6, blur: 12.adjustedH() / UIScreen.main.scale)
         segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition), for: .valueChanged)
         segmentControl.addTarget(self, action: #selector(segmentIndexDidChange(_:)), for: .valueChanged)
     }
@@ -156,31 +157,34 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private func addViews() {
         view.addSubview(segmentContainerView)
         segmentContainerView.addSubview(segmentControl)
+        segmentContainerView.addSubview(segmentUnderLineView)
 
-        view.addSubview(segmentUnderLineView)
+//        view.addSubview(segmentUnderLineView)
         view.addSubview(pageViewController.view)
     }
     
     private func setupConstraints() {
         segmentContainerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20.adjustedH())
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
-            make.height.equalTo(47)
+            make.height.equalTo(47.adjustedH())
         }
         
         segmentControl.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
-            make.trailing.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
+            make.leading.equalToSuperview().inset(20.adjusted())
+            make.trailing.equalToSuperview().inset(20.adjusted())
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+//            make.bottom.equalToSuperview()
         }
         
         segmentUnderLineView.snp.makeConstraints { make in
-            make.bottom.equalTo(segmentControl.snp.bottom)
-            make.height.equalTo(4)
+//            make.bottom.equalTo(segmentControl.snp.bottom)
+            make.top.equalTo(segmentControl.snp.bottom)
+            make.height.equalTo(4.adjustedH())
             make.width.equalTo(underlineViewWidth)
             make.leading.equalTo(segmentControl.snp.leading)
+            make.bottom.equalToSuperview()
         }
         
         pageViewController.view.snp.makeConstraints { make in
@@ -195,7 +199,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
             DispatchQueue.main.async {
                 self?.vc1.setTableViewData(self?.viewModel.getBouquetsByType(.all) ?? [])
                 self?.vc2.setTableViewData(self?.viewModel.getBouquetsByType(.saved) ?? [])
-                self?.vc3.setTableViewData(self?.viewModel.getBouquetsByType(.made) ?? [])
+                self?.vc3.setTableViewData(self?.viewModel.getBouquetsByType(.producted) ?? [])
             }
         }
     }

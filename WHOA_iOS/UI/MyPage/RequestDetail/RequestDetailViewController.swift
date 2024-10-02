@@ -30,16 +30,16 @@ final class RequestDetailViewController: UIViewController {
     }()
     
     private let productionCompletedLabel: HashTagCustomLabel = {
-        let label = HashTagCustomLabel(padding: .init(top: 9.adjustedH(basedOnHeight: 844),
-                                                      left: 24.adjusted(basedOnWidth: 390),
-                                                      bottom: 9.adjustedH(basedOnHeight: 844),
-                                                      right: 24.adjusted(basedOnWidth: 390)))
+        let label = HashTagCustomLabel(padding: .init(top: 9.adjustedH(),
+                                                      left: 24.adjusted(),
+                                                      bottom: 9.adjustedH(),
+                                                      right: 24.adjusted()))
         label.text = "제작 완료"
         label.font = .Pretendard(size: 16, family: .SemiBold)
         label.setLineHeight(lineHeight: 140)
         label.textColor = .white
         label.backgroundColor = .init(hex: "141414", alpha: 0.5)
-        label.layer.cornerRadius = 20.adjustedH(basedOnHeight: 844)
+        label.layer.cornerRadius = 20.adjustedH()
         return label
     }()
     
@@ -60,12 +60,12 @@ final class RequestDetailViewController: UIViewController {
         config.background.cornerRadius = 21
         config.attributedTitle = AttributedString("이미지로 저장", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(family: .SemiBold)]))
         config.image = .downloadIcon
-        config.imagePadding = 4.adjusted(basedOnWidth: 390)
+        config.imagePadding = 4.adjusted()
         config.imagePlacement = .leading
-        config.contentInsets = .init(top: 8.adjustedH(basedOnHeight: 844),
-                                     leading: 20.adjusted(basedOnWidth: 390),
-                                     bottom: 8.adjustedH(basedOnHeight: 844),
-                                     trailing: 18.adjusted(basedOnWidth: 390))
+        config.contentInsets = .init(top: 8.adjustedH(),
+                                     leading: 20.adjusted(),
+                                     bottom: 8.adjustedH(),
+                                     trailing: 18.adjusted())
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
@@ -82,9 +82,9 @@ final class RequestDetailViewController: UIViewController {
         config.baseForegroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1)
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10
-        config.contentInsets = NSDirectionalEdgeInsets(top: 17.adjustedH(basedOnHeight: 844),
+        config.contentInsets = NSDirectionalEdgeInsets(top: 17.adjustedH(),
                                                        leading: 0,
-                                                       bottom: 17.adjustedH(basedOnHeight: 844),
+                                                       bottom: 17.adjustedH(),
                                                        trailing: 0)
         
         button.configuration = config
@@ -161,8 +161,8 @@ final class RequestDetailViewController: UIViewController {
         }
         
         productionCompletedLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(24.adjustedH(basedOnHeight: 844))
-            make.leading.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
+            make.top.equalToSuperview().inset(24.adjustedH())
+            make.leading.equalToSuperview().inset(20.adjusted())
         }
         
         flowerImageStackView.snp.makeConstraints { make in
@@ -172,19 +172,19 @@ final class RequestDetailViewController: UIViewController {
         }
         
         saveAsImageSmallButton.snp.makeConstraints { make in
-            make.bottom.equalTo(requestDetailView.snp.top).offset(-11.adjustedH(basedOnHeight: 844))
+            make.bottom.equalTo(requestDetailView.snp.top).offset(-11.adjustedH())
             make.centerX.equalToSuperview()
         }
         
         requestDetailView.snp.makeConstraints { make in
-            make.top.equalTo(flowerImageStackView.snp.bottom).inset(64.adjustedH(basedOnHeight: 844))
-            make.leading.trailing.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
+            make.top.equalTo(flowerImageStackView.snp.bottom).inset(64.adjustedH())
+            make.leading.trailing.equalToSuperview().inset(20.adjusted())
         }
         
         saveAsImageButton.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20.adjusted(basedOnWidth: 390))
-            make.top.equalTo(requestDetailView.snp.bottom).offset(28.adjustedH(basedOnHeight: 844))
-            make.bottom.equalToSuperview().inset(10.adjustedH(basedOnHeight: 844))
+            make.leading.trailing.equalToSuperview().inset(20.adjusted())
+            make.top.equalTo(requestDetailView.snp.bottom).offset(28.adjustedH())
+            make.bottom.equalToSuperview().inset(10.adjustedH())
         }
     }
     

@@ -114,9 +114,9 @@ final class SavedRequestCell: UITableViewCell {
         super.layoutSubviews()
 
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, 
-                                                                     left: 20.adjusted(basedOnWidth: 390),
+                                                                     left: 20.adjusted(),
                                                                      bottom: 0,
-                                                                     right: 20.adjusted(basedOnWidth: 390)))
+                                                                     right: 20.adjusted()))
     }
     
     // MARK: - Functions
@@ -139,7 +139,7 @@ final class SavedRequestCell: UITableViewCell {
     private func setupConstraints() {
         flowerImageStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.bottom.equalToSuperview().inset(24.adjustedH(basedOnHeight: 852))
+            make.top.bottom.equalToSuperview().inset(24.adjustedH())
 //            make.height.equalTo(204)
             make.width.equalTo(flowerImageStackView.snp.height).multipliedBy(4.0 / 5.0)
         }
@@ -152,14 +152,14 @@ final class SavedRequestCell: UITableViewCell {
 //        }
         
         detailStackView.snp.makeConstraints { make in
-            make.top.equalTo(flowerImageStackView.snp.top).inset(9.5.adjustedH(basedOnHeight: 852))
-            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(26.adjusted(basedOnWidth: 390))
-            make.trailing.equalToSuperview().inset(17.adjusted(basedOnWidth: 390))
+            make.top.equalTo(flowerImageStackView.snp.top).inset(9.5.adjustedH())
+            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(26.adjusted())
+            make.trailing.equalToSuperview().inset(17.adjusted())
         }
         
         productionCompleteLabel.snp.makeConstraints { make in
             make.leading.equalTo(detailStackView.snp.leading)
-            make.top.equalTo(detailStackView.snp.bottom).offset(14.adjustedH(basedOnHeight: 852))
+            make.top.equalTo(detailStackView.snp.bottom).offset(14.adjustedH())
         }
         
 //        requestTitleLabel.snp.makeConstraints { make in
@@ -174,10 +174,10 @@ final class SavedRequestCell: UITableViewCell {
 //        }
         
         buttonStackView.snp.makeConstraints { make in
-            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(16.adjusted(basedOnWidth: 390))
+            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(16.adjusted())
             make.trailing.equalToSuperview()
-            make.top.equalTo(productionCompleteLabel.snp.bottom).offset(69.adjustedH(basedOnHeight: 852))
-            make.bottom.equalTo(flowerImageStackView.snp.bottom).inset(9.5.adjustedH(basedOnHeight: 852))
+            make.top.equalTo(productionCompleteLabel.snp.bottom).offset(69.adjustedH())
+            make.bottom.equalTo(flowerImageStackView.snp.bottom).inset(9.5.adjustedH())
         }
     }
     
