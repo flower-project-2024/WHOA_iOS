@@ -15,6 +15,11 @@ class MoreActionsSheetViewController: UIViewController {
     private let viewModel: RequestDetailViewModel
     private var bouquetId: Int?
     private var requestDetailVC: RequestDetailViewController
+    static private var hasBezel: Bool {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let firstWindow = windowScene?.windows.first
+        return firstWindow?.safeAreaInsets.bottom ?? 0 > 0  // true면 베젤이 있음, false면 베젤 없음(=se)
+    }
     
     weak var delegate: CustomAlertViewControllerDelegate?
     
@@ -32,9 +37,9 @@ class MoreActionsSheetViewController: UIViewController {
         
         var config = UIButton.Configuration.filled()
         config.title = "제작 완료"
-        config.attributedTitle?.font = .Pretendard(size: 20, family: .SemiBold)
+        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
         config.subtitle = "실제 꽃다발을 만들었다면 완료해주세요."
-        config.attributedSubtitle?.font = .Pretendard(size: 16, family: .Regular)
+        config.attributedSubtitle?.font = hasBezel ? .Pretendard(size: 16, family: .Regular) : .Pretendard()
         config.titlePadding = 10.adjustedH()
         config.contentInsets = .init(top: 23.adjustedH(), 
                                      leading: 33.adjusted(),
@@ -55,7 +60,7 @@ class MoreActionsSheetViewController: UIViewController {
         
         var config = UIButton.Configuration.filled()
         config.title = "수정하기"
-        config.attributedTitle?.font = .Pretendard(size: 20, family: .SemiBold)
+        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
         config.contentInsets = .init(top: 23.adjustedH(), leading: 33.adjusted(), bottom: 23.adjustedH(), trailing: 33.adjusted())
         config.titleAlignment = .leading
         config.baseForegroundColor = .primary
@@ -73,7 +78,7 @@ class MoreActionsSheetViewController: UIViewController {
         
         var config = UIButton.Configuration.filled()
         config.title = "삭제하기"
-        config.attributedTitle?.font = .Pretendard(size: 20, family: .SemiBold)
+        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
         config.contentInsets = .init(top: 23.adjustedH(), leading: 33.adjusted(), bottom: 23.adjustedH(), trailing: 33.adjusted())
         config.baseForegroundColor = .primary
         config.baseBackgroundColor = .gray02
