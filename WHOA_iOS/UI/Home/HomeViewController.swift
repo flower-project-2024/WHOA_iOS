@@ -24,6 +24,7 @@ final class HomeViewController: UIViewController {
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
         view.isScrollEnabled = true
         view.isUserInteractionEnabled = true
         return view
@@ -181,7 +182,7 @@ final class HomeViewController: UIViewController {
         cheapFlowerView.snp.makeConstraints { make in
             make.top.equalTo(carouselView.snp.bottom).offset(29)
             make.horizontalEdges.equalTo(searchBar.snp.horizontalEdges)
-            make.bottom.equalTo(contentView.snp.bottom).inset(15)
+            make.bottom.equalTo(contentView.snp.bottom).inset(33)  // 탭바 중앙 아이템 이미지 inset 값 + 그림자로 안보이는 정도
         }
     }
     
