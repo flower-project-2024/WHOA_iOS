@@ -163,13 +163,13 @@ final class PurposeView: UIView {
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {
         switch purposeType {
         case .affection: return .affection
-        case .parting: return .birthday // ‼️디자인 완료 시 변경‼️
+        case .parting: return .parting
         case .gratitude: return .gratitude
         case .party: return .party
         case .employment: return .employment
         case .promotion: return .promotion
         case .friendship: return .friendship
-        case .none: return .propose // ‼️디자인 완료 시 변경‼️
+        case .none: return .nonePurpose
         }
     }
     
@@ -183,7 +183,7 @@ final class PurposeView: UIView {
         config.image = getPurposeImage(purpose)
         config.imagePlacement = .top
         config.imagePadding = 10
-        config.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
+        config.contentInsets = .init(top: 12, leading: 0, bottom: 16, trailing: 0)
         button.configuration = config
         
         button.layer.cornerRadius = 10
