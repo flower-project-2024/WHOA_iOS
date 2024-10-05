@@ -163,13 +163,13 @@ final class PurposeView: UIView {
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {
         switch purposeType {
         case .affection: return .affection
-        case .parting: return .birthday // ‼️디자인 완료 시 변경‼️
+        case .parting: return .parting
         case .gratitude: return .gratitude
         case .party: return .party
         case .employment: return .employment
         case .promotion: return .promotion
         case .friendship: return .friendship
-        case .none: return .propose // ‼️디자인 완료 시 변경‼️
+        case .none: return .nonePurpose
         }
     }
     
