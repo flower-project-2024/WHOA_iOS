@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "party.png",
+      "filename" : "Party.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "party@2x.png",
+      "filename" : "Party@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "party@3x.png",
+      "filename" : "Party@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
