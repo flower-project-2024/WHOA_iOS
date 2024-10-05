@@ -18,7 +18,6 @@ struct FlowerDetailData: Codable {
     let flowerName: String
     let flowerDescription: String
     let flowerOneLineDescription: String
-    let flowerImages: [String]
     let birthFlower: String?
     let managementMethod: String
     let storageMethod: String?
@@ -26,7 +25,10 @@ struct FlowerDetailData: Codable {
 }
 
 struct FlowerExpressionData: Codable {
-    let flowerColor, flowerLanguage: String
+    let flowerExpressionId: Int
+    let flowerColor: String
+    let flowerLanguage: String
+    let flowerImageUrl: String
 }
 
 extension FlowerDetailDTO {
@@ -36,7 +38,7 @@ extension FlowerDetailDTO {
             flowerName: DTO.data.flowerName,
             flowerDescription: DTO.data.flowerDescription,
             flowerOneLineDescription: DTO.data.flowerOneLineDescription,
-            flowerImages: DTO.data.flowerImages,
+            flowerImages: DTO.data.flowerExpressions.map { $0.flowerImageUrl },
             birthFlower: DTO.data.birthFlower,
             managementMethod: DTO.data.managementMethod,
             storageMethod: DTO.data.storageMethod,
