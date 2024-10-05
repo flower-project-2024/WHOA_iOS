@@ -32,18 +32,25 @@ struct FlowerExpressionData: Codable {
 }
 
 extension FlowerDetailDTO {
-    static func convertFlowerDetailDTOToModel(DTO: FlowerDetailDTO) -> FlowerDetailModel{
+    static func convertFlowerDetailDTOToModel(DTO: FlowerDetailDTO) -> FlowerDetailModel {
         return FlowerDetailModel(
             flowerId: DTO.data.flowerId,
             flowerName: DTO.data.flowerName,
             flowerDescription: DTO.data.flowerDescription,
             flowerOneLineDescription: DTO.data.flowerOneLineDescription,
-            flowerImages: DTO.data.flowerExpressions.map { $0.flowerImageUrl },
+            flowerImages: DTO.data.flowerExpressions.map {
+                $0.flowerImageUrl
+            },
             birthFlower: DTO.data.birthFlower,
             managementMethod: DTO.data.managementMethod,
             storageMethod: DTO.data.storageMethod,
             flowerExpressions: DTO.data.flowerExpressions.map({
-                FlowerExpression(flowerColor: $0.flowerColor, flowerLanguage: $0.flowerLanguage)
+                FlowerExpression(
+                    flowerExpressionId: $0.flowerExpressionId,
+                    flowerColor: $0.flowerColor,
+                    flowerLanguage: $0.flowerLanguage,
+                    flowerImageUrl: $0.flowerImageUrl
+                )
             })
         )
     }
