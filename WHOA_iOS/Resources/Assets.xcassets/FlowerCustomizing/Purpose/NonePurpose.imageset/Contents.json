@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Birthday.png",
+      "filename" : "None.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Birthday@2x.png",
+      "filename" : "None@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Birthday@3x.png",
+      "filename" : "None@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
