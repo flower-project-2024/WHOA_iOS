@@ -21,12 +21,18 @@ final class RequestDetailViewModel {
             bouquetStatusDidChange?(bouquetStatus)
         }
     }
+    var imageUploadSuccess: Bool? {
+        didSet {
+            imageUploadSuccessDidChange?(imageUploadSuccess)
+        }
+    }
     
     private let requestTitle: String
     private let bouquetId: Int
     
     var requestDetailModelDidChange: ((RequestDetailModel?) -> Void)?
     var bouquetStatusDidChange: ((Bool?) -> Void)?
+    var imageUploadSuccessDidChange: ((Bool?) -> Void)?
     var showError: ((NetworkError) -> Void)?
     
     // MARK: - Init
@@ -74,6 +80,25 @@ final class RequestDetailViewModel {
             switch result {
             case .success(let dto):
                 self.bouquetStatus = dto.success
+            case .failure(let error):
+                self.showError?(error)
+            }
+        }
+    }
+    
+    func postProductedBouquetImage(bouquetId: Int, imageFile: ImageFile) {
+        print("=== viewmodel 안에 옴 ===")
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        
+        NetworkManager.shared.postProductedBouquetImage(memberID: id, 
+                                                        bouquetId: bouquetId, 
+                                                        imageFile: [imageFile]
+        ) { result in
+            switch result {
+            case .success(let dto):
+                print("=== post success ===")
+                print(dto)
+                self.imageUploadSuccess = dto.success
             case .failure(let error):
                 self.showError?(error)
             }

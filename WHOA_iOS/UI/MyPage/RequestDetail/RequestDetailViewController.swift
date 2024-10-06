@@ -12,6 +12,8 @@ final class RequestDetailViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: RequestDetailViewModel
+    private let photoAuthService = MyPhotoAuthService()
+    weak var delegate: BouquetProductionSuccessDelegate?
     var myPageVC: MyPageViewController?
     
     // MARK: - Views
@@ -110,6 +112,8 @@ final class RequestDetailViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
+        delegate = self
         
         bind()
         setupNavigation()
@@ -251,6 +255,31 @@ final class RequestDetailViewController: UIViewController {
             }
         }
         
+        viewModel.imageUploadSuccessDidChange = { [weak self] success in
+            guard let success = success else { return }
+            //guard let self = self else { return }
+            DispatchQueue.main.async {
+                self?.showBouquetImageUploadSuccessAlert(success: success)
+            }
+//            let alertViewController = BouquetImageUploadAlertConroller(uploadResult: success ? .success : .fail, from: self)
+//            alertViewController.modalPresentationStyle = .fullScreen
+//            alertViewController.modalTransitionStyle = .crossDissolve
+//            self.present(alertViewController, animated: true)
+            
+//            if success {
+//                let alert = UIAlertController(title: "이미지 업로드 \(success)!", message: nil, preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+//                    print("navigation??")
+//                    print(self?.navigationController)
+//                    self?.navigationController?.popViewController(animated: true)
+//                }))
+//                self?.present(alert, animated: true)
+//            }
+//            else {
+//                
+//            }
+        }
+        
         viewModel.showError = { [weak self] error in
             self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
         }
@@ -259,7 +288,15 @@ final class RequestDetailViewController: UIViewController {
     func showProductionSuccessAlert() {
         let alertVC = BouquetProductionSuccessAlertController()
         alertVC.modalPresentationStyle = .overFullScreen
+        alertVC.delegate = self
         self.present(alertVC, animated: false, completion: nil)
+    }
+    
+    private func showBouquetImageUploadSuccessAlert(success: Bool) {
+        let alertViewController = BouquetImageUploadAlertConroller(uploadResult: success ? .success : .fail, from: self)
+        alertViewController.modalPresentationStyle = .overFullScreen
+        alertViewController.modalTransitionStyle = .crossDissolve
+        self.present(alertViewController, animated: true)
     }
     
     // MARK: - Actions
@@ -306,3 +343,34 @@ extension RequestDetailViewController: UIScrollViewDelegate {
 // MARK: - Extension; UIGestureRecognizer
 
 extension RequestDetailViewController: UIGestureRecognizerDelegate {}
+
+// MARK: - Extension;
+
+extension RequestDetailViewController: BouquetProductionSuccessDelegate {
+    func didSelectGoToGallery() {
+        print("요구서 상세에서 갤러리 선택 델리게이트")
+        photoAuthService.requestAuthorization { [weak self] result in
+            guard let self else { return }
+            
+            switch result {
+            case .success:
+                let vc = PhotoViewController(photosCount: 0, photoSelectionLimitCount: 1)
+                vc.modalPresentationStyle = .fullScreen
+                vc.completionHandler = { [self] photos in
+                    print("photos: \(photos)")
+                    let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
+                    print("photoDatas: \(photoDatas[0])")
+                    self.viewModel.postProductedBouquetImage(bouquetId: self.viewModel.getBouquetId(),
+                                                             imageFile: ImageFile(filename: "RealBouquetImg",
+                                                                                  data: photoDatas[0],
+                                                                                  type: "image/png"))
+                }
+                
+                present(vc, animated: true)
+                
+            case .failure:
+                return
+            }
+        }
+    }
+}

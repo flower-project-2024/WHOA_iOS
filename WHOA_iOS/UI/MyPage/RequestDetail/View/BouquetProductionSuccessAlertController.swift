@@ -8,7 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol BouquetProductionSuccessDelegate: AnyObject {
+    func didSelectGoToGallery()
+}
+
 final class BouquetProductionSuccessAlertController: UIViewController {
+    
+    // MARK: - Properties
+    
+    weak var delegate: BouquetProductionSuccessDelegate?
     
     // MARK: - Views
     
@@ -108,6 +116,7 @@ final class BouquetProductionSuccessAlertController: UIViewController {
     @objc private func chooseFromGalleryButtonDidTap() {
         dismiss(animated: true)
         print("갤러리에서 선택하기")
+        delegate?.didSelectGoToGallery()
     }
     
     // MARK: - Functions
