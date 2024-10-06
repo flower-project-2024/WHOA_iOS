@@ -20,7 +20,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private var currentPage: Int = 0 {
         didSet {
-            print(oldValue, self.currentPage)
             let direction: UIPageViewController.NavigationDirection = (oldValue <= self.currentPage) ? .forward : .reverse
             self.pageViewController.setViewControllers(
                 [pageViewControllerList[self.currentPage]],
@@ -112,16 +111,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         addViews()
         setupConstraints()
         
-        // segment control에 그림자 추가
-        // TODO: bezier path로 변경해보기
-//        segmentContainerView.layer.applyShadowByUIBezierPath(color: .red,
-//                                                             alpha: 1,
-//                                                             width: 0,
-//                                                             height: 3,
-////                                                             blur: 12.adjustedH() / UIScreen.main.scale,
-//                                                             x: segmentContainerView.bounds.origin.x,
-//                                                             y: segmentContainerView.bounds.origin.y + segmentContainerView.bounds.height)
-        segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition), for: .valueChanged)
         segmentControl.addTarget(self, action: #selector(segmentIndexDidChange(_:)), for: .valueChanged)
     }
     
@@ -133,27 +122,11 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     // MARK: - Actions
     
-    @objc private func changeSelectedSegmentLinePosition() {
-        print("changeSelectedSegmentLinePosition")
-        lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
-        UIView.animate(withDuration: 0.3, animations: {
-            self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
-            }
-            self.view.layoutIfNeeded()
-        })
-    }
-    
     @objc private func segmentIndexDidChange(_ segment: UISegmentedControl) {
-        print("선택된 세그먼트: \(segment.selectedSegmentIndex)")
+        print("=== 선택된 세그먼트: \(segment.selectedSegmentIndex)")
         currentPage = segment.selectedSegmentIndex
         
-        lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
-        print("leadingValue: \(leadingValue)")
-        UIView.animate(withDuration: 0.3, animations: {
-            self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
-            }
-            self.view.layoutIfNeeded()
-        })
+        changeSelectedSegmentLinePosition()
     }
     
     // MARK: - Functions
@@ -169,8 +142,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         view.addSubview(segmentContainerView)
         segmentContainerView.addSubview(segmentControl)
         segmentContainerView.addSubview(segmentUnderLineView)
-
-//        view.addSubview(segmentUnderLineView)
     }
     
     private func setupConstraints() {
@@ -212,11 +183,19 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         }
     }
     
+    /// segment 변경이 있을 경우 밑의 under line의 위치 변경해주는 메소드
+    private func changeSelectedSegmentLinePosition() {
+        lazy var leadingValue: CGFloat = CGFloat(segmentControl.selectedSegmentIndex) * underlineViewWidth
+        UIView.animate(withDuration: 0.3, animations: {
+            self.segmentUnderLineView.snp.updateConstraints { $0.leading.equalTo(self.segmentControl.snp.leading).offset(leadingValue)
+            }
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    /// segment control 아래에 그림자를 세팅하는 메소드
     private func configureShadow() {
         let bounds = segmentContainerView.bounds
-        print("=================")
-        print("bounds: \(bounds)")
-        print("=================")
         
         segmentContainerView.layer.applyShadowByUIBezierPath(color: .black,
                                                              alpha: 0.08,
@@ -285,6 +264,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Extension: UIPageViewController
 
 extension MyPageViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
     // 이전 뷰를 설정
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = self.pageViewControllerList.firstIndex(of: viewController), index - 1 >= 0
@@ -304,8 +284,8 @@ extension MyPageViewController: UIPageViewControllerDelegate, UIPageViewControll
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
-                            transitionCompleted completed: Bool) {
-        print("pageVC의 뷰컨들: \(pageViewController.viewControllers)")
+                            transitionCompleted completed: Bool
+    ) {
         guard let viewController = pageViewController.viewControllers?[0],
                 let index = self.pageViewControllerList.firstIndex(of: viewController)
         else { return }

@@ -17,10 +17,10 @@ final class RequestCustomButton: UIButton {
         var config = UIButton.Configuration.bordered()
         config.cornerStyle = .dynamic
         config.background.cornerRadius = 10
-        config.contentInsets = .init(top: 11.adjustedH(basedOnHeight: 852),
-                                     leading: 27.adjusted(basedOnWidth: 390),
-                                     bottom: 11.adjustedH(basedOnHeight: 852),
-                                     trailing: 27.adjusted(basedOnWidth: 390))
+        config.contentInsets = .init(top: 11.adjustedH(),
+                                     leading: 27.adjusted(),
+                                     bottom: 11.adjustedH(),
+                                     trailing: 27.adjusted())
         
         if title == "수정" {
             config.baseBackgroundColor = .primary

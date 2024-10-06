@@ -84,11 +84,11 @@ final class CustomAlertViewController: UIViewController {
     private let cancelButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.gray02 // gray02
+        config.baseBackgroundColor = UIColor.gray02
         config.background.cornerRadius = 10
         config.attributedTitle = "아니요"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
-        config.baseForegroundColor = UIColor.gray08  // gray08
+        config.baseForegroundColor = UIColor.gray08
         config.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 39, bottom: 13, trailing: 39)
         
         button.configuration = config
@@ -99,7 +99,7 @@ final class CustomAlertViewController: UIViewController {
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.primary // primary
+        config.baseBackgroundColor = UIColor.primary
         config.background.cornerRadius = 10
         
         if alertType == .requestSaveAlert {
@@ -138,7 +138,9 @@ final class CustomAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.primary // primary color
+        
+        self.view.backgroundColor = UIColor.primary.withAlphaComponent(0.5)
+        
         addViews()
         setupConstraints()
     }
@@ -202,9 +204,9 @@ final class CustomAlertViewController: UIViewController {
                 let bouquetId = bouquetId
             else { return }
             
-            NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { reuslt in
-                switch reuslt {
-                case .success(let success):
+            NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+                switch result {
+                case .success(_):
                     DispatchQueue.main.async {
                         self.dismiss(animated: false) {
                             self.delegate?.deleteSuccessful(bouquetId: bouquetId)

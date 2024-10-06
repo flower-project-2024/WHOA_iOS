@@ -21,6 +21,17 @@ extension CALayer {
         shadowRadius = blur
     }
     
+    /// UIBezierPath를 사용해서 특정 부분에만 그림자를 넣는 메소드
+    /// - Parameters:
+    ///   - color: 그림자의 색상
+    ///   - alpha: 그림자 색상의 투명도
+    ///   - offsetWidth: shadow offset의 width
+    ///   - offsetHeight: shadow offset의 height
+    ///   - shadowWidth: 그림자 직사각형의 width
+    ///   - shadowHeight: 그림자 직사각형의 height
+    ///   - blur: shadowRadius 값
+    ///   - x: 그림자가 시작하는 좌표의 x 값
+    ///   - y: 그림자가 시작하는 좌표의 y 값
     func applyShadowByUIBezierPath(
         color: UIColor = .black,
         alpha: Float = 0.5,

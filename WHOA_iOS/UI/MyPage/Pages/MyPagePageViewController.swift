@@ -100,7 +100,6 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             
             let model = bouquetList[indexPath.row]
-            print(model)
             cell.myPageVC = myPageVC
             cell.configure(model: model)
             cell.customizingCoordinator = myPageVC.customizingCoordinator
@@ -109,7 +108,6 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("noRequest: \(noRequest)")
         if !noRequest {
             let model = bouquetList[indexPath.row]
             let vc = RequestDetailViewController(with: model)
