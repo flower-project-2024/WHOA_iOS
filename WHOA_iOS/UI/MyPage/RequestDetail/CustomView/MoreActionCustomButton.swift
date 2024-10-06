@@ -50,7 +50,7 @@ final class MoreActionCustomButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - FUnctions
+    // MARK: - Functions
     
     func changeTitleAndSubtitle(title: String, subtitle: String?) {
         self.configuration?.title = title
