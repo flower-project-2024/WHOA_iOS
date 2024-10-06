@@ -112,14 +112,23 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         addViews()
         setupConstraints()
         
-        print("VC1: \(vc1)")
-        print("VC2: \(vc2)")
-        
         // segment control에 그림자 추가
         // TODO: bezier path로 변경해보기
-        segmentContainerView.layer.applyShadow(alpha: 1, height: 6, blur: 12.adjustedH() / UIScreen.main.scale)
+//        segmentContainerView.layer.applyShadowByUIBezierPath(color: .red,
+//                                                             alpha: 1,
+//                                                             width: 0,
+//                                                             height: 3,
+////                                                             blur: 12.adjustedH() / UIScreen.main.scale,
+//                                                             x: segmentContainerView.bounds.origin.x,
+//                                                             y: segmentContainerView.bounds.origin.y + segmentContainerView.bounds.height)
         segmentControl.addTarget(self, action: #selector(changeSelectedSegmentLinePosition), for: .valueChanged)
         segmentControl.addTarget(self, action: #selector(segmentIndexDidChange(_:)), for: .valueChanged)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        configureShadow()
     }
     
     // MARK: - Actions
@@ -155,12 +164,13 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     }
     
     private func addViews() {
+        view.addSubview(pageViewController.view)
+
         view.addSubview(segmentContainerView)
         segmentContainerView.addSubview(segmentControl)
         segmentContainerView.addSubview(segmentUnderLineView)
 
 //        view.addSubview(segmentUnderLineView)
-        view.addSubview(pageViewController.view)
     }
     
     private func setupConstraints() {
@@ -200,6 +210,23 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
                 self?.vc3.setTableViewData(self?.viewModel.getBouquetsByType(.producted) ?? [])
             }
         }
+    }
+    
+    private func configureShadow() {
+        let bounds = segmentContainerView.bounds
+        print("=================")
+        print("bounds: \(bounds)")
+        print("=================")
+        
+        segmentContainerView.layer.applyShadowByUIBezierPath(color: .black,
+                                                             alpha: 0.08,
+                                                             offsetWidth: 0,
+                                                             offsetHeight: 0,
+                                                             shadowWidth: bounds.width,
+                                                             shadowHeight: 3,
+                                                             blur: 12.adjustedH() / UIScreen.main.scale,
+                                                             x: bounds.origin.x,
+                                                             y: bounds.origin.y + bounds.height - 1)
     }
     
     // MARK: - CustomAlertViewControllerDelegate
