@@ -295,9 +295,10 @@ final class RequestDetailViewController: UIViewController {
     }
     
     @objc private func showMoreActions() {
-        let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(), 
+        let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(),
                                                                 bouquetId: viewModel.getBouquetId(),
                                                                 isProducted: (viewModel.getRequestDetailModel().status == .producted) ? true : false,
+                                                                requestDetail: viewModel.getRequestDetailModel().customizingSummaryModel,
                                                                 from: self)
         
         moreActionsSheetVC.modalPresentationStyle = .pageSheet

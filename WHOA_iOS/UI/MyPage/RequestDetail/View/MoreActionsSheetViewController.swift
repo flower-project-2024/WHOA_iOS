@@ -15,6 +15,7 @@ final class MoreActionsSheetViewController: UIViewController {
     private let viewModel: RequestDetailViewModel
     private var bouquetId: Int?
     private let isProducted: Bool
+    private let requestSummaryModel: CustomizingSummaryModel
     private var requestDetailVC: RequestDetailViewController
     static private var hasBezel: Bool {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -79,10 +80,16 @@ final class MoreActionsSheetViewController: UIViewController {
     
     // MARK: - Init
     
-    init(title: String, bouquetId: Int, isProducted: Bool, from currentVC: RequestDetailViewController) {
+    init(title: String,
+         bouquetId: Int,
+         isProducted: Bool,
+         requestDetail: CustomizingSummaryModel,
+         from currentVC: RequestDetailViewController
+    ) {
         viewModel = RequestDetailViewModel(requestTitle: title, bouquetId: bouquetId)
         self.bouquetId = bouquetId
         self.isProducted = isProducted
+        self.requestSummaryModel = requestDetail
         requestDetailVC = currentVC
         
         super.init(nibName: nil, bundle: nil)
@@ -120,30 +127,12 @@ final class MoreActionsSheetViewController: UIViewController {
     
     @objc private func modifyButtonDidTap() {
         // TODO: 수정 기능 구현!!
-        print("수정하기!")
+        print("=== 수정하기! ===")
+        print("수정하려는 내용: \(requestSummaryModel)")
     }
     
     @objc private func deleteButtonDidTap() {
-        print("삭제하기!")
         viewModel.deleteBouquet()
-//        guard
-//            let id = KeychainManager.shared.loadMemberId(),
-//            let bouquetId = bouquetId
-//        else { return }
-//        
-//        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
-//            switch result {
-//            case .success(let success):
-//                DispatchQueue.main.async {
-//                    self.dismiss(animated: false) {
-//                        self.delegate?.deleteSuccessful(bouquetId: bouquetId)
-//                        self.requestDetailVC.navigationController?.popViewController(animated: true)
-//                    }
-//                }
-//            case .failure(let error):
-//                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
-//            }
-//        }
     }
     
     // MARK: - Functions
