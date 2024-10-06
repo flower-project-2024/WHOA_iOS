@@ -26,6 +26,11 @@ final class RequestDetailViewModel {
             imageUploadSuccessDidChange?(imageUploadSuccess)
         }
     }
+    var deleteSuccess: Bool? {
+        didSet {
+            deleteSuccessDidChange?(deleteSuccess)
+        }
+    }
     
     private let requestTitle: String
     private let bouquetId: Int
@@ -33,6 +38,7 @@ final class RequestDetailViewModel {
     var requestDetailModelDidChange: ((RequestDetailModel?) -> Void)?
     var bouquetStatusDidChange: ((Bool?) -> Void)?
     var imageUploadSuccessDidChange: ((Bool?) -> Void)?
+    var deleteSuccessDidChange: ((Bool?) -> ())?
     var showError: ((NetworkError) -> Void)?
     
     // MARK: - Init
@@ -98,6 +104,20 @@ final class RequestDetailViewModel {
             switch result {
             case .success(let dto):
                 self.imageUploadSuccess = dto.success
+            case .failure(let error):
+                self.showError?(error)
+            }
+        }
+    }
+    
+    /// 요구서 삭제하는 메소드
+    func deleteBouquet() {
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        
+        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+            switch result {
+            case .success(let dto):
+                self.deleteSuccess = dto.success
             case .failure(let error):
                 self.showError?(error)
             }

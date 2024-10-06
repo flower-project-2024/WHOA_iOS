@@ -125,25 +125,25 @@ final class MoreActionsSheetViewController: UIViewController {
     
     @objc private func deleteButtonDidTap() {
         print("삭제하기!")
-        
-        guard 
-            let id = KeychainManager.shared.loadMemberId(),
-            let bouquetId = bouquetId
-        else { return }
-        
-        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
-            switch result {
-            case .success(let success):
-                DispatchQueue.main.async {
-                    self.dismiss(animated: false) {
-                        self.delegate?.deleteSuccessful(bouquetId: bouquetId)
-                        self.requestDetailVC.navigationController?.popViewController(animated: true)
-                    }
-                }
-            case .failure(let error):
-                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
-            }
-        }
+        viewModel.deleteBouquet()
+//        guard
+//            let id = KeychainManager.shared.loadMemberId(),
+//            let bouquetId = bouquetId
+//        else { return }
+//        
+//        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
+//            switch result {
+//            case .success(let success):
+//                DispatchQueue.main.async {
+//                    self.dismiss(animated: false) {
+//                        self.delegate?.deleteSuccessful(bouquetId: bouquetId)
+//                        self.requestDetailVC.navigationController?.popViewController(animated: true)
+//                    }
+//                }
+//            case .failure(let error):
+//                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+//            }
+//        }
     }
     
     // MARK: - Functions
@@ -178,6 +178,17 @@ final class MoreActionsSheetViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true)
                     self?.requestDetailVC.showProductionSuccessAlert()
+                }
+            }
+        }
+        
+        viewModel.deleteSuccessDidChange = { [weak self] _ in
+            guard let bouquetId = self?.bouquetId else { return }
+            
+            DispatchQueue.main.async {
+                self?.dismiss(animated: false) {
+                    self?.delegate?.deleteSuccessful(bouquetId: bouquetId)
+                    self?.requestDetailVC.navigationController?.popViewController(animated: true)
                 }
             }
         }
