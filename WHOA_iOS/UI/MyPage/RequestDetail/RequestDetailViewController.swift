@@ -301,6 +301,8 @@ final class RequestDetailViewController: UIViewController {
                                                                 from: self)
         
         moreActionsSheetVC.modalPresentationStyle = .pageSheet
+        moreActionsSheetVC.bouquetProductionSuccessDelegate = self
+        
         if let sheet = moreActionsSheetVC.sheetPresentationController {
             sheet.detents = [.medium()]
             sheet.prefersGrabberVisible = true

@@ -24,6 +24,8 @@ final class MoreActionsSheetViewController: UIViewController {
     
     weak var delegate: CustomAlertViewControllerDelegate?
     
+    weak var bouquetProductionSuccessDelegate: BouquetProductionSuccessDelegate?
+    
     // MARK: - Views
     
     private let menuStackView: UIStackView = {
@@ -33,66 +35,26 @@ final class MoreActionsSheetViewController: UIViewController {
         return view
     }()
     
-    private let productionCompletedButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "제작 완료"
-        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
-        config.subtitle = "실제 꽃다발을 만들었다면 완료해주세요."
-        config.attributedSubtitle?.font = hasBezel ? .Pretendard(size: 16, family: .Regular) : .Pretendard()
-        config.titlePadding = 10.adjustedH()
-        config.contentInsets = .init(top: 23.adjustedH(), 
-                                     leading: 33.adjusted(),
-                                     bottom: 23.adjustedH(),
-                                     trailing: 33.adjusted())
-        config.baseForegroundColor = .primary
-        config.baseBackgroundColor = .gray02
-        config.background.cornerRadius = 8
-        
-        button.configuration = config
-        button.contentHorizontalAlignment = .leading
+    private let productionCompletedOrGalleryButton: MoreActionCustomButton = {
+        let button = MoreActionCustomButton(hasBezel: hasBezel,
+                                            title: "제작 완료",
+                                            subtitle: "실제 꽃다발을 만들었다면 완료해주세요.")
         button.addTarget(self, action: #selector(changeBouquetStatusToProducted), for: .touchUpInside)
         return button
     }()
     
-    private let modifyButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "수정하기"
-        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
-        config.contentInsets = .init(top: 23.adjustedH(), 
-                                     leading: 33.adjusted(),
-                                     bottom: 23.adjustedH(),
-                                     trailing: 33.adjusted())
-        config.titleAlignment = .leading
-        config.baseForegroundColor = .primary
-        config.baseBackgroundColor = .gray02
-        config.background.cornerRadius = 8
-        
-        button.configuration = config
-        button.contentHorizontalAlignment = .leading
+    private let modifyButton: MoreActionCustomButton = {
+        let button = MoreActionCustomButton(hasBezel: hasBezel,
+                                            title: "수정하기",
+                                            subtitle: nil)
         button.addTarget(self, action: #selector(modifyButtonDidTap), for: .touchUpInside)
         return button
     }()
     
-    private let deleteButton: UIButton = {
-        let button = UIButton()
-        
-        var config = UIButton.Configuration.filled()
-        config.title = "삭제하기"
-        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
-        config.contentInsets = .init(top: 23.adjustedH(), 
-                                     leading: 33.adjusted(),
-                                     bottom: 23.adjustedH(),
-                                     trailing: 33.adjusted())
-        config.baseForegroundColor = .primary
-        config.baseBackgroundColor = .gray02
-        config.background.cornerRadius = 8
-        
-        button.configuration = config
-        button.contentHorizontalAlignment = .leading
+    private let deleteButton: MoreActionCustomButton = {
+        let button = MoreActionCustomButton(hasBezel: hasBezel,
+                                            title: "삭제하기",
+                                            subtitle: nil)
         button.addTarget(self, action: #selector(deleteButtonDidTap), for: .touchUpInside)
         return button
     }()
@@ -109,7 +71,7 @@ final class MoreActionsSheetViewController: UIViewController {
                                      leading: 15.adjusted(),
                                      bottom: 17.adjustedH(),
                                      trailing: 15.adjusted())
-        config.baseForegroundColor = UIColor(hex: "F9F9FB")
+        config.baseForegroundColor = .gray02
 
         button.configuration = config
         return button
@@ -137,6 +99,8 @@ final class MoreActionsSheetViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        configFirstButton()
+        
         addViews()
         setupConstraints()
         bind()
@@ -145,8 +109,13 @@ final class MoreActionsSheetViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func changeBouquetStatusToProducted() {
-        print("제작 완료!")
-        viewModel.patchBouquetStatus()
+        if isProducted {
+            dismiss(animated: true)
+            bouquetProductionSuccessDelegate?.didSelectGoToGallery()
+        }
+        else {
+            viewModel.patchBouquetStatus()
+        }
     }
     
     @objc private func modifyButtonDidTap() {
@@ -181,11 +150,7 @@ final class MoreActionsSheetViewController: UIViewController {
     
     private func addViews() {
         view.addSubview(menuStackView)
-        
-        // 제작 완료가 되지 않은 상태에서만 제작 완료 버튼이 뜨도록
-        if !isProducted {
-            menuStackView.addArrangedSubview(productionCompletedButton)
-        }
+        menuStackView.addArrangedSubview(productionCompletedOrGalleryButton)
         menuStackView.addArrangedSubview(modifyButton)
         menuStackView.addArrangedSubview(deleteButton)
         
@@ -219,6 +184,14 @@ final class MoreActionsSheetViewController: UIViewController {
         
         viewModel.showError = { [weak self] error in
             self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+        }
+    }
+    
+    /// 이미 제작완료된 경우 맨 위 버튼은 제작 완료 -> 사진 변경하기로 바꿔야 함
+    private func configFirstButton() {
+        if isProducted {
+            productionCompletedOrGalleryButton.changeTitleAndSubtitle(title: "꽃다발 사진 변경하기",
+                                                                      subtitle: "")
         }
     }
 }
