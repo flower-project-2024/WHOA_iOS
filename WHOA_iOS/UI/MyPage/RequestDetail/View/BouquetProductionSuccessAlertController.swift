@@ -115,7 +115,6 @@ final class BouquetProductionSuccessAlertController: UIViewController {
     
     @objc private func chooseFromGalleryButtonDidTap() {
         dismiss(animated: true)
-        print("갤러리에서 선택하기")
         delegate?.didSelectGoToGallery()
     }
     

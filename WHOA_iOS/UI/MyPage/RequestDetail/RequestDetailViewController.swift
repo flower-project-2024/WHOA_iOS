@@ -81,7 +81,7 @@ final class RequestDetailViewController: UIViewController {
         
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = UIColor.primary
-        config.baseForegroundColor = UIColor(red: 249/255, green: 249/255, blue: 251/255, alpha: 1)
+        config.baseForegroundColor = .gray02
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10
         config.contentInsets = NSDirectionalEdgeInsets(top: 17.adjustedH(),
@@ -236,9 +236,6 @@ final class RequestDetailViewController: UIViewController {
     
     private func bind() {
         viewModel.requestDetailModelDidChange = { [weak self] model in
-            print("============")
-            print(model)
-            print("============")
             guard let model = model else { return }
             DispatchQueue.main.async {
                 self?.requestDetailView.config(model: model.customizingSummaryModel)
@@ -257,27 +254,10 @@ final class RequestDetailViewController: UIViewController {
         
         viewModel.imageUploadSuccessDidChange = { [weak self] success in
             guard let success = success else { return }
-            //guard let self = self else { return }
+            
             DispatchQueue.main.async {
                 self?.showBouquetImageUploadSuccessAlert(success: success)
             }
-//            let alertViewController = BouquetImageUploadAlertConroller(uploadResult: success ? .success : .fail, from: self)
-//            alertViewController.modalPresentationStyle = .fullScreen
-//            alertViewController.modalTransitionStyle = .crossDissolve
-//            self.present(alertViewController, animated: true)
-            
-//            if success {
-//                let alert = UIAlertController(title: "이미지 업로드 \(success)!", message: nil, preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-//                    print("navigation??")
-//                    print(self?.navigationController)
-//                    self?.navigationController?.popViewController(animated: true)
-//                }))
-//                self?.present(alert, animated: true)
-//            }
-//            else {
-//                
-//            }
         }
         
         viewModel.showError = { [weak self] error in
@@ -315,8 +295,6 @@ final class RequestDetailViewController: UIViewController {
     }
     
     @objc private func showMoreActions() {
-        print("케밥 버튼 선택됨")
-        
         let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(), 
                                                                 bouquetId: viewModel.getBouquetId(),
                                                                 isProducted: (viewModel.getRequestDetailModel().status == .producted) ? true : false,
@@ -348,7 +326,6 @@ extension RequestDetailViewController: UIGestureRecognizerDelegate {}
 
 extension RequestDetailViewController: BouquetProductionSuccessDelegate {
     func didSelectGoToGallery() {
-        print("요구서 상세에서 갤러리 선택 델리게이트")
         photoAuthService.requestAuthorization { [weak self] result in
             guard let self else { return }
             
@@ -365,7 +342,6 @@ extension RequestDetailViewController: BouquetProductionSuccessDelegate {
                                                                                   data: photoDatas[0],
                                                                                   type: "image/png"))
                 }
-                
                 present(vc, animated: true)
                 
             case .failure:

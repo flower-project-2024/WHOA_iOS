@@ -73,6 +73,7 @@ final class RequestDetailViewModel {
         return requestDetailModel!
     }
     
+    /// 특정 꽃다발 요구서 제작 완료 상태로 변경하는 메소드
     func patchBouquetStatus() {
         guard let id = KeychainManager.shared.loadMemberId() else { return }
         
@@ -86,8 +87,8 @@ final class RequestDetailViewModel {
         }
     }
     
+    /// 실제 꽃다발 이미지 업로드하는 메소드
     func postProductedBouquetImage(bouquetId: Int, imageFile: ImageFile) {
-        print("=== viewmodel 안에 옴 ===")
         guard let id = KeychainManager.shared.loadMemberId() else { return }
         
         NetworkManager.shared.postProductedBouquetImage(memberID: id, 
@@ -96,8 +97,6 @@ final class RequestDetailViewModel {
         ) { result in
             switch result {
             case .success(let dto):
-                print("=== post success ===")
-                print(dto)
                 self.imageUploadSuccess = dto.success
             case .failure(let error):
                 self.showError?(error)

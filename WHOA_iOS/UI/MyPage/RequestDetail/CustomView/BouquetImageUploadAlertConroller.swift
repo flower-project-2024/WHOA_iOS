@@ -91,16 +91,13 @@ final class BouquetImageUploadAlertConroller: UIViewController {
     // MARK: - Actions
     
     @objc private func confirmButtonDidTap() {
-        print("=== 버튼 선택됨 ====")
         switch uploadResult {
         case .success:
-            print("upload success!")
             dismiss(animated: true) { [weak self] in
                 self?.currentVC.navigationController?.popViewController(animated: true)
             }
             
         case .fail:
-            print("upload fail!")
             dismiss(animated: true)
         }
     }
