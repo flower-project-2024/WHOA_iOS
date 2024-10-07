@@ -467,6 +467,8 @@ class FlowerDetailViewController: UIViewController {
         
         // add colorChipButtons to flowerColorChipHStackView
         colorButtonList.forEach({ button in
+            button.addTarget(self, action: #selector(colorChipButtonTapped(sender:)), for: .touchUpInside)
+            
             button.snp.makeConstraints { make in
                 make.width.equalTo(27.93)
                 make.height.equalTo(27.93)
@@ -539,6 +541,10 @@ class FlowerDetailViewController: UIViewController {
                 self?.flowerLanguageContentCollectionView.reloadData()
             }
         }
+        
+        viewModel.colorChipDidChanged = { [weak self] in
+            self?.flowerLanguageContentCollectionView.reloadData()
+        }
     }
     
     // MARK: - Actions
@@ -554,6 +560,18 @@ class FlowerDetailViewController: UIViewController {
             sheet.preferredCornerRadius = 20
         }
         present(colorSheetVC, animated: true)
+    }
+    
+    @objc func colorChipButtonTapped(sender: UIButton?) {
+        colorButtonList.forEach { button in
+            if button == sender {
+                button.setImage(UIImage(named: "Checkmark"), for: .normal)
+                guard let hexString = button.configuration?.background.backgroundColor?.toHexString() else { return }
+                viewModel.setFlowerExpression(hexString: hexString)
+            } else {
+                button.configuration?.image = nil
+            }
+        }
     }
     
     @objc func goBack() {
@@ -582,7 +600,7 @@ extension FlowerDetailViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == flowerLanguageContentCollectionView {
-            return viewModel.getFlowerExpressionsCount()
+            return viewModel.getSelectedFlowerLanguageCount()
         }
         else {
             return viewModel.getFlowerManagementCellCount()

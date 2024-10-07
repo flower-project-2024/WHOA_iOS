@@ -18,6 +18,13 @@ class FlowerDetailViewModel {
         }
     }
     
+    private var selectedFlowerExpression: FlowerExpression? = nil {
+        didSet {
+            colorChipDidChanged?()
+        }
+    }
+    
+    var colorChipDidChanged: (() -> Void)?
     var flowerDetailDidChange: (() -> Void)?
     
     private var manageAndStorageMethodList: [String] = []
@@ -65,6 +72,13 @@ class FlowerDetailViewModel {
         })
     }
     
+    func setFlowerExpression(hexString: String) {
+        let flowerExpression = flowerDetailModel.flowerExpressions?
+            .filter{ $0.flowerColor?.lowercased() == hexString }
+            .first
+        selectedFlowerExpression = flowerExpression
+    }
+    
     /// 관리법, 보관법 칸에 들어갈 셀 개수 리턴
     func getFlowerManagementCellCount() -> Int {
         return manageAndStorageMethodList.count
@@ -80,6 +94,10 @@ class FlowerDetailViewModel {
     
     func getFlowerExpressionsCount() -> Int {
         return flowerDetailModel.flowerExpressions?.count ?? 0
+    }
+    
+    func getSelectedFlowerLanguageCount() -> Int {
+        return selectedFlowerExpression?.flowerLanguage?.components(separatedBy: ",").count ?? 0
     }
     
     func getFlowerExpressionAt(index: Int) -> FlowerExpression {
@@ -98,8 +116,11 @@ class FlowerDetailViewModel {
     }
     
     func getFlowerLanguagesAt(index: Int) -> String {
-        if let expressions = flowerDetailModel.flowerExpressions {
-            return expressions[index].flowerLanguage!
+        if let language = selectedFlowerExpression?.flowerLanguage {
+            let languageArray = language
+                .components(separatedBy: ",")
+                .map { $0.trimmingCharacters(in: .whitespaces) }
+            return languageArray[index]
         }
         return ""
     }
