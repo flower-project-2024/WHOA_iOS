@@ -572,7 +572,7 @@ class FlowerDetailViewController: UIViewController {
     @objc func colorChipButtonTapped(sender: UIButton?) {
         colorButtonList.forEach { button in
             if button == sender {
-                button.setImage(UIImage(named: "Checkmark"), for: .normal)
+                button.configuration?.image = UIImage(named: "Checkmark")
                 guard let hexString = button.configuration?.background.backgroundColor?.toHexString() else { return }
                 viewModel.setFlowerExpression(hexString: hexString)
             } else {
