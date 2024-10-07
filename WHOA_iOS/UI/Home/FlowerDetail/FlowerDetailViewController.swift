@@ -539,11 +539,18 @@ class FlowerDetailViewController: UIViewController {
                 self?.generateColorChipButtons(self?.viewModel.getFlowerColors())
                 self?.managementView.collectionView.reloadData()
                 self?.flowerLanguageContentCollectionView.reloadData()
+                self?.selectFirstColorChipButton()
             }
         }
         
         viewModel.colorChipDidChanged = { [weak self] in
             self?.flowerLanguageContentCollectionView.reloadData()
+        }
+    }
+    
+    private func selectFirstColorChipButton() {
+        if let firstButton = colorButtonList.first {
+            colorChipButtonTapped(sender: firstButton)
         }
     }
     
