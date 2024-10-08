@@ -47,13 +47,15 @@ final class TabBarViewController: UITabBarController {
     
     /// 탭바와 연결될 뷰컨트롤러 세팅하는 함수
     private func setTabViewControllers() {
-        let homeNavVC = UINavigationController(rootViewController: HomeViewController())
-        
         customizingNavVC = UINavigationController()
         if let customizingNavVC = customizingNavVC {
             customizingCoordinator = CustomizingCoordinator(navigationController: customizingNavVC)
             customizingCoordinator?.start()
         }
+        
+        let homeVC = HomeViewController()
+        homeVC.customizingCoordinator = customizingCoordinator
+        let homeNavVC = UINavigationController(rootViewController: homeVC)
         
         let myPageVC = MyPageViewController()
         myPageVC.customizingCoordinator = customizingCoordinator

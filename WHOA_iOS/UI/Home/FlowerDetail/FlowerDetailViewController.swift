@@ -15,6 +15,7 @@ class FlowerDetailViewController: UIViewController {
     var colorButtonList: [ColorChipButton] = []
     private var flowerId: Int
     private let viewModel = FlowerDetailViewModel()
+    var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Views
     
@@ -566,6 +567,8 @@ class FlowerDetailViewController: UIViewController {
             sheet.selectedDetentIdentifier = .medium
             sheet.preferredCornerRadius = 20
         }
+        colorSheetVC.customizingCoordinator = customizingCoordinator
+        colorSheetVC.flowerdetailVC = self
         present(colorSheetVC, animated: true)
     }
     
