@@ -17,10 +17,6 @@ struct FlowerKeywordModel {
 
 extension FlowerKeywordModel: Equatable {
     static func == (lhs: FlowerKeywordModel, rhs: FlowerKeywordModel) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.flowerName == rhs.flowerName &&
-        lhs.flowerImage == rhs.flowerImage &&
-        lhs.flowerKeyword == rhs.flowerKeyword &&
-        lhs.flowerLanguage == rhs.flowerLanguage
+        return lhs.id == rhs.id
     }
 }
