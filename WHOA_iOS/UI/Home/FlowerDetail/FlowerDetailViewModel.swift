@@ -137,4 +137,22 @@ class FlowerDetailViewModel {
             }
         }
     }
+    
+    func getColorScheme(index: Int) -> BouquetData.ColorScheme {
+        guard let hexColor = flowerDetailModel.flowerExpressions?[index].flowerColor else { return BouquetData.ColorScheme(numberOfColors: .none, pointColor: nil, colors: []) }
+        return BouquetData.ColorScheme(numberOfColors: .oneColor, pointColor: nil, colors: [hexColor])
+    }
+    
+    func getBouquetFlower(index: Int) -> [BouquetData.Flower] {
+        let flowerExpression = flowerDetailModel.flowerExpressions?[index]
+        let flower = BouquetData.Flower(
+            id: flowerExpression?.flowerExpressionId,
+            photo: flowerExpression?.flowerImageUrl,
+            name: flowerDetailModel.flowerName ?? "",
+            hashTag: flowerExpression?.flowerLanguage?.components(separatedBy: ",").compactMap { $0.trimmingCharacters(in: .whitespaces) } ?? [],
+            flowerKeyword: []
+        )
+        return [flower]
+    }
+
 }
