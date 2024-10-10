@@ -59,4 +59,8 @@ final class BouquetListModel {
             return bouquetModelList
         }
     }
+    
+    func isBouquetModelListEmpty() -> Bool {
+        return bouquetModelList.isEmpty
+    }
 }

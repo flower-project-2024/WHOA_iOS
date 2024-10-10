@@ -14,7 +14,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private let viewModel = BouquetListModel()
     private let cellVerticalSpacing: CGFloat = 8.adjustedH()
     private let underlineViewWidth: CGFloat = (UIScreen.main.bounds.width - 20.adjusted() * 2) / 3
-    private var noRequest = true
     private var pageViewControllerList: [UIViewController] = []
     var customizingCoordinator: CustomizingCoordinator?
     
@@ -78,9 +77,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     }()
     
     private lazy var vc1 = MyPagePageViewController(type: .all, parentVC: self)
-    
     private lazy var vc2 = MyPagePageViewController(type: .saved, parentVC: self)
-    
     private lazy var vc3 = MyPagePageViewController(type: .producted, parentVC: self)
     
     private lazy var pageViewController: UIPageViewController = {
@@ -116,16 +113,13 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         configureShadow()
     }
     
     // MARK: - Actions
     
     @objc private func segmentIndexDidChange(_ segment: UISegmentedControl) {
-        print("=== 선택된 세그먼트: \(segment.selectedSegmentIndex)")
         currentPage = segment.selectedSegmentIndex
-        
         changeSelectedSegmentLinePosition()
     }
     
@@ -220,7 +214,6 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         let count = viewModel.getBouquetModelCount()
-        noRequest = count == 0 ? true : false
         return count == 0 ? 1 : count
     }
     
@@ -233,7 +226,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if noRequest {
+        if viewModel.isBouquetModelListEmpty() {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: NoRequestCell.identifier, for: indexPath) as? NoRequestCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
@@ -251,7 +244,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !noRequest {
+        if !viewModel.isBouquetModelListEmpty() {
             let bouquetModel = viewModel.getBouquetModel(index: indexPath.row)
             let vc = RequestDetailViewController(with: bouquetModel)
             vc.hidesBottomBarWhenPushed = true
