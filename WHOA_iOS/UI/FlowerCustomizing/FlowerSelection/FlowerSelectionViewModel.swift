@@ -27,17 +27,6 @@ final class FlowerSelectionViewModel {
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         self.purposeType = dataManager.getPurpose()
-        dataManager.getFlowers().forEach { flower in
-            selectedFlowerModels.append(
-                FlowerKeywordModel(
-                    id: flower.id,
-                    flowerName: flower.name,
-                    flowerImage: flower.photo,
-                    flowerKeyword: flower.flowerKeyword,
-                    flowerLanguage: FlowerKeywordDTO.formatFlowerLanguage(flower.hashTag.joined(separator: ", "))
-                )
-            )
-        }
     }
     
     // MARK: - Functions
@@ -51,9 +40,26 @@ final class FlowerSelectionViewModel {
             case .success(let DTO):
                 let models = FlowerKeywordDTO.convertFlowerKeywordDTOToModel(DTO)
                 self.flowerKeywordModels = models
+                self.updateSelectedFlowerModels()
                 self.filteredModels = models
             case .failure(let error):
                 self.networkError = error
+            }
+        }
+    }
+    
+    private func updateSelectedFlowerModels() {
+        dataManager.getFlowers().forEach { flower in
+            if let matchingFlower = flowerKeywordModels.first(where: { $0.id == flower.id }) {
+                selectedFlowerModels.append(
+                    FlowerKeywordModel(
+                        id: matchingFlower.id,
+                        flowerName: matchingFlower.flowerName,
+                        flowerImage: matchingFlower.flowerImage,
+                        flowerKeyword: matchingFlower.flowerKeyword,
+                        flowerLanguage: matchingFlower.flowerLanguage
+                    )
+                )
             }
         }
     }
