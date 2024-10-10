@@ -128,7 +128,9 @@ class ColorSheetViewController: UIViewController {
         
         dismiss(animated: true) { [weak self] in
             self?.flowerdetailVC?.tabBarController?.selectedIndex = 1
-            self?.customizingCoordinator?.showPurposeVC()
+            let purposeVC = PurposeViewController(viewModel: PurposeViewModel())
+            purposeVC.coordinator = self?.customizingCoordinator
+            self?.customizingCoordinator?.navigationController.viewControllers.append(purposeVC)
             self?.customizingCoordinator?.showColorPickerVC()
         }
     }
