@@ -17,13 +17,21 @@ final class RequestCustomButton: UIButton {
         var config = UIButton.Configuration.bordered()
         config.cornerStyle = .dynamic
         config.background.cornerRadius = 10
-        config.contentInsets = .init(top: 10, leading: 12, bottom: 10, trailing: 12)
-        config.background.strokeColor = .black
-        config.baseBackgroundColor = .white
-        config.background.strokeWidth = 1
+        config.contentInsets = .init(top: 11.adjustedH(),
+                                     leading: 27.adjusted(),
+                                     bottom: 11.adjustedH(),
+                                     trailing: 27.adjusted())
+        
+        if title == "수정" {
+            config.baseBackgroundColor = .primary
+            config.baseForegroundColor = .gray01
+        }
+        else {
+            config.baseBackgroundColor = .gray02
+            config.baseForegroundColor = .gray08
+        }
         config.attributedTitle = AttributedString.init(title)
-        config.attributedTitle?.font = UIFont.Pretendard(size: 14, family: .Medium)
-        config.baseForegroundColor = .black
+        config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
         
         self.configuration = config
         

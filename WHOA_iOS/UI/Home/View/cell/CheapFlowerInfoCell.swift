@@ -16,6 +16,10 @@ final class CheapFlowerInfoCell: UITableViewCell {
     var flowerId: Int?
     
     private var flowerLanguage: String?
+    private let illustImageArray = [UIImage.flowerIllust1,
+                                    UIImage.flowerIllust2,
+                                    UIImage.flowerIllust3,
+                                    UIImage.flowerIllust4]
         
     // MARK: - Views
     
@@ -130,37 +134,36 @@ final class CheapFlowerInfoCell: UITableViewCell {
         }
     }
     
-    func configure(model: CheapFlowerModel) {
-        flowerNameLabel.text = model.flowerRankingName
-        
-        var price = model.flowerRankingPrice
-        
-        if price.count > 3{
-            let endIndex = price.endIndex
-            let thirdLastIndex = price.index(endIndex, offsetBy: -3)  // 뒤에서 3번째 인덱스 자리를 구함
-            price.insert(",", at: thirdLastIndex)
-            priceLabel.text = "\(price)원"
-        }
-        else {
-            priceLabel.text = "\(model.flowerRankingPrice)원"
-        }
-        
-        /* 서버에 있는 꽃인 경우와 없는 꽃인 경우 분기 */
+    private func setFlowerImage(model: CheapFlowerModel) {
+        // DB에 있는 꽃일 경우
         if let id = model.flowerId {
             self.flowerId = id
             moveToDetailImageView.isHidden = false
+            
             if let img = model.flowerRankingImg {
                 ImageProvider.shared.setImage(into: flowerImageView, from: img)
             }
+            else {
+                flowerImageView.image = .defaultFlower
+            }
         }
-        else{
+        // DB에 없는 꽃일 경우
+        else {
             moveToDetailImageView.isHidden = true
-            flowerImageView.image = UIImage.defaultFlower
+            flowerImageView.image = illustImageArray.randomElement()
         }
-        
-        flowerLanguage = model.flowerRankingLanguage
     }
     
+    func configure(model: CheapFlowerModel) {
+        flowerNameLabel.text = model.flowerRankingName
+        priceLabel.text = "\(model.flowerRankingPrice.formatNumberInThousands())원"
+        
+        flowerLanguage = model.flowerRankingLanguage
+        
+        setFlowerImage(model: model)
+    }
+    
+    /// 홈 탭 뷰컨트롤러의 뷰들이 모두 레이아웃 된 후 viewDidLayoutSubviews() 에서 호출되는 메소드
     func updateFlowerLanguageStackView() {
         flowerLanguageStackView.removeArrangedSubviews()
                 
