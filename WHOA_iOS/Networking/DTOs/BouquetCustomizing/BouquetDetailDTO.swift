@@ -24,14 +24,18 @@ struct BouquetDetail: Codable {
     let wrappingType: String
     let priceRange: String
     let requirement: String?
-    let imgInfoList: [ImgInfoList]
-    let flowerInfoList: [FlowerInfoList]
+    let bouquetStatus: String
+    let selectedFlowersInfoList: [FlowerInfoList]
+    let uploadedBouquetCustomizingImagesInfoList: [ImgInfoList]
+    let bouquetRealImage: String?
 }
 
 struct FlowerInfoList: Codable {
+    let flowerKeywords: String  // "아름다운, 존경"
     let flowerImageUrl: String
     let flowerName: String
-    let flowerLanguage: String
+    let flowerLanguage: String  // "화사한 매력, 명성"
+    let id: String
 }
 
 struct ImgInfoList: Codable {
@@ -40,15 +44,16 @@ struct ImgInfoList: Codable {
 }
 
 extension BouquetDetailDTO {
-    static func convertBouquetDetailDTOToModel(_ DTO: BouquetDetailDTO, completion: @escaping (CustomizingSummaryModel?) -> Void) {
+    static func convertBouquetDetailDTOToModel(_ DTO: BouquetDetailDTO, completion: @escaping (RequestDetailModel?) -> Void) {
         var colors = DTO.data.colorName.components(separatedBy: ",")
         
         if let pointColor = DTO.data.pointColor {
             colors.insert(pointColor, at: 0)
         }
         
-        let flowers = DTO.data.flowerInfoList.map { Flower(
-            id: nil, photo: $0.flowerImageUrl,
+        let flowers = DTO.data.selectedFlowersInfoList.map { Flower(
+            id: Int($0.id),
+            photo: $0.flowerImageUrl,
             name: $0.flowerName,
             hashTag: $0.flowerLanguage.components(separatedBy: ", ")
         ) }
@@ -56,7 +61,7 @@ extension BouquetDetailDTO {
         let dispatchGroup = DispatchGroup()
         var imageFiles: [ImageFile] = []
         
-        for imgPath in DTO.data.imgInfoList {
+        for imgPath in DTO.data.uploadedBouquetCustomizingImagesInfoList {
             dispatchGroup.enter()
             urlStringToImageFile(urlString: imgPath.bouquetImageUrl, filename: "RequirementImage") { imageFile in
                 if let imageFile = imageFile {
@@ -67,7 +72,7 @@ extension BouquetDetailDTO {
         }
         
         dispatchGroup.notify(queue: .main) {
-            let model = CustomizingSummaryModel(
+            let customizingSummaryModel = CustomizingSummaryModel(
                 purpose: PurposeType(rawValue: DTO.data.purpose) ?? .affection,
                 numberOfColors: NumberOfColorsType(rawValue: DTO.data.colorType) ?? .oneColor,
                 colors: colors,
@@ -77,6 +82,9 @@ extension BouquetDetailDTO {
                 priceRange: DTO.data.priceRange,
                 requirement: Requirement(text: DTO.data.requirement, imageFiles: imageFiles)
             )
+            let model = RequestDetailModel(customizingSummaryModel: customizingSummaryModel,
+                                           status: BouquetStatusType.init(rawValue: DTO.data.bouquetStatus) ?? .saved,
+                                           bouquetRealImage: DTO.data.bouquetRealImage)
             completion(model)
         }
     }

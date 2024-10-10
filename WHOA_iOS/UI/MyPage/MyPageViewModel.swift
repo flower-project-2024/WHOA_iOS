@@ -13,11 +13,11 @@ final class BouquetListModel {
     
     private var bouquetModelList: [BouquetModel] = [] {
         didSet {
-            bouquetModelListDidChage?()
+            bouquetModelListDidChange?()
         }
     }
     
-    var bouquetModelListDidChage: (() -> Void)?
+    var bouquetModelListDidChange: (() -> Void)?
     
     // MARK: - Functions
     
@@ -43,5 +43,24 @@ final class BouquetListModel {
     
     func removeBouquet(withId bouquetId: Int) {
         bouquetModelList.removeAll { $0.bouquetId == bouquetId }
+    }
+    
+    func getBouquetsByType(_ type: BouquetStatusType) -> [BouquetModel] {
+        switch type {
+        case .producted:
+            return bouquetModelList.filter { bouquet in
+                bouquet.bouquetStatus == .producted
+            }
+        case .saved:
+            return bouquetModelList.filter { bouquet in
+                bouquet.bouquetStatus == .saved
+            }
+        default:
+            return bouquetModelList
+        }
+    }
+    
+    func isBouquetModelListEmpty() -> Bool {
+        return bouquetModelList.isEmpty
     }
 }

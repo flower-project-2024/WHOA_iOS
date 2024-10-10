@@ -20,23 +20,31 @@ final class SavedRequestCell: UITableViewCell {
     
     // MARK: - Views
     
-    private let flowerImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
+    private let flowerImageStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        view.spacing = 0
+        view.distribution = .fillEqually
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        return view
     }()
     
-    private let detailView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.gray02
+    private let detailStackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 5
+        view.alignment = .leading
         return view
     }()
     
     lazy var requestTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.Pretendard(size: 16, family: .Medium)
+        label.font = UIFont.Pretendard(size: 18, family: .Bold)
+        label.text = "꽃다발 요구서"
+        label.textColor = .gray09
         label.numberOfLines = 1
+        label.setLineHeight(lineHeight: 140)
         return label
     }()
     
@@ -44,14 +52,23 @@ final class SavedRequestCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.text = "2024-01-01"
-        label.textColor = UIColor(red: 144/255, green: 144/255, blue: 144/255, alpha: 1)
+        label.textColor = .gray09
+        label.setLineHeight(lineHeight: 140)
+        return label
+    }()
+    
+    private let productionCompleteLabel: UILabel = {
+        let label = UILabel()
+        label.text = "제작 완료"
+        label.textColor = .second3
+        label.font = .Pretendard(size: 14, family: .SemiBold)
         return label
     }()
     
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = 3.adjusted()
         return stackView
     }()
     
@@ -72,10 +89,6 @@ final class SavedRequestCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.gray03.cgColor
-        contentView.layer.masksToBounds = true
         addViews()
         setupConstraints()
     }
@@ -87,51 +100,50 @@ final class SavedRequestCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, 
+                                                                     left: 20.adjusted(),
+                                                                     bottom: 0,
+                                                                     right: 20.adjusted()))
     }
     
     // MARK: - Functions
     
     private func addViews() {
-        contentView.addSubview(flowerImageView)
-        contentView.addSubview(detailView)
+        contentView.addSubview(flowerImageStackView)
+        contentView.addSubview(detailStackView)
+        contentView.addSubview(productionCompleteLabel)
+        contentView.addSubview(buttonStackView)
         
-        detailView.addSubview(requestTitleLabel)
-        detailView.addSubview(writtenDateLabel)
-        detailView.addSubview(buttonStackView)
+        detailStackView.addArrangedSubview(requestTitleLabel)
+        detailStackView.addArrangedSubview(writtenDateLabel)
         
         buttonStackView.addArrangedSubview(modifyButton)
         buttonStackView.addArrangedSubview(deleteButton)
     }
     
     private func setupConstraints() {
-        flowerImageView.snp.makeConstraints { make in
+        flowerImageStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.top.bottom.equalToSuperview()
-            make.height.equalTo(160)
-            make.width.equalTo(flowerImageView.snp.height).multipliedBy(7.0 / 8.0)
+            make.top.bottom.equalToSuperview().inset(24.adjustedH())
+            make.width.equalTo(flowerImageStackView.snp.height).multipliedBy(4.0 / 5.0)
         }
         
-        detailView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.leading.equalTo(flowerImageView.snp.trailing)
+        detailStackView.snp.makeConstraints { make in
+            make.top.equalTo(flowerImageStackView.snp.top).inset(9.5.adjustedH())
+            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(26.adjusted())
+            make.trailing.equalToSuperview().inset(17.adjusted())
         }
         
-        requestTitleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.greaterThanOrEqualToSuperview().inset(20)
-            make.top.equalToSuperview().inset(27)
-        }
-        
-        writtenDateLabel.snp.makeConstraints { make in
-            make.leading.equalTo(requestTitleLabel.snp.leading)
-            make.top.equalTo(requestTitleLabel.snp.bottom).offset(6)
+        productionCompleteLabel.snp.makeConstraints { make in
+            make.leading.equalTo(detailStackView.snp.leading)
+            make.top.equalTo(detailStackView.snp.bottom).offset(14.adjustedH())
         }
         
         buttonStackView.snp.makeConstraints { make in
-            make.leading.equalTo(writtenDateLabel.snp.leading)
-            make.top.equalTo(writtenDateLabel.snp.bottom).offset(34)
+            make.leading.equalTo(flowerImageStackView.snp.trailing).offset(16.adjusted())
+            make.trailing.equalToSuperview()
+            make.top.equalTo(productionCompleteLabel.snp.bottom).offset(69.adjustedH())
+            make.bottom.equalTo(flowerImageStackView.snp.bottom).inset(9.5.adjustedH())
         }
     }
     
@@ -139,12 +151,40 @@ final class SavedRequestCell: UITableViewCell {
         self.requestTitle = model.bouquetTitle
         
         requestTitleLabel.text = model.bouquetTitle
+
+        if model.bouquetStatus == .producted {
+            productionCompleteLabel.isHidden = false
+        }
+        else {
+            productionCompleteLabel.isHidden = true
+        }
+        
         bouquetId = model.bouquetId
         writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
         
-        if !model.bouquetImgPaths.isEmpty {
-            if let url = URL(string: model.bouquetImgPaths[0]) {
-                ImageProvider.shared.setImage(into: flowerImageView, from: url.absoluteString)
+        flowerImageStackView.removeArrangedSubviews()
+        
+        if let realBouquet = model.bouquetRealImage {
+            let imageView = UIImageView()
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            flowerImageStackView.addArrangedSubview(imageView)
+            
+            if let url = URL(string: realBouquet) {
+                ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
+            }
+        }
+        
+        else if !model.bouquetImgPaths.isEmpty {
+            for image in model.bouquetImgPaths {
+                let imageView = UIImageView()
+                imageView.contentMode = .scaleAspectFill
+                imageView.clipsToBounds = true
+                flowerImageStackView.addArrangedSubview(imageView)
+                
+                if let url = URL(string: image) {
+                    ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
+                }
             }
         }
     }
