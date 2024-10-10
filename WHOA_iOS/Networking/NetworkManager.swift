@@ -37,11 +37,15 @@ final class NetworkManager {
     /// - Parameters:
     /// - keywordId: String, ex) 0 - 전체, 1 - 사랑 등등
     func fetchFlowerKeyword(
-        keywordId: String,
+        customizingPurposeId: Int,
+        keywordId: Int,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<FlowerKeywordDTO, NetworkError>) -> Void
     ) {
-        let flowerKeywordAPI = FlowerKeywordAPI(keywordId: keywordId)
+        let flowerKeywordAPI = FlowerKeywordAPI(
+            customizingPurposeId: customizingPurposeId,
+            keywordId: keywordId
+        )
         networkService.request(flowerKeywordAPI) { result in
             switch result {
             case .success(let DTO):

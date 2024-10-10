@@ -10,8 +10,9 @@ import Foundation
 struct FlowerKeywordAPI: ServableAPI {
     typealias Response = FlowerKeywordDTO
     
-    var keywordId: String
+    var customizingPurposeId: Int
+    var keywordId: Int
     
-    var path: String { "/api/flower/keyword/" }
-    var params: String { keywordId }
+    var path: String { "/api/v2/flower/keyword?" }
+    var params: String { "customizingPurposeId=\(customizingPurposeId)&keywordId=\(keywordId)" }
 }

@@ -11,7 +11,7 @@ import Combine
 
 final class PurposeView: UIView {
     
-    // MARK: - Enum
+    // MARK: - Enums
     
     /// Metrics
     private enum Metric {
@@ -30,32 +30,32 @@ final class PurposeView: UIView {
     // MARK: - UI
     
     private lazy var affectionButton = buildPurposeButton(purpose: .affection)
-    private lazy var birthdayButton = buildPurposeButton(purpose: .birthday)
+    private lazy var partingButton = buildPurposeButton(purpose: .parting)
     private lazy var gratitudeButton = buildPurposeButton(purpose: .gratitude)
-    private lazy var proposeButton = buildPurposeButton(purpose: .propose)
     private lazy var partyButton = buildPurposeButton(purpose: .party)
     private lazy var employmentButton = buildPurposeButton(purpose: .employment)
     private lazy var promotionButton = buildPurposeButton(purpose: .promotion)
     private lazy var friendshipButton = buildPurposeButton(purpose: .friendship)
+    private lazy var noneButton = buildPurposeButton(purpose: .none)
     
     private lazy var purposeButtonHStackView1 = buildPurposeButtonHStackView(
         button1: affectionButton,
-        button2: birthdayButton
+        button2: partingButton
     )
     
     private lazy var purposeButtonHStackView2 = buildPurposeButtonHStackView(
         button1: gratitudeButton,
-        button2: proposeButton
+        button2: partyButton
     )
     
     private lazy var purposeButtonHStackView3 = buildPurposeButtonHStackView(
-        button1: partyButton,
-        button2: employmentButton
+        button1: employmentButton,
+        button2: promotionButton
     )
     
     private lazy var purposeButtonHStackView4 = buildPurposeButtonHStackView(
-        button1: promotionButton,
-        button2: friendshipButton
+        button1: friendshipButton,
+        button2: noneButton
     )
     
     private lazy var purposeButtonVStackView: UIStackView = {
@@ -99,12 +99,10 @@ final class PurposeView: UIView {
         switch purpose {
         case .affection:
             selectedButton = affectionButton
-        case .birthday:
-            selectedButton = birthdayButton
+        case .parting:
+            selectedButton = partingButton
         case .gratitude:
             selectedButton = gratitudeButton
-        case .propose:
-            selectedButton = proposeButton
         case .party:
             selectedButton = partyButton
         case .employment:
@@ -114,7 +112,7 @@ final class PurposeView: UIView {
         case .friendship:
             selectedButton = friendshipButton
         case .none:
-            selectedButton = nil
+            selectedButton = noneButton
         }
         
         configureButton(
@@ -129,13 +127,13 @@ final class PurposeView: UIView {
     private func resetView() {
         [
             affectionButton,
-            birthdayButton,
+            partingButton,
             gratitudeButton,
-            proposeButton,
             partyButton,
             employmentButton,
             promotionButton,
-            friendshipButton
+            friendshipButton,
+            noneButton
         ].forEach {
             configureButton(
                 button: $0,
@@ -164,24 +162,14 @@ final class PurposeView: UIView {
     
     private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {
         switch purposeType {
-        case .affection:
-            return .affection
-        case .birthday:
-            return .birthday
-        case .gratitude:
-            return .gratitude
-        case .propose:
-            return .propose
-        case .party:
-            return .party
-        case .employment:
-            return .employment
-        case .promotion:
-            return .promotion
-        case .friendship:
-            return .friendship
-        case .none:
-            return nil
+        case .affection: return .affection
+        case .parting: return .parting
+        case .gratitude: return .gratitude
+        case .party: return .party
+        case .employment: return .employment
+        case .promotion: return .promotion
+        case .friendship: return .friendship
+        case .none: return .nonePurpose
         }
     }
     
@@ -195,7 +183,7 @@ final class PurposeView: UIView {
         config.image = getPurposeImage(purpose)
         config.imagePlacement = .top
         config.imagePadding = 10
-        config.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
+        config.contentInsets = .init(top: 12, leading: 0, bottom: 16, trailing: 0)
         button.configuration = config
         
         button.layer.cornerRadius = 10
@@ -234,8 +222,8 @@ extension PurposeView {
         [
             affectionButton,
             gratitudeButton,
-            partyButton,
-            promotionButton,
+            employmentButton,
+            friendshipButton,
         ].forEach { button in
             button.snp.makeConstraints { make in
                 make.height.equalTo(Metric.buttonHeight)

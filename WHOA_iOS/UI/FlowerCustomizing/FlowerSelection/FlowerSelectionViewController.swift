@@ -178,7 +178,7 @@ final class FlowerSelectionViewController: UIViewController {
         
         bind()
         setupUI()
-        fetchData(keywordId: 0)
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -255,8 +255,8 @@ final class FlowerSelectionViewController: UIViewController {
             .store(in: &viewModel.cancellables)
     }
     
-    private func fetchData(keywordId: Int) {
-        viewModel.fetchFlowerKeyword(keywordId: "\(keywordId)")
+    private func fetchData() {
+        viewModel.fetchFlowerKeyword()
     }
     
     private func setupCollectionView() {

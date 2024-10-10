@@ -192,6 +192,7 @@ final class SavedRequestCell: UITableViewCell {
     // MARK: - Actions
     
     @objc func modifyBtnTapped() {
+        guard let requestTitle = requestTitle else { return }
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.customizingCoordinator = customizingCoordinator
@@ -200,6 +201,7 @@ final class SavedRequestCell: UITableViewCell {
     }
     
     @objc func deleteBtnTapped() {
+        guard let requestTitle = requestTitle else { return }
         let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .delete, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.delegate = myPageVC

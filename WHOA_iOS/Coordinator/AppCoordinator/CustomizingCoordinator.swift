@@ -48,7 +48,6 @@ final class CustomizingCoordinator: Coordinator {
     }
     
     func showFlowerSelectionVC() {
-        // purposeType 주입코드 수정필요
         let viewModel = FlowerSelectionViewModel()
         let flowerSelectionVC = FlowerSelectionViewController(viewModel: viewModel)
         flowerSelectionVC.coordinator = self
