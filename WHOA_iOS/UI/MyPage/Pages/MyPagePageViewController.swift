@@ -111,6 +111,7 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
         if !noRequest {
             let model = bouquetList[indexPath.row]
             let vc = RequestDetailViewController(with: model)
+            vc.myPageVC = myPageVC
             vc.hidesBottomBarWhenPushed = true
             myPageVC.navigationController?.pushViewController(vc, animated: true)
             return
