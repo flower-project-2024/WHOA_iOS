@@ -10,7 +10,7 @@ import Combine
 
 final class CustomStartView: UIView {
     
-    // MARK: - Enum
+    // MARK: - Enums
     
     /// Metrics
     private enum Metric {

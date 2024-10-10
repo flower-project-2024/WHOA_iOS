@@ -22,24 +22,24 @@ import UIKit
  */
 
 extension CGFloat {
-    func adjusted(basedOnWidth width: CGFloat = 375) -> CGFloat {
+    func adjusted(basedOnWidth width: CGFloat = 390) -> CGFloat {
         let ratio: CGFloat = UIScreen.main.bounds.width / width
         return self * ratio
     }
     
-    func adjustedH(basedOnHeight height: CGFloat = 812) -> CGFloat {
+    func adjustedH(basedOnHeight height: CGFloat = 844) -> CGFloat {
         let ratio: CGFloat = UIScreen.main.bounds.height / height
         return self * ratio
     }
 }
 
 extension Double {
-    func adjusted(basedOnWidth width: Double = 375) -> Double {
+    func adjusted(basedOnWidth width: Double = 390) -> Double {
         let ratio: Double = Double(UIScreen.main.bounds.width) / width
         return self * ratio
     }
     
-    func adjustedH(basedOnHeight height: Double = 812) -> Double {
+    func adjustedH(basedOnHeight height: Double = 844) -> Double {
         let ratio: Double = Double(UIScreen.main.bounds.height) / height
         return self * ratio
     }

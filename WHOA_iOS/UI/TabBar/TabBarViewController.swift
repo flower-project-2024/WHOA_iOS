@@ -38,7 +38,7 @@ final class TabBarViewController: UITabBarController {
         setTabBarItems()
         
         UITabBar.clearShadow()
-        tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, x: 0, y: -2, blur: 6)
+        tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, width: 0, height: -2, blur: 6)
         
         self.selectedIndex = 0
     }

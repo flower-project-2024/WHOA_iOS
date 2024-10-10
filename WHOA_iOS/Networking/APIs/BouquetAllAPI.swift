@@ -13,7 +13,7 @@ struct BouquetAllAPI: ServableAPI {
     
     var method: HTTPMethod { .get }
     var headers: [String : String]? { ["MEMBER_ID" : memberId] }
-    var path: String { "/api/bouquet/all" }
+    var path: String { "/api/v2/bouquet/all/status" }
     
     typealias Response = BouquetAllDTO
 }

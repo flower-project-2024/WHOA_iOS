@@ -21,12 +21,6 @@ final class CustomBottomView: UIView {
         static let navigationHStackViewTopOffset = 20.0
     }
     
-    /// Attributes
-    private enum Attributes {
-        static let backButtonTitle = "이전"
-        static let nextButtonTitle = "다음"
-    }
-    
     // MARK: - Properties
     
     enum ButtonState {
@@ -35,6 +29,8 @@ final class CustomBottomView: UIView {
         case hidden
     }
     
+    private var backButtonTitle: String
+    private var nextButtonTitle: String
     private let backButtonTappedSubject = PassthroughSubject<Void, Never>()
     private let nextButtonTappedSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -52,7 +48,7 @@ final class CustomBottomView: UIView {
     private let borderLine = ShadowBorderLine()
     
     private lazy var backButton: UIButton = {
-        let button = buildMoveButton(title: Attributes.backButtonTitle)
+        let button = buildMoveButton(title: backButtonTitle)
         button.layer.borderWidth = 1
         button.addAction(UIAction { [weak self] _ in
             self?.backButtonTappedSubject.send()
@@ -61,7 +57,7 @@ final class CustomBottomView: UIView {
     }()
     
     private lazy var nextButton: UIButton = {
-        let button = buildMoveButton(title: Attributes.nextButtonTitle)
+        let button = buildMoveButton(title: nextButtonTitle)
         button.addAction(UIAction { [weak self] _ in
             self?.nextButtonTappedSubject.send()
         }, for: .touchUpInside)
@@ -78,7 +74,14 @@ final class CustomBottomView: UIView {
     
     // MARK: - Initialize
     
-    init(backButtonState: ButtonState, nextButtonEnabled: Bool) {
+    init(
+        backButtonState: ButtonState,
+        nextButtonEnabled: Bool,
+        backButtonTitle: String = "이전",
+        nextButtonTitle: String = "다음"
+    ) {
+        self.backButtonTitle = backButtonTitle
+        self.nextButtonTitle = nextButtonTitle
         super.init(frame: .zero)
         configBackButton(backButtonState)
         configNextButton(nextButtonEnabled)
@@ -133,6 +136,10 @@ final class CustomBottomView: UIView {
         nextButton.isEnabled = nextButtonState
         nextButton.backgroundColor = nextButtonState ? .primary : .gray03
         nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)
+    }
+    
+    func setNextButtonTitle(_ title: String) {
+        nextButton.setTitle(title, for: .normal)
     }
 }
 

@@ -313,7 +313,7 @@ final class PhotoSelectionViewController: UIViewController {
             
             switch result {
             case .success:
-                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount())
+                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount(), photoSelectionLimitCount: 3)
                 vc.modalPresentationStyle = .fullScreen
                 vc.completionHandler = { photos in
                     let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
