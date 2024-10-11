@@ -12,7 +12,6 @@ final class CustomizingCoordinator: Coordinator {
     // MARK: - Properties
     
     var navigationController: UINavigationController
-    private var actionType: ActionType = .create
     
     
     // MARK: - Initialize
@@ -27,10 +26,6 @@ final class CustomizingCoordinator: Coordinator {
         let customStartVC = CustomStartViewController()
         customStartVC.coordinator = self
         navigationController.pushViewController(customStartVC, animated: true)
-    }
-    
-    func setActionType(actionType: ActionType) {
-        self.actionType = actionType
     }
     
     func showPurposeVC() {
@@ -93,7 +88,7 @@ final class CustomizingCoordinator: Coordinator {
     }
     
     func showCustomizingSummaryVC() {
-        let viewModel = CustomizingSummaryViewModel(actionType: self.actionType)
+        let viewModel = CustomizingSummaryViewModel()
         let customizingSummaryVC = CustomizingSummaryViewController(viewModel: viewModel)
         customizingSummaryVC.coordinator = self
         navigationController.pushViewController(customizingSummaryVC, animated: true)

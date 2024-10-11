@@ -132,7 +132,7 @@ final class TabBarViewController: UITabBarController {
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController == customizingNavVC {
-            customizingCoordinator?.setActionType(actionType: .create)
+            BouquetDataManager.shared.setActionType(.create)
         }
     }
 }

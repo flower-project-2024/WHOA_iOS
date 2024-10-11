@@ -125,6 +125,7 @@ class ColorSheetViewController: UIViewController {
         let flower = viewModel.getBouquetFlower(index: index)
         BouquetDataManager.shared.setColorScheme(colorScheme)
         BouquetDataManager.shared.setFlowers(flower)
+        BouquetDataManager.shared.setActionType(.customV2)
         
         dismiss(animated: true) { [weak self] in
             self?.flowerdetailVC?.tabBarController?.selectedIndex = 1

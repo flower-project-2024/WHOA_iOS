@@ -23,7 +23,6 @@ final class MoreActionsSheetViewController: UIViewController {
     }
     
     weak var delegate: CustomAlertViewControllerDelegate?
-    
     weak var bouquetProductionSuccessDelegate: BouquetProductionSuccessDelegate?
     
     // MARK: - Views
@@ -124,7 +123,7 @@ final class MoreActionsSheetViewController: UIViewController {
         let id = viewModel.getBouquetId()
         fetchBouquetDetail(requestTitle: viewModel.getRequestTitle(), bouquetId: id)
         dismiss(animated: true) { [weak self] in
-            self?.requestDetailVC.myPageVC?.customizingCoordinator?.setActionType(actionType: .update(bouquetId: id))
+            BouquetDataManager.shared.setActionType(.update(bouquetId: id))
             self?.requestDetailVC.myPageVC?.customizingCoordinator?.showPurposeVC()
             self?.requestDetailVC.myPageVC?.tabBarController?.selectedIndex = 1
         }
