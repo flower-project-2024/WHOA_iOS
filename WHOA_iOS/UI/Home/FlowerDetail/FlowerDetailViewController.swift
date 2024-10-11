@@ -15,6 +15,7 @@ class FlowerDetailViewController: UIViewController {
     var colorButtonList: [ColorChipButton] = []
     private var flowerId: Int
     private let viewModel = FlowerDetailViewModel()
+    var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Views
     
@@ -467,6 +468,8 @@ class FlowerDetailViewController: UIViewController {
         
         // add colorChipButtons to flowerColorChipHStackView
         colorButtonList.forEach({ button in
+            button.addTarget(self, action: #selector(colorChipButtonTapped(sender:)), for: .touchUpInside)
+            
             button.snp.makeConstraints { make in
                 make.width.equalTo(27.93)
                 make.height.equalTo(27.93)
@@ -537,7 +540,18 @@ class FlowerDetailViewController: UIViewController {
                 self?.generateColorChipButtons(self?.viewModel.getFlowerColors())
                 self?.managementView.collectionView.reloadData()
                 self?.flowerLanguageContentCollectionView.reloadData()
+                self?.selectFirstColorChipButton()
             }
+        }
+        
+        viewModel.colorChipDidChanged = { [weak self] in
+            self?.flowerLanguageContentCollectionView.reloadData()
+        }
+    }
+    
+    private func selectFirstColorChipButton() {
+        if let firstButton = colorButtonList.first {
+            colorChipButtonTapped(sender: firstButton)
         }
     }
     
@@ -553,7 +567,26 @@ class FlowerDetailViewController: UIViewController {
             sheet.selectedDetentIdentifier = .medium
             sheet.preferredCornerRadius = 20
         }
+        colorSheetVC.customizingCoordinator = customizingCoordinator
+        colorSheetVC.flowerdetailVC = self
         present(colorSheetVC, animated: true)
+    }
+    
+    @objc func colorChipButtonTapped(sender: UIButton?) {
+        colorButtonList.forEach { button in
+            if button == sender {
+                updateCheckmark(for: button)
+            } else {
+                button.configuration?.image = nil
+            }
+        }
+    }
+    
+    private func updateCheckmark(for button: UIButton) {
+        guard let hexString = button.configuration?.background.backgroundColor?.toHexString() else { return }
+        let checkmark = hexString == "#fdfff8" ? "Checkmark_gray" : "Checkmark"
+        button.configuration?.image = UIImage(named: checkmark)
+        viewModel.setFlowerExpression(hexString: hexString)
     }
     
     @objc func goBack() {
@@ -582,7 +615,7 @@ extension FlowerDetailViewController: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == flowerLanguageContentCollectionView {
-            return viewModel.getFlowerExpressionsCount()
+            return viewModel.getSelectedFlowerLanguageCount()
         }
         else {
             return viewModel.getFlowerManagementCellCount()

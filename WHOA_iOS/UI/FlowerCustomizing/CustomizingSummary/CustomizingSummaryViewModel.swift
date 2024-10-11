@@ -9,9 +9,10 @@ import Foundation
 import Combine
 
 
-enum ActionType {
+enum ActionType: Equatable {
     case create
     case update(bouquetId: Int?)
+    case customV2
 }
 
 final class CustomizingSummaryViewModel {
@@ -44,12 +45,12 @@ final class CustomizingSummaryViewModel {
         self.customizingSummaryModel = .init(from: dataManager.getBouquet())
         self.networkManager = networkManager
         self.memberId = keychainManager.loadMemberId()
-        self.actionType = actionType
+        self.actionType = dataManager.getActionType()
     }
     
     func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
         switch actionType {
-        case .create:
+        case .create, .customV2:
             submitCustomBouquet(id: id, DTO: DTO)
         case .update(let bouquetId):
             guard let bouquetId = bouquetId else { return }

@@ -17,8 +17,10 @@ struct FlowerDetailModel {
     var flowerExpressions: [FlowerExpression]?
 }
 
-struct FlowerExpression: Codable {
-    var flowerColor: String?
-    var flowerLanguage: String?
+struct FlowerExpression {
+    let flowerExpressionId: Int?
+    let flowerColor: String?
+    let flowerLanguage: String?
+    let flowerImageUrl: String?
 }
 

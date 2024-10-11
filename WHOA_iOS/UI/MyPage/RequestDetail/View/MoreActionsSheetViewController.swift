@@ -13,7 +13,6 @@ final class MoreActionsSheetViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: RequestDetailViewModel
-    private var bouquetId: Int?
     private let isProducted: Bool
     private let requestSummaryModel: CustomizingSummaryModel
     private var requestDetailVC: RequestDetailViewController
@@ -24,7 +23,6 @@ final class MoreActionsSheetViewController: UIViewController {
     }
     
     weak var delegate: CustomAlertViewControllerDelegate?
-    
     weak var bouquetProductionSuccessDelegate: BouquetProductionSuccessDelegate?
     
     // MARK: - Views
@@ -87,7 +85,6 @@ final class MoreActionsSheetViewController: UIViewController {
          from currentVC: RequestDetailViewController
     ) {
         viewModel = RequestDetailViewModel(requestTitle: title, bouquetId: bouquetId)
-        self.bouquetId = bouquetId
         self.isProducted = isProducted
         self.requestSummaryModel = requestDetail
         requestDetailVC = currentVC
@@ -103,11 +100,8 @@ final class MoreActionsSheetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
-        
         configFirstButton()
-        
         addViews()
         setupConstraints()
         bind()
@@ -126,9 +120,13 @@ final class MoreActionsSheetViewController: UIViewController {
     }
     
     @objc private func modifyButtonDidTap() {
-        // TODO: 수정 기능 구현!!
-        print("=== 수정하기! ===")
-        print("수정하려는 내용: \(requestSummaryModel)")
+        let id = viewModel.getBouquetId()
+        fetchBouquetDetail(requestTitle: viewModel.getRequestTitle(), bouquetId: id)
+        dismiss(animated: true) { [weak self] in
+            BouquetDataManager.shared.setActionType(.update(bouquetId: id))
+            self?.requestDetailVC.myPageVC?.customizingCoordinator?.showPurposeVC()
+            self?.requestDetailVC.myPageVC?.tabBarController?.selectedIndex = 1
+        }
     }
     
     @objc private func deleteButtonDidTap() {
@@ -172,8 +170,7 @@ final class MoreActionsSheetViewController: UIViewController {
         }
         
         viewModel.deleteSuccessDidChange = { [weak self] _ in
-            guard let bouquetId = self?.bouquetId else { return }
-            
+            guard let bouquetId = self?.viewModel.getBouquetId() else { return }
             DispatchQueue.main.async {
                 self?.dismiss(animated: false) {
                     self?.delegate?.deleteSuccessful(bouquetId: bouquetId)
@@ -192,6 +189,23 @@ final class MoreActionsSheetViewController: UIViewController {
         if isProducted {
             productionCompletedOrGalleryButton.changeTitleAndSubtitle(title: "꽃다발 사진 변경하기",
                                                                       subtitle: "")
+        }
+    }
+    
+    func fetchBouquetDetail(requestTitle: String, bouquetId: Int) {
+        guard let id = KeychainManager.shared.loadMemberId() else { return }
+        NetworkManager.shared.fetchBouquetDetail(memberID: id, bouquetId: bouquetId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let dto):
+                BouquetDetailDTO.convertDTOToModelBouquetData(
+                    requestTitle: requestTitle,
+                    dto: dto,
+                    dataManager: BouquetDataManager.shared
+                )
+            case .failure(let error):
+                self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+            }
         }
     }
 }

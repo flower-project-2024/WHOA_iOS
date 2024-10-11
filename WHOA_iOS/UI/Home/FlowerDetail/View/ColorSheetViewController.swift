@@ -13,6 +13,8 @@ class ColorSheetViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: FlowerDetailViewModel
+    var customizingCoordinator: CustomizingCoordinator?
+    var flowerdetailVC: UIViewController?
     
     var selectedColorIndex: Int? {
         didSet {
@@ -63,6 +65,7 @@ class ColorSheetViewController: UIViewController {
         button.configuration?.background.backgroundColor = UIColor.gray03
         button.configuration?.baseForegroundColor = UIColor.gray05
         button.isEnabled = false
+        button.addTarget(self, action: #selector(decorateButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -111,6 +114,25 @@ class ColorSheetViewController: UIViewController {
         bottomFixedView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             make.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func decorateButtonTapped() {
+        guard let index = selectedColorIndex else { return }
+        let colorScheme = viewModel.getColorScheme(index: index)
+        let flower = viewModel.getBouquetFlower(index: index)
+        BouquetDataManager.shared.setColorScheme(colorScheme)
+        BouquetDataManager.shared.setFlowers(flower)
+        BouquetDataManager.shared.setActionType(.customV2)
+        
+        dismiss(animated: true) { [weak self] in
+            self?.flowerdetailVC?.tabBarController?.selectedIndex = 1
+            let purposeVC = PurposeViewController(viewModel: PurposeViewModel())
+            purposeVC.coordinator = self?.customizingCoordinator
+            self?.customizingCoordinator?.navigationController.viewControllers.append(purposeVC)
+            self?.customizingCoordinator?.showColorPickerVC()
         }
     }
 }

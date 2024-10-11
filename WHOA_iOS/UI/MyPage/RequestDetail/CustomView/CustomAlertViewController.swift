@@ -201,7 +201,7 @@ final class CustomAlertViewController: UIViewController {
             guard let bouquetId = bouquetId else { return }
             fetchBouquetDetail(requestTitle: requestTitle, bouquetId: bouquetId)
             dismiss(animated: true) { [weak self] in
-                self?.customizingCoordinator?.setActionType(actionType: .update(bouquetId: bouquetId))
+                self?.dataManager.setActionType(.update(bouquetId: bouquetId))
                 self?.myPageVC?.tabBarController?.selectedIndex = 1
                 self?.customizingCoordinator?.showPurposeVC()
             }

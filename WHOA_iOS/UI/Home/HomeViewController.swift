@@ -12,6 +12,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel = HomeViewModel()
+    var customizingCoordinator: CustomizingCoordinator?
     private var cellSize: CGSize = .zero
     private var timer: Timer? = Timer()
     private let minimumLineSpacing: CGFloat = 0
@@ -343,6 +344,7 @@ extension HomeViewController : UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! CheapFlowerInfoCell
         if let id = cell.flowerId {
             let vc = FlowerDetailViewController(flowerId: id)
+            vc.customizingCoordinator = customizingCoordinator
             vc.hidesBottomBarWhenPushed = true
             navigationController?.pushViewController(vc, animated: true)
         }        
@@ -404,6 +406,7 @@ extension HomeViewController: UICollectionViewDataSource {
                 self?.timer?.invalidate()
                 self?.timer = nil
                 let vc = FlowerDetailViewController(flowerId: cell.flowerId ?? 1)
+                vc.customizingCoordinator = self?.customizingCoordinator
                 vc.hidesBottomBarWhenPushed = true
                 self?.navigationController?.pushViewController(vc, animated: true)
             }

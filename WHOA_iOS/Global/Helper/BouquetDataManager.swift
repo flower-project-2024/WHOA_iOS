@@ -21,6 +21,7 @@ protocol BouquetDataManaging {
     func setPackagingAssign(_ assign: BouquetData.PackagingAssign)
     func setPrice(_ price: BouquetData.Price)
     func setRequirement(_ requirement: BouquetData.Requirement)
+    func setActionType(_ actionType: ActionType)
     
     // MARK: - Get
     
@@ -33,12 +34,14 @@ protocol BouquetDataManaging {
     func getPackagingAssign() -> BouquetData.PackagingAssign
     func getPrice() -> BouquetData.Price
     func getRequirement() -> BouquetData.Requirement
+    func getActionType() -> ActionType
 }
 
 class BouquetDataManager: BouquetDataManaging {
     
     static let shared = BouquetDataManager()
     
+    private var actionType: ActionType = .create
     private var bouquetData: BouquetData = BouquetData(
         requestTitle: "",
         purpose: .none,
@@ -103,6 +106,10 @@ class BouquetDataManager: BouquetDataManaging {
         bouquetData.requirement = requirement
     }
     
+    func setActionType(_ actionType: ActionType) {
+        self.actionType = actionType
+    }
+    
     // MARK: - Get
     
     func getBouquet() -> BouquetData {
@@ -139,5 +146,9 @@ class BouquetDataManager: BouquetDataManaging {
     
     func getRequirement() -> BouquetData.Requirement {
         return bouquetData.requirement
+    }
+    
+    func getActionType() -> ActionType {
+        return actionType
     }
 }

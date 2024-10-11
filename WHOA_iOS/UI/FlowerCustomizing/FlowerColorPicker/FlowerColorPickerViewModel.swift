@@ -29,6 +29,8 @@ final class FlowerColorPickerViewModel: ViewModel {
     }
     
     private let dataManager: BouquetDataManaging
+    private let isCustomV2: Bool
+    private var customV2HexColor: String?
     private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
     private let hexColorsSubject = CurrentValueSubject<[String], Never>([])
     private let resultButtonIndexSubject = CurrentValueSubject<Int, Never>(0)
@@ -40,6 +42,7 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
+        self.isCustomV2 = dataManager.getActionType() == .customV2
         initColorScheme(colorScheme: dataManager.getColorScheme())
     }
     
@@ -97,19 +100,22 @@ final class FlowerColorPickerViewModel: ViewModel {
     }
     
     private func updateHexColorsArray(for colorType: NumberOfColorsType) {
+        let firstColor = customV2HexColor ?? ""
+        
         switch colorType {
         case .oneColor:
-            hexColorsSubject.send([""])
+            hexColorsSubject.send([firstColor])
         case .twoColor, .pointColor:
-            hexColorsSubject.send(["", ""])
+            hexColorsSubject.send([firstColor, ""])
         case .colorful:
-            hexColorsSubject.send(["", "", ""])
+            hexColorsSubject.send([firstColor, "", ""])
         default:
-            hexColorsSubject.send([""])
+            hexColorsSubject.send([firstColor])
         }
     }
     
     private func addHexColor(_ hexColor: String, _ resultButtonIndex: Int) {
+        guard !(isCustomV2 && resultButtonIndex == 0) else { return }
         var hexColors = hexColorsSubject.value
         hexColors[resultButtonIndex] = hexColor
         hexColorsSubject.send(hexColors)
@@ -120,6 +126,10 @@ final class FlowerColorPickerViewModel: ViewModel {
         
         if let pointColor = colorScheme.pointColor {
             colors.insert(pointColor, at: 0)
+        }
+        
+        if isCustomV2 {
+            customV2HexColor = colors.first
         }
         
         colorTypeSubject.send(colorScheme.numberOfColors)
