@@ -123,9 +123,16 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    deinit {
-        timer?.invalidate()
-        timer = nil
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        resetTimer()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        invalidateTimer()
     }
 
     // MARK: - Functions
@@ -251,6 +258,11 @@ final class HomeViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    private func invalidateTimer() {
+        timer?.invalidate()
+        timer = nil
     }
     
     private func bind() {
