@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 
-enum ActionType {
+enum ActionType: Equatable {
     case create
     case update(bouquetId: Int?)
     case customV2
