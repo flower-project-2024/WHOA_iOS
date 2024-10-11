@@ -115,7 +115,7 @@ final class FlowerColorPickerViewModel: ViewModel {
     }
     
     private func addHexColor(_ hexColor: String, _ resultButtonIndex: Int) {
-        guard isCustomV2 && resultButtonIndex != 0 else { return }
+        guard !(isCustomV2 && resultButtonIndex == 0) else { return }
         var hexColors = hexColorsSubject.value
         hexColors[resultButtonIndex] = hexColor
         hexColorsSubject.send(hexColors)
