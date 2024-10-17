@@ -10,6 +10,23 @@ import Combine
 
 final class FlowerSelectionViewController: UIViewController {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+        static let headerViewHeight = 208.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewDescription = "최대 3개의 꽃을 선택할 수 있어요"
+        
+        static func headerViewTitle(for purpose: String) -> String {
+            return "\(purpose)과\n어울리는 꽃 선택"
+        }
+    }
+    
     // MARK: - Properties
     
     let viewModel: FlowerSelectionViewModel
@@ -20,10 +37,13 @@ final class FlowerSelectionViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 3, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "")
-    private let descriptionLabel = CustomDescriptionLabel(text: "최대 3개의 꽃을 선택할 수 있어요", numberOfLines: 1)
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 3,
+        title: Attributes.headerViewTitle(for: viewModel.getPurposeString()),
+        description: Attributes.headerViewDescription
+    )
     
     private let flowerImageView1: UIImageView = {
         let imageView = UIImageView()
@@ -198,13 +218,9 @@ final class FlowerSelectionViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
-        titleLabel.text = "\(viewModel.getPurposeString())과\n어울리는 꽃 선택"
         view.backgroundColor = .white
         
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
+        view.addSubview(headerView)
         
         view.addSubview(flowerImageViewHStackView)
         view.addSubview(minusImageView1)
@@ -335,27 +351,10 @@ final class FlowerSelectionViewController: UIViewController {
 
 extension FlowerSelectionViewController {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(20)
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(20)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(Metric.headerViewHeight)
         }
         
         flowerImageView1.snp.makeConstraints {
@@ -363,7 +362,7 @@ extension FlowerSelectionViewController {
         }
         
         flowerImageViewHStackView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(16)
+            $0.top.equalTo(headerView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(20)
         }
         
