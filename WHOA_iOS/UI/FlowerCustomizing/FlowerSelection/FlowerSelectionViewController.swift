@@ -45,87 +45,7 @@ final class FlowerSelectionViewController: UIViewController {
         description: Attributes.headerViewDescription
     )
     
-    private let flowerImageView1: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray02
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 10
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray04.cgColor
-        return imageView
-    }()
-    
-    private lazy var minusImageView1: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "MinusButton")
-        imageView.contentMode = .scaleAspectFit
-        imageView.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-    
-    private let flowerImageView2: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray02
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 10
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray04.cgColor
-        return imageView
-    }()
-    
-    private lazy var minusImageView2: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "MinusButton")
-        imageView.contentMode = .scaleAspectFit
-        imageView.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-    
-    private let flowerImageView3: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .gray02
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 10
-        imageView.layer.borderWidth = 1
-        imageView.layer.borderColor = UIColor.gray04.cgColor
-        return imageView
-    }()
-    
-    private lazy var minusImageView3: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "MinusButton")
-        imageView.contentMode = .scaleAspectFit
-        imageView.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
-        return imageView
-    }()
-    
-    private lazy var flowerImageViewHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            flowerImageView1,
-            flowerImageView2,
-            flowerImageView3
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 12
-        return stackView
-    }()
+    private let flowerImageView = FlowerImageView()
     
     private let hashTagCollectionView: UICollectionView = {
         let flowlayout = UICollectionViewFlowLayout()
@@ -220,18 +140,14 @@ final class FlowerSelectionViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(headerView)
-        
-        view.addSubview(flowerImageViewHStackView)
-        view.addSubview(minusImageView1)
-        view.addSubview(minusImageView2)
-        view.addSubview(minusImageView3)
-        
-        view.addSubview(hashTagCollectionView)
-        view.addSubview(flowerSelectionTableView)
-        
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
+        [
+            headerView,
+            flowerImageView,
+            hashTagCollectionView,
+            flowerSelectionTableView,
+            borderLine,
+            navigationHStackView
+        ].forEach(view.addSubview(_:))
         
         setupAutoLayout()
         setupCollectionView()
@@ -240,8 +156,8 @@ final class FlowerSelectionViewController: UIViewController {
     }
     
     private func setupImageViews() {
-        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
-        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
+//        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
+//        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
     }
     
     private func bind() {
@@ -357,32 +273,13 @@ extension FlowerSelectionViewController {
             $0.height.equalTo(Metric.headerViewHeight)
         }
         
-        flowerImageView1.snp.makeConstraints {
-            $0.size.equalTo(48)
-        }
-        
-        flowerImageViewHStackView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16)
+        flowerImageView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(8)
             $0.leading.equalToSuperview().offset(20)
         }
         
-        minusImageView1.snp.makeConstraints {
-            $0.top.trailing.equalTo(flowerImageView1).inset(2)
-            $0.size.equalTo(16)
-        }
-        
-        minusImageView2.snp.makeConstraints {
-            $0.top.trailing.equalTo(flowerImageView2).inset(2)
-            $0.size.equalTo(16)
-        }
-        
-        minusImageView3.snp.makeConstraints {
-            $0.top.trailing.equalTo(flowerImageView3).inset(2)
-            $0.size.equalTo(16)
-        }
-        
         hashTagCollectionView.snp.makeConstraints {
-            $0.top.equalTo(flowerImageViewHStackView.snp.bottom).offset(16)
+            $0.top.equalTo(flowerImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(64)
         }
