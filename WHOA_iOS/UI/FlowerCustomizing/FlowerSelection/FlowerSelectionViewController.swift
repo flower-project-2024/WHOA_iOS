@@ -74,31 +74,7 @@ final class FlowerSelectionViewController: UIViewController {
         return tableView
     }()
     
-    private let borderLine = ShadowBorderLine()
-    
-    private let backButton: BackButton = {
-        let button = BackButton(isActive: true)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private let nextButton: NextButton = {
-        let button = NextButton()
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: false)
     
     // MARK: - Initialize
     
@@ -145,8 +121,7 @@ final class FlowerSelectionViewController: UIViewController {
             flowerImageView,
             hashTagCollectionView,
             flowerSelectionTableView,
-            borderLine,
-            navigationHStackView
+            bottomView
         ].forEach(view.addSubview(_:))
         
         setupAutoLayout()
@@ -174,7 +149,7 @@ final class FlowerSelectionViewController: UIViewController {
                 guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
                 
                 self?.updateFlowerImageViews(with: selectedImages)
-                self?.nextButton.isActive = !model.isEmpty
+//                self?.nextButton.isActive = !model.isEmpty
             }
             .store(in: &viewModel.cancellables)
         
@@ -287,23 +262,12 @@ extension FlowerSelectionViewController {
         flowerSelectionTableView.snp.makeConstraints {
             $0.top.equalTo(hashTagCollectionView.snp.bottom)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(borderLine)
+            $0.bottom.equalTo(bottomView)
         }
         
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
