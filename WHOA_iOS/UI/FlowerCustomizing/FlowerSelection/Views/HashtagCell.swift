@@ -1,5 +1,5 @@
 //
-//  HashTagCollectionViewCell.swift
+//  HashtagCell.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/28/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HashTagCollectionViewCell: UICollectionViewCell {
+final class HashtagCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -30,7 +30,6 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUI()
     }
     
@@ -46,7 +45,6 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1
         
         addSubview(hashTagTitle)
-        
         setupAutoLayout()
     }
     
@@ -61,7 +59,7 @@ final class HashTagCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension HashTagCollectionViewCell {
+extension HashtagCell {
     private func setupAutoLayout() {
         hashTagTitle.snp.makeConstraints {
             $0.centerX.equalToSuperview()

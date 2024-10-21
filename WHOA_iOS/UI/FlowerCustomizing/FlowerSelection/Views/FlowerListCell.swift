@@ -1,5 +1,5 @@
 //
-//  FlowerSelectionTableViewCell.swift
+//  FlowerListCell.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 2/28/24.
@@ -7,7 +7,20 @@
 
 import UIKit
 
-final class FlowerSelectionTableViewCell: UITableViewCell {
+final class FlowerListCell: UICollectionViewCell {
+    
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let minusButton = "MinusButton"
+        static let plusImage = "plus.app"
+        
+    }
     
     // MARK: - Properties
     
@@ -34,7 +47,7 @@ final class FlowerSelectionTableViewCell: UITableViewCell {
     
     lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "plus.app")
+        imageView.image = UIImage(systemName: Attributes.plusImage)
         imageView.tintColor = .gray09
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
@@ -66,17 +79,10 @@ final class FlowerSelectionTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0))
-    }
-    
     // MARK: - Initialize
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUI()
     }
     
@@ -88,25 +94,24 @@ final class FlowerSelectionTableViewCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .white
-        selectionStyle = .none
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.gray03.cgColor
-        
+
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)
         flowerDescriptionView.addSubview(addImageButton)
         flowerDescriptionView.addSubview(flowerLanguageLabel)
-        
+
         contentView.addSubview(fullHStackView)
-        
+
         setupAutoLayout()
         updateAppearance(isAddImageButtonSelected)
     }
     
     private func updateAppearance(_ isSelected: Bool) {
-        addImageButton.image = isSelected ? UIImage(named: "MinusButton") : UIImage(systemName: "plus.app")
+        addImageButton.image = isSelected ? UIImage(named: Attributes.minusButton) : UIImage(systemName: Attributes.plusImage)
     }
     
     func configUI(model: FlowerKeywordModel) {
@@ -121,7 +126,7 @@ final class FlowerSelectionTableViewCell: UITableViewCell {
     }
 }
 
-extension FlowerSelectionTableViewCell {
+extension FlowerListCell {
     private func setupAutoLayout() {
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
