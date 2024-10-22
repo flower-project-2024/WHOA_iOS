@@ -1,0 +1,114 @@
+//
+//  KeywordHScrollView.swift
+//  WHOA_iOS
+//
+//  Created by KSH on 2/28/24.
+//
+
+import UIKit
+
+final class KeywordHScrollView: UIView {
+    
+    // MARK: - Properties
+    
+    private var selectedButton: UIButton?
+    
+    // MARK: - UI
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    // MARK: - Initialize
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+        buildKeywordButtons(with: KeywordType.allCases)
+        
+        if let firstButton = selectedButton {
+            keywordButtonTapped(firstButton)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Functions
+    
+    private func setupUI() {
+        addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        setupAutoLayout()
+    }
+    
+    func buildKeywordButtons(with keywords: [KeywordType]) {
+        for i in 0..<keywords.count {
+            let button = UIButton(type: .system)
+            button.setTitle(keywords[i].rawValue, for: .normal)
+            button.setTitleColor(.gray08, for: .normal)
+            button.titleLabel?.font = .Pretendard(size: 14)
+            button.layer.borderColor = UIColor.gray04.cgColor
+            button.layer.borderWidth = 1
+            button.layer.cornerRadius = 18
+            button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
+            button.addAction(UIAction(handler: { [weak self] _ in
+                self?.keywordButtonTapped(button)
+            }), for: .touchUpInside)
+            
+            stackView.addArrangedSubview(button)
+            
+            if i == 0 {
+                selectedButton = button
+            }
+        }
+    }
+    
+    // MARK: - Actions
+
+    private func keywordButtonTapped(_ sender: UIButton) {
+        resetButtons()
+        updateButtonStyle(sender)
+    }
+    
+    private func resetButtons() {
+        for view in stackView.arrangedSubviews {
+            if let button = view as? UIButton {
+                button.layer.borderColor = UIColor.gray04.cgColor
+                button.setTitleColor(.gray08, for: .normal)
+                button.titleLabel?.font = UIFont.Pretendard(size: 14)
+            }
+        }
+    }
+    
+    private func updateButtonStyle(_ button: UIButton) {
+        button.layer.borderColor = UIColor.secondary03.cgColor
+        button.setTitleColor(.primary, for: .normal)
+        button.titleLabel?.font = .Pretendard(size: 14, family: .SemiBold)
+    }
+}
+
+// MARK: - AutoLayout
+
+extension KeywordHScrollView {
+    private func setupAutoLayout() {
+        scrollView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        stackView.snp.makeConstraints {
+            $0.top.bottom.height.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(20)
+        }
+    }
+}
