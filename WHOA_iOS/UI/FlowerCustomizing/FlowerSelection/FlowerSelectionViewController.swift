@@ -20,6 +20,8 @@ final class FlowerSelectionViewController: UIViewController {
     
     /// Attributes
     private enum Attributes {
+        static let hashtagCell = "HashtagCell"
+        static let flowerListCell = "FlowerListCell"
         static let headerViewDescription = "최대 3개의 꽃을 선택할 수 있어요"
         
         static func headerViewTitle(for purpose: String) -> String {
@@ -32,9 +34,6 @@ final class FlowerSelectionViewController: UIViewController {
     let viewModel: FlowerSelectionViewModel
     weak var coordinator: CustomizingCoordinator?
     
-    private var flowerImageViews: [UIImageView] = []
-    private var minusImageViews: [UIImageView] = []
-    
     // MARK: - UI
     
     private lazy var headerView = CustomHeaderView(
@@ -44,22 +43,10 @@ final class FlowerSelectionViewController: UIViewController {
         title: Attributes.headerViewTitle(for: viewModel.getPurposeString()),
         description: Attributes.headerViewDescription
     )
-    
     private let flowerImageView = FlowerImageView()
-    
-    private let hashTagCollectionView: UICollectionView = {
-        let flowlayout = UICollectionViewFlowLayout()
-        flowlayout.scrollDirection = .horizontal
-        flowlayout.minimumLineSpacing = 8
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.layer.borderWidth = 1
-        collectionView.layer.borderColor = UIColor.gray03.cgColor
-        
-        return collectionView
-    }()
-    
+    private let topBorderLine = BorderLine()
+    private let hashtagHScrollView = KeywordHScrollView()
+    private let bottomBorderLine = BorderLine()
     private lazy var flowerSelectionTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
@@ -68,12 +55,11 @@ final class FlowerSelectionViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.register(
-            FlowerSelectionTableViewCell.self,
-            forCellReuseIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier
+            FlowerListCell.self,
+            forCellReuseIdentifier: Attributes.flowerListCell
         )
         return tableView
     }()
-    
     private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: false)
     
     // MARK: - Initialize
@@ -99,16 +85,12 @@ final class FlowerSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
@@ -119,20 +101,21 @@ final class FlowerSelectionViewController: UIViewController {
         [
             headerView,
             flowerImageView,
-            hashTagCollectionView,
+            topBorderLine,
+            hashtagHScrollView,
+            bottomBorderLine,
             flowerSelectionTableView,
             bottomView
         ].forEach(view.addSubview(_:))
         
         setupAutoLayout()
-        setupCollectionView()
         setupImageViews()
-        selectInitialItem()
+        //        selectInitialItem()
     }
     
     private func setupImageViews() {
-//        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
-//        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
+        //        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
+        //        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
     }
     
     private func bind() {
@@ -144,12 +127,11 @@ final class FlowerSelectionViewController: UIViewController {
             .store(in: &viewModel.cancellables)
         
         viewModel.$selectedFlowerModels
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] model in
                 guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
                 
-                self?.updateFlowerImageViews(with: selectedImages)
-//                self?.nextButton.isActive = !model.isEmpty
+                //                self?.updateFlowerImageViews(with: selectedImages)
+                //                self?.nextButton.isActive = !model.isEmpty
             }
             .store(in: &viewModel.cancellables)
         
@@ -166,66 +148,56 @@ final class FlowerSelectionViewController: UIViewController {
         viewModel.fetchFlowerKeyword()
     }
     
-    private func setupCollectionView() {
-        hashTagCollectionView.delegate = self
-        hashTagCollectionView.dataSource = self
-        hashTagCollectionView.register(
-            HashTagCollectionViewCell.self,
-            forCellWithReuseIdentifier: CellIdentifier.hashTagCellIdentifier)
-        hashTagCollectionView.backgroundColor = .white
-    }
+    //    private func selectInitialItem() {
+    //        let initialIndexPath = IndexPath(item: 0, section: 0)
+    //        hashTagCollectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: .init())
+    //
+    //        if let cell = hashTagCollectionView.cellForItem(at: initialIndexPath) as? HashTagCollectionViewCell {
+    //            cell.isSelected = true
+    //        }
+    //
+    //        let title = viewModel.keyword[initialIndexPath.row].rawValue
+    //        viewModel.filterModels(with: title)
+    //    }
     
-    private func selectInitialItem() {
-        let initialIndexPath = IndexPath(item: 0, section: 0)
-        hashTagCollectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: .init())
-        
-        if let cell = hashTagCollectionView.cellForItem(at: initialIndexPath) as? HashTagCollectionViewCell {
-            cell.isSelected = true
-        }
-        
-        let title = viewModel.keyword[initialIndexPath.row].rawValue
-        viewModel.filterModels(with: title)
-    }
+    //    private func updateFlowerImageViews(with urlStrings: [String?]) {
+    //        resetImageView()
+    //
+    //        for (index, urlString) in urlStrings.enumerated() {
+    //            updateImageView(at: index, with: urlString)
+    //        }
+    //    }
     
-  
-    private func updateFlowerImageViews(with urlStrings: [String?]) {
-        resetImageView()
-        
-        for (index, urlString) in urlStrings.enumerated() {
-            updateImageView(at: index, with: urlString)
-        }
-    }
-    
-    private func updateImageView(at index: Int, with urlString: String?) {
-        guard index < flowerImageViews.count else { return }
-        let flowerImageView = flowerImageViews[index]
-        let minusImageView = minusImageViews[index]
-        
-        if let url = urlString {
-            ImageProvider.shared.setImage(into: flowerImageView, from: url)
-        } else {
-            flowerImageView.image = .defaultFlower
-        }
-        
-        minusImageView.isHidden = false
-    }
-    
-    private func resetImageView() {
-        flowerImageViews.forEach { $0.image = nil }
-        minusImageViews.forEach { $0.isHidden = true }
-    }
+    //    private func updateImageView(at index: Int, with urlString: String?) {
+    //        guard index < flowerImageViews.count else { return }
+    //        let flowerImageView = flowerImageViews[index]
+    //        let minusImageView = minusImageViews[index]
+    //
+    //        if let url = urlString {
+    //            ImageProvider.shared.setImage(into: flowerImageView, from: url)
+    //        } else {
+    //            flowerImageView.image = .defaultFlower
+    //        }
+    //
+    //        minusImageView.isHidden = false
+    //    }
+    //
+    //    private func resetImageView() {
+    //        flowerImageViews.forEach { $0.image = nil }
+    //        minusImageViews.forEach { $0.isHidden = true }
+    //    }
     
     // MARK: - Actions
-    
-    @objc
-    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
-        guard let imageView = sender.view as? UIImageView,
-              let indexToRemove = minusImageViews.firstIndex(of: imageView)
-        else { return }
-        
-        viewModel.popSelectedFlowerModel(at: indexToRemove)
-        flowerSelectionTableView.reloadData()
-    }
+    //
+    //    @objc
+    //    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
+    //        guard let imageView = sender.view as? UIImageView,
+    //              let indexToRemove = minusImageViews.firstIndex(of: imageView)
+    //        else { return }
+    //
+    //        viewModel.popSelectedFlowerModel(at: indexToRemove)
+    //        flowerSelectionTableView.reloadData()
+    //    }
     
     @objc
     func backButtonTapped() {
@@ -253,82 +225,34 @@ extension FlowerSelectionViewController {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        hashTagCollectionView.snp.makeConstraints {
+        topBorderLine.snp.makeConstraints {
             $0.top.equalTo(flowerImageView.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(64)
+            $0.height.equalTo(1)
+        }
+        
+        hashtagHScrollView.snp.makeConstraints {
+            $0.top.equalTo(topBorderLine.snp.bottom).offset(14)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.04)
+        }
+        
+        bottomBorderLine.snp.makeConstraints {
+            $0.top.equalTo(hashtagHScrollView.snp.bottom).offset(14)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
         }
         
         flowerSelectionTableView.snp.makeConstraints {
-            $0.top.equalTo(hashTagCollectionView.snp.bottom)
+            $0.top.equalTo(bottomBorderLine.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(bottomView)
+            $0.bottom.equalTo(bottomView.snp.top)
         }
         
         bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension FlowerSelectionViewController: UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return viewModel.keyword.count
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CellIdentifier.hashTagCellIdentifier,
-            for: indexPath) as? HashTagCollectionViewCell else { return UICollectionViewCell() }
-        
-        if collectionView.indexPathsForSelectedItems?.contains(indexPath) == true {
-            cell.isSelected = true
-        } else {
-            cell.isSelected = false
-        }
-        
-        cell.setupHashTag(text: viewModel.keyword[indexPath.row].rawValue)
-        return cell
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        let title = viewModel.keyword[indexPath.row].rawValue
-        viewModel.filterModels(with: title)
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension FlowerSelectionViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        let label = UILabel()
-        label.text = viewModel.keyword[indexPath.item].rawValue
-        label.sizeToFit()
-        return CGSize(width: label.frame.width + 18, height: label.frame.height + 16)
     }
 }
 
@@ -347,9 +271,9 @@ extension FlowerSelectionViewController: UITableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: CellIdentifier.flowerSelectionTableViewCellIdentifier,
+            withIdentifier: Attributes.flowerListCell,
             for: indexPath
-        ) as? FlowerSelectionTableViewCell else { return UITableViewCell() }
+        ) as? FlowerListCell else { return UITableViewCell() }
         
         let model = viewModel.getFilterdModel(idx: indexPath.row)
         
