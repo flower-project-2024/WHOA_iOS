@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FlowerListCell: UICollectionViewCell {
+final class FlowerListCell: UITableViewCell {
     
     // MARK: - Enums
     
@@ -81,8 +81,8 @@ final class FlowerListCell: UICollectionViewCell {
     
     // MARK: - Initialize
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
     }
     
