@@ -90,6 +90,13 @@ final class FlowerListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: .zero, left: .zero, bottom: 12, right: .zero))
+    }
+    
     // MARK: - Functions
     
     private func setupUI() {
