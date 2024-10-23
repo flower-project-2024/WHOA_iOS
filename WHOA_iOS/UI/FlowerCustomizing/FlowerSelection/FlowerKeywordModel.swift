@@ -13,6 +13,7 @@ struct FlowerKeywordModel {
     let flowerImage: String?
     let flowerKeyword: [String]
     let flowerLanguage: String
+    var isSelected: Bool = false
 }
 
 extension FlowerKeywordModel: Equatable {
