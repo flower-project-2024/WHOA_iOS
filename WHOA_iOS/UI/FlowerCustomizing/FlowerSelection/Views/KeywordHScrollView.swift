@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Combine
 
 final class KeywordHScrollView: UIView {
     
     // MARK: - Properties
     
-    private var selectedButton: UIButton?
+    private let keywordSubject = PassthroughSubject<KeywordType, Never>()
+    
+    var valuePublisher: AnyPublisher<KeywordType, Never> {
+        return keywordSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - UI
     
@@ -34,10 +39,7 @@ final class KeywordHScrollView: UIView {
         super.init(frame: frame)
         setupUI()
         buildKeywordButtons(with: KeywordType.allCases)
-        
-        if let firstButton = selectedButton {
-            keywordButtonTapped(firstButton)
-        }
+        selectInitKeyword()
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +52,13 @@ final class KeywordHScrollView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(stackView)
         setupAutoLayout()
+    }
+    
+    private func selectInitKeyword() {
+        if let allButton = stackView.arrangedSubviews.first as? UIButton {
+            updateButtonStyle(allButton)
+            keywordSubject.send(.all)
+        }
     }
     
     func buildKeywordButtons(with keywords: [KeywordType]) {
@@ -67,18 +76,16 @@ final class KeywordHScrollView: UIView {
             }), for: .touchUpInside)
             
             stackView.addArrangedSubview(button)
-            
-            if i == 0 {
-                selectedButton = button
-            }
         }
     }
     
     // MARK: - Actions
 
     private func keywordButtonTapped(_ sender: UIButton) {
+        guard let keywordString = sender.titleLabel?.text else { return }
         resetButtons()
         updateButtonStyle(sender)
+        keywordSubject.send(KeywordType(rawValue: keywordString) ?? .all)
     }
     
     private func resetButtons() {
