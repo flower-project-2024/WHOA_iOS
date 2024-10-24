@@ -49,7 +49,7 @@ final class CustomizingCoordinator: Coordinator {
         navigationController.pushViewController(flowerSelectionVC, animated: true)
     }
     
-    func showAlternativesVC(from currentVC: UIViewController) {
+    func showAlternativesVC(from currentVC: UIViewController?) {
         let viewModel = AlternativesViewModel()
         let alternativesVC = AlternativesViewController(viewModel: viewModel)
         alternativesVC.coordinator = self
@@ -60,7 +60,7 @@ final class CustomizingCoordinator: Coordinator {
             sheet.preferredCornerRadius = 24.0
         }
         
-        currentVC.present(alternativesVC, animated: true)
+        currentVC?.present(alternativesVC, animated: true)
     }
     
     func showPackagingSelectionVC(from currentVC: UIViewController) {
