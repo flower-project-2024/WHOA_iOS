@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class FlowerImageView: UIView {
     
@@ -71,6 +72,18 @@ final class FlowerImageView: UIView {
         ].forEach(addSubview(_:))
         
         setupAutoLayout()
+    }
+    
+    func setImages(urlStrings: [String]) {
+        let imageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
+        
+        for (i, imageView) in imageViews.enumerated() {
+            if i < urlStrings.count {
+                ImageProvider.shared.setImage(into: imageView, from: urlStrings[i])
+            } else {
+                imageView.image = nil
+            }
+        }
     }
     
     private func buildFlowerImageView() -> UIImageView {
