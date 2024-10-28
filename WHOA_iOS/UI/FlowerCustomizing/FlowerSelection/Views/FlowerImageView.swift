@@ -25,16 +25,22 @@ final class FlowerImageView: UIView {
     
     // MARK: - Properties
     
+    private let minusImageTappedSubject = PassthroughSubject<Int, Never>()
+    
+    var valuePublisher: AnyPublisher<Int, Never> {
+        return minusImageTappedSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - UI
     
     private lazy var flowerImageView1: UIImageView = buildFlowerImageView()
-    private lazy var minusImageView1: UIImageView = buildMinusImageView()
+    private lazy var minusImageView1: UIImageView = buildMinusImageView(tag: 0)
     
     private lazy var flowerImageView2: UIImageView = buildFlowerImageView()
-    private lazy var minusImageView2: UIImageView = buildMinusImageView()
+    private lazy var minusImageView2: UIImageView = buildMinusImageView(tag: 1)
     
     private lazy var flowerImageView3: UIImageView = buildFlowerImageView()
-    private lazy var minusImageView3: UIImageView = buildMinusImageView()
+    private lazy var minusImageView3: UIImageView = buildMinusImageView(tag: 2)
     
     private lazy var flowerImageViewHStackView: UIStackView = {
         let stackView = UIStackView()
@@ -80,9 +86,24 @@ final class FlowerImageView: UIView {
         for (i, imageView) in imageViews.enumerated() {
             if i < urlStrings.count {
                 ImageProvider.shared.setImage(into: imageView, from: urlStrings[i])
+                updateMinusVisibility(for: imageView, hasImage: true)
             } else {
                 imageView.image = nil
+                updateMinusVisibility(for: imageView, hasImage: false)
             }
+        }
+    }
+    
+    private func updateMinusVisibility(for imageView: UIImageView, hasImage: Bool) {
+        switch imageView {
+        case flowerImageView1:
+            minusImageView1.isHidden = !hasImage
+        case flowerImageView2:
+            minusImageView2.isHidden = !hasImage
+        case flowerImageView3:
+            minusImageView3.isHidden = !hasImage
+        default:
+            break
         }
     }
     
@@ -97,11 +118,12 @@ final class FlowerImageView: UIView {
         return imageView
     }
     
-    private func buildMinusImageView() -> UIImageView {
+    private func buildMinusImageView(tag: Int) -> UIImageView {
         let imageView = UIImageView()
         imageView.image = .minusButton
         imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
+        imageView.tag = tag
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusImageViewTapped))
         imageView.addGestureRecognizer(tapGesture)
@@ -113,12 +135,9 @@ final class FlowerImageView: UIView {
     
     @objc
     func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
-//        guard let imageView = sender.view as? UIImageView,
-//              let indexToRemove = minusImageViews.firstIndex(of: imageView)
-//        else { return }
-//        
-//        viewModel.popSelectedFlowerModel(at: indexToRemove)
-//        flowerSelectionTableView.reloadData()
+        guard let minusImageView = sender.view as? UIImageView else { return }
+        minusImageView.isHidden = true
+        minusImageTappedSubject.send(minusImageView.tag)
     }
 }
 
