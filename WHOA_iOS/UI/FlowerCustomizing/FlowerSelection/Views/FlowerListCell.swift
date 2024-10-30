@@ -13,21 +13,20 @@ final class FlowerListCell: UITableViewCell {
     
     /// Metrics
     private enum Metric {
+        static let cornerRadius = 10.0
+        static let borderWidth = 1.0
+        static let flowerImageViewWidth = 148.0
+        static let flowerNameLabelLeadingOffset = 20.0
+        static let addImageButtonSize = 18.0
+        static let addImageButtonTrailingOffset = -13.0
+        static let trailingMargin = -5.0
+        static let verticalSpacing = 13.0
     }
     
     /// Attributes
     private enum Attributes {
-        static let minusButton = "MinusButton"
+        static let minusImage = "MinusButton"
         static let plusImage = "plus.app"
-        
-    }
-    
-    // MARK: - Properties
-    
-    var isAddImageButtonSelected: Bool = false {
-        didSet {
-            updateAppearance(isAddImageButtonSelected)
-        }
     }
     
     // MARK: - UI
@@ -45,7 +44,7 @@ final class FlowerListCell: UITableViewCell {
         return label
     }()
     
-    lazy var addImageButton: UIImageView = {
+    lazy var addImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: Attributes.plusImage)
         imageView.tintColor = .gray09
@@ -101,24 +100,23 @@ final class FlowerListCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .white
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
-        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = Metric.cornerRadius
+        contentView.layer.borderWidth = Metric.borderWidth
         contentView.layer.borderColor = UIColor.gray03.cgColor
+        contentView.layer.masksToBounds = true
 
         contentView.addSubview(flowerDescriptionView)
         flowerDescriptionView.addSubview(flowerNameLabel)
-        flowerDescriptionView.addSubview(addImageButton)
+        flowerDescriptionView.addSubview(addImageView)
         flowerDescriptionView.addSubview(flowerLanguageLabel)
 
         contentView.addSubview(fullHStackView)
 
         setupAutoLayout()
-        updateAppearance(isAddImageButtonSelected)
     }
     
-    private func updateAppearance(_ isSelected: Bool) {
-        addImageButton.image = isSelected ? UIImage(named: Attributes.minusButton) : UIImage(systemName: Attributes.plusImage)
+    func updateAddImageView(_ isSelected: Bool) {
+        addImageView.image = isSelected ? UIImage(named: Attributes.minusImage) : UIImage(systemName: Attributes.plusImage)
     }
     
     func configUI(model: FlowerKeywordModel) {
@@ -126,7 +124,7 @@ final class FlowerListCell: UITableViewCell {
         flowerLanguageLabel.text = model.flowerLanguage
         
         if let image = model.flowerImage {
-            ImageProvider.shared.setImage(into: flowerImageView, qos: .userInitiated, from: image)
+            ImageProvider.shared.setImage(into: flowerImageView, from: image)
         } else {
             flowerImageView.image = .defaultFlower
         }
@@ -137,25 +135,25 @@ extension FlowerListCell {
     private func setupAutoLayout() {
         flowerImageView.snp.makeConstraints {
             $0.top.leading.bottom.equalToSuperview()
-            $0.width.equalTo(148)
+            $0.width.equalTo(Metric.flowerImageViewWidth)
         }
         
         flowerNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(13)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalTo(addImageButton.snp.leading).offset(-5)
+            $0.top.equalToSuperview().offset(Metric.verticalSpacing)
+            $0.leading.equalToSuperview().offset(Metric.flowerNameLabelLeadingOffset)
+            $0.trailing.equalTo(addImageView.snp.leading).offset(Metric.trailingMargin)
         }
         
-        addImageButton.snp.makeConstraints {
+        addImageView.snp.makeConstraints {
             $0.centerY.equalTo(flowerNameLabel.snp.centerY)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.size.equalTo(18)
+            $0.trailing.equalToSuperview().offset(Metric.addImageButtonTrailingOffset)
+            $0.size.equalTo(Metric.addImageButtonSize)
         }
         
         flowerLanguageLabel.snp.makeConstraints {
-            $0.top.equalTo(flowerNameLabel.snp.bottom).offset(13)
+            $0.top.equalTo(flowerNameLabel.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.equalTo(flowerNameLabel.snp.leading)
-            $0.trailing.equalToSuperview().offset(-5)
+            $0.trailing.equalToSuperview().offset(Metric.trailingMargin)
         }
         
         fullHStackView.snp.makeConstraints {
