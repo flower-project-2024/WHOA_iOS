@@ -19,10 +19,6 @@ final class FlowerImageView: UIView {
         static let minusImageViewSize = 12.0
     }
     
-    /// Attributes
-    private enum Attributes {
-    }
-    
     // MARK: - Properties
     
     private let minusImageTappedSubject = PassthroughSubject<Int, Never>()

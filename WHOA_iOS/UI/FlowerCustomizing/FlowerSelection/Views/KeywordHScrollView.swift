@@ -10,6 +10,13 @@ import Combine
 
 final class KeywordHScrollView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+    }
+    
     // MARK: - Properties
     
     private let keywordSubject = PassthroughSubject<KeywordType, Never>()
@@ -115,7 +122,7 @@ extension KeywordHScrollView {
         
         stackView.snp.makeConstraints {
             $0.top.bottom.height.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
     }
 }
