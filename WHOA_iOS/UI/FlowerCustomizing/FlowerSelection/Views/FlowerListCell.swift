@@ -100,6 +100,7 @@ final class FlowerListCell: UITableViewCell {
     
     private func setupUI() {
         backgroundColor = .white
+        selectionStyle = .none
         contentView.layer.cornerRadius = Metric.cornerRadius
         contentView.layer.borderWidth = Metric.borderWidth
         contentView.layer.borderColor = UIColor.gray03.cgColor
@@ -115,19 +116,20 @@ final class FlowerListCell: UITableViewCell {
         setupAutoLayout()
     }
     
-    func updateAddImageView(_ isSelected: Bool) {
-        addImageView.image = isSelected ? UIImage(named: Attributes.minusImage) : UIImage(systemName: Attributes.plusImage)
-    }
-    
-    func configUI(model: FlowerKeywordModel) {
+    func configUI(model: FlowerKeywordModel, isSelected: Bool) {
         flowerNameLabel.text = model.flowerName
         flowerLanguageLabel.text = model.flowerLanguage
+        updateAddImageView(isSelected)
         
         if let image = model.flowerImage {
             ImageProvider.shared.setImage(into: flowerImageView, from: image)
         } else {
             flowerImageView.image = .defaultFlower
         }
+    }
+    
+    func updateAddImageView(_ isSelected: Bool) {
+        addImageView.image = isSelected ? UIImage(named: Attributes.minusImage) : UIImage(systemName: Attributes.plusImage)
     }
 }
 

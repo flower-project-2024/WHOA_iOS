@@ -16,14 +16,16 @@ final class FlowerSelectionViewController: UIViewController {
     private enum Metric {
         static let sideMargin = 20.0
         static let headerViewHeight = 208.0
+        static let keywordHScrollViewHeightMultiplier = 0.04
+        static let tableViewRowHeight = 120.0
+        static let verticalSpacing = 16.0
+        static let borderLineHeight = 1.0
     }
     
     /// Attributes
     private enum Attributes {
-        static let hashtagCell = "HashtagCell"
         static let flowerListCell = "FlowerListCell"
         static let headerViewDescription = "최대 3개의 꽃을 선택할 수 있어요"
-        
         static func headerViewTitle(for purpose: String) -> String {
             return "\(purpose)과\n어울리는 꽃 선택"
         }
@@ -32,7 +34,9 @@ final class FlowerSelectionViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: FlowerSelectionViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
+    private let flowerSubject = PassthroughSubject<Int, Never>()
     
     // MARK: - UI
     
@@ -45,12 +49,12 @@ final class FlowerSelectionViewController: UIViewController {
     )
     private let flowerImageView = FlowerImageView()
     private let topBorderLine = BorderLine()
-    private let hashtagHScrollView = KeywordHScrollView()
+    private let keywordHScrollView = KeywordHScrollView()
     private let bottomBorderLine = BorderLine()
-    private lazy var flowerSelectionTableView: UITableView = {
+    private lazy var flowerListTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-        tableView.rowHeight = 120
+        tableView.rowHeight = Metric.tableViewRowHeight
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -80,7 +84,7 @@ final class FlowerSelectionViewController: UIViewController {
         
         bind()
         setupUI()
-        fetchData()
+        viewModel.fetchFlowerKeyword()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,119 +101,85 @@ final class FlowerSelectionViewController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .white
-        
         [
             headerView,
             flowerImageView,
             topBorderLine,
-            hashtagHScrollView,
+            keywordHScrollView,
             bottomBorderLine,
-            flowerSelectionTableView,
+            flowerListTableView,
             bottomView
         ].forEach(view.addSubview(_:))
-        
         setupAutoLayout()
-        setupImageViews()
-        //        selectInitialItem()
-    }
-    
-    private func setupImageViews() {
-        //        flowerImageViews = [flowerImageView1, flowerImageView2, flowerImageView3]
-        //        minusImageViews = [minusImageView1, minusImageView2, minusImageView3]
     }
     
     private func bind() {
-        viewModel.$filteredModels
+        let input = FlowerSelectionViewModel.Input(
+            keywordSelected: keywordHScrollView.valuePublisher,
+            flowerSelected: flowerSubject.eraseToAnyPublisher(),
+            minusButtonTapped: flowerImageView.valuePublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.updateFlowerList
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.flowerSelectionTableView.reloadData()
+                self?.flowerListTableView.reloadData()
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
         
-        viewModel.$selectedFlowerModels
-            .sink { [weak self] model in
-                guard let selectedImages = self?.viewModel.getSelectedFlowerModelImagesURL() else { return }
-                
-                //                self?.updateFlowerImageViews(with: selectedImages)
-                //                self?.nextButton.isActive = !model.isEmpty
-            }
-            .store(in: &viewModel.cancellables)
-        
-        viewModel.$networkError
+        output.selectedFlowers
             .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .sink { [weak self] error in
-                self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+            .sink { [weak self] models in
+                let urlStrings = models.compactMap { $0.flowerImage }
+                self?.flowerImageView.setImages(urlStrings: urlStrings)
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+        
+        output.deselectedFlower
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] row in
+                guard let self = self else { return }
+                let indexPath = IndexPath(row: row, section: 0)
+                self.updateCellSelection(at: indexPath)
+            }
+            .store(in: &cancellables)
+        
+        output.networkError
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let error = error?.localizedDescription else { return }
+                self?.showAlert(message: error)
+            }
+            .store(in: &cancellables)
+        
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
+        
+        output.nextButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEnabled in
+                self?.bottomView.configNextButton(isEnabled)
+            }
+            .store(in: &cancellables)
+        
+        output.showAlternativeView
+            .sink { [weak self] _ in
+                self?.coordinator?.showAlternativesVC(from: self)
+            }
+            .store(in: &cancellables)
     }
     
-    private func fetchData() {
-        viewModel.fetchFlowerKeyword()
+    private func updateCellSelection(at indexPath: IndexPath) {
+        guard let cell = flowerListTableView.cellForRow(at: indexPath) as? FlowerListCell else { return }
+        let model = viewModel.getFlowerModel(index: indexPath.row)
+        cell.updateAddImageView(viewModel.isModelSelected(model))
     }
     
-    //    private func selectInitialItem() {
-    //        let initialIndexPath = IndexPath(item: 0, section: 0)
-    //        hashTagCollectionView.selectItem(at: initialIndexPath, animated: false, scrollPosition: .init())
-    //
-    //        if let cell = hashTagCollectionView.cellForItem(at: initialIndexPath) as? HashTagCollectionViewCell {
-    //            cell.isSelected = true
-    //        }
-    //
-    //        let title = viewModel.keyword[initialIndexPath.row].rawValue
-    //        viewModel.filterModels(with: title)
-    //    }
-    
-    //    private func updateFlowerImageViews(with urlStrings: [String?]) {
-    //        resetImageView()
-    //
-    //        for (index, urlString) in urlStrings.enumerated() {
-    //            updateImageView(at: index, with: urlString)
-    //        }
-    //    }
-    
-    //    private func updateImageView(at index: Int, with urlString: String?) {
-    //        guard index < flowerImageViews.count else { return }
-    //        let flowerImageView = flowerImageViews[index]
-    //        let minusImageView = minusImageViews[index]
-    //
-    //        if let url = urlString {
-    //            ImageProvider.shared.setImage(into: flowerImageView, from: url)
-    //        } else {
-    //            flowerImageView.image = .defaultFlower
-    //        }
-    //
-    //        minusImageView.isHidden = false
-    //    }
-    //
-    //    private func resetImageView() {
-    //        flowerImageViews.forEach { $0.image = nil }
-    //        minusImageViews.forEach { $0.isHidden = true }
-    //    }
-    
-    // MARK: - Actions
-    //
-    //    @objc
-    //    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
-    //        guard let imageView = sender.view as? UIImageView,
-    //              let indexToRemove = minusImageViews.firstIndex(of: imageView)
-    //        else { return }
-    //
-    //        viewModel.popSelectedFlowerModel(at: indexToRemove)
-    //        flowerSelectionTableView.reloadData()
-    //    }
-    
-    @objc
-    func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    func nextButtonTapped() {
-        let flowers = viewModel.convertFlowerKeywordModelToFlower(with: viewModel.selectedFlowerModels)
-        viewModel.dataManager.setFlowers(flowers)
-        coordinator?.showAlternativesVC(from: self)
-    }
 }
 
 extension FlowerSelectionViewController {
@@ -221,31 +191,31 @@ extension FlowerSelectionViewController {
         }
         
         flowerImageView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().offset(20)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.verticalSpacing / 2)
+            $0.leading.equalToSuperview().offset(Metric.sideMargin)
         }
         
         topBorderLine.snp.makeConstraints {
-            $0.top.equalTo(flowerImageView.snp.bottom).offset(16)
+            $0.top.equalTo(flowerImageView.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(Metric.borderLineHeight)
         }
         
-        hashtagHScrollView.snp.makeConstraints {
-            $0.top.equalTo(topBorderLine.snp.bottom).offset(14)
+        keywordHScrollView.snp.makeConstraints {
+            $0.top.equalTo(topBorderLine.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(0.04)
+            $0.height.equalToSuperview().multipliedBy(Metric.keywordHScrollViewHeightMultiplier)
         }
         
         bottomBorderLine.snp.makeConstraints {
-            $0.top.equalTo(hashtagHScrollView.snp.bottom).offset(14)
+            $0.top.equalTo(keywordHScrollView.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(Metric.borderLineHeight)
         }
         
-        flowerSelectionTableView.snp.makeConstraints {
-            $0.top.equalTo(bottomBorderLine.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(20)
+        flowerListTableView.snp.makeConstraints {
+            $0.top.equalTo(bottomBorderLine.snp.bottom).offset(Metric.verticalSpacing)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
             $0.bottom.equalTo(bottomView.snp.top)
         }
         
@@ -263,7 +233,7 @@ extension FlowerSelectionViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return viewModel.getFilterdModelsCount()
+        return viewModel.flowerModelCount
     }
     
     func tableView(
@@ -274,12 +244,9 @@ extension FlowerSelectionViewController: UITableViewDataSource {
             withIdentifier: Attributes.flowerListCell,
             for: indexPath
         ) as? FlowerListCell else { return UITableViewCell() }
-        
-        let model = viewModel.getFilterdModel(idx: indexPath.row)
-        
-        cell.configUI(model: model)
-        cell.isAddImageButtonSelected = viewModel.selectedFlowerModels.contains(where: { $0 == model })
-        
+        let model = viewModel.getFlowerModel(index: indexPath.row)
+        let isSelected = viewModel.isModelSelected(model)
+        cell.configUI(model: model, isSelected: isSelected)
         return cell
     }
 }
@@ -291,17 +258,7 @@ extension FlowerSelectionViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        didTapAddImageButton(row: indexPath.row)
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    private func didTapAddImageButton(row: Int) {
-        let model = viewModel.getFilterdModel(idx: row)
-        
-        if viewModel.selectedFlowerModels.contains(model) {
-            viewModel.popFlowerModel(model: model)
-        } else if viewModel.getSelectedFlowerModelCount() < 3 {
-            viewModel.pushFlowerModel(model: model)
-        }
+        flowerSubject.send(indexPath.row)
+        updateCellSelection(at: indexPath)
     }
 }
