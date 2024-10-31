@@ -76,6 +76,7 @@ final class FlowerSelectionViewModel: ViewModel {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 dataManager.setFlowers(convertFlowerKeywordModelToFlower(with: selectedFlowerModelsSubject.value))
+                self.showAlternativeViewSubject.send()
             }
             .store(in: &cancellables)
         
