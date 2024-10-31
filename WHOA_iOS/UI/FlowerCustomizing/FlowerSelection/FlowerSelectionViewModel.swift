@@ -44,6 +44,7 @@ final class FlowerSelectionViewModel: ViewModel {
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
         self.purposeType = dataManager.getPurpose()
+        initSelectedFlowers()
     }
     
     // MARK: - Functions
@@ -176,6 +177,19 @@ final class FlowerSelectionViewModel: ViewModel {
     
     func isModelSelected(_ model: FlowerKeywordModel) -> Bool {
         return selectedFlowerModelsSubject.value.contains(where: { $0.id == model.id })
+    }
+    
+    private func initSelectedFlowers() {
+        let flowers = dataManager.getFlowers().map { flower in
+            FlowerKeywordModel(
+                id: flower.id,
+                flowerName: flower.name,
+                flowerImage: flower.photo,
+                flowerKeyword: flower.flowerKeyword,
+                flowerLanguage: FlowerKeywordDTO.formatFlowerLanguage(flower.hashTag.joined(separator: ", "))
+            )
+        }
+        selectedFlowerModelsSubject.send(flowers)
     }
     
     func convertFlowerKeywordModelToFlower(with flowerKeywordModel: [FlowerKeywordModel]) -> [BouquetData.Flower] {
