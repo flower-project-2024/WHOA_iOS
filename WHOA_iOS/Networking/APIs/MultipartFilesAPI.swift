@@ -12,12 +12,11 @@ struct MultipartFilesAPI: ServableAPI {
     
     let memberID: String
     let boundary = UUID().uuidString
-    
-    let bouquetId: Int
+    let postCustomBouquetRequestDTO : PostCustomBouquetRequestDTO
     let imageUrl: [ImageFile]?
     
     var method: HTTPMethod { .post }
-    var path: String { "/api/images/multipart-files" }
+    var path: String { "/api/v2/bouquet/customizing" }
     var headers: [String : String]? {
         [
             "Content-Type": "multipart/form-data; boundary=\(boundary)",
@@ -27,7 +26,20 @@ struct MultipartFilesAPI: ServableAPI {
     
     var parameters: [String: Any] {
         [
-            "bouquetId": "{\n\"bouquet_id\" : \(bouquetId)\n}",
+            "request": """
+            {
+                \"bouquetName\": \"\(postCustomBouquetRequestDTO.bouquetName)\",
+                \"purpose\": \"\(postCustomBouquetRequestDTO.purpose)\",
+                \"colorType\": \"\(postCustomBouquetRequestDTO.colorType)\",
+                \"colorName\": \"\(postCustomBouquetRequestDTO.colorName)\",
+                \"pointColor\": \"\(postCustomBouquetRequestDTO.pointColor ?? "")\",
+                \"flowerType\": \"\(postCustomBouquetRequestDTO.flowerType)\",
+                \"substitutionType\" : \"\(postCustomBouquetRequestDTO.substitutionType)\",
+                \"wrappingType\": \"\(postCustomBouquetRequestDTO.wrappingType)\",
+                \"price\": \"\(postCustomBouquetRequestDTO.price)\",
+                \"requirement\": \"\(postCustomBouquetRequestDTO.requirement ?? "")\"
+            }
+            """
         ]
     }
     
