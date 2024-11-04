@@ -25,10 +25,12 @@ final class CustomHeaderView: UIView {
     private let currentVC: UIViewController?
     private let coordinator: CustomizingCoordinator?
     
+    // MARK: - UI
+    
     private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
     private let progressHStackView: CustomProgressHStackView
     private let titleLabel: CustomTitleLabel
-    private let descriptionLabel: CustomDescriptionLabel
+    private let descriptionLabel: CustomDescriptionLabel?
     
     // MARK: - Initialize
     
@@ -37,21 +39,28 @@ final class CustomHeaderView: UIView {
         coordinator: CustomizingCoordinator?,
         numerator: Float,
         title: String,
-        description: String
+        description: String? = nil
     ) {
         self.currentVC = currentVC
         self.coordinator = coordinator
         self.progressHStackView = CustomProgressHStackView(numerator: numerator, denominator: 7)
         self.titleLabel = CustomTitleLabel(text: title)
-        self.descriptionLabel = CustomDescriptionLabel(text: description, numberOfLines: 2)
-        super.init(frame: .zero)
         
+        if let descriptionText = description {
+            self.descriptionLabel = CustomDescriptionLabel(text: descriptionText, numberOfLines: 2)
+        } else {
+            self.descriptionLabel = nil
+        }
+        
+        super.init(frame: .zero)
         setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - Functions
     
     private func setupUI() {
         backgroundColor = .white
@@ -60,12 +69,15 @@ final class CustomHeaderView: UIView {
             exitButton,
             progressHStackView,
             titleLabel,
-            descriptionLabel
         ].forEach(addSubview(_:))
-        
+        addDescriptionLabelIfNeeded()
         setupAutoLayout()
     }
     
+    private func addDescriptionLabelIfNeeded() {
+        guard let descriptionLabel = descriptionLabel else { return }
+        addSubview(descriptionLabel)
+    }
 }
 
 extension CustomHeaderView {
@@ -84,13 +96,17 @@ extension CustomHeaderView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(Metric.titleLabelTopOffset)
             $0.leading.equalToSuperview()
+            
+            if descriptionLabel == nil {
+                $0.bottom.equalToSuperview()
+            }
         }
         
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
-            $0.leading.equalToSuperview()
-            
+        if let descriptionLabel = descriptionLabel {
+            descriptionLabel.snp.makeConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
+                $0.leading.bottom.equalToSuperview()
+            }
         }
     }
-    
 }
