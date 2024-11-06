@@ -69,8 +69,8 @@ extension ServableAPI {
                 body.append(file.data)
                 body.append("\r\n".data(using: .utf8)!)
             }
-            body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         }
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
         
         return body
     }
