@@ -26,7 +26,7 @@ struct PostBouquetAPI: ServableAPI {
     
     var parameters: [String: Any] {
         [
-            "request": createRequestParameterString()
+            "request": postCustomBouquetRequestDTO.createRequestParameterString()
         ]
     }
     
@@ -37,34 +37,5 @@ struct PostBouquetAPI: ServableAPI {
             files: imageUrl,
             boundary: boundary
         )
-    }
-}
-
-extension PostBouquetAPI {
-    func createRequestParameterString() -> String {
-        var requestParameters: [String: Any] = [
-            "bouquetName": postCustomBouquetRequestDTO.bouquetName,
-            "purpose": postCustomBouquetRequestDTO.purpose,
-            "colorType": postCustomBouquetRequestDTO.colorType,
-            "colorName": postCustomBouquetRequestDTO.colorName,
-            "flowerType": postCustomBouquetRequestDTO.flowerType,
-            "substitutionType": postCustomBouquetRequestDTO.substitutionType,
-            "wrappingType": postCustomBouquetRequestDTO.wrappingType,
-            "price": postCustomBouquetRequestDTO.price
-        ]
-
-        if let pointColor = postCustomBouquetRequestDTO.pointColor {
-            requestParameters["pointColor"] = pointColor
-        }
-        if let requirement = postCustomBouquetRequestDTO.requirement {
-            requestParameters["requirement"] = requirement
-        }
-
-        if let jsonData = try? JSONSerialization.data(withJSONObject: requestParameters, options: []),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            return jsonString.replacingOccurrences(of: "\\/", with: "/")
-        } else {
-            return "{}"
-        }
     }
 }
