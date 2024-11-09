@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import Combine
 
 final class RequestDetailView: UIView {
     
     // MARK: - Properties
     
     let requestDetailType: RequestDetailType
+    private let textInputSubject = CurrentValueSubject<String, Never>("")
+    private var cancellables = Set<AnyCancellable>()
+    
+    var textInputPublisher: AnyPublisher<String, Never> {
+        textInputSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - Views
     
@@ -313,6 +320,7 @@ final class RequestDetailView: UIView {
         addViews()
         setupConstraints()
         setupCustomDetailUI()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -428,6 +436,14 @@ final class RequestDetailView: UIView {
             editButton.isHidden = false
             borderLine.isHidden = false
         }
+    }
+    
+    private func bind() {
+        requestTitleTextField.publisher
+            .sink { [weak self] text in
+                self?.textInputSubject.send(text)
+            }
+            .store(in: &cancellables)
     }
     
     private func addViews() {
