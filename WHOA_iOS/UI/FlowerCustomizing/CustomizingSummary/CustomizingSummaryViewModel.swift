@@ -70,6 +70,7 @@ final class CustomizingSummaryViewModel: ViewModel {
             .store(in: &cancellables)
         
         input.nextButtonTapped
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self, let id = keychainManager.loadMemberId() else { return }
                 let requestName = self.requestTitleSubject.value.isEmpty ? "꽃다발 요구서" : self.requestTitleSubject.value
