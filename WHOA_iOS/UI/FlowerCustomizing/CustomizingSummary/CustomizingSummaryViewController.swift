@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class CustomizingSummaryViewController: UIViewController {
     
@@ -26,7 +27,17 @@ final class CustomizingSummaryViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: CustomizingSummaryViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
+    
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
     
     // MARK: - UI
     
@@ -56,12 +67,9 @@ final class CustomizingSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind()
         setupUI()
-        setupTapGesture()
-        requestDetailView.config(model: viewModel.customizingSummaryModel)
-        requestDetailView.configureRequestTitle(title: viewModel.requestTitle)
+        bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,56 +96,54 @@ final class CustomizingSummaryViewController: UIViewController {
         ].forEach(contentView.addSubview(_:))
         setupAutoLayout()
         requestDetailView.requestTitleTextField.delegate = self
-        scrollView.delegate = self
-    }
-    
-    private func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
     }
     
     private func bind() {
-        viewModel.$imageUploadSuccess
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] success in
-                guard let self = self,
-                    success
-                else { return }
-                self.coordinator?.showSaveAlert(from: self, saveResult: .success)
-            }
-            .store(in: &viewModel.cancellables)
+        let input = CustomizingSummaryViewModel.Input(
+            textInput: requestDetailView.textInputPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
         
-        viewModel.$networkError
+        output.setupRequestDetailView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] model in
+                self?.requestDetailView.config(model: model)
+            }
+            .store(in: &cancellables)
+        
+        output.networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let self = self,
-                      let error = error
-                else { return }
+                guard let self = self, let error = error else { return }
                 let saveResult: SaveResult = (error == .duplicateError ? .duplicateError : .networkError)
-                self.coordinator?.showSaveAlert(from: self, saveResult: saveResult)
+                coordinator?.showSaveAlert(from: self, saveResult: saveResult)
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+        
+        output.showSaveAlertView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                coordinator?.showSaveAlert(from: self, saveResult: .success)
+            }
+            .store(in: &cancellables)
     }
     
-    // MARK: - Actions
-    
-    @objc
-    func dismissKeyboard() {
-        view.endEditing(true)
+    private func observe() {
+        viewTapPublisher
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
+        
+        bottomView.backButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
     }
-    
-//    @objc
-//    private func backButtonTapped() {
-//        navigationController?.popViewController(animated: true)
-//    }
-//    
-//    @objc
-//    private func nextButtonTapped() {
-//        guard let id = viewModel.memberId else { return }
-//        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestTitle, viewModel.customizingSummaryModel)
-//        
-//        viewModel.saveBouquet(id: id, DTO: dto, imageFiles: viewModel.customizingSummaryModel.requirement?.imageFiles)
-//    }
 }
 
 extension CustomizingSummaryViewController {
@@ -177,21 +183,5 @@ extension CustomizingSummaryViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text == "" {
-            viewModel.getRequestTitle(title: requestDetailView.requestTitleTextField.placeholder)
-        } else {
-            viewModel.getRequestTitle(title: textField.text)
-        }
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension CustomizingSummaryViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        dismissKeyboard()
     }
 }
