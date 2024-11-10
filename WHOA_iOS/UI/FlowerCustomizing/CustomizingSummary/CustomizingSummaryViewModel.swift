@@ -72,10 +72,12 @@ final class CustomizingSummaryViewModel: ViewModel {
         input.nextButtonTapped
             .sink { [weak self] _ in
                 guard let self = self, let id = keychainManager.loadMemberId() else { return }
+                let requestName = self.requestTitleSubject.value.isEmpty ? "꽃다발 요구서" : self.requestTitleSubject.value
+                
                 self.saveBouquet(
                     id: id,
                     DTO: CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(
-                        requestName: requestTitleSubject.value,
+                        requestName: requestName,
                         customizingSummaryModelSubject.value
                     ),
                     imageFiles: customizingSummaryModelSubject.value.requirement?.imageFiles
