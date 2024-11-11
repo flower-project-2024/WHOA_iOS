@@ -94,7 +94,7 @@ final class CustomizingSummaryViewModel: ViewModel {
         )
     }
     
-    func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO, imageFiles: [ImageFile]?) {
+    private func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO, imageFiles: [ImageFile]?) {
         switch actionType {
         case .create, .customV2:
             postCustomBouquet(id: id, DTO: DTO, imageFiles: imageFiles)
