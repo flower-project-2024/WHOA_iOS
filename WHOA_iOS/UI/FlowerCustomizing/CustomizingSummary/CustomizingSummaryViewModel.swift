@@ -37,7 +37,7 @@ final class CustomizingSummaryViewModel: ViewModel {
     private let actionType: ActionType
     
     private let customizingSummaryModelSubject: CurrentValueSubject<CustomizingSummaryModel, Never>
-    private let requestTitleSubject = CurrentValueSubject<String, Never>("")
+    private let requestTitleSubject: CurrentValueSubject<String, Never>
     private let networkErrorSubject = PassthroughSubject<NetworkError?, Never>()
     private let showSaveAlertViewSubject = PassthroughSubject<Void, Never>()
     
@@ -55,7 +55,7 @@ final class CustomizingSummaryViewModel: ViewModel {
         self.keychainManager = keychainManager
         self.networkManager = networkManager
         self.actionType = dataManager.getActionType()
-        requestTitleSubject.send(dataManager.getRequestTitle())
+        requestTitleSubject = .init(dataManager.getRequestTitle())
         customizingSummaryModelSubject = .init(.init(from: dataManager.getBouquet()))
     }
     

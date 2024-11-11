@@ -112,6 +112,13 @@ final class CustomizingSummaryViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+        output.setupRequestTitle
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.requestDetailView.configureRequestTitle(title: title)
+            }
+            .store(in: &cancellables)
+        
         output.networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
