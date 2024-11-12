@@ -16,7 +16,7 @@ final class FlowerSelectionViewController: UIViewController {
     private enum Metric {
         static let sideMargin = 20.0
         static let headerViewHeight = 208.0
-        static let keywordHScrollViewHeightMultiplier = 0.04
+        static let keywordHScrollViewHeight = 36
         static let tableViewRowHeight = 120.0
         static let verticalSpacing = 16.0
         static let borderLineHeight = 1.0
@@ -204,7 +204,7 @@ extension FlowerSelectionViewController {
         keywordHScrollView.snp.makeConstraints {
             $0.top.equalTo(topBorderLine.snp.bottom).offset(Metric.verticalSpacing)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalToSuperview().multipliedBy(Metric.keywordHScrollViewHeightMultiplier)
+            $0.height.equalTo(Metric.keywordHScrollViewHeight)
         }
         
         bottomBorderLine.snp.makeConstraints {
