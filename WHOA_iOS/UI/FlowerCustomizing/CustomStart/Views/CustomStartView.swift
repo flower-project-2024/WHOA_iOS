@@ -18,7 +18,7 @@ final class CustomStartView: UIView {
         static let textFieldMargin = 20.0
         static let textFieldHeightMultiplier = 0.14
         static let startButtonTopOffset = 28.0
-        static let startButtonWidthMultiplier = 3.625
+        static let startButtonWidthMultiplier = 0.5
     }
     
     /// Attributes
@@ -162,8 +162,8 @@ extension CustomStartView {
         startButton.snp.makeConstraints {
             $0.top.equalTo(textField.snp.bottom).offset(Metric.startButtonTopOffset)
             $0.centerX.equalToSuperview()
+            $0.width.equalTo(textField.snp.width).multipliedBy(Metric.startButtonWidthMultiplier)
             $0.height.equalTo(textField.snp.height)
-            $0.width.equalTo(startButton.snp.height).multipliedBy(Metric.startButtonWidthMultiplier)
         }
     }
 }

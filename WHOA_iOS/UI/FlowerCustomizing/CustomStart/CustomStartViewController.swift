@@ -124,8 +124,7 @@ extension CustomStartViewController {
         
         customStartView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(Metric.customStartViewTopOffset)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(view.snp.height).multipliedBy(Metric.customStartViewHeightMultiplier)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
