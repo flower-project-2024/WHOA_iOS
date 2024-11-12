@@ -52,4 +52,8 @@ final class SpacebarButton: UIButton {
         
         return config
     }
+    
+    func updateSelectionState(isSelected: Bool) {
+        self.configuration = configure(isSelected: isSelected)
+    }
 }
