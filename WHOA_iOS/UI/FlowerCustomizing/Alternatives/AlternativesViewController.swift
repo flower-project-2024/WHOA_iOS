@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class AlternativesViewController: UIViewController {
     
@@ -19,7 +20,8 @@ final class AlternativesViewController: UIViewController {
     
     // MARK: - Properties
     
-    let viewModel: AlternativesViewModel
+    private let viewModel: AlternativesViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -57,49 +59,26 @@ final class AlternativesViewController: UIViewController {
     }
     
     func bind() {
-//        viewModel.$selectedButtonType
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] selectedType in
-//                guard let self = self else { return }
-//                self.colorOrientedButton.isSelected = selectedType == .colorOriented
-//                self.hashTagOrientedButton.isSelected = selectedType == .hashTagOriented
-//                
-//                self.colorOrientedButton.configuration = self.colorOrientedButton.configure(isSelected: self.colorOrientedButton.isSelected)
-//                self.hashTagOrientedButton.configuration = self.hashTagOrientedButton.configure(isSelected: self.hashTagOrientedButton.isSelected)
-//            }
-//            .store(in: &viewModel.cancellables)
-//        
-//        viewModel.$alternativesModel
-//            .receive(on: RunLoop.main)
-//            .map { alternatives in
-//                guard let alternative = alternatives?.AlternativesType else { return false }
-//                return alternative != .none
-//            }
-//            .assign(to: \.isActive, on: nextButton)
-//            .store(in: &viewModel.cancellables)
+        let input = AlternativesViewModel.Input(
+            alternativeSelected: alternativesView.valuePublisher,
+            nextButtonTapped: alternativesView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.setupAlternative
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] alternative in
+                self?.alternativesView.updateButtonSelection(for: alternative)
+            }
+            .store(in: &cancellables)
+        
+        output.showPackagingSelectionView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showPackagingSelectionVC(from: self)
+            }
+            .store(in: &cancellables)
     }
-    
-    // MARK: - Actions
-    
-//    @objc
-//    private func spacebarButtonTapped(_ sender: UIButton) {
-//        switch sender.tag {
-//        case Attributes.colorOrientedButtonTag:
-//            viewModel.getAlternatives(alternatives: .colorOriented)
-//        case Attributes.hashTagOrientedButtonTag:
-//            viewModel.getAlternatives(alternatives: .hashTagOriented)
-//        default:
-//            print("Unknown button tapped")
-//        }
-//    }
-//    
-//    @objc
-//    func nextButtonTapped() {
-//        guard let alternative = viewModel.alternativesModel?.AlternativesType else { return }
-//        viewModel.dataManager.setAlternative(alternative)
-//        coordinator?.showPackagingSelectionVC(from: self)
-//    }
-    
 }
 
 // MARK: - AutoLayout

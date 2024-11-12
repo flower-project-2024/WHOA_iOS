@@ -8,27 +8,50 @@
 import Foundation
 import Combine
 
-final class AlternativesViewModel {
+final class AlternativesViewModel: ViewModel {
     
     // MARK: - Properties
     
-    let dataManager: BouquetDataManaging
-    @Published var alternativesModel: AlternativesModel?
-    @Published var selectedButtonType: AlternativesType?
+    struct Input {
+        let alternativeSelected: AnyPublisher<AlternativesType, Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
+    }
     
-    var cancellables = Set<AnyCancellable>()
+    struct Output {
+        let setupAlternative: AnyPublisher<AlternativesType, Never>
+        let showPackagingSelectionView: AnyPublisher<Void, Never>
+    }
+    
+    let dataManager: BouquetDataManaging
+    private let alternativeSubject: CurrentValueSubject<AlternativesType, Never>
+    private let showPackagingSelectionViewSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
     
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
         self.dataManager = dataManager
-        getAlternatives(alternatives: dataManager.getAlternative())
+        self.alternativeSubject = .init(dataManager.getAlternative())
     }
     
     // MARK: - Functions
     
-    func getAlternatives(alternatives: AlternativesType) {
-        selectedButtonType = alternatives
-        alternativesModel = AlternativesModel(AlternativesType: alternatives)
+    func transform(input: Input) -> Output {
+        input.alternativeSelected
+            .assign(to: \.value, on: alternativeSubject)
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.dataManager.setAlternative(alternativeSubject.value)
+                self.showPackagingSelectionViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            setupAlternative: alternativeSubject.eraseToAnyPublisher(),
+            showPackagingSelectionView: showPackagingSelectionViewSubject.eraseToAnyPublisher()
+        )
     }
 }

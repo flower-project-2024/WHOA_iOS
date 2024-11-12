@@ -25,12 +25,21 @@ final class AlternativesView: UIView {
         static let titleText = "선택한 꽃들이 없다면?"
         static let colorOrientedButtonTitle = "\(AlternativesType.colorOriented.rawValue)로 대체해주세요"
         static let hashTagOrientedButtonTitle = "\(AlternativesType.hashTagOriented.rawValue)로 대체해주세요"
-        static let colorOrientedButtonTag = 0
-        static let hashTagOrientedButtonTag = 1
     }
     
     // MARK: - Properties
     
+    private let alternativeSubject = PassthroughSubject<AlternativesType, Never>()
+    private let nextButtonTappedSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    var valuePublisher: AnyPublisher<AlternativesType, Never> {
+        return alternativeSubject.eraseToAnyPublisher()
+    }
+    
+    var nextButtonTappedPublisher: AnyPublisher<Void, Never> {
+        nextButtonTappedSubject.eraseToAnyPublisher()
+    }
     // MARK: - UI
     
     private let titleLabel: UILabel = {
@@ -41,25 +50,39 @@ final class AlternativesView: UIView {
         return label
     }()
     
-    private let colorOrientedButton: UIButton = {
+    private lazy var colorOrientedButton: SpacebarButton = {
         let button = SpacebarButton(title: Attributes.colorOrientedButtonTitle)
-        button.tag = Attributes.colorOrientedButtonTag
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.alternativeSubject.send(.colorOriented)
+        }, for: .touchUpInside)
         return button
     }()
     
-    private let hashTagOrientedButton: UIButton = {
+    private lazy var hashTagOrientedButton: SpacebarButton = {
         let button = SpacebarButton(title: Attributes.hashTagOrientedButtonTitle)
-        button.tag = Attributes.hashTagOrientedButtonTag
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.alternativeSubject.send(.hashTagOriented)
+        }, for: .touchUpInside)
         return button
     }()
     
-    private let nextButton = NextButton()
+    private lazy var nextButton: NextButton = {
+        let button = NextButton()
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.nextButtonTappedSubject.send()
+        }, for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -77,6 +100,22 @@ final class AlternativesView: UIView {
             nextButton
         ].forEach(addSubview(_:))
         setupAutoLayout()
+    }
+    
+    private func observe() {
+        alternativeSubject
+            .sink { [weak self] alternative in
+                self?.nextButton.isActive = (alternative != .none)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateButtonSelection(for alternative: AlternativesType) {
+        let isColorSelected = (alternative == .colorOriented)
+        let isHashTagSelected = (alternative == .hashTagOriented)
+        
+        colorOrientedButton.updateSelectionState(isSelected: isColorSelected)
+        hashTagOrientedButton.updateSelectionState(isSelected: isHashTagSelected)
     }
 }
 
@@ -102,8 +141,8 @@ extension AlternativesView {
         
         nextButton.snp.makeConstraints {
             $0.top.equalTo(hashTagOrientedButton.snp.bottom).offset(Metric.nextButtonTopOffset)
-            $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(colorOrientedButton.snp.height)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
