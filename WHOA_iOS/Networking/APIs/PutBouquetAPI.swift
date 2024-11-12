@@ -10,18 +10,34 @@ import Foundation
 struct PutBouquetAPI: ServableAPI {
     typealias Response = PostCustomBouquetDTO
     
-    let requestDTO: PostCustomBouquetRequestDTO
-    let memberID: String
     let bouquetId: Int
+    let memberID: String
+    let boundary = UUID().uuidString
+    let requestDTO: PostCustomBouquetRequestDTO
+    let imageUrl: [ImageFile]?
     
     var method: HTTPMethod { .put }
-    var path: String { "/api/bouquet/customizing/" }
+    var path: String { "/api/v2/bouquet/customizing/" }
     var params: String { "\(bouquetId)" }
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         [
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data; boundary=\(boundary)",
             "MEMBER_ID": memberID
         ]
     }
-    var requestBody: Encodable? { requestDTO }
+    
+    var parameters: [String: Any] {
+        [
+            "request": requestDTO.createRequestParameterString()
+        ]
+    }
+    
+    var multipartData: Data? {
+        createMultipartFormData(
+            name: "imgUrl",
+            parameters: parameters,
+            files: imageUrl,
+            boundary: boundary
+        )
+    }
 }

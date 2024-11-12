@@ -1,5 +1,5 @@
 //
-//  MultipartFilesAPI.swift
+//  PostBouquetAPI.swift
 //  WHOA_iOS
 //
 //  Created by KSH on 5/31/24.
@@ -7,17 +7,16 @@
 
 import Foundation
 
-struct MultipartFilesAPI: ServableAPI {
+struct PostBouquetAPI: ServableAPI {
     typealias Response = MultipartFilesDTO
     
     let memberID: String
     let boundary = UUID().uuidString
-    
-    let bouquetId: Int
+    let postCustomBouquetRequestDTO : PostCustomBouquetRequestDTO
     let imageUrl: [ImageFile]?
     
     var method: HTTPMethod { .post }
-    var path: String { "/api/images/multipart-files" }
+    var path: String { "/api/v2/bouquet/customizing" }
     var headers: [String : String]? {
         [
             "Content-Type": "multipart/form-data; boundary=\(boundary)",
@@ -27,7 +26,7 @@ struct MultipartFilesAPI: ServableAPI {
     
     var parameters: [String: Any] {
         [
-            "bouquetId": "{\n\"bouquet_id\" : \(bouquetId)\n}",
+            "request": postCustomBouquetRequestDTO.createRequestParameterString()
         ]
     }
     

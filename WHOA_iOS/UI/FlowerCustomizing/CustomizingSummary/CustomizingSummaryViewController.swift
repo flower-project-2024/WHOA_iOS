@@ -6,66 +6,56 @@
 //
 
 import UIKit
+import Combine
 
 final class CustomizingSummaryViewController: UIViewController {
+    
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+        static let requestDetailViewTopOffset = 37.0
+        static let bottomViewTopOffset = 22.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewTitle = "이렇게 요구서를 저장할까요?"
+    }
     
     // MARK: - Properties
     
     let viewModel: CustomizingSummaryViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
+    
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
     
     // MARK: - UI
     
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.isScrollEnabled = true
-        return scrollView
-    }()
-    
-    private let scrollContentView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 7, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "이렇게 요구서를 저장할까요?")
-    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 7,
+        title: Attributes.headerViewTitle
+    )
     private let requestDetailView = RequestDetailView(requestDetailType: .custom)
-    
-    private let borderLine = ShadowBorderLine()
-    
-    private let backButton: UIButton = {
-        let button = BackButton(isActive: true)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private let nextButton: UIButton = {
-        let button = NextButton()
-        button.isActive = true
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0) }
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
     init(viewModel: CustomizingSummaryViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -77,26 +67,19 @@ final class CustomizingSummaryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind()
         setupUI()
-        setupTapGesture()
-        requestDetailView.config(model: viewModel.customizingSummaryModel)
-        requestDetailView.configureRequestTitle(title: viewModel.requestTitle)
+        bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
@@ -105,90 +88,68 @@ final class CustomizingSummaryViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(scrollView)
-        
-        scrollView.addSubview(scrollContentView)
-        
-        scrollContentView.addSubview(exitButton)
-        scrollContentView.addSubview(progressHStackView)
-        scrollContentView.addSubview(titleLabel)
-        
-        scrollContentView.addSubview(requestDetailView)
-        
-        scrollContentView.addSubview(borderLine)
-        scrollContentView.addSubview(navigationHStackView)
-        
+        scrollView.addSubview(contentView)
+        [
+            headerView,
+            requestDetailView,
+            bottomView
+        ].forEach(contentView.addSubview(_:))
         setupAutoLayout()
-        
         requestDetailView.requestTitleTextField.delegate = self
-        scrollView.delegate = self
-    }
-    
-    private func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
     }
     
     private func bind() {
-        viewModel.$bouquetId
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] bouquetId in
-                self?.handleBouquetId(bouquetId)
-            }
-            .store(in: &viewModel.cancellables)
+        let input = CustomizingSummaryViewModel.Input(
+            textInput: requestDetailView.textInputPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
         
-        viewModel.$imageUploadSuccess
+        output.setupRequestDetailView
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] success in
-                guard let self = self,
-                    success
-                else { return }
-                self.coordinator?.showSaveAlert(from: self, saveResult: .success)
+            .sink { [weak self] model in
+                self?.requestDetailView.config(model: model)
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
         
-        viewModel.$networkError
+        output.setupRequestTitle
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.requestDetailView.configureRequestTitle(title: title)
+            }
+            .store(in: &cancellables)
+        
+        output.networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let self = self,
-                      let error = error
-                else { return }
+                guard let self = self, let error = error else { return }
                 let saveResult: SaveResult = (error == .duplicateError ? .duplicateError : .networkError)
-                self.coordinator?.showSaveAlert(from: self, saveResult: saveResult)
+                coordinator?.showSaveAlert(from: self, saveResult: saveResult)
             }
-            .store(in: &viewModel.cancellables)
-    }
-    
-    private func handleBouquetId(_ bouquetId: Int?) {
-        guard
-            let bouquetId = bouquetId,
-            let id = viewModel.memberId
-        else { return }
+            .store(in: &cancellables)
         
-        if let imageFiles = viewModel.customizingSummaryModel.requirement?.imageFiles, !imageFiles.isEmpty {
-            viewModel.submitRequirementImages(id: id, bouquetId: bouquetId, imageFiles: imageFiles)
-        } else {
-            self.coordinator?.showSaveAlert(from: self, saveResult: .success)
-        }
+        output.showSaveAlertView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                coordinator?.showSaveAlert(from: self, saveResult: .success)
+            }
+            .store(in: &cancellables)
     }
     
-    // MARK: - Actions
-    
-    @objc
-    func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func nextButtonTapped() {
-        guard let id = viewModel.memberId else { return }
-        let dto = CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(requestName: viewModel.requestTitle, viewModel.customizingSummaryModel)
+    private func observe() {
+        viewTapPublisher
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
         
-        viewModel.saveBouquet(id: id, DTO: dto)
+        bottomView.backButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -197,51 +158,28 @@ extension CustomizingSummaryViewController {
         scrollView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(4)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
         
-        scrollContentView.snp.makeConstraints {
+        contentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
         }
         
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView).offset(17)
-            $0.leading.equalToSuperview().offset(17)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalToSuperview().inset(18)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
+        headerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
         requestDetailView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(37)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(navigationHStackView.snp.top).offset(-42)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.requestDetailViewTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        bottomView.snp.makeConstraints {
+            $0.top.equalTo(requestDetailView.snp.bottom).offset(Metric.bottomViewTopOffset)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(scrollView)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-11.5)
+            $0.bottom.equalTo(scrollView.snp.bottom)
         }
     }
 }
@@ -252,21 +190,5 @@ extension CustomizingSummaryViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text == "" {
-            viewModel.getRequestTitle(title: requestDetailView.requestTitleTextField.placeholder)
-        } else {
-            viewModel.getRequestTitle(title: textField.text)
-        }
-    }
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension CustomizingSummaryViewController: UIScrollViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        dismissKeyboard()
     }
 }
