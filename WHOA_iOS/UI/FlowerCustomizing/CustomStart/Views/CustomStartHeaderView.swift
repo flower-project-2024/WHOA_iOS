@@ -90,6 +90,7 @@ extension CustomStartHeaderView {
         }
         
         bouquetImageView.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.top)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }

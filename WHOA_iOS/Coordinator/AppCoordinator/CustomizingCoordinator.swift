@@ -63,12 +63,12 @@ final class CustomizingCoordinator: Coordinator {
         currentVC?.present(alternativesVC, animated: true)
     }
     
-    func showPackagingSelectionVC(from currentVC: UIViewController) {
+    func showPackagingSelectionVC(from currentVC: UIViewController?) {
         let viewModel = PackagingSelectionViewModel()
         let packagingSelectionVC = PackagingSelectionViewController(viewModel: viewModel)
         packagingSelectionVC.coordinator = self
         
-        currentVC.dismiss(animated: true) { [weak self] in
+        currentVC?.dismiss(animated: true) { [weak self] in
             self?.navigationController.pushViewController(packagingSelectionVC, animated: true)
         }
     }

@@ -77,6 +77,7 @@ final class KeywordHScrollView: UIView {
             button.layer.borderColor = UIColor.gray04.cgColor
             button.layer.borderWidth = 1
             button.layer.cornerRadius = 18
+            button.layer.masksToBounds = true
             button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
             button.addAction(UIAction(handler: { [weak self] _ in
                 self?.keywordButtonTapped(button)
