@@ -28,6 +28,7 @@ final class PackagingSelectionViewController: UIViewController {
     // MARK: - Properties
     
     let viewModel: PackagingSelectionViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -86,51 +87,28 @@ final class PackagingSelectionViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$packagingSelectionModel
-            .receive(on: RunLoop.main)
-            .sink { [weak self] model in
-//                self?.updateUI(with: model)
+        let input = PackagingSelectionViewModel.Input(
+            packagingAssignSelected: packagingSelectionView.valuePublisher,
+            textInput: requirementTextView.textInputPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.setupPackagingAssign
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] packagingAssign in
+                self?.packagingSelectionView.updateButtonSelection(for: packagingAssign)
+                self?.requirementTextView.setTextViewHidden(packagingAssign != .myselfAssign)
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showFlowerPriceVC()
+            }
+            .store(in: &cancellables)
     }
-    
-//    private func updateUI(with model: PackagingSelectionModel) {
-//        managerAssignButton.isSelected = model.packagingAssignButtonType == .managerAssign
-//        myselfAssignButton.isSelected = model.packagingAssignButtonType == .myselfAssign
-//        requirementTextView.isHidden = model.packagingAssignButtonType != .myselfAssign
-//        
-//        managerAssignButton.configuration = managerAssignButton.configure(isSelected: managerAssignButton.isSelected)
-//        myselfAssignButton.configuration = myselfAssignButton.configure(isSelected: myselfAssignButton.isSelected)
-//        
-//        if model.packagingAssignButtonType == .myselfAssign {
-//            requirementTextView.text = model.text
-//            placeholder.isHidden = !model.text.isEmpty
-//        }
-//    }
-    
-    // MARK: - Actions
-    
-//    @objc
-//    private func assignButtonTapped(_ sender: UIButton) {
-//        let assignType: PackagingAssignType = sender === managerAssignButton ?
-//            .managerAssign : .myselfAssign
-//        
-//        viewModel.getPackagingAssign(packagingAssign: assignType)
-//    }
-//    
-//    @objc
-//    func backButtonTapped() {
-//        navigationController?.popViewController(animated: true)
-//    }
-//    
-    
-//    func nextButtonTapped() {
-//        let model = viewModel.packagingSelectionModel
-//        let text = model.packagingAssignButtonType == .myselfAssign ? model.text : nil
-//        let assign = BouquetData.PackagingAssign(assign: model.packagingAssignButtonType ?? .none, text: text)
-//        viewModel.dataManager.setPackagingAssign(assign)
-//        coordinator?.showFlowerPriceVC()
-//    }
 }
 
 // MARK: - AutoLayout

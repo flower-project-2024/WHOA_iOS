@@ -24,6 +24,15 @@ final class RequirementTextView: UIView {
     
     // MARK: - Properties
     
+    private let textInputSubject = CurrentValueSubject<String, Never>("")
+    private var cancellables = Set<AnyCancellable>()
+    
+    var textInputPublisher: AnyPublisher<String, Never> {
+        textInputSubject.eraseToAnyPublisher()
+    }
+    
+    // MARK: - UI
+    
     private let textView: UITextView = {
         let view = UITextView()
         view.font = .Pretendard()
@@ -34,8 +43,7 @@ final class RequirementTextView: UIView {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.gray04.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
-//        view.isHidden = true
-        //        view.delegate = self
+        view.isHidden = true
         return view
     }()
     
@@ -52,6 +60,8 @@ final class RequirementTextView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        bind()
+        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +74,27 @@ final class RequirementTextView: UIView {
         addSubview(textView)
         textView.addSubview(placeholder)
         setupAutoLayout()
+    }
+    
+    private func bind() {
+        textView.publisher
+            .sink { [weak self] text in
+                self?.textInputSubject.send(text)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func observe() {
+        textInputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                self?.placeholder.isHidden = !text.isEmpty
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setTextViewHidden(_ isHidden: Bool) {
+        textView.isHidden = isHidden
     }
 }
 
