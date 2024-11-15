@@ -57,6 +57,18 @@ final class PackagingSelectionViewModel: ViewModel {
             }
             .eraseToAnyPublisher()
         
+        input.nextButtonTapped
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let assign = BouquetData.PackagingAssign(
+                    assign: packagingAssignSubject.value,
+                    text: textInputSubject.value
+                )
+                self.dataManager.setPackagingAssign(assign)
+                self.showFlowerPriceViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
         return Output(
             setupPackagingAssign: packagingAssignSubject.eraseToAnyPublisher(),
             nextButtonEnabled: nextButtonEnabled.eraseToAnyPublisher(),

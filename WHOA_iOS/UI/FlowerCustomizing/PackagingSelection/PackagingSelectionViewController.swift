@@ -119,7 +119,7 @@ final class PackagingSelectionViewController: UIViewController {
             }
             .store(in: &cancellables)
         
-        input.nextButtonTapped
+        output.showFlowerPriceView
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.coordinator?.showFlowerPriceVC()
@@ -131,6 +131,12 @@ final class PackagingSelectionViewController: UIViewController {
         viewTapPublisher
             .sink { [weak self] _ in
                 self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
+        
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
     }
