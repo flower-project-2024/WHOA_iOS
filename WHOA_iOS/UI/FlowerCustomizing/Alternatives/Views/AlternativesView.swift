@@ -82,7 +82,6 @@ final class AlternativesView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
-        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -102,20 +101,13 @@ final class AlternativesView: UIView {
         setupAutoLayout()
     }
     
-    private func observe() {
-        alternativeSubject
-            .sink { [weak self] alternative in
-                self?.nextButton.isActive = (alternative != .none)
-            }
-            .store(in: &cancellables)
-    }
-    
     func updateButtonSelection(for alternative: AlternativesType) {
         let isColorSelected = (alternative == .colorOriented)
         let isHashTagSelected = (alternative == .hashTagOriented)
         
         colorOrientedButton.updateSelectionState(isSelected: isColorSelected)
         hashTagOrientedButton.updateSelectionState(isSelected: isHashTagSelected)
+        nextButton.isActive = (alternative != .none)
     }
 }
 
