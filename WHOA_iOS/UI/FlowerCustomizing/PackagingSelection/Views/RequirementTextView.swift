@@ -70,6 +70,7 @@ final class RequirementTextView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
+        backgroundColor = .white
         addSubview(textView)
         textView.addSubview(placeholder)
         setupAutoLayout()
