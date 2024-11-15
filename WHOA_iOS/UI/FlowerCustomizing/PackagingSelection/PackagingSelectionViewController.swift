@@ -31,6 +31,15 @@ final class PackagingSelectionViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
+    
     // MARK: - UI
     
     private lazy var headerView = CustomHeaderView(
@@ -60,6 +69,7 @@ final class PackagingSelectionViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,6 +119,14 @@ final class PackagingSelectionViewController: UIViewController {
             }
             .store(in: &cancellables)
     }
+    
+    private func observe() {
+        viewTapPublisher
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
+    }
 }
 
 // MARK: - AutoLayout
@@ -137,27 +155,3 @@ extension PackagingSelectionViewController {
         }
     }
 }
-
-//extension PackagingSelectionViewController: UITextViewDelegate {
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        requirementTextView.layer.borderColor = UIColor.second1.cgColor
-//        
-//        placeholder.isHidden = true
-//    }
-//    
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        requirementTextView.layer.borderColor = UIColor.gray04.cgColor
-//        
-//        if textView.text.count == 0 {
-//            placeholder.isHidden = false
-//        }
-//    }
-//    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.view.endEditing(true) /// 화면을 누르면 키보드 내려가게 하는 것
-//    }
-//    
-//    func textViewDidChange(_ textView: UITextView) {
-//        viewModel.updateText(textView.text)
-//    }
-//}
