@@ -112,6 +112,13 @@ final class PackagingSelectionViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+        output.nextButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEnabled in
+                self?.bottomView.configNextButton(isEnabled)
+            }
+            .store(in: &cancellables)
+        
         input.nextButtonTapped
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
