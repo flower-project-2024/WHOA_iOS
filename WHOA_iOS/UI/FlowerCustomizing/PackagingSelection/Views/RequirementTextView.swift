@@ -61,7 +61,6 @@ final class RequirementTextView: UIView {
         super.init(frame: frame)
         setupUI()
         bind()
-        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -82,13 +81,21 @@ final class RequirementTextView: UIView {
                 self?.textInputSubject.send(text)
             }
             .store(in: &cancellables)
-    }
-
-    private func observe() {
-        textInputSubject
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] text in
-                self?.placeholder.isHidden = !text.isEmpty
+        
+        textView.textDidBeginEditingPublisher
+            .sink { [weak self] _ in
+                self?.textView.layer.borderColor = UIColor.second1.cgColor
+                self?.placeholder.isHidden = true
+            }
+            .store(in: &cancellables)
+        
+        textView.textDidEndEditingPublisher
+            .sink { [weak self] _ in
+                self?.textView.layer.borderColor = UIColor.gray04.cgColor
+                
+                if self?.textView.text.isEmpty ?? true {
+                    self?.placeholder.isHidden = false
+                }
             }
             .store(in: &cancellables)
     }
