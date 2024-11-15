@@ -77,7 +77,7 @@ final class RequirementTextView: UIView {
     }
     
     private func bind() {
-        textView.publisher
+        textView.textDidChangePublisher
             .sink { [weak self] text in
                 self?.textInputSubject.send(text)
             }
