@@ -9,6 +9,23 @@ import UIKit
 
 final class FlowerPriceViewController: UIViewController {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+        static let requestDetailViewTopOffset = 37.0
+        static let bottomViewTopOffset = 22.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewTitle = "원하는 가격대 범위를\n설정해주세요"
+        static let minPrice: Double = 0
+        static let maxPrice: Double = 150000
+        static let valueLabelText = "\(minPrice) ~ \(maxPrice)원"
+    }
+    
     // MARK: - Properties
     
     private let viewModel: FlowerPriceViewModel
@@ -16,13 +33,16 @@ final class FlowerPriceViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 5, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "원하는 가격대 범위를\n설정해주세요")
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 5,
+        title: Attributes.headerViewTitle
+    )
     
     private let valueLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 ~ 150000원"
+        label.text = Attributes.valueLabelText
         label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = .black
         label.numberOfLines = 0
@@ -31,41 +51,17 @@ final class FlowerPriceViewController: UIViewController {
     
     private let rangeSlider: RangeSlider = {
         let slider = RangeSlider()
-        slider.minValue = 0
-        slider.maxValue = 150000
-        slider.lower = 0
-        slider.upper = 150000
+        slider.minValue = Attributes.minPrice
+        slider.maxValue = Attributes.maxPrice
+        slider.lower = Attributes.minPrice
+        slider.upper = Attributes.maxPrice
         slider.trackColor = .gray02
         slider.trackTintColor = .gray02
         slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
         return slider
     }()
     
-    private let borderLine = ShadowBorderLine()
-    
-    private let backButton: BackButton = {
-        let button = BackButton(isActive: true)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private let nextButton: NextButton = {
-        let button = NextButton()
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
@@ -82,39 +78,30 @@ final class FlowerPriceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         bind()
         setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
-        
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
-        view.addSubview(valueLabel)
-        view.addSubview(rangeSlider)
-        
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
-        
+        [
+            headerView,
+            valueLabel,
+            rangeSlider,
+            bottomView
+        ].forEach(view.addSubview(_:))
         setupAutoLayout()
     }
     
@@ -125,7 +112,7 @@ final class FlowerPriceViewController: UIViewController {
                 self?.valueLabel.text = self?.viewModel.getPriceString()
                 self?.rangeSlider.lower = Double(model.minPrice)
                 self?.rangeSlider.upper = Double(model.maxPrice)
-                self?.nextButton.isActive = true
+//                self?.nextButton.isActive = true
                 self?.rangeSlider.trackTintColor = .second1
             }
             .store(in: &viewModel.cancellables)
@@ -151,27 +138,17 @@ final class FlowerPriceViewController: UIViewController {
     }
 }
 
+// MARK: - AutoLayout
+
 extension FlowerPriceViewController {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-50)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
         valueLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(56)
+            $0.top.equalTo(headerView.snp.bottom).offset(56)
             $0.centerX.equalToSuperview()
         }
         
@@ -182,20 +159,9 @@ extension FlowerPriceViewController {
             $0.height.equalTo(21)
         }
         
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
