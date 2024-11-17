@@ -180,6 +180,7 @@
 		54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */; };
 		54EB18122BBF542C00717E6F /* FlowerKeywordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18112BBF542C00717E6F /* FlowerKeywordModel.swift */; };
 		54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EB18142BC018C900717E6F /* UIImageView+.swift */; };
+		54EFB5232CE989E9007C01B0 /* ThumbButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54EFB5222CE989E9007C01B0 /* ThumbButton.swift */; };
 		54F695942BF15007009E3E4D /* MemberRegisterDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */; };
 		54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */; };
 		54F695982BF1B823009E3E4D /* MemberRegisterRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */; };
@@ -394,6 +395,7 @@
 		54EB180F2BBF4C2C00717E6F /* FlowerKeywordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerKeywordDTO.swift; sourceTree = "<group>"; };
 		54EB18112BBF542C00717E6F /* FlowerKeywordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerKeywordModel.swift; sourceTree = "<group>"; };
 		54EB18142BC018C900717E6F /* UIImageView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+.swift"; sourceTree = "<group>"; };
+		54EFB5222CE989E9007C01B0 /* ThumbButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbButton.swift; sourceTree = "<group>"; };
 		54F695932BF15007009E3E4D /* MemberRegisterDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterDTO.swift; sourceTree = "<group>"; };
 		54F695952BF1505D009E3E4D /* MemberRegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterAPI.swift; sourceTree = "<group>"; };
 		54F695972BF1B823009E3E4D /* MemberRegisterRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberRegisterRequestDTO.swift; sourceTree = "<group>"; };
@@ -865,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				54EB17CB2B9D83E200717E6F /* RangeSlider.swift */,
+				54EFB5222CE989E9007C01B0 /* ThumbButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1417,6 +1420,7 @@
 				080D501D2C887F3C0080CD85 /* PatchBouquetStatusAPI.swift in Sources */,
 				0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */,
 				54A73F502CE4B6B70027E63E /* PackagingSelectionView.swift in Sources */,
+				54EFB5232CE989E9007C01B0 /* ThumbButton.swift in Sources */,
 				54EA0E702BF6183B007B8F5A /* ShadowBorderLine.swift in Sources */,
 				086E3D6E2C41792000C90787 /* NoRequestCell.swift in Sources */,
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
@@ -1649,7 +1653,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55D3CXADSB;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
@@ -1686,7 +1690,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55D3CXADSB;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
