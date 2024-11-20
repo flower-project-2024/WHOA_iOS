@@ -232,16 +232,12 @@ final class HomeViewController: UIViewController {
     }
     
     private func resetTimer() {
-        print("== 타이머 세팅 ==")
         timer?.invalidate()
         timer = nil
         timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] timer in
-            print("3초 타이머")
             
             let visibleItem = self?.carouselView.indexPathsForVisibleItems[0].item  // 현재 화면에 보이는 아이템의 indexPath
             let nextItem = (visibleItem ?? 0) + 1
-                        
-            print("현재 아이템:\(visibleItem), 다음 아이템: \(nextItem)")
 
             // 다음 indexPath의 item으로 스크롤
             self?.carouselView.scrollToItem(at: [0, nextItem], at: .centeredHorizontally, animated: true)
@@ -357,7 +353,6 @@ extension HomeViewController: UICollectionViewDelegate {
     
     // 직접 스크롤했을 경우 -> 다음 셀이 중앙에 오도록 하는 페이징 효과 위함
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        print("== scrollViewWillEndDragging ==")
         let cellWidthIncludingSpacing: CGFloat = cellSize.width + minimumLineSpacing
 
         let estimatedIndex = scrollView.contentOffset.x / cellWidthIncludingSpacing
@@ -377,7 +372,6 @@ extension HomeViewController: UICollectionViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("== scrollViewDidEndDecelerating ==")
         
         // 새로 적용
         resetTimer()
