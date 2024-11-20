@@ -202,6 +202,7 @@
 		54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F7E2B742C4900F964C3 /* BackButton.swift */; };
 		54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F802B743C0000F964C3 /* NextButton.swift */; };
 		54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* PurposeType.swift */; };
+		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -420,6 +421,7 @@
 		54FD0F7E2B742C4900F964C3 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		54FD0F802B743C0000F964C3 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		54FD0F842B74C13B00F964C3 /* PurposeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeType.swift; sourceTree = "<group>"; };
+		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -952,6 +954,7 @@
 				08B9815A2C30877000F3CD45 /* UILabel+.swift */,
 				080199762C34731E00EB01CF /* UIStackView+.swift */,
 				54BF6D7C2C4057A900928B3F /* SizeAdjustments+.swift */,
+				54FD47C92CEDE9FD008EBC16 /* Double+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1425,6 +1428,7 @@
 				086E3D6E2C41792000C90787 /* NoRequestCell.swift in Sources */,
 				54EB17E62BA354F400717E6F /* PhotoCell.swift in Sources */,
 				54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */,
+				54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */,
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
