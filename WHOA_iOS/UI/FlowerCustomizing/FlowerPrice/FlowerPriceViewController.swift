@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class FlowerPriceViewController: UIViewController {
     
@@ -15,21 +16,23 @@ final class FlowerPriceViewController: UIViewController {
     private enum Metric {
         static let sideMargin = 20.0
         static let requestDetailViewTopOffset = 37.0
+        static let valueLabelTopOffset = 56.0
+        static let rangeSliderTopOffset = 20.0
+        static let rangeSliderHeight = 21.0
         static let bottomViewTopOffset = 22.0
     }
     
     /// Attributes
     private enum Attributes {
         static let headerViewTitle = "원하는 가격대 범위를\n설정해주세요"
-        static let minPrice: Double = 0
-        static let maxPrice: Double = 150000
-        static let valueLabelText = "\(minPrice) ~ \(maxPrice)원"
     }
     
     // MARK: - Properties
     
     private let viewModel: FlowerPriceViewModel
     weak var coordinator: CustomizingCoordinator?
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI
     
@@ -42,25 +45,12 @@ final class FlowerPriceViewController: UIViewController {
     
     private let valueLabel: UILabel = {
         let label = UILabel()
-        label.text = Attributes.valueLabelText
         label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = .black
-        label.numberOfLines = 0
         return label
     }()
     
-    private let rangeSlider: RangeSlider = {
-        let slider = RangeSlider()
-        slider.minValue = Attributes.minPrice
-        slider.maxValue = Attributes.maxPrice
-        slider.lower = Attributes.minPrice
-        slider.upper = Attributes.maxPrice
-        slider.trackColor = .gray02
-        slider.trackTintColor = .gray02
-        slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
-        return slider
-    }()
-    
+    private let rangeSlider = RangeSlider()
     private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
@@ -78,8 +68,9 @@ final class FlowerPriceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         setupUI()
+        bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,35 +97,42 @@ final class FlowerPriceViewController: UIViewController {
     }
     
     private func bind() {
-        viewModel.$flowerPriceModel
-            .receive(on: RunLoop.main)
-            .sink { [weak self] model in
-                self?.valueLabel.text = self?.viewModel.getPriceString()
-                self?.rangeSlider.lower = Double(model.minPrice)
-                self?.rangeSlider.upper = Double(model.maxPrice)
-//                self?.nextButton.isActive = true
-                self?.rangeSlider.trackTintColor = .second1
+        let input = FlowerPriceViewModel.Input(
+            minPriceChanged: rangeSlider.lowerPublisher,
+            maxPriceChanged: rangeSlider.upperPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.initPriceRange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] minPrice, maxPrice in
+                self?.rangeSlider.setLowerValue(Double(minPrice))
+                self?.rangeSlider.setUpperValue(Double(maxPrice))
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+        
+        output.updatePriceLabel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] priceText in
+                self?.valueLabel.text = priceText
+            }
+            .store(in: &cancellables)
+        
+        output.showPhotoSelectionView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showPhotoSelectionVC()
+            }
+            .store(in: &cancellables)
     }
     
-    // MARK: - Actions
-    
-    @objc
-    private func changeValue() {
-        viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
-    }
-    
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func nextButtonTapped() {
-        let price = viewModel.flowerPriceModel
-        viewModel.dataManager.setPrice(BouquetData.Price(min: price.minPrice, max: price.maxPrice))
-        coordinator?.showPhotoSelectionVC()
+    private func observe() {
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -148,15 +146,14 @@ extension FlowerPriceViewController {
         }
         
         valueLabel.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(56)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.valueLabelTopOffset)
             $0.centerX.equalToSuperview()
         }
         
         rangeSlider.snp.makeConstraints {
-            $0.top.equalTo(valueLabel.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(21)
+            $0.top.equalTo(valueLabel.snp.bottom).offset(Metric.rangeSliderTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(Metric.rangeSliderHeight)
         }
         
         bottomView.snp.makeConstraints {

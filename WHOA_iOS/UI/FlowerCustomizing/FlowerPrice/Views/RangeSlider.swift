@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 // 1. touch 영역 정보 - begin/continue/end tracking
 // 2. thumb뷰가 터치 되었는지 확인? 위 메소드에서 frame.contains로 확인
@@ -15,72 +16,56 @@ import SnapKit
 
 // MARK: Constant
 
-private enum Constant {
-    static let barRatio = 4.0 / 10.0
-}
 
 final class RangeSlider: UIControl {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let barRatio = 4.0 / 10.0
+    }
+    
     // MARK: Properties
     
-    // 최소값
+    private var lowerSubject = CurrentValueSubject<Double, Never>(0.0)
+    private var upperSubject = CurrentValueSubject<Double, Never>(150000.0)
+    private var cancellables = Set<AnyCancellable>()
+    
+    var lowerPublisher: AnyPublisher<Double, Never> {
+        lowerSubject.eraseToAnyPublisher()
+    }
+    
+    var upperPublisher: AnyPublisher<Double, Never> {
+        upperSubject.eraseToAnyPublisher()
+    }
+    
     var minValue = 0.0 {
-        didSet { self.lower = self.minValue }
+        didSet { lowerSubject.send(minValue) }
     }
     
-    // 최대값
-    var maxValue = 10.0 {
-        didSet { self.upper = self.maxValue }
+    var maxValue = 150000.0 {
+        didSet { upperSubject.send(maxValue) }
     }
     
-    // 최소값 위치
-    var lower = 0.0 {
-        didSet { self.updateLayout(self.lower, true) }
-    }
-    
-    // 최대값 위치
-    var upper = 0.0 {
-        didSet { self.updateLayout(self.upper, false) }
-    }
-    
-    // 최소값을 조정하는 핸들(버튼) 색상
-    var lowerThumbColor = UIColor.white {
-        didSet { self.lowerThumbButton.backgroundColor = self.lowerThumbColor }
-    }
-    
-    // 최대값을 조정하는 핸들(버튼) 색상
-    var upperThumbColor = UIColor.white {
-        didSet { self.upperThumbButton.backgroundColor = self.upperThumbColor }
-    }
-    
-    // 트랙 배경 색상
-    var trackColor = UIColor.gray {
-        didSet { self.trackView.backgroundColor = self.trackColor }
-    }
-    
-    // 트랙 선택된 범위의 색상
-    var trackTintColor = UIColor.green {
-        didSet { self.trackTintView.backgroundColor = self.trackTintColor }
-    }
-    
-    // 마지막으로 터치한 지점의 위치
+    /// 마지막으로 터치한 지점의 위치
     private var previousTouchPoint = CGPoint.zero
     
-    // LowerThumbView 터치 유무
+    /// LowerThumbView 터치 유무
     private var isLowerThumbViewTouched = false
     
-    // UpperThumbView 터치 유무
+    /// UpperThumbView 터치 유무
     private var isUpperThumbViewTouched = false
     
-    // 왼쪽 핸들의 위치를 조정 값
+    /// 왼쪽 핸들의 위치를 조정 값
     private var leftConstraint: Constraint?
     
-    // 오른쪽 핸들의 위치를 조정 값
+    /// 오른쪽 핸들의 위치를 조정 값
     private var rightConstraint: Constraint?
     
-    // 핸들의 길이
+    /// 핸들의 길이
     private var thumbViewLength: Double {
-        Double(self.bounds.height) // 길이 == 높이
+        Double(self.bounds.height)
     }
     
     // MARK: UI
@@ -99,24 +84,24 @@ final class RangeSlider: UIControl {
     
     private let trackView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .gray03
         view.isUserInteractionEnabled = false
         return view
     }()
     
     private let trackTintView: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .second1
         view.isUserInteractionEnabled = false
         return view
     }()
     
-    // MARK: Initialization
+    // MARK: Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupUI()
+        observe()
     }
     
     required init?(coder: NSCoder) {
@@ -126,12 +111,27 @@ final class RangeSlider: UIControl {
     // MARK: - Functions
     
     private func setupUI() {
-        addSubview(trackView)
-        addSubview(trackTintView)
-        addSubview(lowerThumbButton)
-        addSubview(upperThumbButton)
-    
+        [
+            trackView,
+            trackTintView,
+            lowerThumbButton,
+            upperThumbButton
+        ].forEach(addSubview(_:))
         setupAutoLayout()
+    }
+    
+    private func observe() {
+        lowerSubject
+            .sink { [weak self] newValue in
+                self?.updateLayout(newValue, true)
+            }
+            .store(in: &cancellables)
+        
+        upperSubject
+            .sink { [weak self] newValue in
+                self?.updateLayout(newValue, false)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: Touch
@@ -176,11 +176,9 @@ final class RangeSlider: UIControl {
         let scaledDrag = scale * drag / Double(self.bounds.width - self.thumbViewLength)
         
         if self.isLowerThumbViewTouched {
-            self.lower = (self.lower + scaledDrag)
-                .clamped(to: (self.minValue...self.upper))
-        } else {
-            self.upper = (self.upper + scaledDrag)
-                .clamped(to: (self.lower...self.maxValue))
+            lowerSubject.send((lowerSubject.value + scaledDrag).clamped(to: minValue...upperSubject.value))
+        } else if self.isUpperThumbViewTouched {
+            upperSubject.send((upperSubject.value + scaledDrag).clamped(to: lowerSubject.value...maxValue))
         }
         return true
     }
@@ -195,7 +193,7 @@ final class RangeSlider: UIControl {
         self.upperThumbButton.isSelected = false
     }
     
-    // MARK: Method
+    // MARK: Functions
     
     private func updateLayout(_ value: Double, _ isLowerThumb: Bool) {
         DispatchQueue.main.async {
@@ -210,7 +208,17 @@ final class RangeSlider: UIControl {
             }
         }
     }
+    
+    func setLowerValue(_ value: Double) {
+        lowerSubject.send(value)
+    }
+    
+    func setUpperValue(_ value: Double) {
+        upperSubject.send(value)
+    }
 }
+
+// MARK: - AutoLayout
 
 extension RangeSlider {
     private func setupAutoLayout() {
@@ -232,7 +240,7 @@ extension RangeSlider {
         
         trackView.snp.makeConstraints {
             $0.left.right.centerY.equalToSuperview()
-            $0.height.equalTo(self).multipliedBy(Constant.barRatio)
+            $0.height.equalTo(self).multipliedBy(Metric.barRatio)
         }
         
         trackTintView.snp.makeConstraints {
@@ -240,25 +248,6 @@ extension RangeSlider {
             $0.right.equalTo(self.upperThumbButton.snp.left)
             $0.top.bottom.equalTo(self.trackView)
         }
-    }
-}
-
-class RoundableButton: UIButton {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layer.cornerRadius = self.frame.height / 2
-    }
-}
-
-class ThumbButton: RoundableButton {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .white
-        self.layer.borderWidth = 2
-        self.layer.borderColor = UIColor.secondary03.cgColor
-    }
-    required init?(coder: NSCoder) {
-        fatalError()
     }
 }
 
