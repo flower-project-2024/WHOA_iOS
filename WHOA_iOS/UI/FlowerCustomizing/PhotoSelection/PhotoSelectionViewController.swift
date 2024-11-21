@@ -183,32 +183,7 @@ final class PhotoSelectionViewController: UIViewController {
         return scrollView
     }()
     
-    private let borderLine = ShadowBorderLine()
-    
-    private let backButton: UIButton = {
-        let button = BackButton(isActive: true)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private let nextButton: UIButton = {
-        let button = NextButton()
-        button.isActive = true
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0) }
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
@@ -245,7 +220,9 @@ final class PhotoSelectionViewController: UIViewController {
         view.backgroundColor = .white
         
         [
-            headerView
+            headerView,
+            bottomView
+            
         ].forEach(view.addSubview(_:))
         
         view.addSubview(requirementLabel)
@@ -258,9 +235,6 @@ final class PhotoSelectionViewController: UIViewController {
         photoImageView1.addSubview(minusImageView1)
         photoImageView2.addSubview(minusImageView2)
         photoImageView3.addSubview(minusImageView3)
-        
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
         
         setupAutoLayout()
         requirementTextView.delegate = self
@@ -437,20 +411,9 @@ extension PhotoSelectionViewController {
             }
         }
         
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
