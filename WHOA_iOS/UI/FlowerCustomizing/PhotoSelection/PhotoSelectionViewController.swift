@@ -10,6 +10,18 @@ import Photos
 
 final class PhotoSelectionViewController: UIViewController {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewTitle = "추가로 사장님께\n요구할 사항들을 작성해주세요"
+    }
+    
     // MARK: - Properties
     
     private let viewModel: PhotoSelectionViewModel
@@ -17,9 +29,12 @@ final class PhotoSelectionViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 6, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "추가로 사장님께\n요구할 사항들을 작성해주세요")
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 6,
+        title: Attributes.headerViewTitle
+    )
     
     private let requirementLabel: UILabel = {
         let label = UILabel()
@@ -216,16 +231,12 @@ final class PhotoSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
@@ -233,9 +244,9 @@ final class PhotoSelectionViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
+        [
+            headerView
+        ].forEach(view.addSubview(_:))
         
         view.addSubview(requirementLabel)
         view.addSubview(requirementTextView)
@@ -375,25 +386,13 @@ final class PhotoSelectionViewController: UIViewController {
 
 extension PhotoSelectionViewController {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(20)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
         requirementLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(headerView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(280)
         }
