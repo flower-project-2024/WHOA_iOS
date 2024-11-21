@@ -337,9 +337,7 @@ extension RequestDetailViewController: BouquetProductionSuccessDelegate {
                 let vc = PhotoViewController(photosCount: 0, photoSelectionLimitCount: 1)
                 vc.modalPresentationStyle = .fullScreen
                 vc.completionHandler = { [self] photos in
-                    print("photos: \(photos)")
                     let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
-                    print("photoDatas: \(photoDatas[0])")
                     self.viewModel.postProductedBouquetImage(bouquetId: self.viewModel.getBouquetId(),
                                                              imageFile: ImageFile(filename: "RealBouquetImg",
                                                                                   data: photoDatas[0],

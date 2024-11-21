@@ -368,7 +368,6 @@ final class PhotoSelectionViewController: UIViewController {
     @objc
     private func nextButtonTapped() {
         let model = viewModel.getPhotoSelectionModel()
-        print(model)
         viewModel.dataManager.setRequirement(BouquetData.Requirement(text: model.text, images: model.photoDatas))
         coordinator?.showCustomizingSummaryVC()
     }

@@ -6,66 +6,52 @@
 //
 
 import UIKit
+import Combine
 
 final class FlowerPriceViewController: UIViewController {
+    
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 20.0
+        static let requestDetailViewTopOffset = 37.0
+        static let valueLabelTopOffset = 56.0
+        static let rangeSliderTopOffset = 20.0
+        static let rangeSliderHeight = 21.0
+        static let bottomViewTopOffset = 22.0
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerViewTitle = "원하는 가격대 범위를\n설정해주세요"
+    }
     
     // MARK: - Properties
     
     private let viewModel: FlowerPriceViewModel
     weak var coordinator: CustomizingCoordinator?
     
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: self, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 5, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "원하는 가격대 범위를\n설정해주세요")
+    private lazy var headerView = CustomHeaderView(
+        currentVC: self,
+        coordinator: coordinator,
+        numerator: 5,
+        title: Attributes.headerViewTitle
+    )
     
     private let valueLabel: UILabel = {
         let label = UILabel()
-        label.text = "0 ~ 150000원"
         label.font = .Pretendard(size: 20, family: .Bold)
         label.textColor = .black
-        label.numberOfLines = 0
         return label
     }()
     
-    private let rangeSlider: RangeSlider = {
-        let slider = RangeSlider()
-        slider.minValue = 0
-        slider.maxValue = 150000
-        slider.lower = 0
-        slider.upper = 150000
-        slider.trackColor = .gray02
-        slider.trackTintColor = .gray02
-        slider.addTarget(self, action: #selector(changeValue), for: .valueChanged)
-        return slider
-    }()
-    
-    private let borderLine = ShadowBorderLine()
-    
-    private let backButton: BackButton = {
-        let button = BackButton(isActive: true)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private let nextButton: NextButton = {
-        let button = NextButton()
-        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
+    private let rangeSlider = RangeSlider()
+    private let bottomView = CustomBottomView(backButtonState: .enabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
@@ -82,120 +68,97 @@ final class FlowerPriceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind()
         setupUI()
+        bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
-        
-        view.addSubview(exitButton)
-        view.addSubview(progressHStackView)
-        view.addSubview(titleLabel)
-        view.addSubview(valueLabel)
-        view.addSubview(rangeSlider)
-        
-        view.addSubview(borderLine)
-        view.addSubview(navigationHStackView)
-        
+        [
+            headerView,
+            valueLabel,
+            rangeSlider,
+            bottomView
+        ].forEach(view.addSubview(_:))
         setupAutoLayout()
     }
     
     private func bind() {
-        viewModel.$flowerPriceModel
-            .receive(on: RunLoop.main)
-            .sink { [weak self] model in
-                self?.valueLabel.text = self?.viewModel.getPriceString()
-                self?.rangeSlider.lower = Double(model.minPrice)
-                self?.rangeSlider.upper = Double(model.maxPrice)
-                self?.nextButton.isActive = true
-                self?.rangeSlider.trackTintColor = .second1
+        let input = FlowerPriceViewModel.Input(
+            minPriceChanged: rangeSlider.lowerPublisher,
+            maxPriceChanged: rangeSlider.upperPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.initPriceRange
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] minPrice, maxPrice in
+                self?.rangeSlider.setLowerValue(Double(minPrice))
+                self?.rangeSlider.setUpperValue(Double(maxPrice))
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+        
+        output.updatePriceLabel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] priceText in
+                self?.valueLabel.text = priceText
+            }
+            .store(in: &cancellables)
+        
+        output.showPhotoSelectionView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showPhotoSelectionVC()
+            }
+            .store(in: &cancellables)
     }
     
-    // MARK: - Actions
-    
-    @objc
-    private func changeValue() {
-        viewModel.setPrice(min: rangeSlider.lower, max: rangeSlider.upper)
-    }
-    
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc
-    private func nextButtonTapped() {
-        let price = viewModel.flowerPriceModel
-        viewModel.dataManager.setPrice(BouquetData.Price(min: price.minPrice, max: price.maxPrice))
-        coordinator?.showPhotoSelectionVC()
+    private func observe() {
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
     }
 }
 
+// MARK: - AutoLayout
+
 extension FlowerPriceViewController {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-50)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
         }
         
         valueLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(56)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.valueLabelTopOffset)
             $0.centerX.equalToSuperview()
         }
         
         rangeSlider.snp.makeConstraints {
-            $0.top.equalTo(valueLabel.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().offset(-20)
-            $0.height.equalTo(21)
+            $0.top.equalTo(valueLabel.snp.bottom).offset(Metric.rangeSliderTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(Metric.rangeSliderHeight)
         }
         
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }
