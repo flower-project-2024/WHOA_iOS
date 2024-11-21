@@ -15,6 +15,8 @@ final class PhotoSelectionViewController: UIViewController {
     /// Metrics
     private enum Metric {
         static let sideMargin = 20.0
+        static let requirementTextViewTopOffset = 16.0
+        static let requirementTextViewHeightMultiplier = 0.34
     }
     
     /// Attributes
@@ -44,26 +46,7 @@ final class PhotoSelectionViewController: UIViewController {
         return label
     }()
     
-    private let requirementTextView: UITextView = {
-        let view = UITextView()
-        view.font = .Pretendard()
-        view.textColor = .black
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.gray06.cgColor
-        view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
-        return view
-    }()
-    
-    private let placeholder: UILabel = {
-        let label = UILabel()
-        label.text = "요구사항을 작성해주세요."
-        label.textColor = .gray06
-        label.font = .Pretendard()
-        return label
-    }()
+    private let requirementTextView = RequirementTextView()
     
     private let photoLabel: UILabel = {
         let label = UILabel()
@@ -221,13 +204,12 @@ final class PhotoSelectionViewController: UIViewController {
         
         [
             headerView,
+            requirementLabel,
+            requirementTextView,
             bottomView
             
         ].forEach(view.addSubview(_:))
         
-        view.addSubview(requirementLabel)
-        view.addSubview(requirementTextView)
-        view.addSubview(placeholder)
         view.addSubview(photoLabel)
         view.addSubview(photoImageHScrollView)
         photoImageHScrollView.addSubview(photoImageViewHStackView)
@@ -237,14 +219,11 @@ final class PhotoSelectionViewController: UIViewController {
         photoImageView3.addSubview(minusImageView3)
         
         setupAutoLayout()
-        requirementTextView.delegate = self
     }
     
     private func configUI() {
         updateImageViews(with: viewModel.photoSelectionModel.photoDatas)
         updateMinusImageViews()
-        requirementTextView.text = viewModel.photoSelectionModel.text
-        placeholder.isHidden = viewModel.photoSelectionModel.text != ""
     }
     
     private func resetImageViews() {
@@ -358,6 +337,8 @@ final class PhotoSelectionViewController: UIViewController {
     }
 }
 
+// MARK: - AutoLayout
+
 extension PhotoSelectionViewController {
     private func setupAutoLayout() {
         headerView.snp.makeConstraints {
@@ -368,17 +349,12 @@ extension PhotoSelectionViewController {
         requirementLabel.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(280)
         }
         
         requirementTextView.snp.makeConstraints {
-            $0.top.equalTo(requirementLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(120)
-        }
-        
-        placeholder.snp.makeConstraints {
-            $0.top.leading.equalTo(requirementTextView).offset(20)
+            $0.top.equalTo(requirementLabel.snp.bottom).offset(Metric.requirementTextViewTopOffset)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.height.equalTo(self.requirementTextView.snp.width).multipliedBy(Metric.requirementTextViewHeightMultiplier)
         }
         
         photoLabel.snp.makeConstraints {
@@ -415,28 +391,5 @@ extension PhotoSelectionViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
-    }
-}
-
-extension PhotoSelectionViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.second1.cgColor
-        placeholder.isHidden = true
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        requirementTextView.layer.borderColor = UIColor.gray04.cgColor
-        
-        if textView.text.count == 0 {
-            placeholder.isHidden = false
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true) /// 화면을 누르면 키보드 내려가게 하는 것
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        viewModel.updateText(textView.text)
     }
 }
