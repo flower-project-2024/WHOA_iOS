@@ -22,6 +22,8 @@ final class PhotoSelectionViewController: UIViewController {
     /// Attributes
     private enum Attributes {
         static let headerViewTitle = "추가로 사장님께\n요구할 사항들을 작성해주세요"
+        static let requirementLabelText = "요구사항"
+        static let photoLabelText = "참고 사진"
     }
     
     // MARK: - Properties
@@ -38,23 +40,9 @@ final class PhotoSelectionViewController: UIViewController {
         title: Attributes.headerViewTitle
     )
     
-    private let requirementLabel: UILabel = {
-        let label = UILabel()
-        label.text = "요구사항"
-        label.textColor = .black
-        label.font = .Pretendard(size: 16, family: .SemiBold)
-        return label
-    }()
-    
+    private lazy var requirementLabel = buildLabel(text: Attributes.requirementLabelText)
     private let requirementTextView = RequirementTextView()
-    
-    private let photoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "참고 사진"
-        label.textColor = .black
-        label.font = .Pretendard(size: 16, family: .SemiBold)
-        return label
-    }()
+    private lazy var photoLabel = buildLabel(text: Attributes.photoLabelText)
     
     private lazy var addImageButton: UIImageView = {
         let imageView = UIImageView()
@@ -256,6 +244,14 @@ final class PhotoSelectionViewController: UIViewController {
         minusImageView1.isHidden = photoImageView1.image == UIImage(named: "PhotoIcon")
         minusImageView2.isHidden = photoImageView2.image == UIImage(named: "PhotoIcon")
         minusImageView3.isHidden = photoImageView3.image == UIImage(named: "PhotoIcon")
+    }
+    
+    private func buildLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.textColor = .black
+        label.font = .Pretendard(size: 16, family: .SemiBold)
+        return label
     }
     
     // MARK: - Actions
