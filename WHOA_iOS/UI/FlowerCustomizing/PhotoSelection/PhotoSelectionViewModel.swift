@@ -12,12 +12,16 @@ final class PhotoSelectionViewModel {
     // MARK: - Properties
     
     let dataManager: BouquetDataManaging
-    let authService = MyPhotoAuthService()
+    let photoAuthService: PhotoAuthService
     var photoSelectionModel: PhotoSelectionModel
     
     // MARK: - Initialize
     
-    init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {
+    init(
+        dataManager: BouquetDataManaging = BouquetDataManager.shared,
+        authService: PhotoAuthService = MyPhotoAuthService()
+    ) {
+        self.photoAuthService = authService
         self.dataManager = dataManager
         let requirement = dataManager.getRequirement()
         photoSelectionModel = PhotoSelectionModel(photoDatas: requirement.images, text: requirement.text)
