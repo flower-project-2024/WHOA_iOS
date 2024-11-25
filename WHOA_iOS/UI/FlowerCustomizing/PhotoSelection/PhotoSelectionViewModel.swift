@@ -6,14 +6,24 @@
 //
 
 import Foundation
+import Combine
 
-final class PhotoSelectionViewModel {
+final class PhotoSelectionViewModel: ViewModel {
     
     // MARK: - Properties
+    
+    struct Input {
+        let nextButtonTapped: AnyPublisher<Void, Never>
+    }
+    
+    struct Output {
+        let showCustomizingSummaryView: AnyPublisher<Void, Never>
+    }
     
     let dataManager: BouquetDataManaging
     let photoAuthService: PhotoAuthService
     var photoSelectionModel: PhotoSelectionModel
+    private let showCustomizingSummaryViewSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Initialize
     
@@ -28,6 +38,12 @@ final class PhotoSelectionViewModel {
     }
     
     // MARK: - Functions
+    
+    func transform(input: Input) -> Output {
+        return Output(
+            showCustomizingSummaryView: showCustomizingSummaryViewSubject.eraseToAnyPublisher()
+        )
+    }
     
     func getPhotoSelectionModel() -> PhotoSelectionModel {
         return photoSelectionModel
