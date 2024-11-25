@@ -36,6 +36,15 @@ final class PhotoSelectionViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
+    private lazy var viewTapPublisher: AnyPublisher<Void, Never> = {
+        let tapGesture = UITapGestureRecognizer()
+        view.addGestureRecognizer(tapGesture)
+        return tapGesture.publisher(for: \.state)
+            .filter { $0 == .ended }
+            .map { _ in }
+            .eraseToAnyPublisher()
+    }()
+    
     // MARK: - UI
     
     private lazy var headerView = CustomHeaderView(
@@ -67,7 +76,7 @@ final class PhotoSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-//        configUI()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,6 +111,12 @@ final class PhotoSelectionViewController: UIViewController {
     }
     
     private func observe() {
+        viewTapPublisher
+            .sink { [weak self] _ in
+                self?.view.endEditing(true)
+            }
+            .store(in: &cancellables)
+        
         bottomView.backButtonTappedPublisher
             .sink { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
