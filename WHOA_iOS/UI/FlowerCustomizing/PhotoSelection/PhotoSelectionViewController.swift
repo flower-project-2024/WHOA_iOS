@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 import Photos
 
@@ -32,6 +33,7 @@ final class PhotoSelectionViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PhotoSelectionViewModel
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
@@ -95,6 +97,18 @@ final class PhotoSelectionViewController: UIViewController {
         setupAutoLayout()
     }
     
+    private func bind() {
+        
+    }
+    
+    private func observe() {
+        bottomView.backButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .store(in: &cancellables)
+    }
+    
 //    private func configUI() {
 //        updateImageViews(with: viewModel.photoSelectionModel.photoDatas)
 //        updateMinusImageViews()
@@ -155,7 +169,7 @@ final class PhotoSelectionViewController: UIViewController {
 //    
 //    @objc
 //    func photoImageViewTapped() {
-//        viewModel.authService.requestAuthorization { [weak self] result in
+//        viewModel.photoAuthService.requestAuthorization { [weak self] result in
 //            guard let self else { return }
 //            
 //            switch result {
