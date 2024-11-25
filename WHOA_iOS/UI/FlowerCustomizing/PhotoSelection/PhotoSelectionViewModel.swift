@@ -13,6 +13,7 @@ final class PhotoSelectionViewModel: ViewModel {
     // MARK: - Properties
     
     struct Input {
+        let textInput: AnyPublisher<String, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
@@ -23,7 +24,9 @@ final class PhotoSelectionViewModel: ViewModel {
     let dataManager: BouquetDataManaging
     let photoAuthService: PhotoAuthService
     var photoSelectionModel: PhotoSelectionModel
+    private let textInputSubject = CurrentValueSubject<String, Never>("")
     private let showCustomizingSummaryViewSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
     
@@ -40,6 +43,11 @@ final class PhotoSelectionViewModel: ViewModel {
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
+        
+        input.textInput
+            .assign(to: \.value, on: textInputSubject)
+            .store(in: &cancellables)
+        
         return Output(
             showCustomizingSummaryView: showCustomizingSummaryViewSubject.eraseToAnyPublisher()
         )

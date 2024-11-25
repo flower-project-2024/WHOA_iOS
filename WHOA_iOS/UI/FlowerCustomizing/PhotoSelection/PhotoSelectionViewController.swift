@@ -124,11 +124,6 @@ final class PhotoSelectionViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-//    private func configUI() {
-//        updateImageViews(with: viewModel.photoSelectionModel.photoDatas)
-//        updateMinusImageViews()
-//    }
-    
 //    private func resetImageViews() {
 //        photoImageView1.image = UIImage(named: "PhotoIcon")
 //        photoImageView2.image = UIImage(named: "PhotoIcon")
@@ -235,11 +230,6 @@ final class PhotoSelectionViewController: UIViewController {
 //            }
 //        }
 //    }
-    
-    @objc
-    private func backButtonTapped() {
-        navigationController?.popViewController(animated: true)
-    }
     
     @objc
     private func nextButtonTapped() {
