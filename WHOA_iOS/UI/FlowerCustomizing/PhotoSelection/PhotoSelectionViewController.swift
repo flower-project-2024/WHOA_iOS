@@ -122,6 +122,12 @@ final class PhotoSelectionViewController: UIViewController {
                 self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
+        
+        bottomView.nextButtonTappedPublisher
+            .sink { [weak self] _ in
+                self?.coordinator?.showCustomizingSummaryVC()
+            }
+            .store(in: &cancellables)
     }
     
 //    private func resetImageViews() {
@@ -230,13 +236,13 @@ final class PhotoSelectionViewController: UIViewController {
 //            }
 //        }
 //    }
-    
-    @objc
-    private func nextButtonTapped() {
-        let model = viewModel.getPhotoSelectionModel()
-        viewModel.dataManager.setRequirement(BouquetData.Requirement(text: model.text, images: model.photoDatas))
-        coordinator?.showCustomizingSummaryVC()
-    }
+//    
+//    @objc
+//    private func nextButtonTapped() {
+//        let model = viewModel.getPhotoSelectionModel()
+//        viewModel.dataManager.setRequirement(BouquetData.Requirement(text: model.text, images: model.photoDatas))
+//        coordinator?.showCustomizingSummaryVC()
+//    }
 }
 
 // MARK: - AutoLayout
