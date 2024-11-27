@@ -186,6 +186,30 @@ final class PhotoSelectionView: UIView {
         return imageView
     }
     
+    func upadtePhotoImageView(photosData: [Data]) {
+        let photoImageViews = [
+            photoImageView1,
+            photoImageView2,
+            photoImageView3
+        ]
+        let minusImageViews = [
+            minusImageView1,
+            minusImageView2,
+            minusImageView3
+        ]
+        
+        for (index, photoData) in photosData.enumerated() {
+            photoImageViews[index].image = UIImage(data: photoData)
+            photoImageViews[index].contentMode = .scaleAspectFill
+            minusImageViews[index].isHidden = false
+        }
+        
+        for index in photosData.count..<photoImageViews.count {
+            photoImageViews[index].image = Attributes.photoIcon
+            photoImageViews[index].contentMode = .center
+            minusImageViews[index].isHidden = true
+        }
+    }
     // MARK: - Actions
     
     @objc

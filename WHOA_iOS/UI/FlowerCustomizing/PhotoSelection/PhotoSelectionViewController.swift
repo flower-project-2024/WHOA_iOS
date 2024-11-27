@@ -107,6 +107,20 @@ final class PhotoSelectionViewController: UIViewController {
     }
     
     private func bind() {
+        let input = PhotoSelectionViewModel.Input(
+            textInput: requirementTextView.textInputPublisher,
+            addImageButtonTapped: photoSelectionView.addImageButtonTappedPublisher,
+            minusButtonTapped: photoSelectionView.minusButtonTappedPublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.updatePhotosData
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] photosData in
+                self?.photoSelectionView.upadtePhotoImageView(photosData: photosData)
+            }
+            .store(in: &cancellables)
         
     }
     
@@ -130,39 +144,6 @@ final class PhotoSelectionViewController: UIViewController {
             .store(in: &cancellables)
     }
     
-//    private func resetImageViews() {
-//        photoImageView1.image = UIImage(named: "PhotoIcon")
-//        photoImageView2.image = UIImage(named: "PhotoIcon")
-//        photoImageView3.image = UIImage(named: "PhotoIcon")
-//        photoImageView1.contentMode = .center
-//        photoImageView2.contentMode = .center
-//        photoImageView3.contentMode = .center
-//    }
-    
-//    private func updateImageViews(with photos: [Data]) {
-//        for (index, data) in photos.enumerated() {
-//            switch index {
-//            case 0:
-//                photoImageView1.image = UIImage(data: data)
-//                photoImageView1.contentMode = .scaleAspectFill
-//            case 1:
-//                photoImageView2.image = UIImage(data: data)
-//                photoImageView2.contentMode = .scaleAspectFill
-//            case 2:
-//                photoImageView3.image = UIImage(data: data)
-//                photoImageView3.contentMode = .scaleAspectFill
-//            default:
-//                break
-//            }
-//        }
-//    }
-    
-//    private func updateMinusImageViews() {
-//        minusImageView1.isHidden = photoImageView1.image == UIImage(named: "PhotoIcon")
-//        minusImageView2.isHidden = photoImageView2.image == UIImage(named: "PhotoIcon")
-//        minusImageView3.isHidden = photoImageView3.image == UIImage(named: "PhotoIcon")
-//    }
-    
     private func buildLabel(text: String) -> UILabel {
         let label = UILabel()
         label.text = text
@@ -171,78 +152,60 @@ final class PhotoSelectionViewController: UIViewController {
         return label
     }
     
-    // MARK: - Actions
-    
-//    @objc
-//    func minusImageViewTapped(_ sender: UITapGestureRecognizer) {
-//        let idx = sender.view?.tag == 1 ? 0 : sender.view?.tag == 2 ? 1 : 2
-//        
-//        viewModel.photoSelectionModel.photoDatas.remove(at: idx)
-//        resetImageViews()
-//        updateImageViews(with: viewModel.getPhotosArray())
-//        updateMinusImageViews()
-//    }
-//    
-//    @objc
-//    func photoImageViewTapped() {
-//        viewModel.photoAuthService.requestAuthorization { [weak self] result in
-//            guard let self else { return }
-//            
-//            switch result {
-//            case .success:
-//                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount(), photoSelectionLimitCount: 3)
-//                vc.modalPresentationStyle = .fullScreen
-//                vc.completionHandler = { photos in
-//                    let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
-//                    self.viewModel.addPhotos(photos: photoDatas)
-//                    
-//                    for i in 0..<self.viewModel.getPhotosCount() {
-//                        switch i {
-//                        case 0:
-//                            self.photoImageView1.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-//                            self.photoImageView1.contentMode = .scaleAspectFill
-//                            self.minusImageView1.isHidden = false
-//                        case 1:
-//                            self.photoImageView2.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-//                            self.photoImageView2.contentMode = .scaleAspectFill
-//                            self.minusImageView2.isHidden = false
-//                        case 2:
-//                            self.photoImageView3.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-//                            self.photoImageView3.contentMode = .scaleAspectFill
-//                            self.minusImageView3.isHidden = false
-//                        default:
-//                            continue
-//                        }
-//                    }
-//                    
-//                    switch self.viewModel.getPhotosCount() {
-//                    case 1:
-//                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
-//                        self.photoImageView3.contentMode = .center
-//                    case 0:
-//                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
-//                        self.photoImageView2.image = UIImage(named: "PhotoIcon")
-//                        self.photoImageView3.contentMode = .center
-//                        self.photoImageView2.contentMode = .center
-//                    default:
-//                        break
-//                    }
-//                }
-//                
-//                present(vc, animated: true)
-//                
-//            case .failure:
-//                return
-//            }
-//        }
-//    }
-//    
-//    @objc
-//    private func nextButtonTapped() {
-//        let model = viewModel.getPhotoSelectionModel()
-//        viewModel.dataManager.setRequirement(BouquetData.Requirement(text: model.text, images: model.photoDatas))
-//        coordinator?.showCustomizingSummaryVC()
-//    }
+    //
+    //    @objc
+    //    func photoImageViewTapped() {
+    //        viewModel.photoAuthService.requestAuthorization { [weak self] result in
+    //            guard let self else { return }
+    //
+    //            switch result {
+    //            case .success:
+    //                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount(), photoSelectionLimitCount: 3)
+    //                vc.modalPresentationStyle = .fullScreen
+    //                vc.completionHandler = { photos in
+    //                    let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
+    //                    self.viewModel.addPhotos(photos: photoDatas)
+    //
+    //                    for i in 0..<self.viewModel.getPhotosCount() {
+    //                        switch i {
+    //                        case 0:
+    //                            self.photoImageView1.image = UIImage(data: self.viewModel.getPhoto(idx: i))
+    //                            self.photoImageView1.contentMode = .scaleAspectFill
+    //                            self.minusImageView1.isHidden = false
+    //                        case 1:
+    //                            self.photoImageView2.image = UIImage(data: self.viewModel.getPhoto(idx: i))
+    //                            self.photoImageView2.contentMode = .scaleAspectFill
+    //                            self.minusImageView2.isHidden = false
+    //                        case 2:
+    //                            self.photoImageView3.image = UIImage(data: self.viewModel.getPhoto(idx: i))
+    //                            self.photoImageView3.contentMode = .scaleAspectFill
+    //                            self.minusImageView3.isHidden = false
+    //                        default:
+    //                            continue
+    //                        }
+    //                    }
+    //
+    //                    switch self.viewModel.getPhotosCount() {
+    //                    case 1:
+    //                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
+    //                        self.photoImageView3.contentMode = .center
+    //                    case 0:
+    //                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
+    //                        self.photoImageView2.image = UIImage(named: "PhotoIcon")
+    //                        self.photoImageView3.contentMode = .center
+    //                        self.photoImageView2.contentMode = .center
+    //                    default:
+    //                        break
+    //                    }
+    //                }
+    //
+    //                present(vc, animated: true)
+    //
+    //            case .failure:
+    //                return
+    //            }
+    //        }
+    //    }
 }
 
 // MARK: - AutoLayout

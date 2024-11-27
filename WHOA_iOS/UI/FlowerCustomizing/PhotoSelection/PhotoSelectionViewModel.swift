@@ -14,16 +14,19 @@ final class PhotoSelectionViewModel: ViewModel {
     
     struct Input {
         let textInput: AnyPublisher<String, Never>
+        let addImageButtonTapped: AnyPublisher<Void, Never>
+        let minusButtonTapped: AnyPublisher<Int, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
+        let updatePhotosData: AnyPublisher<[Data], Never>
         let showCustomizingSummaryView: AnyPublisher<Void, Never>
     }
     
-    let dataManager: BouquetDataManaging
-    let photoAuthService: PhotoAuthService
-    var photoSelectionModel: PhotoSelectionModel
+    private let dataManager: BouquetDataManaging
+    private let photoAuthService: PhotoAuthService
+    private let requirementPhotos = CurrentValueSubject<[Data], Never>([])
     private let textInputSubject = CurrentValueSubject<String, Never>("")
     private let showCustomizingSummaryViewSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -36,45 +39,32 @@ final class PhotoSelectionViewModel: ViewModel {
     ) {
         self.photoAuthService = authService
         self.dataManager = dataManager
-        let requirement = dataManager.getRequirement()
-        photoSelectionModel = PhotoSelectionModel(photoDatas: requirement.images, text: requirement.text)
     }
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
-        
         input.textInput
             .assign(to: \.value, on: textInputSubject)
             .store(in: &cancellables)
         
+        input.minusButtonTapped
+            .sink { [weak self] index in
+                self?.removePhoto(at: index)
+            }
+            .store(in: &cancellables)
+        
         return Output(
+            updatePhotosData: requirementPhotos.eraseToAnyPublisher(),
             showCustomizingSummaryView: showCustomizingSummaryViewSubject.eraseToAnyPublisher()
         )
     }
     
-    func getPhotoSelectionModel() -> PhotoSelectionModel {
-        return photoSelectionModel
+    private func removePhoto(at index: Int) {
+        var currentPhotos = requirementPhotos.value
+        
+        guard index >= 0 && index < currentPhotos.count else { return }
+        currentPhotos.remove(at: index)
+        requirementPhotos.send(currentPhotos)
     }
-    
-    func addPhotos(photos: [Data]) {
-        photoSelectionModel.photoDatas.append(contentsOf: photos)
-    }
-    
-    func getPhoto(idx: Int) -> Data {
-        return photoSelectionModel.photoDatas[idx]
-    }
-    
-    func getPhotosArray() -> [Data] {
-        return photoSelectionModel.photoDatas
-    }
-    
-    func getPhotosCount() -> Int {
-        return photoSelectionModel.photoDatas.count
-    }
-    
-    func updateText(_ text: String) {
-        photoSelectionModel.text = text
-    }
-    
 }
