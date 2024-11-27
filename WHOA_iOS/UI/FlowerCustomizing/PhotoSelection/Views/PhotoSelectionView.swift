@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class PhotoSelectionView: UIView {
     
@@ -28,6 +29,18 @@ final class PhotoSelectionView: UIView {
     
     // MARK: - Properties
     
+    private let addImageButtonTappedSubject = PassthroughSubject<Void, Never>()
+    private let minusButtonTappedSubject = PassthroughSubject<Int, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    var addImageButtonTappedPublisher: AnyPublisher<Void, Never> {
+        return addImageButtonTappedSubject.eraseToAnyPublisher()
+    }
+    
+    var minusButtonTappedPublisher: AnyPublisher<Int, Never> {
+        return minusButtonTappedSubject.eraseToAnyPublisher()
+    }
+    
     // MARK: - UI
     
     private let scrollView: UIScrollView = {
@@ -44,7 +57,9 @@ final class PhotoSelectionView: UIView {
             backgroundColor: .gray02,
             tintColor: .black
         )
-        // 터치 이벤트 필요
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -63,7 +78,10 @@ final class PhotoSelectionView: UIView {
             cornerRadius: 0,
             isHidden: true
         )
-        // 터치 이벤트 필요
+        imageView.tag = 0
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -82,7 +100,10 @@ final class PhotoSelectionView: UIView {
             cornerRadius: 0,
             isHidden: true
         )
-        // 터치 이벤트 필요
+        imageView.tag = 1
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -101,7 +122,10 @@ final class PhotoSelectionView: UIView {
             cornerRadius: 0,
             isHidden: true
         )
-        // 터치 이벤트 필요
+        imageView.tag = 2
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
     
@@ -160,6 +184,19 @@ final class PhotoSelectionView: UIView {
         imageView.layer.masksToBounds = cornerRadius > 0
         imageView.isHidden = isHidden
         return imageView
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func addImageButtonTapped() {
+        addImageButtonTappedSubject.send()
+    }
+    
+    @objc
+    private func minusButtonTapped(_ sender: UITapGestureRecognizer) {
+        guard let index = sender.view?.tag else { return }
+        minusButtonTappedSubject.send(index)
     }
 }
 
