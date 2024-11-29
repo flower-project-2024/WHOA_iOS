@@ -58,7 +58,6 @@ final class PhotoSelectionView: UIView {
             tintColor: .black
         )
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addImageButtonTapped))
-        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
@@ -80,7 +79,6 @@ final class PhotoSelectionView: UIView {
         )
         imageView.tag = 0
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
-        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
@@ -102,7 +100,6 @@ final class PhotoSelectionView: UIView {
         )
         imageView.tag = 1
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
-        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
@@ -124,7 +121,6 @@ final class PhotoSelectionView: UIView {
         )
         imageView.tag = 2
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(minusButtonTapped(_:)))
-        imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
@@ -182,6 +178,7 @@ final class PhotoSelectionView: UIView {
         imageView.contentMode = contentMode
         imageView.layer.cornerRadius = cornerRadius
         imageView.layer.masksToBounds = cornerRadius > 0
+        imageView.isUserInteractionEnabled = true
         imageView.isHidden = isHidden
         return imageView
     }
