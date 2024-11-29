@@ -107,4 +107,23 @@ extension CustomizingCoordinator {
         saveAlertVC.modalPresentationStyle = .overFullScreen
         currentVC.present(saveAlertVC, animated: false)
     }
+    
+    func showPhotoPicker(
+        from currentVC: UIViewController?,
+        photosCount: Int,
+        photoSelectionLimitCount: Int,
+        completion: @escaping ([Int: UIImage?]) -> Void
+    ) {
+        
+        let photoPickerVC = PhotoViewController(
+            photosCount: photosCount,
+            photoSelectionLimitCount: photoSelectionLimitCount
+        )
+        photoPickerVC.modalPresentationStyle = .fullScreen
+        currentVC?.present(photoPickerVC, animated: true)
+        
+        photoPickerVC.completionHandler = { selectedImages in
+            completion(selectedImages)
+        }
+    }
 }
