@@ -28,11 +28,13 @@ final class PhotoSelectionViewController: UIViewController {
         static let headerViewTitle = "추가로 사장님께\n요구할 사항들을 작성해주세요"
         static let requirementLabelText = "요구사항"
         static let photoLabelText = "참고 사진"
+        static let photoSelectionLimitCount = 3
     }
     
     // MARK: - Properties
     
     private let viewModel: PhotoSelectionViewModel
+    private let photosSelectedSubject = PassthroughSubject<[Data], Never>()
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
@@ -76,6 +78,7 @@ final class PhotoSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bind()
         observe()
     }
     
@@ -111,6 +114,7 @@ final class PhotoSelectionViewController: UIViewController {
             textInput: requirementTextView.textInputPublisher,
             addImageButtonTapped: photoSelectionView.addImageButtonTappedPublisher,
             minusButtonTapped: photoSelectionView.minusButtonTappedPublisher,
+            photosSelected: photosSelectedSubject.eraseToAnyPublisher(),
             nextButtonTapped: bottomView.nextButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)
@@ -122,6 +126,21 @@ final class PhotoSelectionViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+        output.showPhotoView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] availablePhotoCount in
+                guard let self = self else { return }
+                self.coordinator?.showPhotoPicker(
+                    from: self,
+                    photosCount: availablePhotoCount,
+                    photoSelectionLimitCount: Attributes.photoSelectionLimitCount
+                ) { [weak self] selectedImages in
+                    guard let self = self else { return }
+                    let photoDatas = selectedImages.values.compactMap { $0 }.compactMap { $0.pngData() }
+                    self.photosSelectedSubject.send(photoDatas)
+                }
+            }
+            .store(in: &cancellables)
     }
     
     private func observe() {
@@ -151,61 +170,6 @@ final class PhotoSelectionViewController: UIViewController {
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }
-    
-    //
-    //    @objc
-    //    func photoImageViewTapped() {
-    //        viewModel.photoAuthService.requestAuthorization { [weak self] result in
-    //            guard let self else { return }
-    //
-    //            switch result {
-    //            case .success:
-    //                let vc = PhotoViewController(photosCount: viewModel.getPhotosCount(), photoSelectionLimitCount: 3)
-    //                vc.modalPresentationStyle = .fullScreen
-    //                vc.completionHandler = { photos in
-    //                    let photoDatas = photos.values.compactMap{ $0 }.compactMap{ $0.pngData() }
-    //                    self.viewModel.addPhotos(photos: photoDatas)
-    //
-    //                    for i in 0..<self.viewModel.getPhotosCount() {
-    //                        switch i {
-    //                        case 0:
-    //                            self.photoImageView1.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-    //                            self.photoImageView1.contentMode = .scaleAspectFill
-    //                            self.minusImageView1.isHidden = false
-    //                        case 1:
-    //                            self.photoImageView2.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-    //                            self.photoImageView2.contentMode = .scaleAspectFill
-    //                            self.minusImageView2.isHidden = false
-    //                        case 2:
-    //                            self.photoImageView3.image = UIImage(data: self.viewModel.getPhoto(idx: i))
-    //                            self.photoImageView3.contentMode = .scaleAspectFill
-    //                            self.minusImageView3.isHidden = false
-    //                        default:
-    //                            continue
-    //                        }
-    //                    }
-    //
-    //                    switch self.viewModel.getPhotosCount() {
-    //                    case 1:
-    //                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
-    //                        self.photoImageView3.contentMode = .center
-    //                    case 0:
-    //                        self.photoImageView3.image = UIImage(named: "PhotoIcon")
-    //                        self.photoImageView2.image = UIImage(named: "PhotoIcon")
-    //                        self.photoImageView3.contentMode = .center
-    //                        self.photoImageView2.contentMode = .center
-    //                    default:
-    //                        break
-    //                    }
-    //                }
-    //
-    //                present(vc, animated: true)
-    //
-    //            case .failure:
-    //                return
-    //            }
-    //        }
-    //    }
 }
 
 // MARK: - AutoLayout
