@@ -141,6 +141,12 @@ final class PhotoSelectionViewController: UIViewController {
                 }
             }
             .store(in: &cancellables)
+        
+        output.showCustomizingSummaryView
+            .sink { [weak self] _ in
+                self?.coordinator?.showCustomizingSummaryVC()
+            }
+            .store(in: &cancellables)
     }
     
     private func observe() {
@@ -153,12 +159,6 @@ final class PhotoSelectionViewController: UIViewController {
         bottomView.backButtonTappedPublisher
             .sink { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
-            }
-            .store(in: &cancellables)
-        
-        bottomView.nextButtonTappedPublisher
-            .sink { [weak self] _ in
-                self?.coordinator?.showCustomizingSummaryVC()
             }
             .store(in: &cancellables)
     }

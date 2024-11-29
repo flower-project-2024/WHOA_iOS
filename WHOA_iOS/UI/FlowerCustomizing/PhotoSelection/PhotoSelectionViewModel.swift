@@ -69,6 +69,18 @@ final class PhotoSelectionViewModel: ViewModel {
             }
             .store(in: &cancellables)
         
+        input.nextButtonTapped
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let requirement = BouquetData.Requirement(
+                    text: textInputSubject.value,
+                    images: requirementPhotos.value
+                )
+                self.dataManager.setRequirement(requirement)
+                self.showCustomizingSummaryViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
         return Output(
             updatePhotosData: requirementPhotos.eraseToAnyPublisher(),
             showPhotoView: showPhotoViewSubject.eraseToAnyPublisher(),
