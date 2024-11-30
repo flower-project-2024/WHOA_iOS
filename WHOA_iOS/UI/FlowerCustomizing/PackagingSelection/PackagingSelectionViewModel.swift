@@ -20,13 +20,14 @@ final class PackagingSelectionViewModel: ViewModel {
     
     struct Output {
         let setupPackagingAssign: AnyPublisher<PackagingAssignType, Never>
+        let setupAssignText: AnyPublisher<String, Never>
         let nextButtonEnabled: AnyPublisher<Bool, Never>
         let showFlowerPriceView: AnyPublisher<Void, Never>
     }
     
     private let dataManager: BouquetDataManaging
     private let packagingAssignSubject: CurrentValueSubject<PackagingAssignType, Never>
-    private let textInputSubject = CurrentValueSubject<String, Never>("")
+    private let textInputSubject: CurrentValueSubject<String, Never>
     private let showFlowerPriceViewSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -37,11 +38,14 @@ final class PackagingSelectionViewModel: ViewModel {
         self.dataManager = dataManager
         let packagingAssign = dataManager.getPackagingAssign()
         self.packagingAssignSubject = .init(packagingAssign.assign)
+        self.textInputSubject = .init(packagingAssign.text ?? "")
     }
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
+        let setupAssignTextPublisher = Just(textInputSubject.value)
+        
         input.packagingAssignSelected
             .assign(to: \.value, on: packagingAssignSubject)
             .store(in: &cancellables)
@@ -71,6 +75,7 @@ final class PackagingSelectionViewModel: ViewModel {
         
         return Output(
             setupPackagingAssign: packagingAssignSubject.eraseToAnyPublisher(),
+            setupAssignText: setupAssignTextPublisher.eraseToAnyPublisher(),
             nextButtonEnabled: nextButtonEnabled.eraseToAnyPublisher(),
             showFlowerPriceView: showFlowerPriceViewSubject.eraseToAnyPublisher()
         )
