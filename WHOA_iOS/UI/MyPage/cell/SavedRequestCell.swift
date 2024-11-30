@@ -125,7 +125,7 @@ final class SavedRequestCell: UITableViewCell {
         flowerImageStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.bottom.equalToSuperview().inset(24.adjustedH())
-            make.width.equalTo(flowerImageStackView.snp.height).multipliedBy(4.0 / 5.0)
+            make.width.equalTo(detailStackView.snp.width)
         }
         
         detailStackView.snp.makeConstraints { make in
