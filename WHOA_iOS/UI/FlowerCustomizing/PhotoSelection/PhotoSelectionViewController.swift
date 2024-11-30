@@ -119,6 +119,13 @@ final class PhotoSelectionViewController: UIViewController {
         )
         let output = viewModel.transform(input: input)
         
+        output.setupRequirementText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                self?.requirementTextView.setText(text)
+            }
+            .store(in: &cancellables)
+        
         output.updatePhotosData
             .receive(on: DispatchQueue.main)
             .sink { [weak self] photosData in

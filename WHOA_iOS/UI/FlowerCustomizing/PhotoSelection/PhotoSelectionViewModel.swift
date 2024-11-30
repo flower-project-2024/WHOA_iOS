@@ -21,6 +21,7 @@ final class PhotoSelectionViewModel: ViewModel {
     }
     
     struct Output {
+        let setupRequirementText: AnyPublisher<String, Never>
         let updatePhotosData: AnyPublisher<[Data], Never>
         let showPhotoView: AnyPublisher<Int, Never>
         let showCustomizingSummaryView: AnyPublisher<Void, Never>
@@ -28,8 +29,8 @@ final class PhotoSelectionViewModel: ViewModel {
     
     private let dataManager: BouquetDataManaging
     private let photoAuthService: PhotoAuthService
-    private let textInputSubject = CurrentValueSubject<String, Never>("")
-    private let requirementPhotos = CurrentValueSubject<[Data], Never>([])
+    private let textInputSubject: CurrentValueSubject<String, Never>
+    private let requirementPhotos: CurrentValueSubject<[Data], Never>
     private let showPhotoViewSubject = PassthroughSubject<Int, Never>()
     private let showCustomizingSummaryViewSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
@@ -42,12 +43,18 @@ final class PhotoSelectionViewModel: ViewModel {
     ) {
         self.photoAuthService = authService
         self.dataManager = dataManager
+        let requirement = dataManager.getRequirement()
+        textInputSubject = .init(requirement.text ?? "")
+        requirementPhotos = .init(requirement.images)
     }
     
     // MARK: - Functions
     
     func transform(input: Input) -> Output {
+        let setupRequirementTextPublisher = Just(textInputSubject.value)
+        
         input.textInput
+            .removeDuplicates()
             .assign(to: \.value, on: textInputSubject)
             .store(in: &cancellables)
         
@@ -82,6 +89,7 @@ final class PhotoSelectionViewModel: ViewModel {
             .store(in: &cancellables)
         
         return Output(
+            setupRequirementText: setupRequirementTextPublisher.eraseToAnyPublisher(),
             updatePhotosData: requirementPhotos.eraseToAnyPublisher(),
             showPhotoView: showPhotoViewSubject.eraseToAnyPublisher(),
             showCustomizingSummaryView: showCustomizingSummaryViewSubject.eraseToAnyPublisher()
