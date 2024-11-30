@@ -117,4 +117,19 @@ extension MyPagePageViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if noRequest {
+            return UITableView.automaticDimension
+        }
+        
+        let baseHeight: CGFloat = 250
+        let screenHeight = UIScreen.main.bounds.height
+        
+        if screenHeight > 736 {
+            return baseHeight + 50
+        } else {
+            return baseHeight
+        }
+    }
 }

@@ -112,6 +112,13 @@ final class PackagingSelectionViewController: UIViewController {
             }
             .store(in: &cancellables)
         
+        output.setupAssignText
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                self?.requirementTextView.setText(text)
+            }
+            .store(in: &cancellables)
+        
         output.nextButtonEnabled
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isEnabled in
