@@ -43,7 +43,6 @@ final class RequirementTextView: UIView {
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.gray04.cgColor
         view.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 18, right: 18)
-        view.isHidden = true
         return view
     }()
     

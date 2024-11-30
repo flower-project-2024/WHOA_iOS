@@ -115,6 +115,7 @@
 		542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */; };
 		542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */; };
 		542DD3EE2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */; };
+		54453C572CEFF619000E49E3 /* PhotoSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54453C562CEFF619000E49E3 /* PhotoSelectionView.swift */; };
 		544FC0B32C03A5C70091EEE2 /* BouquetDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544FC0B22C03A5C70091EEE2 /* BouquetDetailDTO.swift */; };
 		544FC0B52C03A70D0091EEE2 /* BouquetDetailAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544FC0B42C03A70D0091EEE2 /* BouquetDetailAPI.swift */; };
 		544FC0B72C03C40C0091EEE2 /* DeleteBouquetDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544FC0B62C03C40C0091EEE2 /* DeleteBouquetDTO.swift */; };
@@ -331,6 +332,7 @@
 		542DD3E62B7813A300DBFCCC /* PurposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewModel.swift; sourceTree = "<group>"; };
 		542DD3EA2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewController.swift; sourceTree = "<group>"; };
 		542DD3ED2B79047C00DBFCCC /* FlowerColorPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerColorPickerViewModel.swift; sourceTree = "<group>"; };
+		54453C562CEFF619000E49E3 /* PhotoSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionView.swift; sourceTree = "<group>"; };
 		544FC0B22C03A5C70091EEE2 /* BouquetDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetDetailDTO.swift; sourceTree = "<group>"; };
 		544FC0B42C03A70D0091EEE2 /* BouquetDetailAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetDetailAPI.swift; sourceTree = "<group>"; };
 		544FC0B62C03C40C0091EEE2 /* DeleteBouquetDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBouquetDTO.swift; sourceTree = "<group>"; };
@@ -902,6 +904,7 @@
 			children = (
 				54EB17E22BA2F07D00717E6F /* PhotoViewController.swift */,
 				54EB17E52BA354F400717E6F /* PhotoCell.swift */,
+				54453C562CEFF619000E49E3 /* PhotoSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1316,6 +1319,7 @@
 				08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */,
 				08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
+				54453C572CEFF619000E49E3 /* PhotoSelectionView.swift in Sources */,
 				08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */,
 				08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */,
 				54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */,
@@ -1657,7 +1661,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 8BXZLWHRYX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
