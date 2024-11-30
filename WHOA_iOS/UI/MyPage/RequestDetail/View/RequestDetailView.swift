@@ -342,7 +342,9 @@ final class RequestDetailView: UIView {
     }
     
     func configureRequestTitle(title: String?) {
+        guard requestTitleTextField.text != title else { return }
         requestTitleTextField.text = title
+        textInputSubject.send(title ?? "")
     }
     
     private func configureBuyingIntent(_ model: CustomizingSummaryModel) {
