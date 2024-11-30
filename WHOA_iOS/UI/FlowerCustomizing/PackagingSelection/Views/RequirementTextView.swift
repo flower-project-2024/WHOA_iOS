@@ -77,6 +77,7 @@ final class RequirementTextView: UIView {
     
     private func bind() {
         textView.textDidChangePublisher
+            .removeDuplicates()
             .sink { [weak self] text in
                 self?.textInputSubject.send(text)
             }
@@ -98,6 +99,13 @@ final class RequirementTextView: UIView {
                 }
             }
             .store(in: &cancellables)
+    }
+    
+    func setText(_ text: String?) {
+        guard textView.text != text else { return }
+        placeholder.isHidden = !(text?.isEmpty ?? true)
+        textView.text = text
+        textInputSubject.send(text ?? "")
     }
     
     func setTextViewHidden(_ isHidden: Bool) {
