@@ -105,7 +105,7 @@ extension CustomHeaderView {
         if let descriptionLabel = descriptionLabel {
             descriptionLabel.snp.makeConstraints {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
-                $0.leading.bottom.equalToSuperview()
+                $0.leading.equalToSuperview()
             }
         }
     }
