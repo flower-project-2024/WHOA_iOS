@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class CustomHeaderView: UIView {
     
@@ -22,12 +23,25 @@ final class CustomHeaderView: UIView {
     
     // MARK: - Properties
     
-    private let currentVC: UIViewController?
-    private let coordinator: CustomizingCoordinator?
+    private let exitButtonTappedSubject = PassthroughSubject<Void, Never>()
+    
+    var exitButtonTappedPublisher: AnyPublisher<Void, Never> {
+        exitButtonTappedSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
+    private lazy var exitButton: UIImageView = {
+        let button = UIImageView()
+        button.image = .xmark
+        button.tintColor = .black
+        button.contentMode = .scaleAspectFit
+        button.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(exitButtonTapped))
+        button.addGestureRecognizer(tapGesture)
+        return button
+    }()
+    
     private let progressHStackView: CustomProgressHStackView
     
     private let titleLabel: UILabel = {
@@ -50,14 +64,10 @@ final class CustomHeaderView: UIView {
     // MARK: - Initialize
     
     init(
-        currentVC: UIViewController,
-        coordinator: CustomizingCoordinator?,
         numerator: Float,
         title: String,
         description: String? = nil
     ) {
-        self.currentVC = currentVC
-        self.coordinator = coordinator
         self.progressHStackView = CustomProgressHStackView(numerator: numerator, denominator: 7)
         self.titleLabel.text = title
         self.descriptionLabel.text = description
@@ -81,6 +91,13 @@ final class CustomHeaderView: UIView {
             descriptionLabel
         ].forEach(addSubview(_:))
         setupAutoLayout()
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func exitButtonTapped() {
+        exitButtonTappedSubject.send()
     }
 }
 
