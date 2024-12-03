@@ -196,7 +196,6 @@
 		54FD0F652B7000C000F964C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 54FD0F642B7000C000F964C3 /* SnapKit */; };
 		54FD0F6C2B701B9C00F964C3 /* PurposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6B2B701B9C00F964C3 /* PurposeViewController.swift */; };
 		54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */; };
-		54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */; };
 		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
 		54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F7E2B742C4900F964C3 /* BackButton.swift */; };
 		54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F802B743C0000F964C3 /* NextButton.swift */; };
@@ -414,7 +413,6 @@
 		54FD0F512B6FCE2E00F964C3 /* WHOA_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WHOA_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54FD0F6B2B701B9C00F964C3 /* PurposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewController.swift; sourceTree = "<group>"; };
 		54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressHStackView.swift; sourceTree = "<group>"; };
-		54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDescriptionLabel.swift; sourceTree = "<group>"; };
 		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		54FD0F7E2B742C4900F964C3 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		54FD0F802B743C0000F964C3 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -1103,7 +1101,6 @@
 				542DD3DF2B7669A700DBFCCC /* ExitButton.swift */,
 				542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */,
 				54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */,
-				54FD0F732B73C0BA00F964C3 /* CustomDescriptionLabel.swift */,
 				54FD0F7E2B742C4900F964C3 /* BackButton.swift */,
 				54FD0F802B743C0000F964C3 /* NextButton.swift */,
 				54D8565D2BDAFC390099D818 /* SpacebarButton.swift */,
@@ -1345,7 +1342,6 @@
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
 				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,
-				54FD0F742B73C0BA00F964C3 /* CustomDescriptionLabel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				08A5F4902CADB1DB00DA582D /* RequestDetailModel.swift in Sources */,
 				54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */,

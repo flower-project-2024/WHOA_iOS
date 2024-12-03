@@ -37,7 +37,15 @@ final class CustomHeaderView: UIView {
         label.numberOfLines = 2
         return label
     }()
-    private let descriptionLabel: CustomDescriptionLabel?
+    
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .Pretendard(size: 16, family: .SemiBold)
+        label.textColor = .gray07
+        label.numberOfLines = 2
+        label.isHidden = true
+        return label
+    }()
     
     // MARK: - Initialize
     
@@ -52,13 +60,7 @@ final class CustomHeaderView: UIView {
         self.coordinator = coordinator
         self.progressHStackView = CustomProgressHStackView(numerator: numerator, denominator: 7)
         self.titleLabel.text = title
-        
-        if let descriptionText = description {
-            self.descriptionLabel = CustomDescriptionLabel(text: descriptionText, numberOfLines: 2)
-        } else {
-            self.descriptionLabel = nil
-        }
-        
+        self.descriptionLabel.text = description
         super.init(frame: .zero)
         setupUI()
     }
@@ -71,21 +73,18 @@ final class CustomHeaderView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
-        
+        descriptionLabel.isHidden = (descriptionLabel.text == nil)
         [
             exitButton,
             progressHStackView,
             titleLabel,
+            descriptionLabel
         ].forEach(addSubview(_:))
-        addDescriptionLabelIfNeeded()
         setupAutoLayout()
     }
-    
-    private func addDescriptionLabelIfNeeded() {
-        guard let descriptionLabel = descriptionLabel else { return }
-        addSubview(descriptionLabel)
-    }
 }
+
+// MARK: - AutoLayout
 
 extension CustomHeaderView {
     private func setupAutoLayout() {
@@ -103,17 +102,12 @@ extension CustomHeaderView {
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(progressHStackView.snp.bottom).offset(Metric.titleLabelTopOffset)
             $0.leading.equalToSuperview()
-            
-            if descriptionLabel == nil {
-                $0.bottom.equalToSuperview()
-            }
         }
         
-        if let descriptionLabel = descriptionLabel {
-            descriptionLabel.snp.makeConstraints {
-                $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
-                $0.leading.equalToSuperview()
-            }
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Metric.descriptionLabelTopOffset)
+            $0.leading.equalToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview().priority(.low)
         }
     }
 }
