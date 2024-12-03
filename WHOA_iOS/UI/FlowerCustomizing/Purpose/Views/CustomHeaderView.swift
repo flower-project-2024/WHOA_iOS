@@ -29,7 +29,14 @@ final class CustomHeaderView: UIView {
     
     private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
     private let progressHStackView: CustomProgressHStackView
-    private let titleLabel: CustomTitleLabel
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .Pretendard(size: 24, family: .SemiBold)
+        label.textColor = .black
+        label.numberOfLines = 2
+        return label
+    }()
     private let descriptionLabel: CustomDescriptionLabel?
     
     // MARK: - Initialize
@@ -44,7 +51,7 @@ final class CustomHeaderView: UIView {
         self.currentVC = currentVC
         self.coordinator = coordinator
         self.progressHStackView = CustomProgressHStackView(numerator: numerator, denominator: 7)
-        self.titleLabel = CustomTitleLabel(text: title)
+        self.titleLabel.text = title
         
         if let descriptionText = description {
             self.descriptionLabel = CustomDescriptionLabel(text: descriptionText, numberOfLines: 2)
