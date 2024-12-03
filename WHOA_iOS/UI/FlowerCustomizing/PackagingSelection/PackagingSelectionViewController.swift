@@ -42,9 +42,7 @@ final class PackagingSelectionViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var headerView = CustomHeaderView(
-        currentVC: self,
-        coordinator: coordinator,
+    private let headerView = CustomHeaderView(
         numerator: 4,
         title: Attributes.headerViewTitle
     )
@@ -135,6 +133,13 @@ final class PackagingSelectionViewController: UIViewController {
     }
     
     private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
+            }
+            .store(in: &cancellables)
+        
         viewTapPublisher
             .sink { [weak self] _ in
                 self?.view.endEditing(true)

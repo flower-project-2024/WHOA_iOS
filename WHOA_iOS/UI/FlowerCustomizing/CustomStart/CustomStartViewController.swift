@@ -67,7 +67,7 @@ final class CustomStartViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions

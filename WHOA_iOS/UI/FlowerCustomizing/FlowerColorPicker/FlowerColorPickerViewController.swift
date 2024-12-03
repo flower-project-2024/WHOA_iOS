@@ -54,9 +54,7 @@ final class FlowerColorPickerViewController: UIViewController {
     }()
     private let contentView = UIView()
 
-    private lazy var headerView = CustomHeaderView(
-        currentVC: self,
-        coordinator: coordinator,
+    private let headerView = CustomHeaderView(
         numerator: 2,
         title: Attributes.headerViewTitle,
         description: Attributes.headerViewDescription
@@ -84,7 +82,7 @@ final class FlowerColorPickerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
-        bindTapGesture()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,7 +164,14 @@ final class FlowerColorPickerViewController: UIViewController {
         segmentControlView.bind(with: colorSelectionResultView.selectedColorPublisher)
     }
     
-    private func bindTapGesture() {
+    private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
+            }
+            .store(in: &cancellables)
+        
         colorTypeResultViewTapPublisher
             .sink { [weak self] _ in
                 self?.toggleDropdown()

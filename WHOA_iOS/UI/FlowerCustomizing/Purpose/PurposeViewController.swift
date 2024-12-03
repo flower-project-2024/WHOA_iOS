@@ -34,9 +34,7 @@ final class PurposeViewController: UIViewController {
     
     // MARK: - UI
     
-    private lazy var headerView = CustomHeaderView(
-        currentVC: self,
-        coordinator: coordinator,
+    private let headerView = CustomHeaderView(
         numerator: 1,
         title: Attributes.headerTitleText,
         description: Attributes.headerDescriptionText
@@ -61,6 +59,7 @@ final class PurposeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +107,15 @@ final class PurposeViewController: UIViewController {
         output.showColorPicker
             .sink { [weak self] _ in
                 self?.coordinator?.showColorPickerVC()
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
             }
             .store(in: &cancellables)
     }

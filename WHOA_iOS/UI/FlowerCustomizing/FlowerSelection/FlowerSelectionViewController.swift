@@ -41,8 +41,6 @@ final class FlowerSelectionViewController: UIViewController {
     // MARK: - UI
     
     private lazy var headerView = CustomHeaderView(
-        currentVC: self,
-        coordinator: coordinator,
         numerator: 3,
         title: Attributes.headerViewTitle(for: viewModel.getPurposeString()),
         description: Attributes.headerViewDescription
@@ -84,6 +82,7 @@ final class FlowerSelectionViewController: UIViewController {
         
         bind()
         setupUI()
+        observe()
         viewModel.fetchFlowerKeyword()
     }
     
@@ -170,6 +169,15 @@ final class FlowerSelectionViewController: UIViewController {
         output.showAlternativeView
             .sink { [weak self] _ in
                 self?.coordinator?.showAlternativesVC(from: self)
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
             }
             .store(in: &cancellables)
     }
