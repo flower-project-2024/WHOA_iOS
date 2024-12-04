@@ -25,6 +25,7 @@ final class AlternativesView: UIView {
         static let titleText = "선택한 꽃들이 없다면?"
         static let colorOrientedButtonTitle = "\(AlternativesType.colorOriented.rawValue)로 대체해주세요"
         static let hashTagOrientedButtonTitle = "\(AlternativesType.hashTagOriented.rawValue)로 대체해주세요"
+        static let nextButtonText = "다음"
     }
     
     // MARK: - Properties
@@ -68,8 +69,14 @@ final class AlternativesView: UIView {
         return button
     }()
     
-    private lazy var nextButton: NextButton = {
-        let button = NextButton()
+    private lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(Attributes.nextButtonText, for: .normal)
+        button.titleLabel?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        button.isEnabled = false
+        
         button.addAction(UIAction { [weak self] _ in
             guard let self = self else { return }
             self.nextButtonTappedSubject.send()
@@ -107,7 +114,13 @@ final class AlternativesView: UIView {
         
         colorOrientedButton.updateSelectionState(isSelected: isColorSelected)
         hashTagOrientedButton.updateSelectionState(isSelected: isHashTagSelected)
-        nextButton.isActive = (alternative != .none)
+        configNextButtonState(isEnabled: alternative != .none)
+    }
+    
+    private func configNextButtonState(isEnabled: Bool) {
+        nextButton.isEnabled = isEnabled
+        nextButton.setTitleColor( isEnabled ? .white : .gray05, for: .normal)
+        nextButton.backgroundColor = isEnabled ? .black : .gray03
     }
 }
 
