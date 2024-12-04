@@ -87,7 +87,6 @@ final class CustomExitAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
@@ -100,7 +99,6 @@ final class CustomExitAlertViewController: UIViewController {
         alertView.addSubview(titleLabel)
         alertView.addSubview(descriptionLabel)
         alertView.addSubview(buttonHStackView)
-        
         setupAutoLayout()
     }
     
@@ -111,8 +109,9 @@ final class CustomExitAlertViewController: UIViewController {
         dismiss(animated: true) { [weak self] in
             BouquetDataManager.shared.reset()
             self?.currentVC?.tabBarController?.selectedIndex = 0
-            self?.currentVC?.navigationController?.popToRootViewController(animated: true)
-            
+            if let navigationController = self?.currentVC?.navigationController {
+                navigationController.popToRootViewController(animated: false)
+            }
         }
     }
     

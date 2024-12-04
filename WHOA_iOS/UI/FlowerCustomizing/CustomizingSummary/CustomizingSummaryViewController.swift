@@ -43,9 +43,7 @@ final class CustomizingSummaryViewController: UIViewController {
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
-    private lazy var headerView = CustomHeaderView(
-        currentVC: self,
-        coordinator: coordinator,
+    private let headerView = CustomHeaderView(
         numerator: 7,
         title: Attributes.headerViewTitle
     )
@@ -138,6 +136,13 @@ final class CustomizingSummaryViewController: UIViewController {
     }
     
     private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
+            }
+            .store(in: &cancellables)
+        
         viewTapPublisher
             .sink { [weak self] _ in
                 self?.view.endEditing(true)
