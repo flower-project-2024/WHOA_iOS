@@ -108,8 +108,10 @@ final class CustomExitAlertViewController: UIViewController {
     private func exitButtonTapped() {
         dismiss(animated: true) { [weak self] in
             BouquetDataManager.shared.reset()
-            self?.currentVC?.navigationController?.popToRootViewController(animated: true)
             self?.currentVC?.tabBarController?.selectedIndex = 0
+            if let navigationController = self?.currentVC?.navigationController {
+                navigationController.popToRootViewController(animated: false)
+            }
         }
     }
     
