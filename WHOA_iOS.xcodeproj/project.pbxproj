@@ -196,8 +196,6 @@
 		54FD0F6C2B701B9C00F964C3 /* PurposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6B2B701B9C00F964C3 /* PurposeViewController.swift */; };
 		54FD0F6F2B73422900F964C3 /* CustomProgressHStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */; };
 		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
-		54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F7E2B742C4900F964C3 /* BackButton.swift */; };
-		54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F802B743C0000F964C3 /* NextButton.swift */; };
 		54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* PurposeType.swift */; };
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
 /* End PBXBuildFile section */
@@ -412,8 +410,6 @@
 		54FD0F6B2B701B9C00F964C3 /* PurposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeViewController.swift; sourceTree = "<group>"; };
 		54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressHStackView.swift; sourceTree = "<group>"; };
 		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
-		54FD0F7E2B742C4900F964C3 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
-		54FD0F802B743C0000F964C3 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		54FD0F842B74C13B00F964C3 /* PurposeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeType.swift; sourceTree = "<group>"; };
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1098,8 +1094,6 @@
 			children = (
 				542DD3E42B77BC8200DBFCCC /* CustomExitAlertViewController.swift */,
 				54FD0F6E2B73422900F964C3 /* CustomProgressHStackView.swift */,
-				54FD0F7E2B742C4900F964C3 /* BackButton.swift */,
-				54FD0F802B743C0000F964C3 /* NextButton.swift */,
 				54D8565D2BDAFC390099D818 /* SpacebarButton.swift */,
 				54EA0E6F2BF6183B007B8F5A /* ShadowBorderLine.swift */,
 			);
@@ -1364,7 +1358,6 @@
 				54EB18012BB4773900717E6F /* UIColor+.swift in Sources */,
 				54EB18152BC018C900717E6F /* UIImageView+.swift in Sources */,
 				54F6959E2BF535D5009E3E4D /* RequestDetailType.swift in Sources */,
-				54FD0F7F2B742C4900F964C3 /* BackButton.swift in Sources */,
 				54EA0E6B2BF5E398007B8F5A /* PostCustomBouquetDTO.swift in Sources */,
 				08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */,
 				08F2AE2D2C822E930096D75E /* MyPagePageViewController.swift in Sources */,
@@ -1400,7 +1393,6 @@
 				542DD3E72B7813A300DBFCCC /* PurposeViewModel.swift in Sources */,
 				54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */,
 				546071242B88C22F0033B598 /* HTTPMethods.swift in Sources */,
-				54FD0F812B743C0000F964C3 /* NextButton.swift in Sources */,
 				08EBBC4C2C844525002FDE12 /* MoreActionsSheetViewController.swift in Sources */,
 				0833EF7C2BE55AD40024FB2C /* MyPageViewModel.swift in Sources */,
 				54D6B7E42B9CAA7200628FF7 /* PackagingSelectionViewController.swift in Sources */,
