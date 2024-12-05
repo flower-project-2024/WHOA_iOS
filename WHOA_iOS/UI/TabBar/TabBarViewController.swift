@@ -38,7 +38,7 @@ final class TabBarViewController: UITabBarController {
         setTabBarItems()
         
         UITabBar.clearShadow()
-        tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, x: 0, y: -2, blur: 6)
+        tabBar.layer.applyShadow(color: UIColor.gray02, alpha: 1, width: 0, height: -2, blur: 6)
         
         self.selectedIndex = 0
     }
@@ -47,13 +47,15 @@ final class TabBarViewController: UITabBarController {
     
     /// 탭바와 연결될 뷰컨트롤러 세팅하는 함수
     private func setTabViewControllers() {
-        let homeNavVC = UINavigationController(rootViewController: HomeViewController())
-        
         customizingNavVC = UINavigationController()
         if let customizingNavVC = customizingNavVC {
             customizingCoordinator = CustomizingCoordinator(navigationController: customizingNavVC)
             customizingCoordinator?.start()
         }
+        
+        let homeVC = HomeViewController()
+        homeVC.customizingCoordinator = customizingCoordinator
+        let homeNavVC = UINavigationController(rootViewController: homeVC)
         
         let myPageVC = MyPageViewController()
         myPageVC.customizingCoordinator = customizingCoordinator
@@ -130,7 +132,7 @@ final class TabBarViewController: UITabBarController {
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController == customizingNavVC {
-            customizingCoordinator?.setActionType(actionType: .create)
+            BouquetDataManager.shared.setActionType(.create)
         }
     }
 }

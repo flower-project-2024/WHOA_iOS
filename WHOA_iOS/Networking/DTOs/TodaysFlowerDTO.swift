@@ -28,14 +28,22 @@ struct FlowerColorLanguage: Codable {
 }
 
 extension TodaysFlowerDTO {
+    // flowerExpressionId와 flowerImageUrl은 해당 컨텍스트에서 사용되지 않으므로 nil로 설정
     static func convertTodaysFlowerDTOToModel(DTO: TodaysFlowerDTO) -> TodaysFlowerModel {
         return TodaysFlowerModel(
             flowerId: DTO.data.flowerId,
             flowerName: DTO.data.flowerName,
             flowerOneLineDescription: DTO.data.flowerOneLineDescription,
             flowerImage: DTO.data.flowerImage,
-            flowerExpressions: DTO.data.flowerExpressions.map({ data in
-                FlowerExpression(flowerColor: data.flowerColor, flowerLanguage: data.flowerLanguage)
-            }))
+            flowerExpressions: DTO.data.flowerExpressions.map({
+                data in
+                FlowerExpression(
+                    flowerExpressionId: nil,
+                    flowerColor: data.flowerColor,
+                    flowerLanguage: data.flowerLanguage,
+                    flowerImageUrl: nil
+                )
+            })
+        )
     }
 }

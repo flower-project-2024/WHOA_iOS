@@ -61,17 +61,17 @@ final class NoRequestCell: UITableViewCell {
     
     private func setupConstraints() {
         noRequestImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(120)
+            make.top.equalToSuperview().inset(120.adjustedH())
             make.centerX.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(noRequestImageView.snp.bottom).offset(19)
+            make.top.equalTo(noRequestImageView.snp.bottom).offset(19.adjustedH())
             make.centerX.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.top.equalTo(titleLabel.snp.bottom).offset(4.adjustedH())
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()

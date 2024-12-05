@@ -15,6 +15,8 @@ final class NetworkManager {
     private init() {}
     
     /// 요구서 전체를 조회하는 함수입니다.
+    /// - Parameters:
+    ///   - memberId: 멤버 id
     func fetchAllBouquets(
         memberId: String,
         _ networkService: NetworkServable = NetworkService(),
@@ -35,11 +37,15 @@ final class NetworkManager {
     /// - Parameters:
     /// - keywordId: String, ex) 0 - 전체, 1 - 사랑 등등
     func fetchFlowerKeyword(
-        keywordId: String,
+        customizingPurposeId: Int,
+        keywordId: Int,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<FlowerKeywordDTO, NetworkError>) -> Void
     ) {
-        let flowerKeywordAPI = FlowerKeywordAPI(keywordId: keywordId)
+        let flowerKeywordAPI = FlowerKeywordAPI(
+            customizingPurposeId: customizingPurposeId,
+            keywordId: keywordId
+        )
         networkService.request(flowerKeywordAPI) { result in
             switch result {
             case .success(let DTO):
@@ -82,19 +88,25 @@ final class NetworkManager {
             }
         }
     }
-
-    /// 꽃다발 명세서를 POST하는 함수입니다.
+    
+    /// 커스터마이징의 참고 이미지를 다중으로 업로드하는 함수입니다.
     /// - Parameters:
-    /// - Headers - memberID: 멤버 아이디
-    /// - Body - postCustomBouquetRequestDTO: 명세서 내용
+    /// - memberID: 멤버 아이디
+    /// - postCustomBouquetRequestDTO: 명세서 내용
+    /// - imageUrl: 참고 이미지들(png데이터)
     func createCustomBouquet(
-        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
         memberID: String,
+        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
+        imageFiles: [ImageFile]?,
         _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<PostCustomBouquetDTO, NetworkError>) -> Void
+        completion: @escaping (Result<MultipartFilesDTO, NetworkError>) -> Void
     ) {
-        let postCustomBouquetAPI = PostCustomBouquetAPI(requestDTO: postCustomBouquetRequestDTO, memberID: memberID)
-        networkService.request(postCustomBouquetAPI) { result in
+        let api = PostBouquetAPI(
+            memberID: memberID,
+            postCustomBouquetRequestDTO: postCustomBouquetRequestDTO,
+            imageUrl: imageFiles
+        )
+        networkService.request(api) { result in
             switch result {
             case .success(let DTO):
                 completion(.success(DTO))
@@ -162,16 +174,17 @@ final class NetworkManager {
     /// 꽃다발 명세서를 수정(PUT)하는 함수입니다.
     /// - Parameters:
     /// - Headers - memberID: 멤버 아이디
-    /// bouquetId: 변경하는 주문서 ID
+    /// - bouquetId: 변경하는 주문서 ID
     /// - Body - postCustomBouquetRequestDTO: 명세서 내용
     func putCustomBouquet(
-        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
-        memberID: String,
         bouquetId: Int,
+        memberID: String,
+        postCustomBouquetRequestDTO: PostCustomBouquetRequestDTO,
+        imageFiles: [ImageFile]?,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<PostCustomBouquetDTO, NetworkError>) -> Void
     ) {
-        let api = PutBouquetAPI(requestDTO: postCustomBouquetRequestDTO, memberID: memberID, bouquetId: bouquetId)
+        let api = PutBouquetAPI(bouquetId: bouquetId, memberID: memberID, requestDTO: postCustomBouquetRequestDTO, imageUrl: imageFiles)
         networkService.request(api) { result in
             switch result {
             case .success(let DTO):
@@ -221,19 +234,39 @@ final class NetworkManager {
         }
     }
     
-    /// 커스터마이징의 참고 이미지를 다중으로 업로드하는 함수입니다.
+    /// 꽃다발의 status를 제작 완료로 처리하는 함수입니다.
     /// - Parameters:
-    /// - MemberID: 멤버 아이디
-    /// - bouquetId: 주문서 ID
-    /// - imageUrl: 참고 이미지들(png데이터)
-    func postMultipartFiles(
-        memberID: String,
-        bouquetId: Int,
-        imageFiles: [ImageFile]?,
-        _ networkService: NetworkServable = NetworkService(),
-        completion: @escaping (Result<MultipartFilesDTO, NetworkError>) -> Void
+    /// - memberId: 멤버 id
+    /// - bouquetId: 꽃다발 요구서 id
+    func patchBouquetStatus(memberId: String,
+                            bouquetId: Int,
+                            _ networkService: NetworkServable = NetworkService(),
+                            completion: @escaping (Result<BouquetStatusDTO, NetworkError>) -> Void
     ) {
-        let api = MultipartFilesAPI(memberID: memberID, bouquetId: bouquetId, imageUrl: imageFiles)
+        let api = PatchBouquetStatusAPI(memberID: memberId, bouquetId: bouquetId)
+        
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    /// 꽃다발을 제작 완료 처리한 후 실제 제작한 꽃다발 사진을 업로드하는 함수입니다.
+    /// - Parameters:
+    ///   - memberID: 멤버 id
+    ///   - bouquetId: 꽃다발 요구서 id
+    ///   - imageFile: 등록하려는 이미지 imageFile
+    func postProductedBouquetImage(memberID: String,
+                            bouquetId: Int,
+                            imageFile: [ImageFile]?,
+                            _ networkService: NetworkServable = NetworkService(),
+                            completion: @escaping (Result<PostProductedBouquetImageDTO, NetworkError>) -> Void
+    ) {
+        let api = PostProductedBouquetImageAPI(memberID: memberID, bouquetId: bouquetId, imageUrl: imageFile)
         
         networkService.request(api) { result in
             switch result {

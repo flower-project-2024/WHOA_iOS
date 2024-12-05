@@ -9,95 +9,122 @@ import Foundation
 import Combine
 
 
-enum ActionType {
+enum ActionType: Equatable {
     case create
-    case update(bouquetId: Int?)
+    case update(bouquetId: Int)
+    case customV2
 }
 
-final class CustomizingSummaryViewModel {
+final class CustomizingSummaryViewModel: ViewModel {
     
     // MARK: - Properties
     
-    var customizingSummaryModel: CustomizingSummaryModel
+    struct Input {
+        let textInput: AnyPublisher<String, Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
+    }
+    
+    struct Output {
+        let setupRequestDetailView: AnyPublisher<CustomizingSummaryModel, Never>
+        let setupRequestTitle: AnyPublisher<String, Never>
+        let networkError: AnyPublisher<NetworkError?, Never>
+        let showSaveAlertView: AnyPublisher<Void, Never>
+    }
+    
+    private let dataManager: BouquetDataManaging
+    private let keychainManager: KeychainAccessible
     private let networkManager: NetworkManager
-    var actionType: ActionType
-    let memberId: String?
+    private let actionType: ActionType
     
-    @Published var requestTitle = "꽃다발 요구서1"
-    @Published var bouquetId: Int?
-    @Published var networkError: NetworkError?
-    @Published var imageUploadSuccess: Bool = false
+    private let customizingSummaryModelSubject: CurrentValueSubject<CustomizingSummaryModel, Never>
+    private let requestTitleSubject: CurrentValueSubject<String, Never>
+    private let networkErrorSubject = PassthroughSubject<NetworkError?, Never>()
+    private let showSaveAlertViewSubject = PassthroughSubject<Void, Never>()
     
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Initialize
     
     init(
-        customizingSummaryModel: CustomizingSummaryModel,
+        dataManager: BouquetDataManaging = BouquetDataManager.shared,
+        keychainManager: KeychainAccessible = KeychainManager.shared,
         networkManager: NetworkManager = .shared,
-        keychainManager: KeychainManager = .shared,
         actionType: ActionType = .create
     ) {
-        self.customizingSummaryModel = customizingSummaryModel
+        self.dataManager = dataManager
+        self.keychainManager = keychainManager
         self.networkManager = networkManager
-        self.memberId = keychainManager.loadMemberId()
-        self.actionType = actionType
+        self.actionType = dataManager.getActionType()
+        requestTitleSubject = .init(dataManager.getRequestTitle())
+        customizingSummaryModelSubject = .init(.init(from: dataManager.getBouquet()))
     }
     
-    func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
+    // MARK: - Functions
+    
+    func transform(input: Input) -> Output {
+        let setupRequestDetailViewPublisher = Just(requestTitleSubject.value)
+        
+        input.textInput
+            .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
+            .assign(to: \.value, on: requestTitleSubject)
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self, let id = keychainManager.loadMemberId() else { return }
+                let requestName = self.requestTitleSubject.value.isEmpty ? "꽃다발 요구서" : self.requestTitleSubject.value
+                
+                self.saveBouquet(
+                    id: id,
+                    DTO: CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(
+                        requestName: requestName,
+                        customizingSummaryModelSubject.value
+                    ),
+                    imageFiles: customizingSummaryModelSubject.value.requirement?.imageFiles
+                )
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            setupRequestDetailView: customizingSummaryModelSubject.eraseToAnyPublisher(),
+            setupRequestTitle: setupRequestDetailViewPublisher.eraseToAnyPublisher(),
+            networkError: networkErrorSubject.eraseToAnyPublisher(),
+            showSaveAlertView: showSaveAlertViewSubject.eraseToAnyPublisher()
+        )
+    }
+    
+    private func saveBouquet(id: String, DTO: PostCustomBouquetRequestDTO, imageFiles: [ImageFile]?) {
         switch actionType {
-        case .create:
-            submitCustomBouquet(id: id, DTO: DTO)
+        case .create, .customV2:
+            postCustomBouquet(id: id, DTO: DTO, imageFiles: imageFiles)
         case .update(let bouquetId):
-            guard let bouquetId = bouquetId else { return }
-            deleteCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO)
+            putCustomBouquet(id: id, bouquetId: bouquetId, DTO: DTO, imageFiles: imageFiles)
         }
     }
     
-    private func submitCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO) {
-        networkManager.createCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id) { result in
+    private func postCustomBouquet(id: String, DTO: PostCustomBouquetRequestDTO, imageFiles: [ImageFile]?) {
+        networkManager.createCustomBouquet(
+            memberID: id,
+            postCustomBouquetRequestDTO: DTO,
+            imageFiles: imageFiles) { result in
+                switch result {
+                case .success(_):
+                    self.showSaveAlertViewSubject.send()
+                case .failure(let error):
+                    self.networkErrorSubject.send(error)
+                }
+            }
+    }
+    
+    private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO,  imageFiles: [ImageFile]?) {
+        networkManager.putCustomBouquet(bouquetId: bouquetId, memberID: id, postCustomBouquetRequestDTO: DTO, imageFiles: imageFiles) { result in
             switch result {
-            case .success(let DTO):
-                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
+            case .success(_):
+                self.showSaveAlertViewSubject.send()
             case .failure(let error):
-                self.networkError = error
+                self.networkErrorSubject.send(error)
             }
         }
-    }
-    
-    private func putCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
-        networkManager.putCustomBouquet(postCustomBouquetRequestDTO: DTO, memberID: id, bouquetId: bouquetId) { result in
-            switch result {
-            case .success(let DTO):
-                self.bouquetId = PostCustomBouquetDTO.convertPostCustomBouquetDTOToBouquetId(DTO)
-            case .failure(let error):
-                self.networkError = error
-            }
-        }
-    }
-    
-    private func deleteCustomBouquet(id: String, bouquetId: Int, DTO: PostCustomBouquetRequestDTO) {
-        NetworkManager.shared.deleteBouquet(memberID: id, bouquetId: bouquetId) { result in
-            switch result {
-            case .success(let _):
-                self.submitCustomBouquet(id: id, DTO: DTO)
-            case .failure(let error):
-                self.networkError = error
-            }
-        }
-    }
-    
-    func submitRequirementImages(id: String, bouquetId: Int, imageFiles: [ImageFile]?) {
-        networkManager.postMultipartFiles(memberID: id, bouquetId: bouquetId, imageFiles: imageFiles) { result in
-            switch result {
-            case .success(let _):
-                self.imageUploadSuccess = true
-            case .failure(let error):
-                self.networkError = error
-            }
-        }
-    }
-    
-    func getRequestTitle(title: String?) {
-        guard let title = title else { return }
-        requestTitle = title
     }
 }

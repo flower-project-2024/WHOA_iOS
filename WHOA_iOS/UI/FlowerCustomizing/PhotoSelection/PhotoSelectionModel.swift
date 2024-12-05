@@ -8,6 +8,6 @@
 import Foundation
 
 struct PhotoSelectionModel {
-    var imageFiles: [ImageFile]
+    var photoDatas: [Data]
     var text: String?
 }

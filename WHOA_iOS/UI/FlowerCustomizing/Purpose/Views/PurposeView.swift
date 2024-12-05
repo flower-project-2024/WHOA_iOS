@@ -7,85 +7,72 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 final class PurposeView: UIView {
     
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let buttonHeight = 94.0.adjustedH()
+    }
+    
     // MARK: - Properties
     
-    let currentVC: UIViewController
-    let coordinator: CustomizingCoordinator?
+    private let purposeSubject: CurrentValueSubject<PurposeType, Never> = .init(.none)
+    private var cancellables = Set<AnyCancellable>()
+    
+    var valuePublisher: AnyPublisher<PurposeType, Never> {
+        return purposeSubject.eraseToAnyPublisher()
+    }
     
     // MARK: - UI
     
-    private lazy var exitButton = ExitButton(currentVC: currentVC, coordinator: coordinator)
-    private let progressHStackView = CustomProgressHStackView(numerator: 1, denominator: 7)
-    private let titleLabel = CustomTitleLabel(text: "꽃다발 구매 목적")
-    private let descriptionLabel = CustomDescriptionLabel(text: "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요", numberOfLines: 2)
+    private lazy var affectionButton = buildPurposeButton(purpose: .affection)
+    private lazy var partingButton = buildPurposeButton(purpose: .parting)
+    private lazy var gratitudeButton = buildPurposeButton(purpose: .gratitude)
+    private lazy var partyButton = buildPurposeButton(purpose: .party)
+    private lazy var employmentButton = buildPurposeButton(purpose: .employment)
+    private lazy var promotionButton = buildPurposeButton(purpose: .promotion)
+    private lazy var friendshipButton = buildPurposeButton(purpose: .friendship)
+    private lazy var noneButton = buildPurposeButton(purpose: .none)
     
-    let affectionButton = PurposeButton(purposeType: .affection)
-    let birthdayButton = PurposeButton(purposeType: .birthday)
-    let gratitudeButton = PurposeButton(purposeType: .gratitude)
-    let proposeButton = PurposeButton(purposeType: .propose)
-    let partyButton = PurposeButton(purposeType: .party)
-    let employmentButton = PurposeButton(purposeType: .employment)
-    let promotionButton = PurposeButton(purposeType: .promotion)
-    let friendshipButton = PurposeButton(purposeType: .friendship)
-    
-    private lazy var purposeButtonHStackView1 = PurposeButtonHStackView(
+    private lazy var purposeButtonHStackView1 = buildPurposeButtonHStackView(
         button1: affectionButton,
-        button2: birthdayButton
+        button2: partingButton
     )
-    private lazy var purposeButtonHStackView2 = PurposeButtonHStackView(
+    
+    private lazy var purposeButtonHStackView2 = buildPurposeButtonHStackView(
         button1: gratitudeButton,
-        button2: proposeButton
+        button2: partyButton
     )
-    private lazy var purposeButtonHStackView3 = PurposeButtonHStackView(
-        button1: partyButton,
-        button2: employmentButton
+    
+    private lazy var purposeButtonHStackView3 = buildPurposeButtonHStackView(
+        button1: employmentButton,
+        button2: promotionButton
     )
-    private lazy var purposeButtonHStackView4 = PurposeButtonHStackView(
-        button1: promotionButton,
-        button2: friendshipButton
+    
+    private lazy var purposeButtonHStackView4 = buildPurposeButtonHStackView(
+        button1: friendshipButton,
+        button2: noneButton
     )
     
     private lazy var purposeButtonVStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
+        let stackView = UIStackView(arrangedSubviews: [
             purposeButtonHStackView1,
             purposeButtonHStackView2,
             purposeButtonHStackView3,
             purposeButtonHStackView4
-        ].forEach { stackView.addArrangedSubview($0)}
+        ])
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.spacing = 12
         return stackView
     }()
     
-    private let borderLine = ShadowBorderLine()
-    
-    let backButton = BackButton(isActive: false)
-    let nextButton = NextButton()
-    
-    private lazy var navigationHStackView: UIStackView = {
-        let stackView = UIStackView()
-        [
-            backButton,
-            nextButton
-        ].forEach { stackView.addArrangedSubview($0)}
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 9
-        return stackView
-    }()
-    
-    // MARK: - Lifecycle
-    
-    init(currentVC: UIViewController, coordinator: CustomizingCoordinator?) {
-        self.currentVC = currentVC
-        self.coordinator = coordinator
+    init() {
         super.init(frame: .zero)
-        
         setupUI()
     }
     
@@ -97,64 +84,155 @@ final class PurposeView: UIView {
     
     private func setupUI() {
         backgroundColor = .white
-        
-        addSubview(exitButton)
-        addSubview(progressHStackView)
-        addSubview(titleLabel)
-        addSubview(descriptionLabel)
         addSubview(purposeButtonVStackView)
-        addSubview(borderLine)
-        addSubview(navigationHStackView)
-        
         setupAutoLayout()
+    }
+    
+    func config(with initialPurpose: PurposeType) {
+        purposeSubject.send(initialPurpose)
+    }
+    
+    func updateSelectedButton(for purpose: PurposeType) {
+        resetView()
+        var selectedButton: UIButton?
+        
+        switch purpose {
+        case .affection:
+            selectedButton = affectionButton
+        case .parting:
+            selectedButton = partingButton
+        case .gratitude:
+            selectedButton = gratitudeButton
+        case .party:
+            selectedButton = partyButton
+        case .employment:
+            selectedButton = employmentButton
+        case .promotion:
+            selectedButton = promotionButton
+        case .friendship:
+            selectedButton = friendshipButton
+        case .none:
+            selectedButton = noneButton
+        }
+        
+        configureButton(
+            button: selectedButton,
+            backgroundColor: .second1.withAlphaComponent(0.2),
+            font: .Pretendard(size: 16, family: .SemiBold),
+            fontColor: .primary,
+            borderColor: UIColor.secondary03.cgColor
+        )
+    }
+    
+    private func resetView() {
+        [
+            affectionButton,
+            partingButton,
+            gratitudeButton,
+            partyButton,
+            employmentButton,
+            promotionButton,
+            friendshipButton,
+            noneButton
+        ].forEach {
+            configureButton(
+                button: $0,
+                backgroundColor: .gray02,
+                font: .Pretendard(size: 16),
+                fontColor: .gray08,
+                borderColor: UIColor.clear.cgColor
+            )
+        }
+    }
+    
+    private func configureButton(
+        button: UIButton?,
+        backgroundColor: UIColor,
+        font: UIFont,
+        fontColor: UIColor,
+        borderColor: CGColor
+    ) {
+        var titleAttr = AttributedString(button?.configuration?.title ?? "")
+        titleAttr.font = font
+        button?.configuration?.attributedTitle = titleAttr
+        button?.configuration?.baseForegroundColor = fontColor
+        button?.configuration?.baseBackgroundColor = backgroundColor
+        button?.layer.borderColor = borderColor
+    }
+    
+    private func getPurposeImage(_ purposeType: PurposeType) -> UIImage? {
+        switch purposeType {
+        case .affection: return .affection
+        case .parting: return .parting
+        case .gratitude: return .gratitude
+        case .party: return .party
+        case .employment: return .employment
+        case .promotion: return .promotion
+        case .friendship: return .friendship
+        case .none: return .nonePurpose
+        }
+    }
+    
+    private func buildPurposeButton(purpose: PurposeType) -> UIButton {
+        let button = UIButton(type: .custom)
+        
+        var config = UIButton.Configuration.gray()
+        config.baseBackgroundColor = .gray02
+        config.baseForegroundColor = .gray08
+        config.title = purpose.rawValue
+        config.image = getPurposeImage(purpose)
+        config.imagePlacement = .top
+        config.imagePadding = 10
+        config.contentInsets = .init(top: 12, leading: 0, bottom: 16, trailing: 0)
+        button.configuration = config
+        
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.clear.cgColor
+        
+        var titleAttr = AttributedString(purpose.rawValue)
+        titleAttr.font = .Pretendard(size: 16)
+        button.configuration?.attributedTitle = titleAttr
+        
+        // 최신버전 버튼 액션
+        button.addAction(UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.purposeSubject.send(purpose)
+        }, for: .touchUpInside)
+        return button
+    }
+    
+    private func buildPurposeButtonHStackView(button1: UIButton, button2: UIButton) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: [
+            button1,
+            button2
+        ])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 9
+        return stackView
     }
 }
 
+// MARK: - AutoLayout
+
 extension PurposeView {
     private func setupAutoLayout() {
-        exitButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(17)
-            $0.leading.equalToSuperview().offset(22)
-        }
-        
-        progressHStackView.snp.makeConstraints {
-            $0.top.equalTo(exitButton.snp.bottom).offset(29)
-            $0.leading.trailing.equalToSuperview().inset(19.5)
-            $0.height.equalTo(12.75)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(progressHStackView.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(20)
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.equalToSuperview().offset(20)
-            $0.trailing.equalToSuperview().inset(114)
+        [
+            affectionButton,
+            gratitudeButton,
+            employmentButton,
+            friendshipButton,
+        ].forEach { button in
+            button.snp.makeConstraints { make in
+                make.height.equalTo(Metric.buttonHeight)
+            }
         }
         
         purposeButtonVStackView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().offset(21)
-            $0.trailing.equalToSuperview().offset(-21)
-            $0.height.lessThanOrEqualToSuperview().multipliedBy(0.5)
-        }
-        
-        borderLine.snp.makeConstraints {
-            $0.top.equalTo(navigationHStackView.snp.top).offset(-20)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(2)
-        }
-        
-        backButton.snp.makeConstraints {
-            $0.width.equalTo(110)
-            $0.height.equalTo(56)
-        }
-        
-        navigationHStackView.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-8)
-            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
 }

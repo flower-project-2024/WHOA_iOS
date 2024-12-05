@@ -24,6 +24,7 @@ final class PhotoViewController: UIViewController {
     private var selectedIndexArray = [Int]() // Index: count
     private var isAscending = false
     private let photosCount: Int
+    private let photoSelectionLimitCount: Int
     
     // album 여러개에 대한 예시는 생략 (UIPickerView와 같은 것을 이용하여 currentAlbumIndex를 바꾸어주면 됨)
     private var albums = [PHFetchResult<PHAsset>]()
@@ -101,8 +102,9 @@ final class PhotoViewController: UIViewController {
     }()
     
     
-    init(photosCount: Int) {
+    init(photosCount: Int, photoSelectionLimitCount: Int) {
         self.photosCount = photosCount
+        self.photoSelectionLimitCount = photoSelectionLimitCount
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -288,7 +290,7 @@ extension PhotoViewController: UICollectionViewDelegate {
             updatingIndexPaths = [indexPath] + selectedIndexArray
                 .map { IndexPath(row: $0, section: 0) }
         } else {
-            if selectedIndexArray.count < (3 - photosCount) {
+            if selectedIndexArray.count < (photoSelectionLimitCount - photosCount) {
                 selectedIndexArray.append(indexPath.item)
                 
                 selectedIndexArray
@@ -303,7 +305,7 @@ extension PhotoViewController: UICollectionViewDelegate {
                 
                 updatingIndexPaths = selectedIndexArray.map { IndexPath(row: $0, section: 0) }
             } else {
-                showToast(message: "사진은 최대 3장까지 추가할 수 있습니다.", font: .Pretendard())
+                showToast(message: "사진은 최대 \(photoSelectionLimitCount)장까지 추가할 수 있습니다.", font: .Pretendard())
                 return
             }
         }

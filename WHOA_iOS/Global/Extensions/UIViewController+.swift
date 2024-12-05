@@ -51,4 +51,10 @@ extension UIViewController {
             self.present(sheet, animated: true)
         }
     }
+    
+    func configNavigationBar(isHidden: Bool) {
+        extendedLayoutIncludesOpaqueBars = isHidden
+        navigationController?.setNavigationBarHidden(isHidden, animated: false)
+        tabBarController?.tabBar.isHidden = isHidden
+    }
 }

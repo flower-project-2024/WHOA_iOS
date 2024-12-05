@@ -146,6 +146,8 @@ final class TodaysFlowerViewCell: UICollectionViewCell {
             ImageProvider.shared.setImage(into: flowerImageView, from: imagePath)
         }
         
+        flowerLanguageStackView.removeArrangedSubviews()
+        
         if let flowerLanguage = model.flowerExpressions?[0].flowerLanguage {
             let languageList = flowerLanguage.split(separator: ",").map({ "#" + String($0).trimmingCharacters(in: .whitespaces) })
             

@@ -12,7 +12,7 @@ final class CustomExitAlertViewController: UIViewController {
     
     // MARK: - Properties
     
-    var currentVC: UIViewController
+    var currentVC: UIViewController?
     
     // MARK: - UI
     
@@ -74,7 +74,7 @@ final class CustomExitAlertViewController: UIViewController {
         return stackView
     }()
     
-    init(currentVC: UIViewController) {
+    init(currentVC: UIViewController?) {
         self.currentVC = currentVC
         super.init(nibName: nil, bundle: nil)
     }
@@ -87,7 +87,6 @@ final class CustomExitAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
@@ -100,7 +99,6 @@ final class CustomExitAlertViewController: UIViewController {
         alertView.addSubview(titleLabel)
         alertView.addSubview(descriptionLabel)
         alertView.addSubview(buttonHStackView)
-        
         setupAutoLayout()
     }
     
@@ -109,9 +107,11 @@ final class CustomExitAlertViewController: UIViewController {
     @objc
     private func exitButtonTapped() {
         dismiss(animated: true) { [weak self] in
-            self?.currentVC.tabBarController?.selectedIndex = 0
-            self?.currentVC.navigationController?.popToRootViewController(animated: true)
-            
+            BouquetDataManager.shared.reset()
+            self?.currentVC?.tabBarController?.selectedIndex = 0
+            if let navigationController = self?.currentVC?.navigationController {
+                navigationController.popToRootViewController(animated: false)
+            }
         }
     }
     

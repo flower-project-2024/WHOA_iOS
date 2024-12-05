@@ -5,56 +5,121 @@
 //  Created by KSH on 3/14/24.
 //
 
-import UIKit
+import Foundation
+import Combine
 
-final class PhotoSelectionViewModel {
+final class PhotoSelectionViewModel: ViewModel {
     
     // MARK: - Properties
     
-    let authService = MyPhotoAuthService()
+    struct Input {
+        let textInput: AnyPublisher<String, Never>
+        let addImageButtonTapped: AnyPublisher<Void, Never>
+        let minusButtonTapped: AnyPublisher<Int, Never>
+        let photosSelected: AnyPublisher<[Data], Never>
+        let nextButtonTapped: AnyPublisher<Void, Never>
+    }
     
-    var photos = [UIImage?]()
-    private var photoSelectionModel = PhotoSelectionModel(imageFiles: [], text: nil)
+    struct Output {
+        let setupRequirementText: AnyPublisher<String, Never>
+        let updatePhotosData: AnyPublisher<[Data], Never>
+        let showPhotoView: AnyPublisher<Int, Never>
+        let showCustomizingSummaryView: AnyPublisher<Void, Never>
+    }
+    
+    private let dataManager: BouquetDataManaging
+    private let photoAuthService: PhotoAuthService
+    private let textInputSubject: CurrentValueSubject<String, Never>
+    private let requirementPhotos: CurrentValueSubject<[Data], Never>
+    private let showPhotoViewSubject = PassthroughSubject<Int, Never>()
+    private let showCustomizingSummaryViewSubject = PassthroughSubject<Void, Never>()
+    private var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Initialize
+    
+    init(
+        dataManager: BouquetDataManaging = BouquetDataManager.shared,
+        authService: PhotoAuthService = MyPhotoAuthService()
+    ) {
+        self.photoAuthService = authService
+        self.dataManager = dataManager
+        let requirement = dataManager.getRequirement()
+        textInputSubject = .init(requirement.text ?? "")
+        requirementPhotos = .init(requirement.images)
+    }
     
     // MARK: - Functions
     
-    func getPhotoSelectionModel() -> PhotoSelectionModel {
-        return photoSelectionModel
-    }
-    
-    func addPhotos(photos: [UIImage?]) {
-        self.photos.append(contentsOf: photos)
-    }
-    
-    func getPhoto(idx: Int) -> UIImage? {
-        if idx >= photos.count {
-            return nil
-        }
+    func transform(input: Input) -> Output {
+        let setupRequirementTextPublisher = Just(textInputSubject.value)
         
-        return photos[idx]
-    }
-    
-    func getPhotosArray() -> [UIImage?] {
-        return photos
-    }
-    
-    func getPhotosCount() -> Int {
-        return photos.count
-    }
-    
-    func convertPhotosToBase64() {
-        photoSelectionModel.imageFiles.removeAll()
+        input.textInput
+            .removeDuplicates()
+            .assign(to: \.value, on: textInputSubject)
+            .store(in: &cancellables)
         
-        for i in 0..<photos.count {
-            if let pnaData = photos[i]?.pngData() {
-                let imageFile = ImageFile(filename: "RequirementImage\(i+1)", data: pnaData, type: "image/png")
-                photoSelectionModel.imageFiles.append(imageFile)
+        input.addImageButtonTapped
+            .sink { [weak self] _ in
+                self?.requestPhotoAuthorization()
+            }
+            .store(in: &cancellables)
+        
+        input.minusButtonTapped
+            .sink { [weak self] index in
+                self?.removePhoto(at: index)
+            }
+            .store(in: &cancellables)
+        
+        input.photosSelected
+            .sink { [weak self] photoDatas in
+                self?.addPhotos(photoDatas)
+            }
+            .store(in: &cancellables)
+        
+        input.nextButtonTapped
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                let requirement = BouquetData.Requirement(
+                    text: textInputSubject.value,
+                    images: requirementPhotos.value
+                )
+                self.dataManager.setRequirement(requirement)
+                self.showCustomizingSummaryViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        return Output(
+            setupRequirementText: setupRequirementTextPublisher.eraseToAnyPublisher(),
+            updatePhotosData: requirementPhotos.eraseToAnyPublisher(),
+            showPhotoView: showPhotoViewSubject.eraseToAnyPublisher(),
+            showCustomizingSummaryView: showCustomizingSummaryViewSubject.eraseToAnyPublisher()
+        )
+    }
+    
+    private func addPhotos(_ photos: [Data]) {
+        var currentPhotos = requirementPhotos.value
+        let remainingCapacity = max(0, 3 - currentPhotos.count)
+        currentPhotos.append(contentsOf: photos.prefix(remainingCapacity))
+        requirementPhotos.send(currentPhotos)
+    }
+    
+    private func removePhoto(at index: Int) {
+        var currentPhotos = requirementPhotos.value
+        
+        guard index >= 0 && index < currentPhotos.count else { return }
+        currentPhotos.remove(at: index)
+        requirementPhotos.send(currentPhotos)
+    }
+    
+    private func requestPhotoAuthorization() {
+        photoAuthService.requestAuthorization { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                self.showPhotoViewSubject.send(requirementPhotos.value.count)
+            case .failure:
+                break
             }
         }
     }
-    
-    func updateText(_ text: String) {
-        photoSelectionModel.text = text
-    }
-    
 }

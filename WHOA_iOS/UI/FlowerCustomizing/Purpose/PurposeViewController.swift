@@ -7,24 +7,45 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 final class PurposeViewController: UIViewController {
+    
+    // MARK: - Enums
+    
+    /// Metrics
+    private enum Metric {
+        static let sideMargin = 21.0
+        static let verticalSpacing = 32.0
+        static let bottomOffset = -45.0.adjustedH(basedOnHeight: 852)
+    }
+    
+    /// Attributes
+    private enum Attributes {
+        static let headerTitleText = "꽃다발 구매 목적"
+        static let headerDescriptionText = "선택한 목적에 맞는 꽃말을 가진\n꽃들을 추천해드릴게요"
+    }
     
     // MARK: - Properties
     
     private let viewModel: PurposeViewModel
-    
+    private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
     // MARK: - UI
     
-    private lazy var purposeView: PurposeView = PurposeView(currentVC: self, coordinator: coordinator)
+    private let headerView = CustomHeaderView(
+        numerator: 1,
+        title: Attributes.headerTitleText,
+        description: Attributes.headerDescriptionText
+    )
+    private let purposeView = PurposeView()
+    private let bottomView = CustomBottomView(backButtonState: .disabled, nextButtonEnabled: true)
     
     // MARK: - Initialize
     
-    init(viewModel: PurposeViewModel) {
+    init(viewModel: PurposeViewModel = PurposeViewModel()) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,79 +57,67 @@ final class PurposeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind()
         setupUI()
-        setupButtonActions()
+        bind()
+        observe()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        extendedLayoutIncludesOpaqueBars = true
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        tabBarController?.tabBar.isHidden = true
+        configNavigationBar(isHidden: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        extendedLayoutIncludesOpaqueBars = false
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        tabBarController?.tabBar.isHidden = false
+        configNavigationBar(isHidden: false)
     }
     
     // MARK: - Functions
     
     private func setupUI() {
         view.backgroundColor = .white
-        
-        view.addSubview(purposeView)
+        [
+            headerView,
+            purposeView,
+            bottomView
+        ].forEach(view.addSubview(_:))
         
         setupAutoLayout()
     }
     
     private func bind() {
-        viewModel.$purposeModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
-                guard let self = self else { return }
-                self.purposeView.nextButton.isActive = self.viewModel.updateNextButtonState()
+        let input = PurposeViewModel.Input(
+            purposeSelected: purposeView.valuePublisher,
+            nextButtonTapped: bottomView.nextButtonTappedPublisher
+        )
+        let output = viewModel.transform(input: input)
+        
+        output.initialPurpose
+            .sink { [weak self] initialPurpose in
+                self?.purposeView.config(with: initialPurpose)
             }
-            .store(in: &viewModel.cancellables)
+            .store(in: &cancellables)
+
+        output.purposeType
+            .sink { [weak self] purpose in
+                self?.purposeView.updateSelectedButton(for: purpose)
+            }
+            .store(in: &cancellables)
+        
+        output.showColorPicker
+            .sink { [weak self] _ in
+                self?.coordinator?.showColorPickerVC()
+            }
+            .store(in: &cancellables)
     }
     
-    private func setupButtonActions() {
-        let purposeButtons = [
-            purposeView.affectionButton, purposeView.birthdayButton,
-            purposeView.gratitudeButton, purposeView.proposeButton,
-            purposeView.partyButton, purposeView.employmentButton,
-            purposeView.promotionButton, purposeView.friendshipButton,
-        ]
-        
-        purposeButtons.forEach { $0.addTarget(self, action: #selector(purposeButtonTapped), for: .touchUpInside) }
-        purposeView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-    }
-    
-    // MARK: - Actions
-    
-    @objc
-    func purposeButtonTapped(sender: PurposeButton) {
-        let purposeButtons = [
-            purposeView.affectionButton, purposeView.birthdayButton,
-            purposeView.gratitudeButton, purposeView.proposeButton,
-            purposeView.partyButton, purposeView.employmentButton,
-            purposeView.promotionButton, purposeView.friendshipButton,
-        ]
-        
-        sender.isSelected.toggle()
-        
-        viewModel.updateButtonState(sender: sender, purposeButtons: purposeButtons)
-        viewModel.setPurposeType(sender.purposeType)
-    }
-    
-    @objc
-    func nextButtonTapped() {
-        guard let purpose = viewModel.getPurposeType() else { return }
-        coordinator?.showColorPickerVC(purposeType: purpose)
+    private func observe() {
+        headerView.exitButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.coordinator?.showExitAlertVC(from: self)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -116,9 +125,20 @@ final class PurposeViewController: UIViewController {
 
 extension PurposeViewController {
     private func setupAutoLayout() {
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+        }
+        
         purposeView.snp.makeConstraints {
-            $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.verticalSpacing)
+            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.bottom.equalTo(bottomView.snp.top).offset(Metric.bottomOffset)
+        }
+        
+        bottomView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
