@@ -26,7 +26,7 @@ final class FlowerPriceViewModel: ViewModel {
     
     let dataManager: BouquetDataManaging
     private let minPriceSubject = CurrentValueSubject<Int, Never>(0)
-    private let maxPriceSubject = CurrentValueSubject<Int, Never>(150000)
+    private let maxPriceSubject = CurrentValueSubject<Int, Never>(100000)
     private let showPhotoSelectionViewSubject = PassthroughSubject<Void, Never>()
     var cancellables = Set<AnyCancellable>()
     
