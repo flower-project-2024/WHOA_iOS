@@ -73,7 +73,11 @@ extension CustomizingSummaryModel {
             packagingAssignType: bouquetData.packagingAssign.assign,
             text: bouquetData.packagingAssign.text
         )
-        self.priceRange = "\(bouquetData.price.min) ~ \(bouquetData.price.max)원"
+        
+        let formattedMinPrice = String(bouquetData.price.min).formatNumberInThousands()
+        let formattedMaxPrice = String(bouquetData.price.max).formatNumberInThousands()
+        self.priceRange = "\(formattedMinPrice) ~ \(formattedMaxPrice)원"
+        
         if let requirementText = bouquetData.requirement.text, !bouquetData.requirement.images.isEmpty {
             var imageFiles: [ImageFile] = []
             for i in 0..<bouquetData.requirement.images.count {

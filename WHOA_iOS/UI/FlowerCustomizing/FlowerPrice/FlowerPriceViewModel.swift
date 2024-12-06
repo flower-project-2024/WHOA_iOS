@@ -59,7 +59,9 @@ final class FlowerPriceViewModel: ViewModel {
         
         let updatePriceLabel = Publishers.CombineLatest(minPriceSubject, maxPriceSubject)
             .map { minPrice, maxPrice in
-                "\(minPrice)원 ~ \(maxPrice)원"
+                let formattedMinPrice = String(minPrice).formatNumberInThousands()
+                let formattedMaxPrice = String(maxPrice).formatNumberInThousands()
+                return "\(formattedMinPrice)원 ~ \(formattedMaxPrice)원"
             }
         
         input.nextButtonTapped
