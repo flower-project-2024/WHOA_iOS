@@ -106,7 +106,6 @@
 		5413AA762BDA6F09006AA160 /* CustomizingSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */; };
 		5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */; };
 		5415DB7B2CC1229D00FD70D6 /* FlowerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415DB7A2CC1229D00FD70D6 /* FlowerImageView.swift */; };
-		5422927F2C132D22007E13C6 /* ColorTypeResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5422927E2C132D22007E13C6 /* ColorTypeResultView.swift */; };
 		542292842C18B5D8007E13C6 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542292832C18B5D8007E13C6 /* ImageFile.swift */; };
 		542ABB002C54FE080022E243 /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542ABAFF2C54FE080022E243 /* CustomHeaderView.swift */; };
 		542ABB042C553CAA0022E243 /* CustomBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542ABB032C553CAA0022E243 /* CustomBottomView.swift */; };
@@ -317,7 +316,6 @@
 		5413AA752BDA6F09006AA160 /* CustomizingSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizingSummaryViewModel.swift; sourceTree = "<group>"; };
 		5413AA7A2BDABBE4006AA160 /* AlternativesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesType.swift; sourceTree = "<group>"; };
 		5415DB7A2CC1229D00FD70D6 /* FlowerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerImageView.swift; sourceTree = "<group>"; };
-		5422927E2C132D22007E13C6 /* ColorTypeResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTypeResultView.swift; sourceTree = "<group>"; };
 		542292832C18B5D8007E13C6 /* ImageFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		542ABAFF2C54FE080022E243 /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		542ABB032C553CAA0022E243 /* CustomBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBottomView.swift; sourceTree = "<group>"; };
@@ -683,7 +681,6 @@
 		5460710B2B8234520033B598 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5422927E2C132D22007E13C6 /* ColorTypeResultView.swift */,
 				5468C0CD2C8B1F89001D999F /* ColorTypeSelectionButtonsView.swift */,
 				5468C0D12C8BE107001D999F /* ColorSelectionResultView.swift */,
 				5468C0CF2C8BDFDF001D999F /* SegmentControlView.swift */,
@@ -1450,7 +1447,6 @@
 				5468C0D22C8BE107001D999F /* ColorSelectionResultView.swift in Sources */,
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				544FC0B32C03A5C70091EEE2 /* BouquetDetailDTO.swift in Sources */,
-				5422927F2C132D22007E13C6 /* ColorTypeResultView.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */,
 				54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */,
