@@ -37,8 +37,8 @@ class FlowerDetailViewController: UIViewController {
     private lazy var imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = UIColor(white: 1, alpha: 0.5)
-        pageControl.currentPageIndicatorTintColor = .white
+        pageControl.pageIndicatorTintColor = .gray04
+        pageControl.currentPageIndicatorTintColor = .secondary03
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
