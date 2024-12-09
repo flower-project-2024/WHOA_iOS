@@ -16,14 +16,12 @@ final class FlowerColorPickerViewModel: ViewModel {
         let colorTypeSelected: AnyPublisher<NumberOfColorsType, Never>
         let hexColorSelected: AnyPublisher<String, Never>
         let resultButtonIndex: AnyPublisher<Int, Never>
-        let backButtonTapped: AnyPublisher<Void, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let initialColorType: AnyPublisher<NumberOfColorsType, Never>
         let initialHexColor: AnyPublisher<[String], Never>
-        let dismissView: AnyPublisher<Void, Never>
         let showFlowerSelection: AnyPublisher<Void, Never>
         let isNextButtonEnabled: AnyPublisher<Bool, Never>
     }
@@ -34,7 +32,6 @@ final class FlowerColorPickerViewModel: ViewModel {
     private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.oneColor)
     private let hexColorsSubject = CurrentValueSubject<[String], Never>([""])
     private let resultButtonIndexSubject = CurrentValueSubject<Int, Never>(0)
-    private let dismissSubject = PassthroughSubject<Void, Never>()
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -68,12 +65,6 @@ final class FlowerColorPickerViewModel: ViewModel {
             .assign(to: \.value, on: resultButtonIndexSubject)
             .store(in: &cancellables)
         
-        input.backButtonTapped
-            .sink { [weak self] _ in
-                self?.dismissSubject.send()
-            }
-            .store(in: &cancellables)
-        
         input.nextButtonTapped
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -93,7 +84,6 @@ final class FlowerColorPickerViewModel: ViewModel {
         return Output(
             initialColorType: colorTypeSubject.eraseToAnyPublisher(),
             initialHexColor: hexColorsSubject.eraseToAnyPublisher(),
-            dismissView: dismissSubject.eraseToAnyPublisher(),
             showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher(),
             isNextButtonEnabled: isNextButtonEnabled.eraseToAnyPublisher()
         )

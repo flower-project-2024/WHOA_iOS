@@ -43,7 +43,6 @@ final class FlowerColorPickerViewController: UIViewController {
         return scrollView
     }()
     private let contentView = UIView()
-
     private let headerView = CustomHeaderView(
         numerator: 2,
         title: Attributes.headerViewTitle,
@@ -109,7 +108,6 @@ final class FlowerColorPickerViewController: UIViewController {
             colorTypeSelected: colorTypeSelectionButtonsView.valuePublisher,
             hexColorSelected: segmentControlView.valuePublisher,
             resultButtonIndex: colorSelectionResultView.selectedButtonIndexPublisher,
-            backButtonTapped: bottomView.backButtonTappedPublisher,
             nextButtonTapped: bottomView.nextButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)
@@ -129,12 +127,6 @@ final class FlowerColorPickerViewController: UIViewController {
                 hexColors.enumerated().forEach { index, hexColor in
                     self.colorSelectionResultView.updateColorSelection(hexString: hexColor, for: index)
                 }
-            }
-            .store(in: &cancellables)
-        
-        output.dismissView
-            .sink { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
         
@@ -159,6 +151,13 @@ final class FlowerColorPickerViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.coordinator?.showExitAlertVC(from: self)
+            }
+            .store(in: &cancellables)
+        
+        bottomView.backButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
     }
