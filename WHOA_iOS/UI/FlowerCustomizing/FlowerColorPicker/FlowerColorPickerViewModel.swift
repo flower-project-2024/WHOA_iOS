@@ -31,8 +31,8 @@ final class FlowerColorPickerViewModel: ViewModel {
     private let dataManager: BouquetDataManaging
     private let isCustomV2: Bool
     private var customV2HexColor: String?
-    private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
-    private let hexColorsSubject = CurrentValueSubject<[String], Never>([])
+    private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.oneColor)
+    private let hexColorsSubject = CurrentValueSubject<[String], Never>([""])
     private let resultButtonIndexSubject = CurrentValueSubject<Int, Never>(0)
     private let dismissSubject = PassthroughSubject<Void, Never>()
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
@@ -50,7 +50,7 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         input.colorTypeSelected
-            .dropFirst()
+            .removeDuplicates()
             .sink { [weak self] colorType in
                 self?.colorTypeSubject.send(colorType)
                 self?.updateHexColorsArray(for: colorType)
@@ -122,8 +122,8 @@ final class FlowerColorPickerViewModel: ViewModel {
     }
     
     private func initColorScheme(colorScheme: BouquetData.ColorScheme) {
+        guard colorScheme.numberOfColors != .none else { return }
         var colors = colorScheme.colors
-        
         if let pointColor = colorScheme.pointColor {
             colors.insert(pointColor, at: 0)
         }
