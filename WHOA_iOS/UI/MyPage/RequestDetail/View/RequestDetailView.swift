@@ -129,6 +129,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .orange
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         return view
     }()
     
@@ -137,6 +139,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .yellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         view.isHidden = true
         return view
     }()
@@ -146,6 +150,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .yellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         view.isHidden = true
         return view
     }()
