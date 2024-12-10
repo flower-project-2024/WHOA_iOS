@@ -23,10 +23,8 @@ final class CheapFlowerView: UIView {
     
     private let baseDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "4월 첫째 주 기준"
-        label.textColor = UIColor.primary
-        label.font = .Pretendard(size: 12, family: .Regular)
-        label.textColor = UIColor.gray08
+        label.textColor = UIColor.gray07
+        label.numberOfLines = 2
         return label
     }()
     
@@ -37,14 +35,6 @@ final class CheapFlowerView: UIView {
         tableView.rowHeight = 86
         tableView.isScrollEnabled = false
         return tableView
-    }()
-    
-    private let flowerInfoSourceLabel: UILabel = {
-        let label = UILabel()
-        label.font = .Pretendard(size: 12)
-        label.text = "화훼유통정보시스템에 기반한 데이터입니다."
-        label.textColor = .gray07
-        return label
     }()
     
     // MARK: - Init
@@ -66,7 +56,6 @@ final class CheapFlowerView: UIView {
         addSubview(cheapFlowerLabel)
         addSubview(baseDateLabel)
         addSubview(topThreeTableView)
-        addSubview(flowerInfoSourceLabel)
     }
     
     private func setupConstraints() {
@@ -76,24 +65,42 @@ final class CheapFlowerView: UIView {
         }
         
         baseDateLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(cheapFlowerLabel.snp.centerY)
+            make.top.equalToSuperview().offset(2)
             make.trailing.equalToSuperview()
         }
         
         topThreeTableView.snp.makeConstraints { make in
             make.top.equalTo(cheapFlowerLabel.snp.bottom).offset(12)
-            make.leading.trailing.equalToSuperview()
-        }
-        
-        flowerInfoSourceLabel.snp.makeConstraints { make in
-            make.top.equalTo(topThreeTableView.snp.bottom).offset(12)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
     func setBaseDateLabel(viewModel: HomeViewModel) {
         let data = viewModel.calculateCheapFlowerBaseDate()
-        baseDateLabel.text = "\(data[0])월 \(data[1]) 기준"
+        let newText = "\(data[0])월 \(data[1]) 기준\n출처: 화훼유통정보시스템"
+        baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: newText)
+    }
+    
+    private func makeBaseDateAttributedText(dateText: String) -> NSAttributedString {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 2
+        paragraphStyle.alignment = .right
+
+        let attributedString = NSMutableAttributedString(
+            string: dateText,
+            attributes: [
+                .font: UIFont.Pretendard(size: 12, family: .Regular),
+                .foregroundColor: UIColor.gray07,
+                .paragraphStyle: paragraphStyle
+            ]
+        )
+
+        if let range = dateText.range(of: "출처: 화훼유통정보시스템") {
+            attributedString.addAttributes([
+                .font: UIFont.Pretendard(size: 10, family: .Light)
+            ], range: NSRange(range, in: dateText))
+        }
+
+        return attributedString
     }
 }
