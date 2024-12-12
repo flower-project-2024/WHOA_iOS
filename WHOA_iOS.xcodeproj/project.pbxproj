@@ -146,6 +146,9 @@
 		54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */; };
 		54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8565D2BDAFC390099D818 /* SpacebarButton.swift */; };
 		54D856602BDD40750099D818 /* AlternativesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D8565F2BDD40750099D818 /* AlternativesViewModel.swift */; };
+		54DCC9B82D0AB02200AC1237 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9B72D0AB02200AC1237 /* HomeVC.swift */; };
+		54DCC9BA2D0AB15500AC1237 /* HomeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9B92D0AB15500AC1237 /* HomeMainView.swift */; };
+		54DCC9BE2D0AB26F00AC1237 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9BD2D0AB26F00AC1237 /* SearchBarView.swift */; };
 		54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E115312C35226C00C4E738 /* PutBouquetAPI.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
@@ -358,6 +361,9 @@
 		54D6B7E52B9CAEA200628FF7 /* PackagingSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingSelectionViewModel.swift; sourceTree = "<group>"; };
 		54D8565D2BDAFC390099D818 /* SpacebarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacebarButton.swift; sourceTree = "<group>"; };
 		54D8565F2BDD40750099D818 /* AlternativesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewModel.swift; sourceTree = "<group>"; };
+		54DCC9B72D0AB02200AC1237 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		54DCC9B92D0AB15500AC1237 /* HomeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainView.swift; sourceTree = "<group>"; };
+		54DCC9BD2D0AB26F00AC1237 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		54E115312C35226C00C4E738 /* PutBouquetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutBouquetAPI.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
@@ -820,6 +826,32 @@
 			path = PackagingSelection;
 			sourceTree = "<group>";
 		};
+		54DCC9B62D0AB01400AC1237 /* Home2 */ = {
+			isa = PBXGroup;
+			children = (
+				54DCC9BB2D0AB15B00AC1237 /* Views */,
+				54DCC9B72D0AB02200AC1237 /* HomeVC.swift */,
+			);
+			path = Home2;
+			sourceTree = "<group>";
+		};
+		54DCC9BB2D0AB15B00AC1237 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				54DCC9BC2D0AB25600AC1237 /* Components */,
+				54DCC9B92D0AB15500AC1237 /* HomeMainView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		54DCC9BC2D0AB25600AC1237 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				54DCC9BD2D0AB26F00AC1237 /* SearchBarView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		54E9816C2B90A656000669DB /* Alternatives */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,6 +1071,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				54DCC9B62D0AB01400AC1237 /* Home2 */,
 				5467F00D2CA6C2E0008E3F5F /* Onboarding */,
 				08478E3A2BEBAFE6003970B9 /* TabBar */,
 				0887F6242B86777F00727F14 /* MyPage */,
@@ -1292,6 +1325,7 @@
 				089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */,
 				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */,
+				54DCC9BA2D0AB15500AC1237 /* HomeMainView.swift in Sources */,
 				54086BE82C6FC42400286BAE /* UITextField+.swift in Sources */,
 				544FC0B92C03C44B0091EEE2 /* DeleteBouquetAPI.swift in Sources */,
 				54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */,
@@ -1332,6 +1366,7 @@
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
 				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
+				54DCC9B82D0AB02200AC1237 /* HomeVC.swift in Sources */,
 				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				08A5F4902CADB1DB00DA582D /* RequestDetailModel.swift in Sources */,
@@ -1339,6 +1374,7 @@
 				546071282B88C2C30033B598 /* ServableAPI.swift in Sources */,
 				54EB17CA2B9D83C500717E6F /* FlowerPriceViewController.swift in Sources */,
 				0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */,
+				54DCC9BE2D0AB26F00AC1237 /* SearchBarView.swift in Sources */,
 				5468C0D02C8BDFDF001D999F /* SegmentControlView.swift in Sources */,
 				54EB18102BBF4C2C00717E6F /* FlowerKeywordDTO.swift in Sources */,
 				54D8565E2BDAFC390099D818 /* SpacebarButton.swift in Sources */,
