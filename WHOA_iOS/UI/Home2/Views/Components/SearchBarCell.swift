@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class SearchBarView: UIView {
+final class SearchBarCell: UICollectionViewCell {
     
     // MARK: - Enums
     
@@ -72,7 +72,7 @@ final class SearchBarView: UIView {
 
 // MARK: - AutoLayout
 
-extension SearchBarView {
+extension SearchBarCell {
     private func setupAutoLayout() {
         titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
