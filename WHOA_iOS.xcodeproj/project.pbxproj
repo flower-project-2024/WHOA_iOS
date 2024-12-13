@@ -150,6 +150,7 @@
 		54DCC9BA2D0AB15500AC1237 /* HomeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9B92D0AB15500AC1237 /* HomeMainView.swift */; };
 		54DCC9BE2D0AB26F00AC1237 /* SearchBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */; };
 		54DCC9C02D0B493100AC1237 /* HomeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9BF2D0B493100AC1237 /* HomeSection.swift */; };
+		54DCC9C22D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */; };
 		54E115322C35226C00C4E738 /* PutBouquetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E115312C35226C00C4E738 /* PutBouquetAPI.swift */; };
 		54E9816B2B90A5CC000669DB /* FlowerSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */; };
 		54E9816F2B90A6EB000669DB /* AlternativesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */; };
@@ -366,6 +367,7 @@
 		54DCC9B92D0AB15500AC1237 /* HomeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainView.swift; sourceTree = "<group>"; };
 		54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCell.swift; sourceTree = "<group>"; };
 		54DCC9BF2D0B493100AC1237 /* HomeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSection.swift; sourceTree = "<group>"; };
+		54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainLayoutProvider.swift; sourceTree = "<group>"; };
 		54E115312C35226C00C4E738 /* PutBouquetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutBouquetAPI.swift; sourceTree = "<group>"; };
 		54E9816A2B90A5CC000669DB /* FlowerSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSelectionViewModel.swift; sourceTree = "<group>"; };
 		54E9816E2B90A6EB000669DB /* AlternativesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternativesViewController.swift; sourceTree = "<group>"; };
@@ -851,6 +853,7 @@
 			children = (
 				54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */,
 				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
+				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1369,6 +1372,7 @@
 				54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
 				0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */,
+				54DCC9C22D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift in Sources */,
 				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
 				54DCC9B82D0AB02200AC1237 /* HomeVC.swift in Sources */,
 				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,

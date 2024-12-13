@@ -18,10 +18,32 @@ final class HomeMainView: UIView {
         static let sideMargin = 20.0
         static let searchBarViewHeight = 54.0
     }
-
+    
+    /// Attributes
+    private enum Attributes {
+        static let searchBarCellIdentifier = "SearchBarCell"
+    }
+    
     // MARK: - Properties
     
-    private let searchBarView = SearchBarView()
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HomeMainLayoutProvider.createCompositionalLayout())
+        collectionView.register(SearchBarCell.self, forCellWithReuseIdentifier: Attributes.searchBarCellIdentifier)
+        return collectionView
+    }()
+    
+    private lazy var dataSource: UICollectionViewDiffableDataSource = {
+        return UICollectionViewDiffableDataSource<HomeSection, Int>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+            guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
+            switch section {
+            case .searchBar:
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: Attributes.searchBarCellIdentifier,
+                    for: indexPath
+                ) as? SearchBarCell
+            }
+        }
+    }()
     
     // MARK: - initialize
     
@@ -30,6 +52,7 @@ final class HomeMainView: UIView {
         addSubviews()
         setupAutoLayout()
         setupUI()
+        initialSnapshot()
     }
     
     required init?(coder: NSCoder) {
@@ -40,12 +63,19 @@ final class HomeMainView: UIView {
     
     private func addSubviews() {
         [
-            searchBarView
+            collectionView
         ].forEach(addSubview(_:))
     }
     
     private func setupUI() {
         backgroundColor = .white
+    }
+    
+    private func initialSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
+        snapshot.appendSections([.searchBar])
+        snapshot.appendItems([0], toSection: .searchBar)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
 
@@ -53,10 +83,9 @@ final class HomeMainView: UIView {
 
 extension HomeMainView {
     private func setupAutoLayout() {
-        searchBarView.snp.makeConstraints {
+        collectionView.snp.makeConstraints {
             $0.top.equalTo(self.safeAreaLayoutGuide).offset(Metric.searchBarViewTopOffset)
-            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
-            $0.height.equalTo(Metric.searchBarViewHeight)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
