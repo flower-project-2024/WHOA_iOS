@@ -37,8 +37,8 @@ class FlowerDetailViewController: UIViewController {
     private lazy var imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = UIColor(white: 1, alpha: 0.5)
-        pageControl.currentPageIndicatorTintColor = .white
+        pageControl.pageIndicatorTintColor = .gray04
+        pageControl.currentPageIndicatorTintColor = .secondary03
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
@@ -126,12 +126,26 @@ class FlowerDetailViewController: UIViewController {
         return label
     }()
     
-    private let flowerColorStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var flowerColorStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                flowerColorLabel,
+                colorChipDescriptionLabel,
+                flowerColorChipHStackView
+            ])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.alignment = .leading
+        stackView.setCustomSpacing(4, after: flowerColorLabel)
         return stackView
+    }()
+    
+    private let colorChipDescriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "색상 별 다양한 꽃말을 확인해보세요"
+        label.font = .Pretendard(size: 16)
+        label.textColor = .gray06
+        return label
     }()
     
     private let flowerColorLabel: UILabel = {
@@ -148,14 +162,6 @@ class FlowerDetailViewController: UIViewController {
         stackView.spacing = 11
         stackView.alignment = .leading
         return stackView
-    }()
-    
-    private let colorChipDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "색상 별 다양한 꽃말을 확인해보세요"
-        label.font = .Pretendard(size: 16)
-        label.textColor = .gray06
-        return label
     }()
     
     private let birthFlowerStackView: UIStackView = {
@@ -336,10 +342,6 @@ class FlowerDetailViewController: UIViewController {
         
         [flowerKoreanNameLabel, flowerEnglishNameLabel].forEach {
             flowerNameStackView.addArrangedSubview($0)
-        }
-        
-        [flowerColorLabel, flowerColorChipHStackView, colorChipDescriptionLabel].forEach {
-            flowerColorStackView.addArrangedSubview($0)
         }
         
         [birthFlowerLabel, birthFlowerDateStackView].forEach {
