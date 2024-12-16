@@ -105,8 +105,8 @@ final class CustomizingSummaryViewController: UIViewController {
         
         output.setupRequestDetailView
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
-                self?.requestDetailView.config(model: model)
+            .sink { [weak self] bouquetData in
+                self?.requestDetailView.setupUI(bouquetData: bouquetData)
             }
             .store(in: &cancellables)
         

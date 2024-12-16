@@ -335,6 +335,113 @@ final class RequestDetailView: UIView {
     
     // MARK: - Functions
     
+    func setupUI(bouquetData: BouquetData) {
+        setupPurposeText(purpose: bouquetData.purpose)
+        setupColor(colorScheme: bouquetData.colorScheme)
+        setupFlower(flowers: bouquetData.flowers)
+        setupAlternativeText(alternative: bouquetData.alternative)
+        setupPackgeTitle(packagingAssign: bouquetData.packagingAssign)
+        setupPriceRange(price: bouquetData.price)
+        setupRequirement(requirement: bouquetData.requirement)
+    }
+    
+    private func setupPurposeText(purpose: PurposeType) {
+        buyingIntentTitleLabel.text = purpose.rawValue
+    }
+    
+    private func setupColor(colorScheme: BouquetData.ColorScheme) {
+        flowerColorContentLabel.text = colorScheme.numberOfColors.rawValue
+        
+        switch colorScheme.numberOfColors {
+        case .oneColor:
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            
+        case .twoColor:
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors[safe: 1])
+            
+        case .colorful:
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors[safe: 1])
+            setColor(for: flowerColorChipView3, color: colorScheme.colors[safe: 2])
+            
+        case .pointColor:
+            setColor(for: flowerColorChipView1, color: colorScheme.pointColor)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors.first)
+            starIcon.isHidden = false
+        case .none:
+            break
+        }
+    }
+    
+    private func setColor(for view: UIView?, color: String?) {
+        if let colorHex = color {
+            view?.backgroundColor = UIColor(hex: colorHex)
+            view?.isHidden = false
+        } else {
+            view?.isHidden = true
+        }
+    }
+    
+    private func setupFlower(flowers: [BouquetData.Flower]) {
+        for (index, flower) in flowers.enumerated() {
+            guard index < 3 else { break }
+            let flowerView = [flowerTypeView1, flowerTypeView2, flowerTypeView3][index]
+            flowerView.isHidden = false
+            flowerView.flowerNameLabel.text = flower.name
+            setupFlowerTags(for: flowerView, with: flower.hashTag)
+            if let imageString = flower.photo {
+                ImageProvider.shared.setImage(into: flowerView.flowerImageView, from: imageString)
+            }
+        }
+    }
+    
+    private func setupFlowerTags(for flowerView: FlowerTypeView, with tags: [String]) {
+        for (index, tag) in tags.enumerated() {
+            guard index < 4 else { break }
+            let tagLabel = [
+                flowerView.flowerLanguageTagLabel1,
+                flowerView.flowerLanguageTagLabel2,
+                flowerView.flowerLanguageTagLabel3,
+                flowerView.flowerLanguageTagLabel4,
+            ][index]
+            tagLabel.text = tag
+            tagLabel.isHidden = false
+        }
+    }
+    
+    private func setupAlternativeText(alternative: AlternativesType) {
+        alternativesContentLabel.text = alternative.rawValue
+    }
+    
+    private func setupPackgeTitle(packagingAssign: BouquetData.PackagingAssign) {
+        if packagingAssign.assign == .myselfAssign {
+            wrappingContentLabel.text = packagingAssign.text
+        }
+    }
+    
+    private func setupPriceRange(price: BouquetData.Price) {
+        let formattedMinPrice = String(price.min).formatNumberInThousands()
+        let formattedMaxPrice = String(price.max).formatNumberInThousands()
+        priceContentLabel.text = "\(formattedMinPrice)원 ~ \(formattedMaxPrice)원"
+    }
+    
+    private func setupRequirement(requirement: BouquetData.Requirement) {
+        if let requirementText = requirement.text {
+            additionalRequirementContentLabel.text = requirementText
+        } else {
+            additionalRequirementContentLabel.isHidden = true
+        }
+        
+        let imageDatas = requirement.images
+        for (index, imageData) in imageDatas.enumerated() {
+            guard index < 3 else { break }
+            let imageView = [referenceImageView1, referenceImageView2, referenceImageView3][index]
+            imageView.image = UIImage(data: imageData)
+            imageView.isHidden = false
+        }
+    }
+    
     func config(model: CustomizingSummaryModel) {
         configureBuyingIntent(model)
         configureFlowerColors(model)
@@ -389,24 +496,10 @@ final class RequestDetailView: UIView {
             let flowerView = [flowerTypeView1, flowerTypeView2, flowerTypeView3][index]
             flowerView.isHidden = false
             flowerView.flowerNameLabel.text = flower.name
-            configureFlowerTags(for: flowerView, with: flower.hashTag)
+            setupFlowerTags(for: flowerView, with: flower.hashTag)
             if let imageString = flower.photo {
                 ImageProvider.shared.setImage(into: flowerView.flowerImageView, from: imageString)
             }
-        }
-    }
-    
-    private func configureFlowerTags(for flowerView: FlowerTypeView, with tags: [String]) {
-        for (index, tag) in tags.enumerated() {
-            guard index < 4 else { break }
-            let tagLabel = [
-                flowerView.flowerLanguageTagLabel1,
-                flowerView.flowerLanguageTagLabel2,
-                flowerView.flowerLanguageTagLabel3,
-                flowerView.flowerLanguageTagLabel4,
-            ][index]
-            tagLabel.text = tag
-            tagLabel.isHidden = false
         }
     }
     
@@ -490,7 +583,7 @@ final class RequestDetailView: UIView {
         wrappingStackView.addArrangedSubview(wrappingTitleLabel)
         wrappingStackView.addArrangedSubview(wrappingContentLabel)
         addSubview(borderLine5)
-     
+        
         addSubview(priceStackView)
         priceStackView.addArrangedSubview(priceTitleLabel)
         priceStackView.addArrangedSubview(priceContentLabel)

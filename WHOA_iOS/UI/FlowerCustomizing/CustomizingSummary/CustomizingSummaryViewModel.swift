@@ -25,7 +25,7 @@ final class CustomizingSummaryViewModel: ViewModel {
     }
     
     struct Output {
-        let setupRequestDetailView: AnyPublisher<CustomizingSummaryModel, Never>
+        let setupRequestDetailView: AnyPublisher<BouquetData, Never>
         let setupRequestTitle: AnyPublisher<String, Never>
         let networkError: AnyPublisher<NetworkError?, Never>
         let showSaveAlertView: AnyPublisher<Void, Never>
@@ -36,7 +36,7 @@ final class CustomizingSummaryViewModel: ViewModel {
     private let networkManager: NetworkManager
     private let actionType: ActionType
     
-    private let customizingSummaryModelSubject: CurrentValueSubject<CustomizingSummaryModel, Never>
+    private let bouquetDataSubject: CurrentValueSubject<BouquetData, Never>
     private let requestTitleSubject: CurrentValueSubject<String, Never>
     private let networkErrorSubject = PassthroughSubject<NetworkError?, Never>()
     private let showSaveAlertViewSubject = PassthroughSubject<Void, Never>()
@@ -56,7 +56,7 @@ final class CustomizingSummaryViewModel: ViewModel {
         self.networkManager = networkManager
         self.actionType = dataManager.getActionType()
         requestTitleSubject = .init(dataManager.getRequestTitle())
-        customizingSummaryModelSubject = .init(.init(from: dataManager.getBouquet()))
+        bouquetDataSubject = .init(dataManager.getBouquet())
     }
     
     // MARK: - Functions
@@ -75,19 +75,19 @@ final class CustomizingSummaryViewModel: ViewModel {
                 guard let self = self, let id = keychainManager.loadMemberId() else { return }
                 let requestName = self.requestTitleSubject.value.isEmpty ? "꽃다발 요구서" : self.requestTitleSubject.value
                 
-                self.saveBouquet(
-                    id: id,
-                    DTO: CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(
-                        requestName: requestName,
-                        customizingSummaryModelSubject.value
-                    ),
-                    imageFiles: customizingSummaryModelSubject.value.requirement?.imageFiles
-                )
+//                self.saveBouquet(
+//                    id: id,
+//                    DTO: CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(
+//                        requestName: requestName,
+//                        customizingSummaryModelSubject.value
+//                    ),
+//                    imageFiles: bouquetDataSubject.value.requirement?.imageFiles
+//                )
             }
             .store(in: &cancellables)
         
         return Output(
-            setupRequestDetailView: customizingSummaryModelSubject.eraseToAnyPublisher(),
+            setupRequestDetailView: bouquetDataSubject.eraseToAnyPublisher(),
             setupRequestTitle: setupRequestDetailViewPublisher.eraseToAnyPublisher(),
             networkError: networkErrorSubject.eraseToAnyPublisher(),
             showSaveAlertView: showSaveAlertViewSubject.eraseToAnyPublisher()
