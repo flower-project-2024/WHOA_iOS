@@ -224,6 +224,8 @@ final class RequestDetailView: UIView {
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -266,6 +268,8 @@ final class RequestDetailView: UIView {
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -687,6 +691,7 @@ final class RequestDetailView: UIView {
         wrappingStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine4.snp.bottom).offset(20)
             make.leading.equalTo(alternativesStackView)
+            make.trailing.equalTo(-24)
         }
         
         borderLine5.snp.makeConstraints { make in
@@ -709,6 +714,7 @@ final class RequestDetailView: UIView {
         additionalRequirementStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine6.snp.bottom).offset(20)
             make.leading.equalTo(priceStackView)
+            make.trailing.equalTo(-24)
             make.bottom.equalToSuperview().inset(28)
         }
         
