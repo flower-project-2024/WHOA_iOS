@@ -56,11 +56,7 @@ final class RequestDetailViewModel {
         NetworkManager.shared.fetchBouquetDetail(memberID: id, bouquetId: bouquetId) { result in
             switch result {
             case .success(let dto):
-                BouquetDetailDTO.convertBouquetDetailDTOToModel(dto) { model in
-                    if let model = model {
-                        self.requestDetailModel = model
-                    }
-                }
+                self.requestDetailModel = BouquetDetailDTO.convertToRequestDetailModel(dto)
             case .failure(let error):
                 self.showError?(error)
             }

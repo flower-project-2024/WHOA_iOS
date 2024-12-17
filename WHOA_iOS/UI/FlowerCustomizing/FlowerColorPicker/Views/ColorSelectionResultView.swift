@@ -134,11 +134,10 @@ final class ColorSelectionResultView: UIView {
         resetColor()
         
         switch colorType {
-        case .oneColor: break
+        case .oneColor, .none: break
         case .twoColor: show(baseVStackView)
         case .colorful: show(baseVStackView, thirdVStackView)
         case .pointColor: show(baseVStackView, pointColorLabel, baseColorLabel)
-        case .none: isHidden = true
         }
         adjustButtonSizes(for: colorType)
         updateSelectedButton(firstResultButton)
@@ -174,7 +173,7 @@ final class ColorSelectionResultView: UIView {
         case 0: selectedButton = firstResultButton
         case 1: selectedButton = secondResultButton
         case 2: selectedButton = thirdResultButton
-        default: return
+        default: selectedButton = thirdResultButton
         }
         selectedButton.backgroundColor = UIColor(hex: hexString)
         updateNextButtonSelection(after: selectedButton)

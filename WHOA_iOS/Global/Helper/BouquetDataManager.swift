@@ -49,7 +49,7 @@ class BouquetDataManager: BouquetDataManaging {
         flowers: [],
         alternative: .none,
         packagingAssign: .init(assign: .none, text: ""),
-        price: .init(min: 0, max: 150000),
+        price: .init(min: 0, max: 100000),
         requirement: .init(text: "", images: [])
     )
     
@@ -63,7 +63,7 @@ class BouquetDataManager: BouquetDataManaging {
             flowers: [],
             alternative: .none,
             packagingAssign: .init(assign: .none, text: ""),
-            price: .init(min: 0, max: 150000),
+            price: .init(min: 0, max: 100000),
             requirement: .init(text: "", images: [])
         )
     }

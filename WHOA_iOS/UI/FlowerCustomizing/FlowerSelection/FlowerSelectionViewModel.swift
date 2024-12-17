@@ -159,8 +159,8 @@ final class FlowerSelectionViewModel: ViewModel {
         }
     }
     
-    func getPurposeString() -> String {
-        return purposeType.rawValue
+    func getPurpose() -> PurposeType {
+        return purposeType
     }
     
     var flowerModelCount: Int {

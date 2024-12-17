@@ -237,7 +237,7 @@ final class CustomAlertViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let dto):
-                BouquetDetailDTO.convertDTOToModelBouquetData(
+                BouquetDetailDTO.saveBouquetData(
                     requestTitle: requestTitle,
                     dto: dto,
                     dataManager: self.dataManager

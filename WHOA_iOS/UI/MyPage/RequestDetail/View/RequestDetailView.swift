@@ -129,6 +129,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .orange
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         return view
     }()
     
@@ -137,6 +139,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .yellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         view.isHidden = true
         return view
     }()
@@ -146,6 +150,8 @@ final class RequestDetailView: UIView {
         view.backgroundColor = .yellow
         view.clipsToBounds = true
         view.layer.cornerRadius = 16
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray03.cgColor
         view.isHidden = true
         return view
     }()
@@ -218,6 +224,8 @@ final class RequestDetailView: UIView {
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -260,6 +268,8 @@ final class RequestDetailView: UIView {
         label.textColor = .black
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         label.backgroundColor = UIColor.gray03
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -329,68 +339,74 @@ final class RequestDetailView: UIView {
     
     // MARK: - Functions
     
-    func config(model: CustomizingSummaryModel) {
-        configureBuyingIntent(model)
-        configureFlowerColors(model)
-        configureFlowerTypes(model)
-        configureAlternatives(model)
-        configurePackaging(model)
-        configurePrice(model)
-        configureAdditionalRequirements(model)
-        configureReferenceImages(model)
-        
+    func setupUI(bouquetData: BouquetData) {
+        setupPurposeText(purpose: bouquetData.purpose)
+        setupColor(colorScheme: bouquetData.colorScheme)
+        setupFlower(flowers: bouquetData.flowers)
+        setupAlternativeText(alternative: bouquetData.alternative)
+        setupPackgeTitle(packagingAssign: bouquetData.packagingAssign)
+        setupPriceRange(price: bouquetData.price)
+        setupRequirement(requirement: bouquetData.requirement)
     }
     
-    func configureRequestTitle(title: String?) {
+    func setupRequestTitle(title: String?) {
         guard requestTitleTextField.text != title else { return }
         requestTitleTextField.text = title
         textInputSubject.send(title ?? "")
     }
     
-    private func configureBuyingIntent(_ model: CustomizingSummaryModel) {
-        buyingIntentContentLabel.text = model.purpose.rawValue
+    private func setupPurposeText(purpose: PurposeType) {
+        buyingIntentContentLabel.text = purpose.rawValue
     }
-
-    private func configureFlowerColors(_ model: CustomizingSummaryModel) {
-        flowerColorContentLabel.text = model.numberOfColors.rawValue
+    
+    private func setupColor(colorScheme: BouquetData.ColorScheme) {
+        flowerColorContentLabel.text = colorScheme.numberOfColors.rawValue
         
-        let colors = model.colors
-        guard !colors.isEmpty else { return }
-        flowerColorChipView1.backgroundColor = UIColor(hex: colors.first ?? "")
-        
-        switch model.numberOfColors {
+        switch colorScheme.numberOfColors {
         case .oneColor:
-            break
-        case .twoColor, .pointColor:
-            flowerColorChipView2.backgroundColor = UIColor(hex: colors.last ?? "")
-            flowerColorChipView2.isHidden = false
-            if model.numberOfColors == .pointColor {
-                starIcon.isHidden = false
-            }
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            
+        case .twoColor:
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors[safe: 1])
+            
         case .colorful:
-            flowerColorChipView2.backgroundColor = UIColor(hex: colors[1])
-            flowerColorChipView3.backgroundColor = UIColor(hex: colors.last ?? "")
-            flowerColorChipView2.isHidden = false
-            flowerColorChipView3.isHidden = false
+            setColor(for: flowerColorChipView1, color: colorScheme.colors.first)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors[safe: 1])
+            setColor(for: flowerColorChipView3, color: colorScheme.colors[safe: 2])
+            
+        case .pointColor:
+            setColor(for: flowerColorChipView1, color: colorScheme.pointColor)
+            setColor(for: flowerColorChipView2, color: colorScheme.colors.first)
+            starIcon.isHidden = false
         case .none:
             break
         }
     }
     
-    private func configureFlowerTypes(_ model: CustomizingSummaryModel) {
-        for (index, flower) in model.flowers.enumerated() {
+    private func setColor(for view: UIView?, color: String?) {
+        if let colorHex = color {
+            view?.backgroundColor = UIColor(hex: colorHex)
+            view?.isHidden = false
+        } else {
+            view?.isHidden = true
+        }
+    }
+    
+    private func setupFlower(flowers: [BouquetData.Flower]) {
+        for (index, flower) in flowers.enumerated() {
             guard index < 3 else { break }
             let flowerView = [flowerTypeView1, flowerTypeView2, flowerTypeView3][index]
             flowerView.isHidden = false
             flowerView.flowerNameLabel.text = flower.name
-            configureFlowerTags(for: flowerView, with: flower.hashTag)
+            setupFlowerTags(for: flowerView, with: flower.hashTag)
             if let imageString = flower.photo {
                 ImageProvider.shared.setImage(into: flowerView.flowerImageView, from: imageString)
             }
         }
     }
     
-    private func configureFlowerTags(for flowerView: FlowerTypeView, with tags: [String]) {
+    private func setupFlowerTags(for flowerView: FlowerTypeView, with tags: [String]) {
         for (index, tag) in tags.enumerated() {
             guard index < 4 else { break }
             let tagLabel = [
@@ -404,30 +420,34 @@ final class RequestDetailView: UIView {
         }
     }
     
-    private func configureAlternatives(_ model: CustomizingSummaryModel) {
-        alternativesContentLabel.text = model.alternative.rawValue
+    private func setupAlternativeText(alternative: AlternativesType) {
+        alternativesContentLabel.text = alternative.rawValue
     }
     
-    private func configurePackaging(_ model: CustomizingSummaryModel) {
-        if model.assign.packagingAssignType == .myselfAssign {
-            wrappingContentLabel.text = model.assign.text
+    private func setupPackgeTitle(packagingAssign: BouquetData.PackagingAssign) {
+        if packagingAssign.assign == .myselfAssign {
+            wrappingContentLabel.text = packagingAssign.text
         }
     }
     
-    private func configurePrice(_ model: CustomizingSummaryModel) {
-        priceContentLabel.text = model.priceRange
-    }
-
-    private func configureAdditionalRequirements(_ model: CustomizingSummaryModel) {
-        additionalRequirementContentLabel.text = model.requirement?.text
+    private func setupPriceRange(price: BouquetData.Price) {
+        let formattedMinPrice = String(price.min).formatNumberInThousands()
+        let formattedMaxPrice = String(price.max).formatNumberInThousands()
+        priceContentLabel.text = "\(formattedMinPrice)원 ~ \(formattedMaxPrice)원"
     }
     
-    private func configureReferenceImages(_ model: CustomizingSummaryModel) {
-        guard let imageFiles = model.requirement?.imageFiles else { return }
-        for (index, imageFile) in imageFiles.enumerated() {
+    private func setupRequirement(requirement: BouquetData.Requirement) {
+        if let requirementText = requirement.text {
+            additionalRequirementContentLabel.text = requirementText
+        } else {
+            additionalRequirementContentLabel.isHidden = true
+        }
+        
+        let imageDatas = requirement.images
+        for (index, imageData) in imageDatas.enumerated() {
             guard index < 3 else { break }
             let imageView = [referenceImageView1, referenceImageView2, referenceImageView3][index]
-            imageView.image = UIImage(data: imageFile.data)
+            imageView.image = UIImage(data: imageData)
             imageView.isHidden = false
         }
     }
@@ -484,7 +504,7 @@ final class RequestDetailView: UIView {
         wrappingStackView.addArrangedSubview(wrappingTitleLabel)
         wrappingStackView.addArrangedSubview(wrappingContentLabel)
         addSubview(borderLine5)
-     
+        
         addSubview(priceStackView)
         priceStackView.addArrangedSubview(priceTitleLabel)
         priceStackView.addArrangedSubview(priceContentLabel)
@@ -588,6 +608,7 @@ final class RequestDetailView: UIView {
         wrappingStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine4.snp.bottom).offset(20)
             make.leading.equalTo(alternativesStackView)
+            make.trailing.equalTo(-24)
         }
         
         borderLine5.snp.makeConstraints { make in
@@ -610,6 +631,7 @@ final class RequestDetailView: UIView {
         additionalRequirementStackView.snp.makeConstraints { make in
             make.top.equalTo(borderLine6.snp.bottom).offset(20)
             make.leading.equalTo(priceStackView)
+            make.trailing.equalTo(-24)
             make.bottom.equalToSuperview().inset(28)
         }
         

@@ -24,12 +24,14 @@ final class RangeSlider: UIControl {
     /// Metrics
     private enum Metric {
         static let barRatio = 4.0 / 10.0
+        static let minValue = 0.0
+        static let maxValue = 100000.0
     }
     
     // MARK: Properties
     
-    private var lowerSubject = CurrentValueSubject<Double, Never>(0.0)
-    private var upperSubject = CurrentValueSubject<Double, Never>(150000.0)
+    private var lowerSubject = CurrentValueSubject<Double, Never>(Metric.minValue)
+    private var upperSubject = CurrentValueSubject<Double, Never>(Metric.maxValue)
     private var cancellables = Set<AnyCancellable>()
     
     var lowerPublisher: AnyPublisher<Double, Never> {
@@ -40,11 +42,11 @@ final class RangeSlider: UIControl {
         upperSubject.eraseToAnyPublisher()
     }
     
-    var minValue = 0.0 {
+    var minValue = Metric.minValue {
         didSet { lowerSubject.send(minValue) }
     }
     
-    var maxValue = 150000.0 {
+    var maxValue = Metric.maxValue {
         didSet { upperSubject.send(maxValue) }
     }
     

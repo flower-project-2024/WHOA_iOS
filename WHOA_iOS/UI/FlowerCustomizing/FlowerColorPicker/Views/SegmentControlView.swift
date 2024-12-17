@@ -85,8 +85,6 @@ final class SegmentControlView: UIView {
     // MARK: - Functions
     
     private func setupUI() {
-        isHidden = true
-        
         [
             segmentControl,
             colorVStackView,
@@ -128,7 +126,7 @@ final class SegmentControlView: UIView {
         }
     }
     
-    func resetColorButtons() {
+    private func resetColorButtons() {
         colorButtons.forEach { $0.setImage(nil, for: .normal) }
     }
     
