@@ -73,16 +73,14 @@ final class CustomizingSummaryViewModel: ViewModel {
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self, let id = keychainManager.loadMemberId() else { return }
-                let requestName = self.requestTitleSubject.value.isEmpty ? "꽃다발 요구서" : self.requestTitleSubject.value
+                let updatedBouquetData = self.updateBouquetData()
+                let imageFiles = self.convertImagesToFiles(from: updatedBouquetData)
                 
-//                self.saveBouquet(
-//                    id: id,
-//                    DTO: CustomizingSummaryModel.convertModelToCustomBouquetRequestDTO(
-//                        requestName: requestName,
-//                        customizingSummaryModelSubject.value
-//                    ),
-//                    imageFiles: bouquetDataSubject.value.requirement?.imageFiles
-//                )
+                self.saveBouquet(
+                    id: id,
+                    DTO: PostCustomBouquetRequestDTO(from: updatedBouquetData),
+                    imageFiles: imageFiles
+                )
             }
             .store(in: &cancellables)
         
@@ -125,6 +123,20 @@ final class CustomizingSummaryViewModel: ViewModel {
             case .failure(let error):
                 self.networkErrorSubject.send(error)
             }
+        }
+    }
+    
+    private func updateBouquetData() -> BouquetData {
+        var bouquetData = bouquetDataSubject.value
+        bouquetData.requestTitle = requestTitleSubject.value.isEmpty
+        ? "꽃다발 요구서"
+        : requestTitleSubject.value
+        return bouquetData
+    }
+    
+    private func convertImagesToFiles(from bouquetData: BouquetData) -> [ImageFile] {
+        return bouquetData.requirement.images.map {
+            $0.toImageFile(filename: "RequirementImage")
         }
     }
 }
