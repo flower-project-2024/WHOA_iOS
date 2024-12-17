@@ -113,7 +113,7 @@ final class CustomizingSummaryViewController: UIViewController {
         output.setupRequestTitle
             .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
-                self?.requestDetailView.configureRequestTitle(title: title)
+                self?.requestDetailView.setupRequestTitle(title: title)
             }
             .store(in: &cancellables)
         

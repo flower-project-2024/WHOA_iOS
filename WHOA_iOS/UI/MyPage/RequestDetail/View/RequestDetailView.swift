@@ -349,8 +349,14 @@ final class RequestDetailView: UIView {
         setupRequirement(requirement: bouquetData.requirement)
     }
     
+    func setupRequestTitle(title: String?) {
+        guard requestTitleTextField.text != title else { return }
+        requestTitleTextField.text = title
+        textInputSubject.send(title ?? "")
+    }
+    
     private func setupPurposeText(purpose: PurposeType) {
-        buyingIntentTitleLabel.text = purpose.rawValue
+        buyingIntentContentLabel.text = purpose.rawValue
     }
     
     private func setupColor(colorScheme: BouquetData.ColorScheme) {
@@ -442,95 +448,6 @@ final class RequestDetailView: UIView {
             guard index < 3 else { break }
             let imageView = [referenceImageView1, referenceImageView2, referenceImageView3][index]
             imageView.image = UIImage(data: imageData)
-            imageView.isHidden = false
-        }
-    }
-    
-    func config(model: CustomizingSummaryModel) {
-        configureBuyingIntent(model)
-        configureFlowerColors(model)
-        configureFlowerTypes(model)
-        configureAlternatives(model)
-        configurePackaging(model)
-        configurePrice(model)
-        configureAdditionalRequirements(model)
-        configureReferenceImages(model)
-        
-    }
-    
-    func configureRequestTitle(title: String?) {
-        guard requestTitleTextField.text != title else { return }
-        requestTitleTextField.text = title
-        textInputSubject.send(title ?? "")
-    }
-    
-    private func configureBuyingIntent(_ model: CustomizingSummaryModel) {
-        buyingIntentContentLabel.text = model.purpose.rawValue
-    }
-
-    private func configureFlowerColors(_ model: CustomizingSummaryModel) {
-        flowerColorContentLabel.text = model.numberOfColors.rawValue
-        
-        let colors = model.colors
-        guard !colors.isEmpty else { return }
-        flowerColorChipView1.backgroundColor = UIColor(hex: colors.first ?? "")
-        
-        switch model.numberOfColors {
-        case .oneColor:
-            break
-        case .twoColor, .pointColor:
-            flowerColorChipView2.backgroundColor = UIColor(hex: colors.last ?? "")
-            flowerColorChipView2.isHidden = false
-            if model.numberOfColors == .pointColor {
-                starIcon.isHidden = false
-            }
-        case .colorful:
-            flowerColorChipView2.backgroundColor = UIColor(hex: colors[1])
-            flowerColorChipView3.backgroundColor = UIColor(hex: colors.last ?? "")
-            flowerColorChipView2.isHidden = false
-            flowerColorChipView3.isHidden = false
-        case .none:
-            break
-        }
-    }
-    
-    private func configureFlowerTypes(_ model: CustomizingSummaryModel) {
-        for (index, flower) in model.flowers.enumerated() {
-            guard index < 3 else { break }
-            let flowerView = [flowerTypeView1, flowerTypeView2, flowerTypeView3][index]
-            flowerView.isHidden = false
-            flowerView.flowerNameLabel.text = flower.name
-            setupFlowerTags(for: flowerView, with: flower.hashTag)
-            if let imageString = flower.photo {
-                ImageProvider.shared.setImage(into: flowerView.flowerImageView, from: imageString)
-            }
-        }
-    }
-    
-    private func configureAlternatives(_ model: CustomizingSummaryModel) {
-        alternativesContentLabel.text = model.alternative.rawValue
-    }
-    
-    private func configurePackaging(_ model: CustomizingSummaryModel) {
-        if model.assign.packagingAssignType == .myselfAssign {
-            wrappingContentLabel.text = model.assign.text
-        }
-    }
-    
-    private func configurePrice(_ model: CustomizingSummaryModel) {
-        priceContentLabel.text = model.priceRange
-    }
-
-    private func configureAdditionalRequirements(_ model: CustomizingSummaryModel) {
-        additionalRequirementContentLabel.text = model.requirement?.text
-    }
-    
-    private func configureReferenceImages(_ model: CustomizingSummaryModel) {
-        guard let imageFiles = model.requirement?.imageFiles else { return }
-        for (index, imageFile) in imageFiles.enumerated() {
-            guard index < 3 else { break }
-            let imageView = [referenceImageView1, referenceImageView2, referenceImageView3][index]
-            imageView.image = UIImage(data: imageFile.data)
             imageView.isHidden = false
         }
     }
