@@ -39,7 +39,7 @@ final class FlowerListCell: UITableViewCell {
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .primary
+        label.textColor = .customPrimary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()

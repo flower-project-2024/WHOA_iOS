@@ -20,7 +20,7 @@ class ManagementView: UIView {
         let label = UILabel()
         label.text = "관리법과 보관법을 알려드릴게요"
         label.font = .Pretendard(size: 20, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     

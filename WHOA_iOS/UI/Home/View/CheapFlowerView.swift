@@ -15,7 +15,7 @@ final class CheapFlowerView: UIView {
     private let cheapFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = "이번 주 저렴한 꽃 랭킹"
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         label.numberOfLines = 0
         label.font = .Pretendard(size: 20, family: .Bold)
         return label

@@ -46,7 +46,7 @@ class FlowerDetailViewController: UIViewController {
     private let titleView: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 18, family: .SemiBold)
-        label.textColor = .primary
+        label.textColor = .customPrimary
         return label
     }()
     
@@ -61,14 +61,14 @@ class FlowerDetailViewController: UIViewController {
     private let flowerKoreanNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 24, family: .SemiBold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
     private let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 16)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -122,7 +122,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "정보"
         label.font = .Pretendard(size: 20, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -138,7 +138,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "색상"
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -184,7 +184,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "꽃말"
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -222,7 +222,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "탄생화"
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     

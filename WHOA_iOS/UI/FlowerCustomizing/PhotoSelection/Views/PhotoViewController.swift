@@ -55,7 +55,7 @@ final class PhotoViewController: UIViewController {
     private let sortButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("최근 항목", for: .normal)
-        button.setTitleColor(.primary, for: .normal)
+        button.setTitleColor(.customPrimary, for: .normal)
         button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
         button.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         return button
@@ -71,7 +71,7 @@ final class PhotoViewController: UIViewController {
     private let addButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추가", for: .normal)
-        button.setTitleColor(.primary, for: .normal)
+        button.setTitleColor(.customPrimary, for: .normal)
         button.titleLabel?.font = .Pretendard(size: 16, family: .SemiBold)
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button

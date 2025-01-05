@@ -18,7 +18,7 @@ class ColorSheetHeaderCell: UICollectionReusableView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어떤 색으로 꾸며볼까요?"
-        label.textColor = .primary
+        label.textColor = .customPrimary
         label.font = .Pretendard(size: 20, family: .Bold)
         return label
     }()

@@ -25,7 +25,7 @@ final class NoRequestCell: UITableViewCell {
         let label = UILabel()
         label.text = "저장된 요구서가 없어요."
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = .primary
+        label.textColor = .customPrimary
         return label
     }()
     

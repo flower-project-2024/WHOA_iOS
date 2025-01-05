@@ -34,7 +34,7 @@ final class MoreActionCustomButton: UIButton {
                                      leading: 33.adjusted(),
                                      bottom: 23.adjustedH(),
                                      trailing: 33.adjusted())
-        config.baseForegroundColor = .primary
+        config.baseForegroundColor = .customPrimary
         config.baseBackgroundColor = .gray02
         config.background.cornerRadius = 8
         

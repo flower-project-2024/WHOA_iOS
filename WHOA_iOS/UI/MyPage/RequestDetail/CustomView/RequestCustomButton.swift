@@ -23,7 +23,7 @@ final class RequestCustomButton: UIButton {
                                      trailing: 27.adjusted())
         
         if title == "수정" {
-            config.baseBackgroundColor = .primary
+            config.baseBackgroundColor = .customPrimary
             config.baseForegroundColor = .gray01
         }
         else {

@@ -64,7 +64,7 @@ final class MoreActionsSheetViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         config.title = "취소"
         config.attributedTitle?.font = .Pretendard(size: 16, family: .SemiBold)
-        config.background.backgroundColor = UIColor.primary
+        config.background.backgroundColor = UIColor.customPrimary
         config.background.cornerRadius = 10
         config.contentInsets = .init(top: 17.adjustedH(), 
                                      leading: 15.adjusted(),

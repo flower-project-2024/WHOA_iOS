@@ -155,7 +155,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         
-        self.navigationController?.navigationBar.tintColor = .primary
+        self.navigationController?.navigationBar.tintColor = .customPrimary
         self.navigationController?.navigationBar.topItem?.title = ""
         
         // 네비게이션 바 줄 없애기
