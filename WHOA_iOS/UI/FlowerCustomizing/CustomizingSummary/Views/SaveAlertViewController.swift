@@ -128,10 +128,8 @@ final class SaveAlertViewController: UIViewController {
 extension SaveAlertViewController {
     private func setupAutoLayout() {
         alertView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(350)
-            $0.height.equalTo(288)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         flowerImageView.snp.makeConstraints {
@@ -153,6 +151,7 @@ extension SaveAlertViewController {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview().offset(-24)
+            $0.height.equalTo(48)
         }
     }
 }
