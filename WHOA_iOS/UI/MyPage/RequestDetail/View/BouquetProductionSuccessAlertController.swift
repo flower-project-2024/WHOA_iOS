@@ -73,7 +73,7 @@ final class BouquetProductionSuccessAlertController: UIViewController {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.primary
+        config.baseBackgroundColor = UIColor.customPrimary
         config.background.cornerRadius = 10
         config.attributedTitle = "갤러리에서 선택"
         config.attributedTitle?.font = UIFont.Pretendard(size: 16, family: .SemiBold)
@@ -101,7 +101,7 @@ final class BouquetProductionSuccessAlertController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .primary.withAlphaComponent(0.5)
+        view.backgroundColor = .customPrimary.withAlphaComponent(0.5)
         
         addViews()
         setupConstraints()

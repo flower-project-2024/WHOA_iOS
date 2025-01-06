@@ -94,7 +94,7 @@ final class ColorTypeSelectionButtonsView: UIView {
     }
     
     private func updateSelectedButton(_ button: UIButton) {
-        button.setTitleColor(.primary, for: .normal)
+        button.setTitleColor(.customPrimary, for: .normal)
         button.titleLabel?.font = .Pretendard(family: .SemiBold)
         button.layer.borderColor = UIColor.secondary03.cgColor
     }

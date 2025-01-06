@@ -93,7 +93,7 @@ final class CustomExitAlertViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
-        view.backgroundColor = .primary.withAlphaComponent(0.5)
+        view.backgroundColor = .customPrimary.withAlphaComponent(0.5)
         
         view.addSubview(alertView)
         alertView.addSubview(titleLabel)

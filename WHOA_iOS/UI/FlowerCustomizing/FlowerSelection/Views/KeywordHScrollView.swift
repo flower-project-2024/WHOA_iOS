@@ -108,7 +108,7 @@ final class KeywordHScrollView: UIView {
     
     private func updateButtonStyle(_ button: UIButton) {
         button.layer.borderColor = UIColor.secondary03.cgColor
-        button.setTitleColor(.primary, for: .normal)
+        button.setTitleColor(.customPrimary, for: .normal)
         button.titleLabel?.font = .Pretendard(size: 14, family: .SemiBold)
     }
 }

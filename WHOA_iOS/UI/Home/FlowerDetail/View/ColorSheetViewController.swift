@@ -18,7 +18,7 @@ class ColorSheetViewController: UIViewController {
     
     var selectedColorIndex: Int? {
         didSet {
-            decorateButton.configuration?.background.backgroundColor = UIColor.primary
+            decorateButton.configuration?.background.backgroundColor = UIColor.customPrimary
             decorateButton.configuration?.baseForegroundColor = .white
             decorateButton.isEnabled = true
         }

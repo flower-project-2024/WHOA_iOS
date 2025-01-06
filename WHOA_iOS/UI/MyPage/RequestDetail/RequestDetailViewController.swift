@@ -80,7 +80,7 @@ final class RequestDetailViewController: UIViewController {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.primary
+        config.baseBackgroundColor = UIColor.customPrimary
         config.baseForegroundColor = .gray02
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10

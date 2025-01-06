@@ -37,7 +37,7 @@ final class SpacebarButton: UIButton {
         var config = UIButton.Configuration.filled()
         config.titleAlignment = .leading
         config.baseBackgroundColor = isSelected ? .second1.withAlphaComponent(0.2) : .gray02
-        config.baseForegroundColor = .primary
+        config.baseForegroundColor = .customPrimary
         
         // Title
         var attString = AttributedString(self.titleLabel?.text ?? "")

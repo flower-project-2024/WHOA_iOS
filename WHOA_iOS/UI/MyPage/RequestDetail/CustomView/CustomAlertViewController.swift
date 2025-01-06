@@ -100,7 +100,7 @@ final class CustomAlertViewController: UIViewController {
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.primary
+        config.baseBackgroundColor = UIColor.customPrimary
         config.background.cornerRadius = 10
         
         if alertType == .requestSaveAlert {
@@ -147,7 +147,7 @@ final class CustomAlertViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = UIColor.primary.withAlphaComponent(0.5)
+        self.view.backgroundColor = UIColor.customPrimary.withAlphaComponent(0.5)
         
         addViews()
         setupConstraints()

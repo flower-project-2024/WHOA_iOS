@@ -120,8 +120,8 @@ final class CustomBottomView: UIView {
         case .enabled:
             backButton.isEnabled = true
             backButton.backgroundColor = .gray01
-            backButton.setTitleColor(.primary, for: .normal)
-            backButton.layer.borderColor = UIColor.primary.cgColor
+            backButton.setTitleColor(.customPrimary, for: .normal)
+            backButton.layer.borderColor = UIColor.customPrimary.cgColor
         case .disabled:
             backButton.isEnabled = false
             backButton.backgroundColor = .gray03
@@ -134,7 +134,7 @@ final class CustomBottomView: UIView {
     
     func configNextButton(_ nextButtonState: Bool) {
         nextButton.isEnabled = nextButtonState
-        nextButton.backgroundColor = nextButtonState ? .primary : .gray03
+        nextButton.backgroundColor = nextButtonState ? .customPrimary : .gray03
         nextButton.setTitleColor(nextButtonState ? .gray02 : .gray05, for: .normal)
     }
     
