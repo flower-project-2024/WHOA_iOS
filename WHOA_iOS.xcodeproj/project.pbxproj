@@ -203,6 +203,7 @@
 		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
 		54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* PurposeType.swift */; };
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
+		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,6 +423,7 @@
 		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		54FD0F842B74C13B00F964C3 /* PurposeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeType.swift; sourceTree = "<group>"; };
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -854,6 +856,7 @@
 				54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */,
 				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
 				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
+				B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1368,6 +1371,7 @@
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				080199772C34731E00EB01CF /* UIStackView+.swift in Sources */,
+				B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */,
 				54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */,
 				54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
