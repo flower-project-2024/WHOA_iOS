@@ -9,7 +9,7 @@ import UIKit
 
 enum HomeSection: Int, CaseIterable {
     case searchBar
-//    case banner
+    case banner
 //    case cheapRanking
 //    case popularRanking
 }

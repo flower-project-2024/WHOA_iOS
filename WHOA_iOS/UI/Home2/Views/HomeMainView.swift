@@ -22,13 +22,28 @@ final class HomeMainView: UIView {
     /// Attributes
     private enum Attributes {
         static let searchBarCellIdentifier = "SearchBarCell"
+        static let todaysFlowerViewCell2Identifier = "TodaysFlowerViewCell2"
+        static let customizeIntroCell2Identifier = "CustomizeIntroCell2"
     }
     
     // MARK: - Properties
     
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HomeMainLayoutProvider.createCompositionalLayout())
-        collectionView.register(SearchBarCell.self, forCellWithReuseIdentifier: Attributes.searchBarCellIdentifier)
+        collectionView.register(
+            SearchBarCell.self,
+            forCellWithReuseIdentifier: Attributes.searchBarCellIdentifier
+        )
+        
+        collectionView.register(
+            TodaysFlowerViewCell2.self,
+            forCellWithReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier
+        )
+        
+        collectionView.register(
+            CustomizeIntroCell2.self,
+            forCellWithReuseIdentifier: Attributes.customizeIntroCell2Identifier
+        )
         return collectionView
     }()
     
@@ -41,6 +56,19 @@ final class HomeMainView: UIView {
                     withReuseIdentifier: Attributes.searchBarCellIdentifier,
                     for: indexPath
                 ) as? SearchBarCell
+                
+            case .banner:
+                if itemIdentifier == 1 {
+                    return collectionView.dequeueReusableCell(
+                        withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
+                        for: indexPath
+                    ) as? TodaysFlowerViewCell2
+                } else {
+                    return collectionView.dequeueReusableCell(
+                        withReuseIdentifier: Attributes.customizeIntroCell2Identifier,
+                        for: indexPath
+                    ) as? CustomizeIntroCell2
+                }
             }
         }
     }()
@@ -73,8 +101,9 @@ final class HomeMainView: UIView {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
-        snapshot.appendSections([.searchBar])
+        snapshot.appendSections([.searchBar, .banner])
         snapshot.appendItems([0], toSection: .searchBar)
+        snapshot.appendItems([1, 2], toSection: .banner)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

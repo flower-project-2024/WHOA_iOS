@@ -23,6 +23,8 @@ struct HomeMainLayoutProvider {
                 height: 54,
                 insets: NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
             )
+        case .banner:
+            return createBannerSection()
         }
     }
     
@@ -41,6 +43,26 @@ struct HomeMainLayoutProvider {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = insets
+        return section
+    }
+    
+    private static func createBannerSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(225)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 23, leading: 0, bottom: 0, trailing: 0)
+        section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
 }

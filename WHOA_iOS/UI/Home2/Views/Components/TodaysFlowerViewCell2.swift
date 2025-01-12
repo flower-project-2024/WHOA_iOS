@@ -14,7 +14,7 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     /// Metrics
     private enum Metric {
         static let todaysFlowerButtonHeight: CGFloat = 32
-        static let todaysFlowerButtonWidthMultiplier: CGFloat = 0.9
+        static let todaysFlowerButtonWidth: CGFloat = 194.0
         static let flowerImageViewWidthMultiplier: CGFloat = 0.38
         static let mainStackViewLeadingOffset: CGFloat = 26
     }
@@ -125,7 +125,7 @@ extension TodaysFlowerViewCell2 {
     private func setupAutoLayout() {
         todaysFlowerButton.snp.makeConstraints {
             $0.height.equalTo(Metric.todaysFlowerButtonHeight)
-            $0.width.equalToSuperview().multipliedBy(Metric.todaysFlowerButtonWidthMultiplier)
+            $0.width.equalTo(Metric.todaysFlowerButtonWidth)
         }
         
         flowerImageView.snp.makeConstraints {
