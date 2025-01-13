@@ -12,11 +12,6 @@ final class HomeMainView: UIView {
     
     // MARK: - Enums
     
-    /// Metrics
-    private enum Metric {
-        static let searchBarViewTopOffset = 24.0
-    }
-    
     /// Attributes
     private enum Attributes {
         static let searchBarCellIdentifier = "SearchBarCell"
@@ -98,11 +93,21 @@ final class HomeMainView: UIView {
                     ) as? CustomizeIntroCell2
                 }
                 
-            case .cheapRanking:
-                return collectionView.dequeueReusableCell(
+            case .cheapRanking, .popularRanking:
+                guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: Attributes.rankingCellIdentifier,
                     for: indexPath
-                ) as? RankingCell
+                ) as? RankingCell else {
+                    return nil
+                }
+                
+                if section == .cheapRanking {
+                    cell.configure(for: section, price: "2,100", colors: nil) // price 사용, colors는 nil
+                } else if section == .popularRanking {
+                    cell.configure(for: section, price: nil, colors: ["#FF5733", "#33FF57", "#3357FF"]) // colors 사용
+                }
+                
+                return cell
             }
         }
         
@@ -112,14 +117,15 @@ final class HomeMainView: UIView {
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
             
             switch section {
-            case .cheapRanking:
+            case .cheapRanking, .popularRanking:
                 let header = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
                     withReuseIdentifier: Attributes.rankingCellHeaderIdentifier,
                     for: indexPath
                 ) as? RankingCellHeader
-                return header
                 
+                header?.configure(for: section)
+                return header
             default:
                 return nil
             }
@@ -163,10 +169,11 @@ final class HomeMainView: UIView {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
-        snapshot.appendSections([.searchBar, .banner, .cheapRanking])
+        snapshot.appendSections([.searchBar, .banner, .cheapRanking, .popularRanking])
         snapshot.appendItems([0], toSection: .searchBar)
         snapshot.appendItems(repeatedBannerItems, toSection: .banner)
         snapshot.appendItems([1, 2, 3], toSection: .cheapRanking)
+        snapshot.appendItems([4, 5, 6], toSection: .popularRanking)
         dataSource.apply(snapshot, animatingDifferences: false)
         
         // banner 중간에서 시작
@@ -212,8 +219,7 @@ final class HomeMainView: UIView {
 extension HomeMainView {
     private func setupAutoLayout() {
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(Metric.searchBarViewTopOffset)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
 }

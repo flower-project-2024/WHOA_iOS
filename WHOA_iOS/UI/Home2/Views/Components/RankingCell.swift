@@ -23,7 +23,8 @@ final class RankingCell: UICollectionViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .flowerIllust1
+        let image: [UIImage] = [.flowerIllust1, .flowerIllust2,.flowerIllust3]
+        imageView.image = image.randomElement()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
@@ -69,9 +70,17 @@ final class RankingCell: UICollectionViewCell {
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.text = "2,100"
-        label.font = .Pretendard(family: .Bold)
+        label.font = .Pretendard(size: 16, family: .Bold)
         label.textColor = UIColor.secondary04
         return label
+    }()
+    
+    private lazy var flowerColorChipHStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 4
+        stackView.alignment = .leading
+        return stackView
     }()
     
     private let moveToDetailImageView: UIImageView = {
@@ -84,10 +93,11 @@ final class RankingCell: UICollectionViewCell {
     private lazy var priceInfoHStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             priceLabel,
+            flowerColorChipHStackView,
             moveToDetailImageView
         ])
         stackView.axis = .horizontal
-        stackView.spacing = 8
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -111,12 +121,45 @@ final class RankingCell: UICollectionViewCell {
             flowerImageView,
             rankingLabel,
             textVStackView,
-            priceInfoHStackView
+            priceInfoHStackView,
         ].forEach(addSubview(_:))
     }
     
     private func setupUI() {
         backgroundColor = .white
+        flowerColorChipHStackView.isHidden = true
+    }
+    
+    func configure(for section: HomeSection, price: String?, colors: [String]?) {
+        switch section {
+        case .cheapRanking:
+            priceLabel.text = price
+            priceLabel.isHidden = false
+            flowerColorChipHStackView.isHidden = true
+            
+        case .popularRanking:
+            generateColorChipButtons(colors)
+            priceLabel.isHidden = true
+            flowerColorChipHStackView.isHidden = false
+            
+        default:
+            break
+        }
+    }
+    
+    private func generateColorChipButtons(_ colors: [String]?) {
+        if let colors = colors {
+            for color in colors {
+                let button = UIButton()
+                button.backgroundColor = UIColor(hex: color)
+                button.layer.cornerRadius = 16 / 2
+                button.layer.masksToBounds = true
+                button.snp.makeConstraints { make in
+                    make.width.height.equalTo(16)
+                }
+                flowerColorChipHStackView.addArrangedSubview(button)
+            }
+        }
     }
 }
 

@@ -11,5 +11,5 @@ enum HomeSection: Int, CaseIterable {
     case searchBar
     case banner
     case cheapRanking
-//    case popularRanking
+    case popularRanking
 }

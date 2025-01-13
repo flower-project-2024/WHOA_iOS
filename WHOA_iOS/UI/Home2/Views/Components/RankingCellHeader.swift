@@ -13,14 +13,14 @@ final class RankingCellHeader: UICollectionReusableView {
     
     /// Attributes
     private enum Attributes {
-        static let titleLabelText = "이번 주 저렴한 꽃 랭킹"
+        static let cheapRankingTitle = "이번 주 저렴한 꽃 랭킹"
+        static let popularRankingTitle = "후아 인기 꽃 랭킹"
     }
     
     // MARK: - UI
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = Attributes.titleLabelText
         label.textColor = UIColor.customPrimary
         label.font = .Pretendard(size: 20, family: .Bold)
         return label
@@ -61,6 +61,23 @@ final class RankingCellHeader: UICollectionReusableView {
     
     private func setupUI() {
         backgroundColor = .white
+    }
+    
+    func configure(for section: HomeSection) {
+        switch section {
+        case .cheapRanking:
+            titleLabel.text = Attributes.cheapRankingTitle
+            let newText = "4월 첫째 주 기준\n출처: 화훼유통정보시스템"
+            baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: newText)
+            baseDateLabel.isHidden = false
+            
+        case .popularRanking:
+            titleLabel.text = Attributes.popularRankingTitle
+            baseDateLabel.isHidden = true
+            
+        default:
+            break
+        }
     }
     
     func setBaseDateLabel(viewModel: HomeViewModel) {
