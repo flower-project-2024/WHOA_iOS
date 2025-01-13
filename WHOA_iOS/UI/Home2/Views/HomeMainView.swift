@@ -28,6 +28,20 @@ final class HomeMainView: UIView {
     
     // MARK: - Properties
     
+    private var bannerTimer: Timer?
+    
+    private lazy var repeatedBannerItems: [Int] = {
+        var array = [Int]()
+        for i in 0..<30 {
+            for item in [1, 2] {
+                array.append(i * 2 + item)
+            }
+        }
+        return array
+    }()
+    
+    // MARK: - UI
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: HomeMainLayoutProvider.createCompositionalLayout())
         collectionView.register(
@@ -58,7 +72,7 @@ final class HomeMainView: UIView {
                 ) as? SearchBarCell
                 
             case .banner:
-                if itemIdentifier == 1 {
+                if itemIdentifier % 2 == 1 {
                     return collectionView.dequeueReusableCell(
                         withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
                         for: indexPath
@@ -81,10 +95,17 @@ final class HomeMainView: UIView {
         setupAutoLayout()
         setupUI()
         initialSnapshot()
+        startBannerTimer()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lifecycle
+    
+    deinit {
+        stopBannerTimer()
     }
     
     // MARK: - Functions
@@ -103,8 +124,44 @@ final class HomeMainView: UIView {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
         snapshot.appendSections([.searchBar, .banner])
         snapshot.appendItems([0], toSection: .searchBar)
-        snapshot.appendItems([1, 2], toSection: .banner)
+        snapshot.appendItems(repeatedBannerItems, toSection: .banner)
         dataSource.apply(snapshot, animatingDifferences: false)
+        
+        // banner 중간에서 시작
+        DispatchQueue.main.async {
+            let midIndex = self.repeatedBannerItems.count / 2
+            let midPath = IndexPath(item: midIndex, section: HomeSection.banner.rawValue)
+            self.collectionView.scrollToItem(at: midPath, at: .centeredHorizontally, animated: false)
+        }
+    }
+    
+    private func startBannerTimer() {
+        bannerTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.scrollToNextBanner()
+        }
+    }
+    
+    private func stopBannerTimer() {
+        bannerTimer?.invalidate()
+        bannerTimer = nil
+    }
+    
+    private func scrollToNextBanner() {
+        let visibleIndexPaths = collectionView.indexPathsForVisibleItems
+        let bannerIndexPaths = visibleIndexPaths.filter { $0.section == HomeSection.banner.rawValue }
+        guard let currentIndexPath = bannerIndexPaths.first else { return }
+        
+        let nextItem = currentIndexPath.item + 1
+        let itemCount = repeatedBannerItems.count
+        
+        if nextItem >= itemCount {
+            let midIndex = itemCount / 2 - 1 // 자연스러운 UI를 위해 마지막 뷰와 같은 index 부여
+            let midPath = IndexPath(item: midIndex, section: HomeSection.banner.rawValue)
+            collectionView.scrollToItem(at: midPath, at: .centeredHorizontally, animated: false)
+        } else {
+            let nextPath = IndexPath(item: nextItem, section: HomeSection.banner.rawValue)
+            collectionView.scrollToItem(at: nextPath, at: .centeredHorizontally, animated: true)
+        }
     }
 }
 
