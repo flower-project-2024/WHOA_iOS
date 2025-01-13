@@ -39,12 +39,14 @@ final class NetworkManager {
     func fetchFlowerKeyword(
         customizingPurposeId: Int,
         keywordId: Int,
+        selectedColors: String,
         _ networkService: NetworkServable = NetworkService(),
         completion: @escaping (Result<FlowerKeywordDTO, NetworkError>) -> Void
     ) {
         let flowerKeywordAPI = FlowerKeywordAPI(
             customizingPurposeId: customizingPurposeId,
-            keywordId: keywordId
+            keywordId: keywordId,
+            selectedColors: selectedColors
         )
         networkService.request(flowerKeywordAPI) { result in
             switch result {

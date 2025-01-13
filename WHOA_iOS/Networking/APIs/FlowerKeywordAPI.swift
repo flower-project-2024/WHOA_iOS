@@ -12,7 +12,8 @@ struct FlowerKeywordAPI: ServableAPI {
     
     var customizingPurposeId: Int
     var keywordId: Int
+    var selectedColors: String
     
-    var path: String { "/api/v2/flower/keyword?" }
-    var params: String { "customizingPurposeId=\(customizingPurposeId)&keywordId=\(keywordId)" }
+    var path: String { "/api/v3/flower/keyword?" }
+    var params: String { "customizingPurposeId=\(customizingPurposeId)&keywordId=\(keywordId)&selectedColors=\(selectedColors)" }
 }
