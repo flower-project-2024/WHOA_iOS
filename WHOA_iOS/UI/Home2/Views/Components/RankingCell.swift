@@ -17,6 +17,7 @@ final class RankingCell: UICollectionViewCell {
         static let rankingLabelTopOffset: CGFloat = 12.0
         static let elementLeadingOffset: CGFloat = 17.0
         static let priceInfoHStackViewTrailingOffset: CGFloat = -4.0
+        static let colorChipSize: CGFloat = 18.0
     }
     
     // MARK: - UI
@@ -152,10 +153,10 @@ final class RankingCell: UICollectionViewCell {
             for color in colors {
                 let button = UIButton()
                 button.backgroundColor = UIColor(hex: color)
-                button.layer.cornerRadius = 16 / 2
+                button.layer.cornerRadius = Metric.colorChipSize / 2
                 button.layer.masksToBounds = true
                 button.snp.makeConstraints { make in
-                    make.width.height.equalTo(16)
+                    make.width.height.equalTo(Metric.colorChipSize)
                 }
                 flowerColorChipHStackView.addArrangedSubview(button)
             }
