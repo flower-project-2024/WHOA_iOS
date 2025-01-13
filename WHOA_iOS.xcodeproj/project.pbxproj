@@ -205,6 +205,8 @@
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
 		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */; };
 		B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */; };
+		B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */; };
+		B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E12D350A3E00E84934 /* RankingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +428,8 @@
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell2.swift; sourceTree = "<group>"; };
 		B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell2.swift; sourceTree = "<group>"; };
+		B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCellHeader.swift; sourceTree = "<group>"; };
+		B1D9A0E12D350A3E00E84934 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -856,10 +860,12 @@
 			isa = PBXGroup;
 			children = (
 				54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */,
-				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
-				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
 				B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */,
 				B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */,
+				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
+				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
+				B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */,
+				B1D9A0E12D350A3E00E84934 /* RankingCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1344,6 +1350,7 @@
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
 				080F0A212CB155A4006F2D4C /* BouquetImageUploadAlertConroller.swift in Sources */,
+				B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */,
 				08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */,
 				08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
@@ -1431,6 +1438,7 @@
 				54EB17D62BA1D24100717E6F /* AlbumService.swift in Sources */,
 				54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */,
 				545588642C0A08B100B0C4CF /* PostBouquetAPI.swift in Sources */,
+				B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */,
 				54D5BB012BE406F400C538E1 /* Int+.swift in Sources */,
 				54BF6D7F2C440C4800928B3F /* ImageProvider.swift in Sources */,
 				5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */,
@@ -1692,6 +1700,7 @@
 				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1699,6 +1708,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1729,6 +1739,7 @@
 				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1736,6 +1747,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

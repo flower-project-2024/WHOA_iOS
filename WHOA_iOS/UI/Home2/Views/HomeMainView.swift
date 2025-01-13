@@ -15,8 +15,6 @@ final class HomeMainView: UIView {
     /// Metrics
     private enum Metric {
         static let searchBarViewTopOffset = 24.0
-        static let sideMargin = 20.0
-        static let searchBarViewHeight = 54.0
     }
     
     /// Attributes
@@ -24,6 +22,8 @@ final class HomeMainView: UIView {
         static let searchBarCellIdentifier = "SearchBarCell"
         static let todaysFlowerViewCell2Identifier = "TodaysFlowerViewCell2"
         static let customizeIntroCell2Identifier = "CustomizeIntroCell2"
+        static let rankingCellHeaderIdentifier = "RankingCellHeader"
+        static let rankingCellIdentifier = "RankingCell"
     }
     
     // MARK: - Properties
@@ -33,7 +33,7 @@ final class HomeMainView: UIView {
     private lazy var repeatedBannerItems: [Int] = {
         var array = [Int]()
         for i in 0..<30 {
-            for item in [1, 2] {
+            for item in [101, 102] {
                 array.append(i * 2 + item)
             }
         }
@@ -58,12 +58,26 @@ final class HomeMainView: UIView {
             CustomizeIntroCell2.self,
             forCellWithReuseIdentifier: Attributes.customizeIntroCell2Identifier
         )
+        
+        collectionView.register(
+            RankingCellHeader.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: Attributes.rankingCellHeaderIdentifier
+        )
+        
+        collectionView.register(
+            RankingCell.self,
+            forCellWithReuseIdentifier: Attributes.rankingCellIdentifier
+        )
         return collectionView
     }()
     
     private lazy var dataSource: UICollectionViewDiffableDataSource = {
-        return UICollectionViewDiffableDataSource<HomeSection, Int>(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
+        let dataSource = UICollectionViewDiffableDataSource<HomeSection, Int>(
+            collectionView: collectionView
+        ) { collectionView, indexPath, itemIdentifier in
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
+            
             switch section {
             case .searchBar:
                 return collectionView.dequeueReusableCell(
@@ -83,8 +97,35 @@ final class HomeMainView: UIView {
                         for: indexPath
                     ) as? CustomizeIntroCell2
                 }
+                
+            case .cheapRanking:
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: Attributes.rankingCellIdentifier,
+                    for: indexPath
+                ) as? RankingCell
             }
         }
+        
+        // 헤더 설정
+        dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
+            
+            switch section {
+            case .cheapRanking:
+                let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: Attributes.rankingCellHeaderIdentifier,
+                    for: indexPath
+                ) as? RankingCellHeader
+                return header
+                
+            default:
+                return nil
+            }
+        }
+        
+        return dataSource
     }()
     
     // MARK: - initialize
@@ -122,9 +163,10 @@ final class HomeMainView: UIView {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
-        snapshot.appendSections([.searchBar, .banner])
+        snapshot.appendSections([.searchBar, .banner, .cheapRanking])
         snapshot.appendItems([0], toSection: .searchBar)
         snapshot.appendItems(repeatedBannerItems, toSection: .banner)
+        snapshot.appendItems([1, 2, 3], toSection: .cheapRanking)
         dataSource.apply(snapshot, animatingDifferences: false)
         
         // banner 중간에서 시작
