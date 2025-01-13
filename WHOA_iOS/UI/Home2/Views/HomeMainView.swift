@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 final class HomeMainView: UIView {
@@ -23,6 +24,12 @@ final class HomeMainView: UIView {
     
     // MARK: - Properties
     
+    private let searchBarTappedSubject = PassthroughSubject<Void, Never>()
+    
+    var searchBarTappedPublisher: AnyPublisher<Void, Never> {
+        searchBarTappedSubject.eraseToAnyPublisher()
+    }
+
     private var bannerTimer: Timer?
     
     private lazy var repeatedBannerItems: [Int] = {
@@ -67,18 +74,27 @@ final class HomeMainView: UIView {
         return collectionView
     }()
     
-    private lazy var dataSource: UICollectionViewDiffableDataSource = {
+    private lazy var dataSource: UICollectionViewDiffableDataSource<HomeSection, Int> = {
         let dataSource = UICollectionViewDiffableDataSource<HomeSection, Int>(
             collectionView: collectionView
-        ) { collectionView, indexPath, itemIdentifier in
+        ) { [weak self] collectionView, indexPath, itemIdentifier in
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
             
             switch section {
             case .searchBar:
-                return collectionView.dequeueReusableCell(
+                guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: Attributes.searchBarCellIdentifier,
                     for: indexPath
-                ) as? SearchBarCell
+                ) as? SearchBarCell else { return SearchBarCell() }
+                
+                cell.searchBarTapPublisher
+                    .sink { [weak self] _ in
+                        guard let self = self else { return }
+                        self.searchBarTappedSubject.send()
+                    }
+                    .store(in: &cell.cancellables)
+                
+                return cell
                 
             case .banner:
                 if itemIdentifier % 2 == 1 {
@@ -102,9 +118,9 @@ final class HomeMainView: UIView {
                 }
                 
                 if section == .cheapRanking {
-                    cell.configure(for: section, price: "2,100", colors: nil) // price 사용, colors는 nil
+                    cell.configure(for: section, price: "2,100", colors: nil)
                 } else if section == .popularRanking {
-                    cell.configure(for: section, price: nil, colors: ["#FF5733", "#33FF57", "#3357FF"]) // colors 사용
+                    cell.configure(for: section, price: nil, colors: ["#FF5733"])
                 }
                 
                 return cell

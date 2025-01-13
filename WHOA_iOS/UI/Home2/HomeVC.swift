@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 final class HomeVC: UIViewController {
     
     // MARK: - Properties
     
     private let rootView: HomeMainView
+    var customizingCoordinator: CustomizingCoordinator?
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
     
@@ -29,6 +32,7 @@ final class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+        bind()
     }
     
     override func loadView() {
@@ -36,6 +40,16 @@ final class HomeVC: UIViewController {
     }
     
     // MARK: - Functions
+    
+    private func bind() {
+        rootView.searchBarTappedPublisher
+            .sink { [weak self] _ in
+                guard let self else { return }
+                let searchVC = FlowerSearchViewController()
+                self.navigationController?.pushViewController(searchVC, animated: true)
+            }
+            .store(in: &cancellables)
+    }
     
     private func setupNavigationBar() {
         let imageView = UIImageView(image: .whoaLogo)
