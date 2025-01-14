@@ -219,6 +219,7 @@ final class FlowerSelectionViewModel: ViewModel {
             combinedColors.insert(pointColor, at: 0)
         }
         
-        return combinedColors.joined(separator: ",")
+        let joined = combinedColors.joined(separator: "%2C") // 콤마(,)
+        return joined.replacingOccurrences(of: "#", with: "%23")
     }
 }
