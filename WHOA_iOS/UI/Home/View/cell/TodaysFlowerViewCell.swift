@@ -36,7 +36,7 @@ final class TodaysFlowerViewCell: UICollectionViewCell {
     private lazy var flowerOneLineDescriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 18, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     

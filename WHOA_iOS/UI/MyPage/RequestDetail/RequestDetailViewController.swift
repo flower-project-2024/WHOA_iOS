@@ -80,7 +80,7 @@ final class RequestDetailViewController: UIViewController {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = UIColor.primary
+        config.baseBackgroundColor = UIColor.customPrimary
         config.baseForegroundColor = .gray02
         config.attributedTitle = AttributedString("이미지로 저장하기", attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.Pretendard(size: 16, family: .SemiBold)]))
         config.background.cornerRadius = 10
@@ -238,14 +238,14 @@ final class RequestDetailViewController: UIViewController {
         viewModel.requestDetailModelDidChange = { [weak self] model in
             guard let model = model else { return }
             DispatchQueue.main.async {
-                self?.requestDetailView.config(model: model.customizingSummaryModel)
+                self?.requestDetailView.setupUI(bouquetData: model.bouquetData)
                 
                 // 사용자가 등록한 실제 꽃다발 사진이 있는 경우 해당 사진을 보여주도록
                 if let realBouquetImage = model.bouquetRealImage {
                     self?.configureFlowerImage(imageURLs: [realBouquetImage])
                 }
                 else {
-                    self?.configureFlowerImage(imageURLs: model.customizingSummaryModel.flowers.map({ $0.photo }))
+                    self?.configureFlowerImage(imageURLs: model.bouquetData.flowers.map({ $0.photo }))
                 }
                 self?.configureSaveAsImageSmallButton(isHidden: model.status == .producted ? true : false)
                 self?.configureProductionCompletedLabel(isHidden: model.status == .producted ? false : true)
@@ -298,7 +298,7 @@ final class RequestDetailViewController: UIViewController {
         let moreActionsSheetVC = MoreActionsSheetViewController(title: viewModel.getRequestTitle(),
                                                                 bouquetId: viewModel.getBouquetId(),
                                                                 isProducted: (viewModel.getRequestDetailModel().status == .producted) ? true : false,
-                                                                requestDetail: viewModel.getRequestDetailModel().customizingSummaryModel,
+                                                                bouquetData: viewModel.getRequestDetailModel().bouquetData,
                                                                 from: self)
         
         moreActionsSheetVC.modalPresentationStyle = .pageSheet

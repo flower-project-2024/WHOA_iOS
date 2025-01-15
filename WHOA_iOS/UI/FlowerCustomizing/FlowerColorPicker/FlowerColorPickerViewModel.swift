@@ -16,14 +16,12 @@ final class FlowerColorPickerViewModel: ViewModel {
         let colorTypeSelected: AnyPublisher<NumberOfColorsType, Never>
         let hexColorSelected: AnyPublisher<String, Never>
         let resultButtonIndex: AnyPublisher<Int, Never>
-        let backButtonTapped: AnyPublisher<Void, Never>
         let nextButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
         let initialColorType: AnyPublisher<NumberOfColorsType, Never>
         let initialHexColor: AnyPublisher<[String], Never>
-        let dismissView: AnyPublisher<Void, Never>
         let showFlowerSelection: AnyPublisher<Void, Never>
         let isNextButtonEnabled: AnyPublisher<Bool, Never>
     }
@@ -31,10 +29,9 @@ final class FlowerColorPickerViewModel: ViewModel {
     private let dataManager: BouquetDataManaging
     private let isCustomV2: Bool
     private var customV2HexColor: String?
-    private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.none)
-    private let hexColorsSubject = CurrentValueSubject<[String], Never>([])
+    private let colorTypeSubject = CurrentValueSubject<NumberOfColorsType, Never>(.oneColor)
+    private let hexColorsSubject = CurrentValueSubject<[String], Never>([""])
     private let resultButtonIndexSubject = CurrentValueSubject<Int, Never>(0)
-    private let dismissSubject = PassthroughSubject<Void, Never>()
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -50,7 +47,7 @@ final class FlowerColorPickerViewModel: ViewModel {
     
     func transform(input: Input) -> Output {
         input.colorTypeSelected
-            .dropFirst()
+            .removeDuplicates()
             .sink { [weak self] colorType in
                 self?.colorTypeSubject.send(colorType)
                 self?.updateHexColorsArray(for: colorType)
@@ -66,12 +63,6 @@ final class FlowerColorPickerViewModel: ViewModel {
         
         input.resultButtonIndex
             .assign(to: \.value, on: resultButtonIndexSubject)
-            .store(in: &cancellables)
-        
-        input.backButtonTapped
-            .sink { [weak self] _ in
-                self?.dismissSubject.send()
-            }
             .store(in: &cancellables)
         
         input.nextButtonTapped
@@ -93,7 +84,6 @@ final class FlowerColorPickerViewModel: ViewModel {
         return Output(
             initialColorType: colorTypeSubject.eraseToAnyPublisher(),
             initialHexColor: hexColorsSubject.eraseToAnyPublisher(),
-            dismissView: dismissSubject.eraseToAnyPublisher(),
             showFlowerSelection: showFlowerSelectionSubject.eraseToAnyPublisher(),
             isNextButtonEnabled: isNextButtonEnabled.eraseToAnyPublisher()
         )
@@ -122,8 +112,8 @@ final class FlowerColorPickerViewModel: ViewModel {
     }
     
     private func initColorScheme(colorScheme: BouquetData.ColorScheme) {
+        guard colorScheme.numberOfColors != .none else { return }
         var colors = colorScheme.colors
-        
         if let pointColor = colorScheme.pointColor {
             colors.insert(pointColor, at: 0)
         }

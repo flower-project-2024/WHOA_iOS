@@ -71,7 +71,7 @@ final class CustomizeIntroCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.gray09
-        self.layer.borderColor = UIColor.primary.cgColor
+        self.layer.borderColor = UIColor.customPrimary.cgColor
         self.layer.borderWidth = 1
         
         addViews()

@@ -14,7 +14,7 @@ final class MoreActionsSheetViewController: UIViewController {
     
     private let viewModel: RequestDetailViewModel
     private let isProducted: Bool
-    private let requestSummaryModel: CustomizingSummaryModel
+    private let bouquetData: BouquetData
     private var requestDetailVC: RequestDetailViewController
     static private var hasBezel: Bool {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
@@ -64,7 +64,7 @@ final class MoreActionsSheetViewController: UIViewController {
         var config = UIButton.Configuration.filled()
         config.title = "취소"
         config.attributedTitle?.font = .Pretendard(size: 16, family: .SemiBold)
-        config.background.backgroundColor = UIColor.primary
+        config.background.backgroundColor = UIColor.customPrimary
         config.background.cornerRadius = 10
         config.contentInsets = .init(top: 17.adjustedH(), 
                                      leading: 15.adjusted(),
@@ -81,12 +81,12 @@ final class MoreActionsSheetViewController: UIViewController {
     init(title: String,
          bouquetId: Int,
          isProducted: Bool,
-         requestDetail: CustomizingSummaryModel,
+         bouquetData: BouquetData,
          from currentVC: RequestDetailViewController
     ) {
         viewModel = RequestDetailViewModel(requestTitle: title, bouquetId: bouquetId)
         self.isProducted = isProducted
-        self.requestSummaryModel = requestDetail
+        self.bouquetData = bouquetData
         requestDetailVC = currentVC
         
         super.init(nibName: nil, bundle: nil)
@@ -198,7 +198,7 @@ final class MoreActionsSheetViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let dto):
-                BouquetDetailDTO.convertDTOToModelBouquetData(
+                BouquetDetailDTO.saveBouquetData(
                     requestTitle: requestTitle,
                     dto: dto,
                     dataManager: BouquetDataManager.shared

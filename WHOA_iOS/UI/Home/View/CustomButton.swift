@@ -32,14 +32,14 @@ final class CustomButton: UIButton {
         config.imagePadding = 11
         
         if buttonType == .todaysFlower {
-            config.baseBackgroundColor = UIColor.primary
+            config.baseBackgroundColor = UIColor.customPrimary
             config.baseForegroundColor = UIColor.gray01
         }
         
         else if buttonType == .customizing {
-            config.image?.withTintColor(UIColor.primary)
+            config.image?.withTintColor(UIColor.customPrimary)
             config.baseBackgroundColor = UIColor.secondary03
-            config.baseForegroundColor = UIColor.primary
+            config.baseForegroundColor = UIColor.customPrimary
         }
                         
         self.configuration = config

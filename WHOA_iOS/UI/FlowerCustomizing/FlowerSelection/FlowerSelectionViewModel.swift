@@ -139,9 +139,11 @@ final class FlowerSelectionViewModel: ViewModel {
     }
     
     func fetchFlowerKeyword(keywordId: Int = 0) {
+        let colorScheme = dataManager.getColorScheme()
         NetworkManager.shared.fetchFlowerKeyword(
             customizingPurposeId: purposeType.id,
-            keywordId: keywordId
+            keywordId: keywordId,
+            selectedColors: combinedColors(colorScheme.pointColor, colorScheme.colors)
         ) { [weak self] result in
             self?.handleNetworkResponse(result)
         }
@@ -159,8 +161,8 @@ final class FlowerSelectionViewModel: ViewModel {
         }
     }
     
-    func getPurposeString() -> String {
-        return purposeType.rawValue
+    func getPurpose() -> PurposeType {
+        return purposeType
     }
     
     var flowerModelCount: Int {
@@ -208,5 +210,16 @@ final class FlowerSelectionViewModel: ViewModel {
         let unifiedString = languageStr.replacingOccurrences(of: " · ", with: "\n")
         let languageArray = unifiedString.components(separatedBy: "\n")
         return languageArray
+    }
+    
+    private func combinedColors(_ pointColor: String?, _ colors: [String]) -> String {
+        var combinedColors = colors
+        
+        if let pointColor = pointColor {
+            combinedColors.insert(pointColor, at: 0)
+        }
+        
+        let joined = combinedColors.joined(separator: "%2C") // 콤마(,)
+        return joined.replacingOccurrences(of: "#", with: "%23")
     }
 }

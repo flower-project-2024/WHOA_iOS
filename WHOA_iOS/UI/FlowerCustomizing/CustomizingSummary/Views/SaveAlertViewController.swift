@@ -11,6 +11,7 @@ enum SaveResult {
     case success
     case networkError
     case duplicateError
+    case notFound
 }
 
 final class SaveAlertViewController: UIViewController {
@@ -82,7 +83,7 @@ final class SaveAlertViewController: UIViewController {
     // MARK: - Functions
     
     private func setupUI() {
-        view.backgroundColor = .primary.withAlphaComponent(0.5)
+        view.backgroundColor = .customPrimary.withAlphaComponent(0.5)
         
         view.addSubview(alertView)
         alertView.addSubview(flowerImageView)
@@ -96,15 +97,20 @@ final class SaveAlertViewController: UIViewController {
     private func configUI() {
         switch saveResult {
         case .success:
-            flowerImageView.image = UIImage(named: "SaveSuccess")
+            flowerImageView.image = .saveSuccess
             titleLabel.text = "저장 완료!"
             descriptionLabel.text = "꽃다발 요구서를 저장했어요."
             exitButton.setTitle("마이페이지 가기", for: .normal)
         case .networkError, .duplicateError:
-            flowerImageView.image = UIImage(named: "SaveFailure")
+            flowerImageView.image = .saveFailure
             titleLabel.text = "저장 실패"
             descriptionLabel.text = "네트워크 연결 상태를 확인해 주세요."
             exitButton.setTitle("다시 시도하기", for: .normal)
+        case .notFound:
+            flowerImageView.image = .saveFailure
+            titleLabel.text = "꽃을 찾을 수 없어요"
+            descriptionLabel.text = "선택한 구매목적과 색상에 매칭되는 꽃이 없어요."
+            exitButton.setTitle("확인", for: .normal)
         }
     }
     
@@ -119,7 +125,7 @@ final class SaveAlertViewController: UIViewController {
                 self?.currentVC?.tabBarController?.selectedIndex = 2
                 self?.currentVC?.navigationController?.popToRootViewController(animated: true)
             }
-        case .networkError, .duplicateError:
+        case .networkError, .duplicateError, .notFound:
             dismiss(animated: true)
         }
     }
@@ -128,10 +134,8 @@ final class SaveAlertViewController: UIViewController {
 extension SaveAlertViewController {
     private func setupAutoLayout() {
         alertView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(350)
-            $0.height.equalTo(288)
+            $0.leading.trailing.equalToSuperview().inset(20)
         }
         
         flowerImageView.snp.makeConstraints {
@@ -153,6 +157,7 @@ extension SaveAlertViewController {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview().offset(-24)
+            $0.height.equalTo(48)
         }
     }
 }

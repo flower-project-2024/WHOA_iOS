@@ -18,7 +18,7 @@ class ColorSheetViewController: UIViewController {
     
     var selectedColorIndex: Int? {
         didSet {
-            decorateButton.configuration?.background.backgroundColor = UIColor.primary
+            decorateButton.configuration?.background.backgroundColor = UIColor.customPrimary
             decorateButton.configuration?.baseForegroundColor = .white
             decorateButton.isEnabled = true
         }
@@ -129,10 +129,6 @@ class ColorSheetViewController: UIViewController {
         
         dismiss(animated: true) { [weak self] in
             self?.flowerdetailVC?.tabBarController?.selectedIndex = 1
-            let purposeVC = PurposeViewController(viewModel: PurposeViewModel())
-            purposeVC.coordinator = self?.customizingCoordinator
-            self?.customizingCoordinator?.navigationController.viewControllers.append(purposeVC)
-            self?.customizingCoordinator?.showColorPickerVC()
         }
     }
 }

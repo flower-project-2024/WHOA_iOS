@@ -17,8 +17,7 @@ final class FlowerColorPickerViewController: UIViewController {
     private enum Metric {
         static let sideMargin = 20.0
         static let headerViewHeight = 178.0
-        static let colorTypeResultViewTopOffset = 32.0
-        static let colorTypeResultViewHeight = 56.0
+        static let colorTypeSelectionButtonsViewTopOffset = 15.0
         static let colorTypeSelectionButtonsHeightMultiplier = 0.045
         static let elementVerticalSpacing = 24.0
         static let colorSelectionResultViewHeight = 217.0
@@ -36,15 +35,6 @@ final class FlowerColorPickerViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     weak var coordinator: CustomizingCoordinator?
     
-    private lazy var colorTypeResultViewTapPublisher: AnyPublisher<Void, Never> = {
-        let tapGesture = UITapGestureRecognizer()
-        colorTypeResultView.addGestureRecognizer(tapGesture)
-        return tapGesture.publisher(for: \.state)
-            .filter { $0 == .ended }
-            .map { _ in }
-            .eraseToAnyPublisher()
-    }()
-    
     // MARK: - UI
     
     private let scrollView: UIScrollView = {
@@ -53,13 +43,11 @@ final class FlowerColorPickerViewController: UIViewController {
         return scrollView
     }()
     private let contentView = UIView()
-
     private let headerView = CustomHeaderView(
         numerator: 2,
         title: Attributes.headerViewTitle,
         description: Attributes.headerViewDescription
     )
-    private let colorTypeResultView = ColorTypeResultView()
     private let colorTypeSelectionButtonsView = ColorTypeSelectionButtonsView()
     private let colorSelectionResultView = ColorSelectionResultView()
     private let segmentControlView = SegmentControlView()
@@ -105,7 +93,6 @@ final class FlowerColorPickerViewController: UIViewController {
         
         [
             headerView,
-            colorTypeResultView,
             colorTypeSelectionButtonsView,
             colorSelectionResultView,
             segmentControlView,
@@ -121,31 +108,25 @@ final class FlowerColorPickerViewController: UIViewController {
             colorTypeSelected: colorTypeSelectionButtonsView.valuePublisher,
             hexColorSelected: segmentControlView.valuePublisher,
             resultButtonIndex: colorSelectionResultView.selectedButtonIndexPublisher,
-            backButtonTapped: bottomView.backButtonTappedPublisher,
             nextButtonTapped: bottomView.nextButtonTappedPublisher
         )
         let output = viewModel.transform(input: input)
         
         output.initialColorType
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] colorType in
                 guard let self = self else { return }
                 self.updateUI(for: colorType)
-                self.segmentControlView.resetColorButtons()
             }
             .store(in: &cancellables)
         
         output.initialHexColor
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] hexColors in
                 guard let self = self else { return }
                 hexColors.enumerated().forEach { index, hexColor in
                     self.colorSelectionResultView.updateColorSelection(hexString: hexColor, for: index)
                 }
-            }
-            .store(in: &cancellables)
-        
-        output.dismissView
-            .sink { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
         
@@ -156,6 +137,7 @@ final class FlowerColorPickerViewController: UIViewController {
             .store(in: &cancellables)
         
         output.isNextButtonEnabled
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] bool in
                 self?.bottomView.configNextButton(bool)
             }
@@ -172,44 +154,17 @@ final class FlowerColorPickerViewController: UIViewController {
             }
             .store(in: &cancellables)
         
-        colorTypeResultViewTapPublisher
+        bottomView.backButtonTappedPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
-                self?.toggleDropdown()
+                self?.navigationController?.popViewController(animated: true)
             }
             .store(in: &cancellables)
     }
     
     private func updateUI(for colorType: NumberOfColorsType) {
-        colorTypeResultView.updateSelectionLabel(colorType)
         colorTypeSelectionButtonsView.updateButton(colorType)
         colorSelectionResultView.config(colorType)
-        updateViewVisibility(colorType)
-    }
-    
-    private func updateViewVisibility(_ colorType: NumberOfColorsType) {
-        let hasValidColorType = colorType != .none
-        colorSelectionResultView.isHidden = !hasValidColorType
-        segmentControlView.isHidden = !hasValidColorType
-    }
-    
-    private func toggleDropdown() {
-        colorTypeSelectionButtonsView.isHidden.toggle()
-        
-        let isHidden = colorTypeSelectionButtonsView.isHidden
-        updateLayoutForDropdownState(isHidden: isHidden)
-        colorTypeResultView.updateChevronImage(isExpanded: isHidden)
-    }
-    
-    private func updateLayoutForDropdownState(isHidden: Bool) {
-        colorSelectionResultView.snp.remakeConstraints {
-            if isHidden {
-                $0.top.equalTo(colorTypeResultView.snp.bottom).offset(Metric.elementVerticalSpacing)
-            } else {
-                $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(Metric.sideMargin + Metric.elementVerticalSpacing)
-            }
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(Metric.colorSelectionResultViewHeight)
-        }
     }
 }
 
@@ -235,20 +190,14 @@ extension FlowerColorPickerViewController {
             $0.height.equalTo(Metric.headerViewHeight)
         }
         
-        colorTypeResultView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(Metric.colorTypeResultViewTopOffset)
-            $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
-            $0.height.equalTo(Metric.colorTypeResultViewHeight)
-        }
-        
         colorTypeSelectionButtonsView.snp.makeConstraints {
-            $0.top.equalTo(colorTypeResultView.snp.bottom).offset(Metric.sideMargin)
+            $0.top.equalTo(headerView.snp.bottom).offset(Metric.colorTypeSelectionButtonsViewTopOffset)
             $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
             $0.height.equalToSuperview().multipliedBy(Metric.colorTypeSelectionButtonsHeightMultiplier)
         }
         
         colorSelectionResultView.snp.makeConstraints {
-            $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(Metric.sideMargin + Metric.elementVerticalSpacing)
+            $0.top.equalTo(colorTypeSelectionButtonsView.snp.bottom).offset(Metric.elementVerticalSpacing)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(Metric.colorSelectionResultViewHeight)
         }

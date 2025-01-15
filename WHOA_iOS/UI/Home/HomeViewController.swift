@@ -155,7 +155,7 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = .white
         self.navigationController?.navigationBar.barTintColor = .white
         
-        self.navigationController?.navigationBar.tintColor = .primary
+        self.navigationController?.navigationBar.tintColor = .customPrimary
         self.navigationController?.navigationBar.topItem?.title = ""
         
         // 네비게이션 바 줄 없애기
@@ -234,7 +234,7 @@ final class HomeViewController: UIViewController {
     private func resetTimer() {
         timer?.invalidate()
         timer = nil
-        timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { [weak self] timer in
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] timer in
             
             let visibleItem = self?.carouselView.indexPathsForVisibleItems[0].item  // 현재 화면에 보이는 아이템의 indexPath
             let nextItem = (visibleItem ?? 0) + 1

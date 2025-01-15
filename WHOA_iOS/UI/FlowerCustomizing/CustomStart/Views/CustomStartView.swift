@@ -47,7 +47,7 @@ final class CustomStartView: UIView {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = Attributes.descriptionLabelText
-        label.textColor = .primary
+        label.textColor = .customPrimary
         label.font = .Pretendard(size: 16, family: .SemiBold)
         return label
     }()

@@ -12,7 +12,7 @@ final class ColorTypeSelectionButtonsView: UIView {
     
     // MARK: - Properties
     
-    private let colorTypeSubject: CurrentValueSubject<NumberOfColorsType, Never> = .init(.none)
+    private let colorTypeSubject = PassthroughSubject<NumberOfColorsType, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     var valuePublisher: AnyPublisher<NumberOfColorsType, Never> {
@@ -82,7 +82,7 @@ final class ColorTypeSelectionButtonsView: UIView {
     
     private func button(for colorType: NumberOfColorsType) -> UIButton? {
         switch colorType {
-        case .oneColor:
+        case .oneColor, .none:
             return oneColorButton
         case .twoColor:
             return twoColorButton
@@ -90,13 +90,11 @@ final class ColorTypeSelectionButtonsView: UIView {
             return colorfulButton
         case .pointColor:
             return pointColorButton
-        case .none:
-            return nil
         }
     }
     
     private func updateSelectedButton(_ button: UIButton) {
-        button.setTitleColor(.primary, for: .normal)
+        button.setTitleColor(.customPrimary, for: .normal)
         button.titleLabel?.font = .Pretendard(family: .SemiBold)
         button.layer.borderColor = UIColor.secondary03.cgColor
     }
@@ -108,7 +106,7 @@ final class ColorTypeSelectionButtonsView: UIView {
         button.setTitleColor(.gray08, for: .normal)
         button.backgroundColor = .gray01
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = 18
+        button.layer.cornerRadius = 14
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray04.cgColor
         

@@ -37,8 +37,8 @@ class FlowerDetailViewController: UIViewController {
     private lazy var imagePageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = UIColor(white: 1, alpha: 0.5)
-        pageControl.currentPageIndicatorTintColor = .white
+        pageControl.pageIndicatorTintColor = .gray04
+        pageControl.currentPageIndicatorTintColor = .secondary03
         pageControl.hidesForSinglePage = true
         return pageControl
     }()
@@ -46,7 +46,7 @@ class FlowerDetailViewController: UIViewController {
     private let titleView: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 18, family: .SemiBold)
-        label.textColor = .primary
+        label.textColor = .customPrimary
         return label
     }()
     
@@ -61,14 +61,14 @@ class FlowerDetailViewController: UIViewController {
     private let flowerKoreanNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 24, family: .SemiBold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
     private let flowerEnglishNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 16)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -122,31 +122,21 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "정보"
         label.font = .Pretendard(size: 20, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
-    private let flowerColorStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var flowerColorStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                flowerColorLabel,
+                colorChipDescriptionLabel,
+                flowerColorChipHStackView
+            ])
         stackView.axis = .vertical
         stackView.spacing = 16
         stackView.alignment = .leading
-        return stackView
-    }()
-    
-    private let flowerColorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "색상"
-        label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
-        return label
-    }()
-    
-    private let flowerColorChipHStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 11
-        stackView.alignment = .leading
+        stackView.setCustomSpacing(4, after: flowerColorLabel)
         return stackView
     }()
     
@@ -156,6 +146,22 @@ class FlowerDetailViewController: UIViewController {
         label.font = .Pretendard(size: 16)
         label.textColor = .gray06
         return label
+    }()
+    
+    private let flowerColorLabel: UILabel = {
+        let label = UILabel()
+        label.text = "색상"
+        label.font = .Pretendard(size: 16, family: .Bold)
+        label.textColor = UIColor.customPrimary
+        return label
+    }()
+    
+    private let flowerColorChipHStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 11
+        stackView.alignment = .leading
+        return stackView
     }()
     
     private let birthFlowerStackView: UIStackView = {
@@ -184,7 +190,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "꽃말"
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -222,7 +228,7 @@ class FlowerDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "탄생화"
         label.font = .Pretendard(size: 16, family: .Bold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -336,10 +342,6 @@ class FlowerDetailViewController: UIViewController {
         
         [flowerKoreanNameLabel, flowerEnglishNameLabel].forEach {
             flowerNameStackView.addArrangedSubview($0)
-        }
-        
-        [flowerColorLabel, flowerColorChipHStackView, colorChipDescriptionLabel].forEach {
-            flowerColorStackView.addArrangedSubview($0)
         }
         
         [birthFlowerLabel, birthFlowerDateStackView].forEach {

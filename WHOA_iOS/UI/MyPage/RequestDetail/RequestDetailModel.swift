@@ -8,7 +8,7 @@
 import Foundation
 
 struct RequestDetailModel {
-    let customizingSummaryModel: CustomizingSummaryModel
+    let bouquetData: BouquetData
     let status: BouquetStatusType
     let bouquetRealImage: String?
 }

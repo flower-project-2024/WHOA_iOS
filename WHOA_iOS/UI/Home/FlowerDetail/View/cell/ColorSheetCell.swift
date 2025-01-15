@@ -53,7 +53,7 @@ class ColorSheetCell: UICollectionViewCell {
     
     private lazy var colorDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         label.font = .Pretendard(size: 16, family: .Regular)
         label.isUserInteractionEnabled = false
         return label

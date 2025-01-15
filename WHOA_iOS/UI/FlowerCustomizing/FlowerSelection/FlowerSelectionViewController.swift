@@ -25,9 +25,10 @@ final class FlowerSelectionViewController: UIViewController {
     /// Attributes
     private enum Attributes {
         static let flowerListCell = "FlowerListCell"
-        static let headerViewDescription = "최대 3개의 꽃을 선택할 수 있어요"
-        static func headerViewTitle(for purpose: String) -> String {
-            return "\(purpose)과\n어울리는 꽃 선택"
+        static let headerViewTitle = "꽃다발 메인 꽃 선택"
+        static func headerViewDescription(for purpose: PurposeType) -> String {
+            let prefix = (purpose == .none) ? "선택한 색상의 꽃을 소개해드릴게요" : "\(purpose.rawValue)에 어울리는 꽃말을 가진 꽃이에요"
+            return "\(prefix)\n최대 3개의 꽃을 선택할 수 있어요"
         }
     }
     
@@ -42,8 +43,8 @@ final class FlowerSelectionViewController: UIViewController {
     
     private lazy var headerView = CustomHeaderView(
         numerator: 3,
-        title: Attributes.headerViewTitle(for: viewModel.getPurposeString()),
-        description: Attributes.headerViewDescription
+        title: Attributes.headerViewTitle,
+        description: Attributes.headerViewDescription(for: viewModel.getPurpose())
     )
     private let flowerImageView = FlowerImageView()
     private let topBorderLine = BorderLine()
@@ -148,8 +149,8 @@ final class FlowerSelectionViewController: UIViewController {
         output.networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let error = error?.localizedDescription else { return }
-                self?.showAlert(message: error)
+                guard let self else { return }
+                coordinator?.showSaveAlert(from: self, saveResult: .notFound)
             }
             .store(in: &cancellables)
         

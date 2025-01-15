@@ -16,7 +16,7 @@ final class CustomizingSummaryViewController: UIViewController {
     private enum Metric {
         static let sideMargin = 20.0
         static let requestDetailViewTopOffset = 37.0
-        static let bottomViewTopOffset = 22.0
+        static let requestDetailViewBottomOffset = 22.0
     }
     
     /// Attributes
@@ -105,15 +105,15 @@ final class CustomizingSummaryViewController: UIViewController {
         
         output.setupRequestDetailView
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] model in
-                self?.requestDetailView.config(model: model)
+            .sink { [weak self] bouquetData in
+                self?.requestDetailView.setupUI(bouquetData: bouquetData)
             }
             .store(in: &cancellables)
         
         output.setupRequestTitle
             .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
-                self?.requestDetailView.configureRequestTitle(title: title)
+                self?.requestDetailView.setupRequestTitle(title: title)
             }
             .store(in: &cancellables)
         
@@ -158,17 +158,16 @@ final class CustomizingSummaryViewController: UIViewController {
     }
 }
 
+// MARK: - AutoLayout
+
 extension CustomizingSummaryViewController {
     private func setupAutoLayout() {
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
         
         contentView.snp.makeConstraints {
-            $0.edges.equalTo(scrollView.contentLayoutGuide)
-            $0.width.equalTo(scrollView.frameLayoutGuide)
+            $0.edges.width.equalToSuperview()
         }
         
         headerView.snp.makeConstraints {
@@ -179,12 +178,11 @@ extension CustomizingSummaryViewController {
         requestDetailView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom).offset(Metric.requestDetailViewTopOffset)
             $0.leading.trailing.equalToSuperview().inset(Metric.sideMargin)
+            $0.bottom.equalTo(bottomView.snp.top).offset(-Metric.requestDetailViewBottomOffset)
         }
         
         bottomView.snp.makeConstraints {
-            $0.top.equalTo(requestDetailView.snp.bottom).offset(Metric.bottomViewTopOffset)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(scrollView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

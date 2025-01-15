@@ -36,7 +36,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     let rankingLabel: UILabel =  {
         let label = UILabel()
         label.font = .Pretendard(size: 20, family: .Medium)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     
@@ -51,7 +51,7 @@ final class CheapFlowerInfoCell: UITableViewCell {
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
         label.font = .Pretendard(size: 16, family: .SemiBold)
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         return label
     }()
     

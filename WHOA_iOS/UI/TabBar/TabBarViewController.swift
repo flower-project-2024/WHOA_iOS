@@ -28,7 +28,7 @@ final class TabBarViewController: UITabBarController {
         
         tabBar.backgroundColor = .white
         tabBar.barTintColor = .white
-        tabBar.tintColor = UIColor.primary
+        tabBar.tintColor = UIColor.customPrimary
         tabBar.isTranslucent = false
         tabBar.unselectedItemTintColor = UIColor.gray07
         tabBar.layer.masksToBounds = false
@@ -122,7 +122,7 @@ final class TabBarViewController: UITabBarController {
         customTabBar.customHeight = hasBottomInset! ? 92 : 75 // 베젤이 있는 경우와 없는 경우의 높이 설정
         
         customTabBar.barTintColor = .white
-        customTabBar.tintColor = .primary
+        customTabBar.tintColor = .customPrimary
         setValue(customTabBar, forKey: "tabBar")
     }
 }

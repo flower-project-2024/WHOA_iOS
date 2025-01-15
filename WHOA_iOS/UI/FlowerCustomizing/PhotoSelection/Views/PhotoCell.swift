@@ -41,7 +41,7 @@ final class PhotoCell: UICollectionViewCell {
     
     private let orderLabel: UILabel = {
         let label = HashTagCustomLabel(padding: UIEdgeInsets(top: 3.0, left: 9.0, bottom: 3.0, right: 9.0))
-        label.textColor = .primary
+        label.textColor = .customPrimary
         label.backgroundColor = .secondary03
         label.font = .Pretendard(size: 16, family: .SemiBold)
         label.layer.masksToBounds = true

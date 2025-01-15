@@ -20,7 +20,7 @@ final class ToolTipView: UIView {
         let label = HashTagCustomLabel(padding: UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20))
         label.font = UIFont(name: "Pretendard-Bold", size: 14)
         label.text = "꽃다발 커스터마이징을 시작해보세요!"
-        label.backgroundColor = .primary
+        label.backgroundColor = .customPrimary
         label.textColor = .white
         label.layer.cornerRadius = 20
         label.clipsToBounds = true
@@ -33,7 +33,7 @@ final class ToolTipView: UIView {
         var config = UIButton.Configuration.filled()
         config.image = UIImage.xmarkSmall
         config.baseBackgroundColor = .secondary03
-        config.baseForegroundColor = .primary
+        config.baseForegroundColor = .customPrimary
         config.background.cornerRadius = 22 / 2
         
         button.configuration = config
@@ -99,7 +99,7 @@ final class ToolTipView: UIView {
         path.addLine(to: CGPoint(x: tipStartX, y: tipStartY))
 
         shape.path = path
-        shape.fillColor = UIColor.primary.cgColor
+        shape.fillColor = UIColor.customPrimary.cgColor
 
         self.layer.insertSublayer(shape, at: 0)
     }

@@ -21,6 +21,28 @@ struct PostCustomBouquetRequestDTO: Codable {
 }
 
 extension PostCustomBouquetRequestDTO {
+    init(from bouquetData: BouquetData) {
+        let formattedMinPrice = String(bouquetData.price.min).formatNumberInThousands()
+        let formattedMaxPrice = String(bouquetData.price.max).formatNumberInThousands()
+        let priceRange = "\(formattedMinPrice) ~ \(formattedMaxPrice)원"
+        
+        let isMyself = bouquetData.packagingAssign.assign == .myselfAssign
+        let wrappingType = isMyself
+            ? bouquetData.packagingAssign.text ?? ""
+            : bouquetData.packagingAssign.assign.rawValue
+        
+        self.bouquetName = bouquetData.requestTitle
+        self.purpose = bouquetData.purpose.rawValue
+        self.colorType = bouquetData.colorScheme.numberOfColors.toDTOString()
+        self.colorName = bouquetData.colorScheme.colors.joined(separator: ", ")
+        self.pointColor = bouquetData.colorScheme.pointColor
+        self.flowerType = bouquetData.flowers.compactMap { $0.id }.map{ String($0) }.joined(separator: ", ")
+        self.substitutionType = bouquetData.alternative.toDTOString()
+        self.wrappingType = wrappingType
+        self.price = priceRange
+        self.requirement = bouquetData.requirement.text
+    }
+    
     func createRequestParameterString() -> String {
         var requestParameters: [String: Any] = [
             "bouquetName": self.bouquetName,

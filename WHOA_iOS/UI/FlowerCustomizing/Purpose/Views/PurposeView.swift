@@ -119,7 +119,7 @@ final class PurposeView: UIView {
             button: selectedButton,
             backgroundColor: .second1.withAlphaComponent(0.2),
             font: .Pretendard(size: 16, family: .SemiBold),
-            fontColor: .primary,
+            fontColor: .customPrimary,
             borderColor: UIColor.secondary03.cgColor
         )
     }

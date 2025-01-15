@@ -26,7 +26,7 @@ class NoSearchResultCell: UITableViewCell {
     private let noResultLabel: UILabel = {
         let label = UILabel()
         label.text = "검색 결과가 없어요"
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         label.font = .Pretendard(size: 16, family: .Bold)
         return label
     }()
@@ -34,7 +34,7 @@ class NoSearchResultCell: UITableViewCell {
     private let tryAgainLabel: UILabel = {
         let label = UILabel()
         label.text = "다른 이름으로 검색해보세요."
-        label.textColor = UIColor.primary
+        label.textColor = UIColor.customPrimary
         label.font = .Pretendard(family: .Regular)
         return label
     }()
