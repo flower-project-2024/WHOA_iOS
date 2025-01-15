@@ -207,6 +207,7 @@
 		B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */; };
 		B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */; };
 		B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E12D350A3E00E84934 /* RankingCell.swift */; };
+		B1D9A0E92D37957400E84934 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E82D37957400E84934 /* HomeVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +431,7 @@
 		B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell2.swift; sourceTree = "<group>"; };
 		B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCellHeader.swift; sourceTree = "<group>"; };
 		B1D9A0E12D350A3E00E84934 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
+		B1D9A0E82D37957400E84934 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -843,6 +845,7 @@
 			children = (
 				54DCC9BB2D0AB15B00AC1237 /* Views */,
 				54DCC9B72D0AB02200AC1237 /* HomeVC.swift */,
+				B1D9A0E82D37957400E84934 /* HomeVM.swift */,
 			);
 			path = Home2;
 			sourceTree = "<group>";
@@ -1351,6 +1354,7 @@
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
 				080F0A212CB155A4006F2D4C /* BouquetImageUploadAlertConroller.swift in Sources */,
 				B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */,
+				B1D9A0E92D37957400E84934 /* HomeVM.swift in Sources */,
 				08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */,
 				08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,

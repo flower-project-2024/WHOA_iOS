@@ -29,22 +29,20 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     private let todaysFlowerLabel: UILabel = {
         let label = UILabel()
         label.text = Attributes.todaysFlowerLabelText
-        label.font = .Pretendard(size: 14, family: .Bold)
-        label.textColor = UIColor.customPrimary
+        label.font = .Pretendard(size: 14, family: .Medium)
+        label.textColor = UIColor.gray07
         return label
     }()
     
     private let flowerOneLineDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "봄 향기를 품은 꽃"
-        label.font = .Pretendard(size: 24, family: .Bold)
+        label.font = .Pretendard(size: 18, family: .Bold)
         label.textColor = UIColor.customPrimary
         return label
     }()
     
     private let flowerNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "히아신스"
         label.textColor = UIColor.secondary04
         label.font = .Pretendard(size: 24, family: .Bold)
         return label
@@ -52,7 +50,6 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     
     private let flowerLanguageLabel: UILabel = {
         let label = UILabel()
-        label.text = "#유희 #단아함 #겸손한 사랑"
         label.textColor = UIColor.gray06
         label.font = .Pretendard(size: 14, family: .Medium)
         return label
@@ -80,7 +77,6 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .defaultFlower
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -89,7 +85,6 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [textVStackView, flowerImageView])
         stackView.axis = .horizontal
-        stackView.spacing = 20
         stackView.alignment = .center
         return stackView
     }()
@@ -116,6 +111,46 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
             mainStackView
         ].forEach(addSubview(_:))
         setupAutoLayout()
+    }
+    
+    func configure(with data: TodaysFlowerModel) {
+        let description = data.flowerOneLineDescription?.components(separatedBy: ",").first ?? ""
+        let flowerLanguage = data.flowerExpressions?.first?.flowerLanguage
+        
+        flowerNameLabel.text = data.flowerName
+        flowerOneLineDescriptionLabel.text = description
+        flowerLanguageLabel.text = convertToHashtagString(
+            flowerLanguage: flowerLanguage,
+            for: flowerLanguageLabel
+        )
+        
+        if let image = data.flowerImage {
+            ImageProvider.shared.setImage(into: flowerImageView, from: image)
+        }
+    }
+    
+    private func convertToHashtagString(flowerLanguage: String?, for label: UILabel) -> String? {
+        guard let flowerLanguage = flowerLanguage else { return nil }
+        
+        let keywords = flowerLanguage.components(separatedBy: ",")
+            .map { "#\($0)" }
+        
+        var result = ""
+        var currentWidth: CGFloat = 0
+        let maxWidth = textVStackView.bounds.width
+        
+        for keyword in keywords {
+            let keywordWidth = keyword.size(withAttributes: [.font: label.font ?? UIFont.systemFont(ofSize: 14)]).width
+            
+            if currentWidth + keywordWidth > maxWidth {
+                break
+            }
+            
+            result += (result.isEmpty ? "" : " ") + keyword
+            currentWidth += keywordWidth + " ".size(withAttributes: [.font: label.font ?? UIFont.systemFont(ofSize: 14)]).width
+        }
+        
+        return result
     }
 }
 

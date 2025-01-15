@@ -13,13 +13,17 @@ final class HomeVC: UIViewController {
     // MARK: - Properties
     
     private let rootView: HomeMainView
-    var customizingCoordinator: CustomizingCoordinator?
+    private let homeVM: HomeVM
+    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
+    
+    var customizingCoordinator: CustomizingCoordinator?
     
     // MARK: - Initialize
     
-    init() {
+    init(homeVM: HomeVM) {
         self.rootView = HomeMainView()
+        self.homeVM = homeVM
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -42,6 +46,22 @@ final class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func bind() {
+        let input = HomeVM.Input(viewDidLoad: Just(()).eraseToAnyPublisher())
+        let output = homeVM.transform(input: input)
+        
+        output.fetchTodaysFlower
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] flowerData in
+                self?.rootView.updateTodaysFlower(with: flowerData)
+            }
+            .store(in: &cancellables)
+        
+        output.errorMessage
+            .sink { [weak self] errorMessage in
+                self?.showAlert(title: errorMessage)
+            }
+            .store(in: &cancellables)
+        
         rootView.searchBarTappedPublisher
             .sink { [weak self] _ in
                 guard let self else { return }

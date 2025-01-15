@@ -30,6 +30,7 @@ final class HomeMainView: UIView {
         searchBarTappedSubject.eraseToAnyPublisher()
     }
 
+    private var todayFlowerModel: TodaysFlowerModel?
     private var bannerTimer: Timer?
     
     private lazy var repeatedBannerItems: [Int] = {
@@ -98,10 +99,18 @@ final class HomeMainView: UIView {
                 
             case .banner:
                 if itemIdentifier % 2 == 1 {
-                    return collectionView.dequeueReusableCell(
+                    guard let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
                         for: indexPath
-                    ) as? TodaysFlowerViewCell2
+                    ) as? TodaysFlowerViewCell2 else {
+                        return nil
+                    }
+                    
+                    if let data = self?.todayFlowerModel {
+                        cell.configure(with: data)
+                    }
+                    
+                    return cell
                 } else {
                     return collectionView.dequeueReusableCell(
                         withReuseIdentifier: Attributes.customizeIntroCell2Identifier,
@@ -194,10 +203,18 @@ final class HomeMainView: UIView {
         
         // banner 중간에서 시작
         DispatchQueue.main.async {
-            let midIndex = self.repeatedBannerItems.count / 2
+            let midIndex = self.repeatedBannerItems.count / 2 + 1
             let midPath = IndexPath(item: midIndex, section: HomeSection.banner.rawValue)
             self.collectionView.scrollToItem(at: midPath, at: .centeredHorizontally, animated: false)
         }
+    }
+    
+    func updateTodaysFlower(with data: TodaysFlowerModel) {
+        self.todayFlowerModel = data
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([101])
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func startBannerTimer() {
@@ -220,7 +237,7 @@ final class HomeMainView: UIView {
         let itemCount = repeatedBannerItems.count
         
         if nextItem >= itemCount {
-            let midIndex = itemCount / 2 - 1 // 자연스러운 UI를 위해 마지막 뷰와 같은 index 부여
+            let midIndex = itemCount / 2 + 1
             let midPath = IndexPath(item: midIndex, section: HomeSection.banner.rawValue)
             collectionView.scrollToItem(at: midPath, at: .centeredHorizontally, animated: false)
         } else {
