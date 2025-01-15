@@ -149,8 +149,8 @@ final class FlowerSelectionViewController: UIViewController {
         output.networkError
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
-                guard let error = error?.localizedDescription else { return }
-                self?.showAlert(message: error)
+                guard let self else { return }
+                coordinator?.showSaveAlert(from: self, saveResult: .notFound)
             }
             .store(in: &cancellables)
         
