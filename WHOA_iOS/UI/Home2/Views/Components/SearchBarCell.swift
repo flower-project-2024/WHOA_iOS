@@ -74,7 +74,7 @@ final class SearchBarCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        layer.cornerRadius = 25
+        layer.cornerRadius = 16
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray04.cgColor
         backgroundColor = .gray03
