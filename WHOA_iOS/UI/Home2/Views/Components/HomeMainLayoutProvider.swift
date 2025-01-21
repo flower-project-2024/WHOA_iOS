@@ -20,7 +20,7 @@ struct HomeMainLayoutProvider {
         switch section {
         case .searchBar:
             return createSingleItemSection(
-                height: 54,
+                height: 47,
                 insets: NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
             )
         case .banner:
