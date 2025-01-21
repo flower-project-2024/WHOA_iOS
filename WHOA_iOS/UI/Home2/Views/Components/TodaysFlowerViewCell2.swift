@@ -14,9 +14,9 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     /// Metrics
     private enum Metric {
         static let todaysFlowerButtonHeight: CGFloat = 32
-        static let todaysFlowerButtonWidth: CGFloat = 194.0
-        static let flowerImageViewWidthMultiplier: CGFloat = 0.38
-        static let mainStackViewLeadingOffset: CGFloat = 26
+        static let todaysFlowerButtonWidth: CGFloat = 193.0
+        static let flowerImageViewWidthMultiplier: CGFloat = 0.675
+        static let mainStackViewLeadingOffset: CGFloat = 24
     }
     
     /// Attributes
@@ -69,8 +69,9 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
             todaysFlowerButton
         ])
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 9
         stackView.alignment = .leading
+        stackView.setCustomSpacing(3, after: flowerOneLineDescriptionLabel)
         stackView.setCustomSpacing(23, after: flowerLanguageLabel)
         return stackView
     }()
@@ -165,7 +166,7 @@ extension TodaysFlowerViewCell2 {
         
         flowerImageView.snp.makeConstraints {
             $0.height.equalToSuperview()
-            $0.width.equalToSuperview().multipliedBy(Metric.flowerImageViewWidthMultiplier)
+            $0.width.equalTo(self.snp.height).multipliedBy(Metric.flowerImageViewWidthMultiplier)
         }
         
         mainStackView.snp.makeConstraints {
