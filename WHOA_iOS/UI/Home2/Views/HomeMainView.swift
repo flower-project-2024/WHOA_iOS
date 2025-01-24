@@ -29,19 +29,8 @@ final class HomeMainView: UIView {
     var searchBarTappedPublisher: AnyPublisher<Void, Never> {
         searchBarTappedSubject.eraseToAnyPublisher()
     }
-
-    private var todayFlowerModel: TodaysFlowerModel?
-    private var bannerTimer: Timer?
     
-    private lazy var repeatedBannerItems: [Int] = {
-        var array = [Int]()
-        for i in 0..<30 {
-            for item in [101, 102] {
-                array.append(i * 2 + item)
-            }
-        }
-        return array
-    }()
+    private var bannerTimer: Timer?
     
     // MARK: - UI
     
@@ -75,61 +64,60 @@ final class HomeMainView: UIView {
         return collectionView
     }()
     
-    private lazy var dataSource: UICollectionViewDiffableDataSource<HomeSection, Int> = {
-        let dataSource = UICollectionViewDiffableDataSource<HomeSection, Int>(
+    private lazy var dataSource: UICollectionViewDiffableDataSource<HomeSection, HomeSectionItem> = {
+        let dataSource = UICollectionViewDiffableDataSource<HomeSection, HomeSectionItem>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, itemIdentifier in
+        ) { [weak self] collectionView, indexPath, item in
             guard let section = HomeSection(rawValue: indexPath.section) else { return nil }
             
-            switch section {
+            switch item {
             case .searchBar:
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: Attributes.searchBarCellIdentifier,
                     for: indexPath
-                ) as? SearchBarCell else { return SearchBarCell() }
+                ) as? SearchBarCell else {
+                    return nil
+                }
                 
                 cell.searchBarTapPublisher
                     .sink { [weak self] _ in
-                        guard let self = self else { return }
-                        self.searchBarTappedSubject.send()
+                        self?.searchBarTappedSubject.send()
                     }
                     .store(in: &cell.cancellables)
-                
                 return cell
                 
-            case .banner:
-                if itemIdentifier % 2 == 1 {
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
-                        for: indexPath
-                    ) as? TodaysFlowerViewCell2 else {
-                        return nil
-                    }
-                    
-                    if let data = self?.todayFlowerModel {
-                        cell.configure(with: data)
-                    }
-                    
-                    return cell
-                } else {
-                    return collectionView.dequeueReusableCell(
-                        withReuseIdentifier: Attributes.customizeIntroCell2Identifier,
-                        for: indexPath
-                    ) as? CustomizeIntroCell2
+            case .bannerFlower(_, let todayFlowerModel):
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
+                    for: indexPath
+                ) as? TodaysFlowerViewCell2 else {
+                    return nil
                 }
+                cell.configure(with: todayFlowerModel)
+                return cell
                 
-            case .cheapRanking, .popularRanking:
+            case .bannerCustomize(_):
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: Attributes.customizeIntroCell2Identifier,
+                    for: indexPath
+                ) as? CustomizeIntroCell2 else {
+                    return nil
+                }
+                return cell
+                
+            case .rankingItem(_, let cheapFlowerModel):
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: Attributes.rankingCellIdentifier,
                     for: indexPath
                 ) as? RankingCell else {
                     return nil
                 }
+                let rank = indexPath.row + 1
                 
                 if section == .cheapRanking {
-                    cell.configure(for: section, price: "2,100", colors: nil)
+                    cell.configureCheapRanking(rank: rank, model: cheapFlowerModel)
                 } else if section == .popularRanking {
-                    cell.configure(for: section, price: nil, colors: ["#FF5733"])
+                    cell.configurePopularRanking(rank: rank)
                 }
                 
                 return cell
@@ -193,27 +181,102 @@ final class HomeMainView: UIView {
     }
     
     private func initialSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, Int>()
+        var snapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeSectionItem>()
         snapshot.appendSections([.searchBar, .banner, .cheapRanking, .popularRanking])
-        snapshot.appendItems([0], toSection: .searchBar)
+        snapshot.appendItems([.searchBar], toSection: .searchBar)
+        
+        let dummyFlowerData = TodaysFlowerModel(
+            flowerId: 999,
+            flowerName: "유스가스",
+            flowerOneLineDescription: "활기차게 전하는 노란 행복",
+            flowerImage: "",
+            flowerExpressions: []
+        )
+        let repeatedBannerItems = makeRepeatedBannerItems(with: dummyFlowerData)
         snapshot.appendItems(repeatedBannerItems, toSection: .banner)
-        snapshot.appendItems([1, 2, 3], toSection: .cheapRanking)
-        snapshot.appendItems([4, 5, 6], toSection: .popularRanking)
+        
+        let dummyCheapFlowerModels = [
+            HomeSectionItem.rankingItem(
+                id: UUID(),
+                cheapFlower: CheapFlowerModel(
+                    flowerId: nil,
+                    flowerRankingName: "장미",
+                    flowerRankingLanguage: "사랑",
+                    flowerRankingPrice: "1155",
+                    flowerRankingDate: "2025-01-22",
+                    flowerRankingImg: nil
+                )),
+            HomeSectionItem.rankingItem(
+                id: UUID(),
+                cheapFlower: CheapFlowerModel(
+                    flowerId: nil,
+                    flowerRankingName: "장미",
+                    flowerRankingLanguage: "사랑",
+                    flowerRankingPrice: "1155",
+                    flowerRankingDate: "2025-01-22",
+                    flowerRankingImg: nil
+                )),
+            HomeSectionItem.rankingItem(
+                id: UUID(),
+                cheapFlower: CheapFlowerModel(
+                    flowerId: nil,
+                    flowerRankingName: "장미",
+                    flowerRankingLanguage: "사랑",
+                    flowerRankingPrice: "1155",
+                    flowerRankingDate: "2025-01-22",
+                    flowerRankingImg: nil
+                )),
+        ]
+        snapshot.appendItems(dummyCheapFlowerModels, toSection: .cheapRanking)
+        
+        snapshot.appendItems(dummyCheapFlowerModels, toSection: .popularRanking)
         dataSource.apply(snapshot, animatingDifferences: false)
         
         // banner 중간에서 시작
         DispatchQueue.main.async {
-            let midIndex = self.repeatedBannerItems.count / 2 + 1
+            let midIndex = repeatedBannerItems.count / 2 + 1
             let midPath = IndexPath(item: midIndex, section: HomeSection.banner.rawValue)
             self.collectionView.scrollToItem(at: midPath, at: .centeredHorizontally, animated: false)
         }
     }
     
+    private func makeRepeatedBannerItems(
+        with flowerData: TodaysFlowerModel,
+        repeatCount: Int = 30
+    ) -> [HomeSectionItem] {
+        var items = [HomeSectionItem]()
+        for _ in 0..<repeatCount {
+            items.append(.bannerFlower(id: UUID(), flower: flowerData))
+            items.append(.bannerCustomize(id: UUID()))
+        }
+        return items
+    }
+    
     func updateTodaysFlower(with data: TodaysFlowerModel) {
-        self.todayFlowerModel = data
-        
         var snapshot = dataSource.snapshot()
-        snapshot.reloadItems([101])
+        
+        let oldBannerItems = snapshot.itemIdentifiers(inSection: .banner)
+        snapshot.deleteItems(oldBannerItems)
+        
+        let newBannerItems = makeRepeatedBannerItems(with: data, repeatCount: 30)
+        snapshot.appendItems(newBannerItems, toSection: .banner)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updateCheapFlowerRankings(_ newData: [CheapFlowerModel]) {
+        var snapshot = dataSource.snapshot()
+        let oldRankingItems = snapshot.itemIdentifiers(inSection: .cheapRanking)
+        snapshot.deleteItems(oldRankingItems)
+        
+        let newRankingItems = newData.prefix(3).map { model in
+            HomeSectionItem.rankingItem(
+                id: UUID(),
+                cheapFlower: model
+            )
+        }
+        
+        snapshot.appendItems(newRankingItems, toSection: .cheapRanking)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
@@ -234,7 +297,9 @@ final class HomeMainView: UIView {
         guard let currentIndexPath = bannerIndexPaths.first else { return }
         
         let nextItem = currentIndexPath.item + 1
-        let itemCount = repeatedBannerItems.count
+        
+        var snapshot = dataSource.snapshot()
+        let itemCount = snapshot.itemIdentifiers(inSection: .banner).count
         
         if nextItem >= itemCount {
             let midIndex = itemCount / 2 + 1

@@ -24,8 +24,6 @@ final class RankingCell: UICollectionViewCell {
     
     private let flowerImageView: UIImageView = {
         let imageView = UIImageView()
-        let image: [UIImage] = [.flowerIllust1, .flowerIllust2,.flowerIllust3]
-        imageView.image = image.randomElement()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 6
@@ -76,12 +74,12 @@ final class RankingCell: UICollectionViewCell {
         return label
     }()
     
-    private lazy var flowerColorChipHStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 4
-        stackView.alignment = .leading
-        return stackView
+    private let rankingChangeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .Pretendard(size: 13)
+        label.textColor = .gray06
+        label.text = "-"
+        return label
     }()
     
     private let moveToDetailImageView: UIImageView = {
@@ -94,7 +92,7 @@ final class RankingCell: UICollectionViewCell {
     private lazy var priceInfoHStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             priceLabel,
-            flowerColorChipHStackView,
+            rankingChangeLabel,
             moveToDetailImageView
         ])
         stackView.axis = .horizontal
@@ -128,39 +126,48 @@ final class RankingCell: UICollectionViewCell {
     
     private func setupUI() {
         backgroundColor = .white
-        flowerColorChipHStackView.isHidden = true
     }
     
-    func configure(for section: HomeSection, price: String?, colors: [String]?) {
-        switch section {
-        case .cheapRanking:
-            priceLabel.text = price
-            priceLabel.isHidden = false
-            flowerColorChipHStackView.isHidden = true
-            
-        case .popularRanking:
-            generateColorChipButtons(colors)
-            priceLabel.isHidden = true
-            flowerColorChipHStackView.isHidden = false
-            
+    private func configureRankChange(_ change: Int) {
+        switch change {
+        case let x where x > 0:
+            rankingChangeLabel.textColor = .secondary04
+            rankingChangeLabel.text = "▲  \(x)"
+            rankingChangeLabel.font = .Pretendard(size: 13)
+        case let x where x < 0:
+            rankingChangeLabel.textColor = .gray06
+            rankingChangeLabel.text = "▼  \(-x)"
+            rankingChangeLabel.font = .Pretendard(size: 13)
         default:
-            break
+            rankingChangeLabel.textColor = .gray06
+            rankingChangeLabel.text = "-"
+            rankingChangeLabel.font = .Pretendard(size: 20)
         }
     }
     
-    private func generateColorChipButtons(_ colors: [String]?) {
-        if let colors = colors {
-            for color in colors {
-                let button = UIButton()
-                button.backgroundColor = UIColor(hex: color)
-                button.layer.cornerRadius = Metric.colorChipSize / 2
-                button.layer.masksToBounds = true
-                button.snp.makeConstraints { make in
-                    make.width.height.equalTo(Metric.colorChipSize)
-                }
-                flowerColorChipHStackView.addArrangedSubview(button)
-            }
+    func configureCheapRanking(rank: Int, model: CheapFlowerModel) {
+        rankingLabel.text = "\(rank)"
+        moveToDetailImageView.alpha = (model.flowerId == nil) ? 0 : 1
+        flowerNameLabel.text = model.flowerRankingName
+        priceLabel.text = model.flowerRankingPrice + "원"
+        flowerLanguageLabel.text = model.flowerRankingLanguage?.components(separatedBy: ",").first
+        priceLabel.isHidden = false
+        rankingChangeLabel.isHidden = true
+        
+        if let flowerImage = model.flowerRankingImg {
+            ImageProvider.shared.setImage(into: flowerImageView, from: flowerImage)
+        } else {
+            flowerImageView.image = [.flowerIllust1, .flowerIllust2,.flowerIllust3].randomElement()
         }
+    }
+    
+    func configurePopularRanking(rank: Int) {
+        rankingLabel.text = "\(rank)"
+        moveToDetailImageView.alpha = CGFloat([0,1].randomElement() ?? 0)
+        priceLabel.isHidden = true
+        rankingChangeLabel.isHidden = false
+        configureRankChange([0,1,-1].randomElement()!)
+        flowerImageView.image = [.flowerIllust1, .flowerIllust2,.flowerIllust3].randomElement()
     }
 }
 

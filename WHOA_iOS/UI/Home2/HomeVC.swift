@@ -14,7 +14,6 @@ final class HomeVC: UIViewController {
     
     private let rootView: HomeMainView
     private let homeVM: HomeVM
-    private let viewDidLoadSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     var customizingCoordinator: CustomizingCoordinator?
@@ -53,6 +52,13 @@ final class HomeVC: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] flowerData in
                 self?.rootView.updateTodaysFlower(with: flowerData)
+            }
+            .store(in: &cancellables)
+        
+        output.fetchCheapFlowerRankings
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] cheapRanking in
+                self?.rootView.updateCheapFlowerRankings(cheapRanking)
             }
             .store(in: &cancellables)
         

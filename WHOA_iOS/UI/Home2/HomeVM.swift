@@ -18,11 +18,13 @@ final class HomeVM: ViewModel {
     
     struct Output {
         let fetchTodaysFlower: AnyPublisher<TodaysFlowerModel, Never>
+        let fetchCheapFlowerRankings: AnyPublisher<[CheapFlowerModel], Never>
         let errorMessage: AnyPublisher<String, Never>
     }
     
     private let networkManager: NetworkManager
     private let todaysFlowerSubject = PassthroughSubject<TodaysFlowerModel, Never>()
+    private let cheapFlowerRankingsSubject = PassthroughSubject<[CheapFlowerModel], Never>()
     private let errorMessageSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -38,11 +40,13 @@ final class HomeVM: ViewModel {
         input.viewDidLoad
             .sink { [weak self] _ in
                 self?.fetchTodaysFlower()
+                self?.fetchCheapFlowerRankings()
             }
             .store(in: &cancellables)
         
         return Output(
             fetchTodaysFlower: todaysFlowerSubject.eraseToAnyPublisher(),
+            fetchCheapFlowerRankings: cheapFlowerRankingsSubject.eraseToAnyPublisher(),
             errorMessage: errorMessageSubject.eraseToAnyPublisher()
         )
     }
@@ -54,10 +58,22 @@ final class HomeVM: ViewModel {
         let day = String(calendar.component(.day, from: currentDate))
         
         networkManager.fetchTodaysFlower(month: month, date: day) { [weak self] result in
-            guard let self = self else { return }
+            guard let self else { return }
             switch result {
             case .success(let flowerModel):
                 self.todaysFlowerSubject.send(flowerModel)
+            case .failure(let error):
+                self.errorMessageSubject.send(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func fetchCheapFlowerRankings() {
+        networkManager.fetchCheapFlowerRanking { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let model):
+                self.cheapFlowerRankingsSubject.send(model)
             case .failure(let error):
                 self.errorMessageSubject.send(error.localizedDescription)
             }
