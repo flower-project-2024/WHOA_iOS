@@ -13,3 +13,10 @@ enum HomeSection: Int, CaseIterable {
     case cheapRanking
     case popularRanking
 }
+
+enum HomeSectionItem: Hashable {
+    case searchBar
+    case bannerFlower(id: UUID, flower: TodaysFlowerModel)
+    case bannerCustomize(id: UUID)
+    case rankingItem(id: UUID, cheapFlower: CheapFlowerModel)
+}
