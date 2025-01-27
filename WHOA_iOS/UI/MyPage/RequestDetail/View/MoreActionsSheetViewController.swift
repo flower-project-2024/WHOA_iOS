@@ -58,7 +58,7 @@ final class MoreActionsSheetViewController: UIViewController {
         return button
     }()
     
-    private let cancelButton: UIButton = {
+    private lazy var cancelButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
@@ -71,8 +71,14 @@ final class MoreActionsSheetViewController: UIViewController {
                                      bottom: 17.adjustedH(),
                                      trailing: 15.adjusted())
         config.baseForegroundColor = .gray02
-
         button.configuration = config
+        
+        button.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }),
+            for: .touchUpInside
+        )
         return button
     }()
     
