@@ -22,17 +22,17 @@ final class MoreActionCustomButton: UIButton {
         
         var config = UIButton.Configuration.filled()
         config.title = title
-        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 20, family: .SemiBold) : .Pretendard(size: 16, family: .SemiBold)
+        config.attributedTitle?.font = hasBezel ? .Pretendard(size: 18, family: .SemiBold) : .Pretendard(size: 14, family: .SemiBold)
         
         if let subtitle = subtitle {
             config.subtitle = subtitle
-            config.attributedSubtitle?.font = hasBezel ? .Pretendard(size: 16, family: .Regular) : .Pretendard()
+            config.attributedSubtitle?.font = hasBezel ? .Pretendard(size: 14, family: .Regular) : .Pretendard()
         }
         
         config.titlePadding = 10.adjustedH()
-        config.contentInsets = .init(top: 23.adjustedH(),
+        config.contentInsets = .init(top: 20.adjustedH(),
                                      leading: 33.adjusted(),
-                                     bottom: 23.adjustedH(),
+                                     bottom: 20.adjustedH(),
                                      trailing: 33.adjusted())
         config.baseForegroundColor = .customPrimary
         config.baseBackgroundColor = .gray02

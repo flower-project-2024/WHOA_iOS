@@ -36,8 +36,8 @@ final class MoreActionsSheetViewController: UIViewController {
     
     private let productionCompletedOrGalleryButton: MoreActionCustomButton = {
         let button = MoreActionCustomButton(hasBezel: hasBezel,
-                                            title: "제작 완료",
-                                            subtitle: "실제 꽃다발을 만들었다면 완료해주세요.")
+                                            title: "꽃다발 제작 완료",
+                                            subtitle: "해당 요구서로 꽃다발을 만들었다면 제작 완료 버튼을 눌러주세요")
         button.addTarget(self, action: #selector(changeBouquetStatusToProducted), for: .touchUpInside)
         return button
     }()
