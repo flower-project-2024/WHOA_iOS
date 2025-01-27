@@ -33,8 +33,8 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
         
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "꽃다발 요구서"
-        label.font = UIFont.Pretendard(size: 20, family: .SemiBold)
+        label.text = "나만의 꽃다발 요구서"
+        label.font = UIFont.Pretendard(size: 22, family: .SemiBold)
         label.textAlignment = .left
         return label
     }()
@@ -126,8 +126,17 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     // MARK: - Functions
     
     private func setupNavigation() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+        let titleContainerView = UIView()
+        titleContainerView.backgroundColor = .clear
+        
+        titleContainerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.bottom.equalToSuperview().inset(8)
+            make.leading.trailing.equalToSuperview()
+        }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleContainerView)
     }
     
     private func addViews() {
@@ -140,7 +149,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     
     private func setupConstraints() {
         segmentContainerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20.adjustedH())
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(24)
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing)
             make.height.equalTo(47.adjustedH())
