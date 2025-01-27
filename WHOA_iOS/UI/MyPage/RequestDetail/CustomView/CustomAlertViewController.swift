@@ -19,7 +19,7 @@ final class CustomAlertViewController: UIViewController {
     enum AlertType: String {
         case modify = "수정"
         case delete = "삭제"
-        case requestSaveAlert = "이미지가 저장되었습니다"
+        case requestSaveAlert = "요구서가 갤러리에 저장되었습니다"
     }
     
     // MARK: - Properties
@@ -73,9 +73,6 @@ final class CustomAlertViewController: UIViewController {
         
         else if alertType == .modify {
             label.text = "커스터마이징을 다시 시작합니다."
-        }
-        else {
-            label.text = "요구서를 꽃집 사장님에게 전달해주세요."
         }
         
         label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
