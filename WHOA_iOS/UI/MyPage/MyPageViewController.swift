@@ -49,7 +49,7 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     private let segmentControl: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.insertSegment(withTitle: "전체", at: 0, animated: true)
-        segment.insertSegment(withTitle: "저장된 요구서", at: 1, animated: true)
+        segment.insertSegment(withTitle: "제작 중", at: 1, animated: true)
         segment.insertSegment(withTitle: "제작 완료", at: 2, animated: true)
         segment.selectedSegmentIndex = 0
         
