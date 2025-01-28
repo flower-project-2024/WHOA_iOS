@@ -89,6 +89,22 @@ final class NetworkManager {
         }
     }
     
+    /// 인기 꽃 랭킹을 조회하는 함수입니다.
+    func fetchPopularityFlowerRanking(
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<[popularityData], NetworkError>) -> Void
+    ){
+        let popularityFlowerRankingAPI = PopularityFlowerRankingAPI()
+        networkService.request(popularityFlowerRankingAPI) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO.data))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /// 커스터마이징의 참고 이미지를 다중으로 업로드하는 함수입니다.
     /// - Parameters:
     /// - memberID: 멤버 아이디
