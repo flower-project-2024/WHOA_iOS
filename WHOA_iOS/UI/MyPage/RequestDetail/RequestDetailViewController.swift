@@ -72,6 +72,7 @@ final class RequestDetailViewController: UIViewController {
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     
