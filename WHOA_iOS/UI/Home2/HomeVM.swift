@@ -15,6 +15,7 @@ final class HomeVM: ViewModel {
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
         let todaysFlowerButtonTapped: AnyPublisher<Void, Never>
+        let customizeIntroTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
@@ -24,6 +25,7 @@ final class HomeVM: ViewModel {
         let cheapFlowerRankingDate: AnyPublisher<String, Never>
         let errorMessage: AnyPublisher<String, Never>
         let showFlowerDetailView: AnyPublisher<Int, Never>
+        let showCustomizingView: AnyPublisher<Void, Never>
     }
     
     private let networkManager: NetworkManager
@@ -33,6 +35,7 @@ final class HomeVM: ViewModel {
     private let popularFlowerRankingsSubject = PassthroughSubject<[popularityData], Never>()
     private let errorMessageSubject = PassthroughSubject<String, Never>()
     private let showFlowerDetailViewSubject = PassthroughSubject<Int, Never>()
+    private let showCustomzingViewSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
@@ -59,13 +62,20 @@ final class HomeVM: ViewModel {
             }
             .store(in: &cancellables)
         
+        input.customizeIntroTapped
+            .sink { [weak self] _ in
+                self?.showCustomzingViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
         return Output(
             fetchTodaysFlower: todaysFlowerSubject.eraseToAnyPublisher(),
             fetchCheapFlowerRankings: cheapFlowerRankingsSubject.eraseToAnyPublisher(),
             fetchPopularFlowerRankings: popularFlowerRankingsSubject.eraseToAnyPublisher(),
             cheapFlowerRankingDate: cheapFlowerRankingDateSubject.eraseToAnyPublisher(),
             errorMessage: errorMessageSubject.eraseToAnyPublisher(),
-            showFlowerDetailView: showFlowerDetailViewSubject.eraseToAnyPublisher()
+            showFlowerDetailView: showFlowerDetailViewSubject.eraseToAnyPublisher(),
+            showCustomizingView: showCustomzingViewSubject.eraseToAnyPublisher()
         )
     }
     

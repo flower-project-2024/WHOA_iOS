@@ -47,7 +47,8 @@ final class HomeVC: UIViewController {
     private func bind() {
         let input = HomeVM.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
-            todaysFlowerButtonTapped: rootView.todaysFlowerTappedPublisher
+            todaysFlowerButtonTapped: rootView.todaysFlowerTappedPublisher,
+            customizeIntroTapped: rootView.customizeIntroTappedPublisher
         )
         let output = homeVM.transform(input: input)
         
@@ -94,6 +95,14 @@ final class HomeVC: UIViewController {
                 flowerDetailVC.customizingCoordinator = self.customizingCoordinator
                 flowerDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(flowerDetailVC, animated: true)
+            }
+            .store(in: &cancellables)
+        
+        output.showCustomizingView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] flowerId in
+                guard let self else { return }
+                self.tabBarController?.selectedIndex = 1
             }
             .store(in: &cancellables)
         

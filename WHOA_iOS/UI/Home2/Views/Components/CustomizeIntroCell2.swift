@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class CustomizeIntroCell2: UICollectionViewCell {
     
@@ -24,6 +25,15 @@ final class CustomizeIntroCell2: UICollectionViewCell {
         static let customizeLabelText: String = "커스터마이징 탭"
         static let bouqetWithWhoaLabelText: String = "WHOA로 만드는\n나만의 꽃다발"
         static let descriptionLabelText: String = "꽃말을 담아 내 마음을 전해보세요"
+    }
+    
+    // MARK: - Properties
+    
+    private let buttonTapSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    
+    var buttonTapPublisher: AnyPublisher<Void, Never> {
+        buttonTapSubject.eraseToAnyPublisher()
     }
     
     // MARK: - UI
@@ -54,8 +64,11 @@ final class CustomizeIntroCell2: UICollectionViewCell {
         return label
     }()
     
-    private let customizeButton: CustomButton = {
+    private lazy var customizeButton: CustomButton = {
         let button = CustomButton(buttonType: .customizing)
+        button.addAction(UIAction { [weak self] _ in
+            self?.buttonTapSubject.send()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -89,6 +102,13 @@ final class CustomizeIntroCell2: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables.removeAll()
     }
     
     // MARK: - Functions
