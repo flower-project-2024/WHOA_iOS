@@ -25,9 +25,14 @@ final class HomeMainView: UIView {
     // MARK: - Properties
     
     private let searchBarTappedSubject = PassthroughSubject<Void, Never>()
+    private let todaysFlowerTappedSubject = PassthroughSubject<Void, Never>()
     
     var searchBarTappedPublisher: AnyPublisher<Void, Never> {
         searchBarTappedSubject.eraseToAnyPublisher()
+    }
+    
+    var todaysFlowerTappedPublisher: AnyPublisher<Void, Never> {
+        todaysFlowerTappedSubject.eraseToAnyPublisher()
     }
     
     private var bannerTimer: Timer?
@@ -94,6 +99,14 @@ final class HomeMainView: UIView {
                     return nil
                 }
                 cell.configure(with: todayFlowerModel)
+                cell.cancellables.removeAll()
+                
+                cell.buttonTapPublisher
+                    .sink { [weak self] _ in
+                        self?.todaysFlowerTappedSubject.send()
+                    }
+                    .store(in: &cell.cancellables)
+                
                 return cell
                 
             case .bannerCustomize(_):
@@ -273,7 +286,8 @@ final class HomeMainView: UIView {
         return items
     }
     
-    func updateTodaysFlower(with data: TodaysFlowerModel) {
+    func updateTodaysFlower(with data: TodaysFlowerModel?) {
+        guard let data = data else { return }
         var snapshot = dataSource.snapshot()
         
         let oldBannerItems = snapshot.itemIdentifiers(inSection: .banner)

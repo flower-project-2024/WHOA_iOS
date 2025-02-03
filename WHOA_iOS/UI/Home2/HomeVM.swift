@@ -14,22 +14,25 @@ final class HomeVM: ViewModel {
     
     struct Input {
         let viewDidLoad: AnyPublisher<Void, Never>
+        let todaysFlowerButtonTapped: AnyPublisher<Void, Never>
     }
     
     struct Output {
-        let fetchTodaysFlower: AnyPublisher<TodaysFlowerModel, Never>
+        let fetchTodaysFlower: AnyPublisher<TodaysFlowerModel?, Never>
         let fetchCheapFlowerRankings: AnyPublisher<[CheapFlowerModel], Never>
         let fetchPopularFlowerRankings: AnyPublisher<[popularityData], Never>
         let cheapFlowerRankingDate: AnyPublisher<String, Never>
         let errorMessage: AnyPublisher<String, Never>
+        let showFlowerDetailView: AnyPublisher<Int, Never>
     }
     
     private let networkManager: NetworkManager
-    private let todaysFlowerSubject = PassthroughSubject<TodaysFlowerModel, Never>()
+    private let todaysFlowerSubject = CurrentValueSubject<TodaysFlowerModel?, Never>(nil)
     private let cheapFlowerRankingsSubject = PassthroughSubject<[CheapFlowerModel], Never>()
     private let cheapFlowerRankingDateSubject = PassthroughSubject<String, Never>()
     private let popularFlowerRankingsSubject = PassthroughSubject<[popularityData], Never>()
     private let errorMessageSubject = PassthroughSubject<String, Never>()
+    private let showFlowerDetailViewSubject = PassthroughSubject<Int, Never>()
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Initialize
@@ -49,12 +52,20 @@ final class HomeVM: ViewModel {
             }
             .store(in: &cancellables)
         
+        input.todaysFlowerButtonTapped
+            .sink { [weak self] _ in
+                guard let flowerId = self?.todaysFlowerSubject.value?.flowerId else { return }
+                self?.showFlowerDetailViewSubject.send(flowerId)
+            }
+            .store(in: &cancellables)
+        
         return Output(
             fetchTodaysFlower: todaysFlowerSubject.eraseToAnyPublisher(),
             fetchCheapFlowerRankings: cheapFlowerRankingsSubject.eraseToAnyPublisher(),
             fetchPopularFlowerRankings: popularFlowerRankingsSubject.eraseToAnyPublisher(),
             cheapFlowerRankingDate: cheapFlowerRankingDateSubject.eraseToAnyPublisher(),
-            errorMessage: errorMessageSubject.eraseToAnyPublisher()
+            errorMessage: errorMessageSubject.eraseToAnyPublisher(),
+            showFlowerDetailView: showFlowerDetailViewSubject.eraseToAnyPublisher()
         )
     }
     

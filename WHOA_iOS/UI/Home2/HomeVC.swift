@@ -45,7 +45,10 @@ final class HomeVC: UIViewController {
     // MARK: - Functions
     
     private func bind() {
-        let input = HomeVM.Input(viewDidLoad: Just(()).eraseToAnyPublisher())
+        let input = HomeVM.Input(
+            viewDidLoad: Just(()).eraseToAnyPublisher(),
+            todaysFlowerButtonTapped: rootView.todaysFlowerTappedPublisher
+        )
         let output = homeVM.transform(input: input)
         
         output.fetchTodaysFlower
@@ -80,6 +83,17 @@ final class HomeVC: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] errorMessage in
                 self?.showAlert(title: errorMessage)
+            }
+            .store(in: &cancellables)
+        
+        output.showFlowerDetailView
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] flowerId in
+                guard let self else { return }
+                let flowerDetailVC = FlowerDetailViewController(flowerId: flowerId)
+                flowerDetailVC.customizingCoordinator = self.customizingCoordinator
+                flowerDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(flowerDetailVC, animated: true)
             }
             .store(in: &cancellables)
         

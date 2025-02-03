@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class TodaysFlowerViewCell2: UICollectionViewCell {
     
@@ -22,6 +23,15 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     /// Attributes
     private enum Attributes {
         static let todaysFlowerLabelText: String = "오늘의 추천 꽃"
+    }
+    
+    // MARK: - Properties
+    
+    private let buttonTapSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    
+    var buttonTapPublisher: AnyPublisher<Void, Never> {
+        buttonTapSubject.eraseToAnyPublisher()
     }
     
     // MARK: - UI
@@ -55,8 +65,11 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
         return label
     }()
     
-    private let todaysFlowerButton: CustomButton = {
+    private lazy var todaysFlowerButton: CustomButton = {
         let button = CustomButton(buttonType: .todaysFlower)
+        button.addAction(UIAction { [weak self] _ in
+            self?.buttonTapSubject.send()
+        }, for: .touchUpInside)
         return button
     }()
     
@@ -99,6 +112,13 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lifecycle
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables.removeAll()
     }
     
     // MARK: - Functions
