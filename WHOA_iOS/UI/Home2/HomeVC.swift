@@ -62,13 +62,29 @@ final class HomeVC: UIViewController {
             }
             .store(in: &cancellables)
         
+        output.fetchPopularFlowerRankings
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] popularRanking in
+                self?.rootView.updatePopularFlowerRankings(popularRanking)
+            }
+            .store(in: &cancellables)
+        
+        output.cheapFlowerRankingDate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] dateText in
+                self?.rootView.updateCheapFlowerRankingDate(dateText: dateText)
+            }
+            .store(in: &cancellables)
+        
         output.errorMessage
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] errorMessage in
                 self?.showAlert(title: errorMessage)
             }
             .store(in: &cancellables)
         
         rootView.searchBarTappedPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self else { return }
                 let searchVC = FlowerSearchViewController()

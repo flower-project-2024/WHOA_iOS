@@ -10,8 +10,8 @@ import UIKit
 enum HomeSection: Int, CaseIterable {
     case searchBar
     case banner
-    case cheapRanking
     case popularRanking
+    case cheapRanking
 }
 
 enum HomeSectionItem: Hashable {
@@ -19,4 +19,5 @@ enum HomeSectionItem: Hashable {
     case bannerFlower(id: UUID, flower: TodaysFlowerModel)
     case bannerCustomize(id: UUID)
     case rankingItem(id: UUID, cheapFlower: CheapFlowerModel)
+    case popularRankingItem(id: UUID, popularFlower: popularityData)
 }

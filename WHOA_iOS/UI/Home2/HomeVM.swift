@@ -19,12 +19,16 @@ final class HomeVM: ViewModel {
     struct Output {
         let fetchTodaysFlower: AnyPublisher<TodaysFlowerModel, Never>
         let fetchCheapFlowerRankings: AnyPublisher<[CheapFlowerModel], Never>
+        let fetchPopularFlowerRankings: AnyPublisher<[popularityData], Never>
+        let cheapFlowerRankingDate: AnyPublisher<String, Never>
         let errorMessage: AnyPublisher<String, Never>
     }
     
     private let networkManager: NetworkManager
     private let todaysFlowerSubject = PassthroughSubject<TodaysFlowerModel, Never>()
     private let cheapFlowerRankingsSubject = PassthroughSubject<[CheapFlowerModel], Never>()
+    private let cheapFlowerRankingDateSubject = PassthroughSubject<String, Never>()
+    private let popularFlowerRankingsSubject = PassthroughSubject<[popularityData], Never>()
     private let errorMessageSubject = PassthroughSubject<String, Never>()
     private var cancellables = Set<AnyCancellable>()
     
@@ -41,12 +45,15 @@ final class HomeVM: ViewModel {
             .sink { [weak self] _ in
                 self?.fetchTodaysFlower()
                 self?.fetchCheapFlowerRankings()
+                self?.fetchPopularityFlowerRanking()
             }
             .store(in: &cancellables)
         
         return Output(
             fetchTodaysFlower: todaysFlowerSubject.eraseToAnyPublisher(),
             fetchCheapFlowerRankings: cheapFlowerRankingsSubject.eraseToAnyPublisher(),
+            fetchPopularFlowerRankings: popularFlowerRankingsSubject.eraseToAnyPublisher(),
+            cheapFlowerRankingDate: cheapFlowerRankingDateSubject.eraseToAnyPublisher(),
             errorMessage: errorMessageSubject.eraseToAnyPublisher()
         )
     }
@@ -70,13 +77,60 @@ final class HomeVM: ViewModel {
     
     private func fetchCheapFlowerRankings() {
         networkManager.fetchCheapFlowerRanking { [weak self] result in
-            guard let self else { return }
+            guard let self = self else { return }
             switch result {
             case .success(let model):
                 self.cheapFlowerRankingsSubject.send(model)
+                
+                if let firstDateString = model.first?.flowerRankingDate {
+                    let formattedDate = self.formatRankingDate(from: firstDateString)
+                    self.cheapFlowerRankingDateSubject.send(formattedDate)
+                }
             case .failure(let error):
                 self.errorMessageSubject.send(error.localizedDescription)
             }
         }
+    }
+    
+    private func fetchPopularityFlowerRanking() {
+        networkManager.fetchPopularityFlowerRanking { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let model):
+                let popularData = Array(model.prefix(3))
+                self.popularFlowerRankingsSubject.send(popularData)
+            case .failure(let error):
+                self.errorMessageSubject.send(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func formatRankingDate(from dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = dateFormatter.date(from: dateString) else {
+            return dateString
+        }
+        let calendar = Calendar.current
+        let month = calendar.component(.month, from: date)
+        let weekOfMonth = calendar.component(.weekOfMonth, from: date)
+        
+        let ordinalWeek: String
+        switch weekOfMonth {
+        case 1:
+            ordinalWeek = "첫째"
+        case 2:
+            ordinalWeek = "둘째"
+        case 3:
+            ordinalWeek = "셋째"
+        case 4:
+            ordinalWeek = "넷째"
+        case 5:
+            ordinalWeek = "다섯째"
+        default:
+            ordinalWeek = "\(weekOfMonth)째"
+        }
+        
+        return "\(month)월 \(ordinalWeek) 주 기준\n출처: 화훼유통정보시스템"
     }
 }

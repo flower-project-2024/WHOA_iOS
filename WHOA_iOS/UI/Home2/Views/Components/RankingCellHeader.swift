@@ -67,45 +67,43 @@ final class RankingCellHeader: UICollectionReusableView {
         switch section {
         case .cheapRanking:
             titleLabel.text = Attributes.cheapRankingTitle
-            let newText = "4월 첫째 주 기준\n출처: 화훼유통정보시스템"
-            baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: newText)
-            baseDateLabel.isHidden = false
+            baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: "", includeSource: true)
             
         case .popularRanking:
             titleLabel.text = Attributes.popularRankingTitle
-            baseDateLabel.isHidden = true
+            baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: "", includeSource: false)
             
         default:
             break
         }
     }
     
-    func setBaseDateLabel(viewModel: HomeViewModel) {
-        let data = viewModel.calculateCheapFlowerBaseDate()
-        let newText = "\(data[0])월 \(data[1]) 기준\n출처: 화훼유통정보시스템"
-        baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: newText)
+    func setBaseDateLabel(dateText: String, includeSource: Bool = true) {
+        baseDateLabel.attributedText = makeBaseDateAttributedText(dateText: dateText, includeSource: includeSource)
     }
     
-    private func makeBaseDateAttributedText(dateText: String) -> NSAttributedString {
+    private func makeBaseDateAttributedText(dateText: String, includeSource: Bool = true) -> NSAttributedString {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 2
         paragraphStyle.alignment = .right
-
+        
+        let finalText = includeSource ? dateText : dateText.replacingOccurrences(of: "\n출처: 화훼유통정보시스템", with: "")
+        
         let attributedString = NSMutableAttributedString(
-            string: dateText,
+            string: finalText,
             attributes: [
                 .font: UIFont.Pretendard(size: 12, family: .Regular),
                 .foregroundColor: UIColor.gray07,
                 .paragraphStyle: paragraphStyle
             ]
         )
-
-        if let range = dateText.range(of: "출처: 화훼유통정보시스템") {
+        
+        if includeSource, let range = finalText.range(of: "출처: 화훼유통정보시스템") {
             attributedString.addAttributes([
                 .font: UIFont.Pretendard(size: 10, family: .Light)
-            ], range: NSRange(range, in: dateText))
+            ], range: NSRange(range, in: finalText))
         }
-
+        
         return attributedString
     }
 }

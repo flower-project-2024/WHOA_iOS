@@ -16,8 +16,10 @@ final class RankingCell: UICollectionViewCell {
         static let flowerImageViewHeightMultiplier: CGFloat = 1.0
         static let rankingLabelTopOffset: CGFloat = 12.0
         static let elementLeadingOffset: CGFloat = 17.0
-        static let priceInfoHStackViewTrailingOffset: CGFloat = -4.0
+        static let priceInfoHStackViewTrailingOffset: CGFloat = -10.0
         static let colorChipSize: CGFloat = 18.0
+        static let moveToDetailImageViewWidth: CGFloat = 9.0
+        static let moveToDetailImageViewHeight: CGFloat = 16.0
     }
     
     // MARK: - UI
@@ -96,7 +98,7 @@ final class RankingCell: UICollectionViewCell {
             moveToDetailImageView
         ])
         stackView.axis = .horizontal
-        stackView.spacing = 10
+        stackView.spacing = 12
         return stackView
     }()
     
@@ -161,13 +163,15 @@ final class RankingCell: UICollectionViewCell {
         }
     }
     
-    func configurePopularRanking(rank: Int) {
+    func configurePopularRanking(rank: Int, model: popularityData) {
         rankingLabel.text = "\(rank)"
-        moveToDetailImageView.alpha = CGFloat([0,1].randomElement() ?? 0)
+        flowerNameLabel.text = model.flowerName
+        flowerLanguageLabel.text = model.flowerLanguage.components(separatedBy: ",").first
+        configureRankChange(model.rankDifference)
+        ImageProvider.shared.setImage(into: flowerImageView, from: model.flowerImageUrl)
         priceLabel.isHidden = true
         rankingChangeLabel.isHidden = false
-        configureRankChange([0,1,-1].randomElement()!)
-        flowerImageView.image = [.flowerIllust1, .flowerIllust2,.flowerIllust3].randomElement()
+        moveToDetailImageView.alpha = (model.flowerId == 0) ? 0 : 1
     }
 }
 
@@ -193,6 +197,11 @@ extension RankingCell {
         priceInfoHStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().offset(Metric.priceInfoHStackViewTrailingOffset)
+        }
+        
+        moveToDetailImageView.snp.makeConstraints {
+            $0.width.equalTo(Metric.moveToDetailImageViewWidth)
+            $0.height.equalTo(Metric.moveToDetailImageViewHeight)
         }
     }
 }

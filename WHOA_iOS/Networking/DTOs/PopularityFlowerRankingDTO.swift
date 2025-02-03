@@ -14,7 +14,7 @@ struct PopularityFlowerRankingDTO: Codable {
     let data: [popularityData]
 }
 
-struct popularityData: Codable {
+struct popularityData: Codable, Hashable {
     let flowerId: Int
     let flowerImageUrl: String
     let flowerRanking: Int

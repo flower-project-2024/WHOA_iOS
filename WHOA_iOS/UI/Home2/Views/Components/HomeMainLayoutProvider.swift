@@ -21,13 +21,13 @@ struct HomeMainLayoutProvider {
         case .searchBar:
             return createSingleItemSection(
                 height: 47,
-                insets: NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+                insets: NSDirectionalEdgeInsets(top: 24, leading: 20, bottom: 0, trailing: 20)
             )
         case .banner:
             return createBannerSection()
-        case .cheapRanking:
-            return createRankingSection()
         case .popularRanking:
+            return createRankingSection()
+        case .cheapRanking:
             return createRankingSection()
         }
     }

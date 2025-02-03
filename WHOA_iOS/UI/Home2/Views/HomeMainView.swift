@@ -105,21 +105,22 @@ final class HomeMainView: UIView {
                 }
                 return cell
                 
+            case .popularRankingItem(_, let popularFlowerModel):
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: Attributes.rankingCellIdentifier,
+                    for: indexPath
+                ) as? RankingCell else { return nil }
+                let rank = indexPath.row + 1
+                cell.configurePopularRanking(rank: rank, model: popularFlowerModel)
+                return cell
+                
             case .rankingItem(_, let cheapFlowerModel):
                 guard let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: Attributes.rankingCellIdentifier,
                     for: indexPath
-                ) as? RankingCell else {
-                    return nil
-                }
+                ) as? RankingCell else { return nil }
                 let rank = indexPath.row + 1
-                
-                if section == .cheapRanking {
-                    cell.configureCheapRanking(rank: rank, model: cheapFlowerModel)
-                } else if section == .popularRanking {
-                    cell.configurePopularRanking(rank: rank)
-                }
-                
+                cell.configureCheapRanking(rank: rank, model: cheapFlowerModel)
                 return cell
             }
         }
@@ -182,7 +183,7 @@ final class HomeMainView: UIView {
     
     private func initialSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<HomeSection, HomeSectionItem>()
-        snapshot.appendSections([.searchBar, .banner, .cheapRanking, .popularRanking])
+        snapshot.appendSections([.searchBar, .banner, .popularRanking, .cheapRanking])
         snapshot.appendItems([.searchBar], toSection: .searchBar)
         
         let dummyFlowerData = TodaysFlowerModel(
@@ -195,7 +196,8 @@ final class HomeMainView: UIView {
         let repeatedBannerItems = makeRepeatedBannerItems(with: dummyFlowerData)
         snapshot.appendItems(repeatedBannerItems, toSection: .banner)
         
-        let dummyCheapFlowerModels = [
+        // cheapRanking 섹션에 사용할 dummy 아이템 배열
+        let dummyCheapFlowerModels: [HomeSectionItem] = [
             HomeSectionItem.rankingItem(
                 id: UUID(),
                 cheapFlower: CheapFlowerModel(
@@ -205,7 +207,8 @@ final class HomeMainView: UIView {
                     flowerRankingPrice: "1155",
                     flowerRankingDate: "2025-01-22",
                     flowerRankingImg: nil
-                )),
+                )
+            ),
             HomeSectionItem.rankingItem(
                 id: UUID(),
                 cheapFlower: CheapFlowerModel(
@@ -215,7 +218,8 @@ final class HomeMainView: UIView {
                     flowerRankingPrice: "1155",
                     flowerRankingDate: "2025-01-22",
                     flowerRankingImg: nil
-                )),
+                )
+            ),
             HomeSectionItem.rankingItem(
                 id: UUID(),
                 cheapFlower: CheapFlowerModel(
@@ -225,11 +229,28 @@ final class HomeMainView: UIView {
                     flowerRankingPrice: "1155",
                     flowerRankingDate: "2025-01-22",
                     flowerRankingImg: nil
-                )),
+                )
+            )
         ]
         snapshot.appendItems(dummyCheapFlowerModels, toSection: .cheapRanking)
         
-        snapshot.appendItems(dummyCheapFlowerModels, toSection: .popularRanking)
+        let dummyPopularFlowerModels: [HomeSectionItem] = dummyCheapFlowerModels.map { item in
+            switch item {
+            case .rankingItem(_, let cheapFlower):
+                return HomeSectionItem.popularRankingItem(id: UUID(), popularFlower: popularityData(
+                    flowerId: cheapFlower.flowerId ?? 0,
+                    flowerImageUrl: "",
+                    flowerRanking: 0,
+                    flowerName: cheapFlower.flowerRankingName,
+                    flowerLanguage: cheapFlower.flowerRankingLanguage ?? "",
+                    rankDifference: 0
+                ))
+            default:
+                return item
+            }
+        }
+        snapshot.appendItems(dummyPopularFlowerModels, toSection: .popularRanking)
+        
         dataSource.apply(snapshot, animatingDifferences: false)
         
         // banner 중간에서 시작
@@ -266,8 +287,9 @@ final class HomeMainView: UIView {
     
     func updateCheapFlowerRankings(_ newData: [CheapFlowerModel]) {
         var snapshot = dataSource.snapshot()
-        let oldRankingItems = snapshot.itemIdentifiers(inSection: .cheapRanking)
-        snapshot.deleteItems(oldRankingItems)
+        
+        snapshot.deleteSections([.cheapRanking])
+        snapshot.appendSections([.cheapRanking])
         
         let newRankingItems = newData.prefix(3).map { model in
             HomeSectionItem.rankingItem(
@@ -278,6 +300,37 @@ final class HomeMainView: UIView {
         
         snapshot.appendItems(newRankingItems, toSection: .cheapRanking)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updatePopularFlowerRankings(_ newData: [popularityData]) {
+        var snapshot = dataSource.snapshot()
+        let oldItems = snapshot.itemIdentifiers(inSection: .popularRanking)
+        snapshot.deleteItems(oldItems)
+        
+        let newItems = newData.map { model in
+            HomeSectionItem.popularRankingItem(id: UUID(), popularFlower: model)
+        }
+        
+        snapshot.appendItems(newItems, toSection: .popularRanking)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updateCheapFlowerRankingDate(dateText: String) {
+        let cheapHeaderIndexPath = IndexPath(item: 0, section: HomeSection.cheapRanking.rawValue)
+        if let cheapHeader = collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: cheapHeaderIndexPath
+        ) as? RankingCellHeader {
+            cheapHeader.setBaseDateLabel(dateText: dateText, includeSource: true)
+        }
+        
+        let popularHeaderIndexPath = IndexPath(item: 0, section: HomeSection.popularRanking.rawValue)
+        if let popularHeader = collectionView.supplementaryView(
+            forElementKind: UICollectionView.elementKindSectionHeader,
+            at: popularHeaderIndexPath
+        ) as? RankingCellHeader {
+            popularHeader.setBaseDateLabel(dateText: dateText, includeSource: false)
+        }
     }
     
     private func startBannerTimer() {
