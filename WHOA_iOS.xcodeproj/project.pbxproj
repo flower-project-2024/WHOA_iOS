@@ -203,6 +203,13 @@
 		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
 		54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* PurposeType.swift */; };
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
+		B18F45242D48AB730030F7DB /* PopularityFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */; };
+		B18F45262D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */; };
+		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */; };
+		B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */; };
+		B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */; };
+		B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E12D350A3E00E84934 /* RankingCell.swift */; };
+		B1D9A0E92D37957400E84934 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E82D37957400E84934 /* HomeVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,6 +429,13 @@
 		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		54FD0F842B74C13B00F964C3 /* PurposeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeType.swift; sourceTree = "<group>"; };
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingAPI.swift; sourceTree = "<group>"; };
+		B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingDTO.swift; sourceTree = "<group>"; };
+		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell2.swift; sourceTree = "<group>"; };
+		B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell2.swift; sourceTree = "<group>"; };
+		B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCellHeader.swift; sourceTree = "<group>"; };
+		B1D9A0E12D350A3E00E84934 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
+		B1D9A0E82D37957400E84934 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -736,6 +750,7 @@
 		5460712B2B88C5550033B598 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */,
 				08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */,
 				08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */,
 				08DA470A2BF0ABBE00956555 /* FlowerSearchAPI.swift */,
@@ -766,6 +781,7 @@
 				0858C4A82C2417A400FAE6C3 /* FlowerDetailDTO.swift */,
 				080D501F2C887F8C0080CD85 /* BouquetStatusDTO.swift */,
 				08A5F4952CADC97D00DA582D /* PostProductedBouquetImageDTO.swift */,
+				B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -834,6 +850,7 @@
 			children = (
 				54DCC9BB2D0AB15B00AC1237 /* Views */,
 				54DCC9B72D0AB02200AC1237 /* HomeVC.swift */,
+				B1D9A0E82D37957400E84934 /* HomeVM.swift */,
 			);
 			path = Home2;
 			sourceTree = "<group>";
@@ -851,8 +868,12 @@
 			isa = PBXGroup;
 			children = (
 				54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */,
+				B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */,
+				B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */,
 				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
 				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
+				B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */,
+				B1D9A0E12D350A3E00E84934 /* RankingCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1338,8 +1359,11 @@
 				08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */,
 				089D50842BB9A77300877CE3 /* ColorSheetCell.swift in Sources */,
 				080F0A212CB155A4006F2D4C /* BouquetImageUploadAlertConroller.swift in Sources */,
+				B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */,
+				B1D9A0E92D37957400E84934 /* HomeVM.swift in Sources */,
 				08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */,
 				08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */,
+				B18F45242D48AB730030F7DB /* PopularityFlowerRankingAPI.swift in Sources */,
 				089D507A2BB951AC00877CE3 /* ColorSheetViewController.swift in Sources */,
 				54453C572CEFF619000E49E3 /* PhotoSelectionView.swift in Sources */,
 				08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */,
@@ -1368,6 +1392,7 @@
 				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				080199772C34731E00EB01CF /* UIStackView+.swift in Sources */,
+				B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */,
 				54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */,
 				54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
@@ -1424,6 +1449,7 @@
 				54EB17D62BA1D24100717E6F /* AlbumService.swift in Sources */,
 				54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */,
 				545588642C0A08B100B0C4CF /* PostBouquetAPI.swift in Sources */,
+				B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */,
 				54D5BB012BE406F400C538E1 /* Int+.swift in Sources */,
 				54BF6D7F2C440C4800928B3F /* ImageProvider.swift in Sources */,
 				5413AA7B2BDABBE4006AA160 /* AlternativesType.swift in Sources */,
@@ -1456,6 +1482,7 @@
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
+				B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */,
@@ -1494,6 +1521,8 @@
 				5468C0D22C8BE107001D999F /* ColorSelectionResultView.swift in Sources */,
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				544FC0B32C03A5C70091EEE2 /* BouquetDetailDTO.swift in Sources */,
+				B18F45262D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift in Sources */,
+				5422927F2C132D22007E13C6 /* ColorTypeResultView.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */,
 				54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */,
@@ -1684,6 +1713,7 @@
 				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1691,6 +1721,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1721,6 +1752,7 @@
 				DEVELOPMENT_TEAM = 55D3CXADSB;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WHOA_iOS/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WHOA;
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "요구서를 앨범에 저장하려면 갤러리 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "참고 사진 첨부를 위해서 앨범 접근 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1728,6 +1760,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

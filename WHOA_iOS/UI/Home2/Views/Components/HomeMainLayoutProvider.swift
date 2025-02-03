@@ -20,9 +20,15 @@ struct HomeMainLayoutProvider {
         switch section {
         case .searchBar:
             return createSingleItemSection(
-                height: 54,
-                insets: NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+                height: 47,
+                insets: NSDirectionalEdgeInsets(top: 24, leading: 20, bottom: 0, trailing: 20)
             )
+        case .banner:
+            return createBannerSection()
+        case .popularRanking:
+            return createRankingSection()
+        case .cheapRanking:
+            return createRankingSection()
         }
     }
     
@@ -41,6 +47,56 @@ struct HomeMainLayoutProvider {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = insets
+        return section
+    }
+    
+    private static func createBannerSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(225)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 23, leading: 0, bottom: 30, trailing: 0)
+        section.orthogonalScrollingBehavior = .groupPaging
+        return section
+    }
+    
+    private static func createRankingSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(80)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .estimated(300)
+        )
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(40)
+        )
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [sectionHeader]
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20)
         return section
     }
 }
