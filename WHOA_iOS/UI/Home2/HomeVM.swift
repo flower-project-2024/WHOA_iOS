@@ -16,6 +16,7 @@ final class HomeVM: ViewModel {
         let viewDidLoad: AnyPublisher<Void, Never>
         let todaysFlowerButtonTapped: AnyPublisher<Void, Never>
         let customizeIntroTapped: AnyPublisher<Void, Never>
+        let rankingCellTapped: AnyPublisher<HomeSectionItem, Never>
     }
     
     struct Output {
@@ -65,6 +66,26 @@ final class HomeVM: ViewModel {
         input.customizeIntroTapped
             .sink { [weak self] _ in
                 self?.showCustomzingViewSubject.send()
+            }
+            .store(in: &cancellables)
+        
+        input.rankingCellTapped
+            .sink { [weak self] item in
+                guard let self else { return }
+                
+                let flowerId: Int?
+                switch item {
+                case .rankingItem(_, let cheapFlower):
+                    flowerId = cheapFlower.flowerId
+                case .popularRankingItem(_, let popularFlower):
+                    flowerId = popularFlower.flowerId
+                default:
+                    flowerId = nil
+                }
+                
+                if let flowerId = flowerId {
+                    self.showFlowerDetailViewSubject.send(flowerId)
+                }
             }
             .store(in: &cancellables)
         

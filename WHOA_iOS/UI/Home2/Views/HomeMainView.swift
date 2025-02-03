@@ -27,6 +27,7 @@ final class HomeMainView: UIView {
     private let searchBarTappedSubject = PassthroughSubject<Void, Never>()
     private let todaysFlowerTappedSubject = PassthroughSubject<Void, Never>()
     private let customizeIntroTappedSubject = PassthroughSubject<Void, Never>()
+    private let rankingCellTappedSubject = PassthroughSubject<HomeSectionItem, Never>()
     
     var searchBarTappedPublisher: AnyPublisher<Void, Never> {
         searchBarTappedSubject.eraseToAnyPublisher()
@@ -38,6 +39,10 @@ final class HomeMainView: UIView {
     
     var customizeIntroTappedPublisher: AnyPublisher<Void, Never> {
         customizeIntroTappedSubject.eraseToAnyPublisher()
+    }
+    
+    var rankingCellTappedPublisher: AnyPublisher<HomeSectionItem, Never> {
+        rankingCellTappedSubject.eraseToAnyPublisher()
     }
     
     private var bannerTimer: Timer?
@@ -137,6 +142,12 @@ final class HomeMainView: UIView {
                 ) as? RankingCell else { return nil }
                 let rank = indexPath.row + 1
                 cell.configurePopularRanking(rank: rank, model: popularFlowerModel)
+                
+                cell.cellTapPublisher
+                    .sink { [weak self] _ in
+                        self?.rankingCellTappedSubject.send(item)
+                    }
+                    .store(in: &cell.cancellables)
                 return cell
                 
             case .rankingItem(_, let cheapFlowerModel):
@@ -146,6 +157,13 @@ final class HomeMainView: UIView {
                 ) as? RankingCell else { return nil }
                 let rank = indexPath.row + 1
                 cell.configureCheapRanking(rank: rank, model: cheapFlowerModel)
+                
+                cell.cellTapPublisher
+                    .sink { [weak self] _ in
+                        self?.rankingCellTappedSubject.send(item)
+                    }
+                    .store(in: &cell.cancellables)
+                
                 return cell
             }
         }

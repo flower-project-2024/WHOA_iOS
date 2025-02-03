@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class RankingCell: UICollectionViewCell {
     
@@ -20,6 +21,15 @@ final class RankingCell: UICollectionViewCell {
         static let colorChipSize: CGFloat = 18.0
         static let moveToDetailImageViewWidth: CGFloat = 9.0
         static let moveToDetailImageViewHeight: CGFloat = 16.0
+    }
+    
+    // MARK: - Properties
+    
+    private let cellTapSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+
+    var cellTapPublisher: AnyPublisher<Void, Never> {
+        cellTapSubject.eraseToAnyPublisher()
     }
     
     // MARK: - UI
@@ -115,6 +125,13 @@ final class RankingCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cancellables.removeAll()
+    }
+    
     // MARK: - Functions
     
     private func addSubviews() {
@@ -128,6 +145,7 @@ final class RankingCell: UICollectionViewCell {
     
     private func setupUI() {
         backgroundColor = .white
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cellTapped)))
     }
     
     private func configureRankChange(_ change: Int) {
@@ -172,6 +190,13 @@ final class RankingCell: UICollectionViewCell {
         priceLabel.isHidden = true
         rankingChangeLabel.isHidden = false
         moveToDetailImageView.alpha = (model.flowerId == 0) ? 0 : 1
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    private func cellTapped() {
+        cellTapSubject.send()
     }
 }
 

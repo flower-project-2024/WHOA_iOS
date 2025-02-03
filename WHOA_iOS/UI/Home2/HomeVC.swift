@@ -48,7 +48,8 @@ final class HomeVC: UIViewController {
         let input = HomeVM.Input(
             viewDidLoad: Just(()).eraseToAnyPublisher(),
             todaysFlowerButtonTapped: rootView.todaysFlowerTappedPublisher,
-            customizeIntroTapped: rootView.customizeIntroTappedPublisher
+            customizeIntroTapped: rootView.customizeIntroTappedPublisher,
+            rankingCellTapped: rootView.rankingCellTappedPublisher
         )
         let output = homeVM.transform(input: input)
         
