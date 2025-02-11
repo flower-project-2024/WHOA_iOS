@@ -1522,7 +1522,6 @@
 				54EB17DA2BA1D2C900717E6F /* AlbumInfo.swift in Sources */,
 				544FC0B32C03A5C70091EEE2 /* BouquetDetailDTO.swift in Sources */,
 				B18F45262D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift in Sources */,
-				5422927F2C132D22007E13C6 /* ColorTypeResultView.swift in Sources */,
 				546071322B88C6A30033B598 /* NetworkManager.swift in Sources */,
 				08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */,
 				54EA0E6E2BF5E732007B8F5A /* PostCustomBouquetRequestDTO.swift in Sources */,
@@ -1727,7 +1726,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1766,7 +1765,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.whoa365service.whoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
