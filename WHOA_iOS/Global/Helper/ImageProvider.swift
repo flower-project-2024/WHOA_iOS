@@ -7,64 +7,124 @@
 
 import UIKit
 
-/// 로직
-/// 1. urlString을 key로 하는 UIImage가 캐시에 있는지 확인
-/// 2. 존재한다면 completionHandler로 이미지 전달
-/// 3. 없다면 urlString에서 UIImage로 변환
-/// 4. 변환된 UIImage를 Value, 매개변수로 전달받은 urlString을 Key로 하여 캐시에 저장
-/// 5. completionHandler를 통해 변환된 UIImage를 전달
-/// 6. 이미지 표시가 필요 시 SetImage로 이미지 표시
-
-class ImageProvider {
-    static let shared = ImageProvider()
+final class DiskCache {
+    static let shared = DiskCache()
     
-    private let cache = NSCache<NSString, UIImage>()
+    private let fileManager = FileManager.default
+    private let cacheDirectory: URL
     
-    private init() {}
-    
-    /// 이미지를 URL에서 로드하여 캐시하고, 완료 핸들러를 통해 반환합니다.
-    /// - Parameters:
-    ///   - urlString: 로드할 이미지의 URL 문자열입니다.
-    ///   - qos: 작업에 사용할 서비스 품질을 정하는 파라미터입니다. 기본값은 `.default`입니다.
-    ///   - completionHandler: 이미지를 반환하는 완료 핸들러입니다. 이미지 로드가 완료되면 호출됩니다.
-    func loadImage(
-        urlString: String,
-        qos: DispatchQoS.QoSClass = .default,
-        completionHandler: @escaping (_ image: UIImage?) -> ()
-    ) {
-        // 캐시된 이미지 확인
-        if let cachedImage = cache.object(forKey: urlString as NSString) {
-            DispatchQueue.main.async {
-                completionHandler(cachedImage)
-            }
-        }
+    private init() {
+        // iOS에서 Caches 디렉토리를 찾아 "ImageCache" 폴더를 생성
+        let paths = fileManager.urls(for: .cachesDirectory, in: .userDomainMask)
+        cacheDirectory = paths[0].appendingPathComponent("ImageCache")
         
-        // 백그라운드에서 이미지 로드
-        DispatchQueue.global(qos: qos).async {
-            guard let url = URL(string: urlString) else { return }
-            
-            if let data = try? Data(contentsOf: url),
-               let image = UIImage(data: data) {
-                // 이미지 캐시에 저장
-                self.cache.setObject(image, forKey: urlString as NSString, cost: 1)
-                DispatchQueue.main.async {
-                    completionHandler(image)
-                }
-            }
+        if !fileManager.fileExists(atPath: cacheDirectory.path) {
+            try? fileManager.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
         }
     }
     
-    /// 이미지를 URL에서 로드하여 UIImageView에 설정합니다.
-    /// - Parameters:
-    ///   - imageView: 이미지를 설정할 UIImageView 객체입니다.
-    ///   - qos: 작업에 사용할 서비스 품질을 정하는 파라미터입니다. 기본값은 `.default`입니다.
-    ///   - urlString: 로드할 이미지의 URL 문자열입니다.
-    func setImage(
-        into imageView: UIImageView,
-        qos: DispatchQoS.QoSClass = .default,
-        from urlString: String
+    /// key(예: urlString)에 해당하는 파일 URL
+    private func fileURL(for key: String) -> URL {
+        // 파일 이름으로 사용할 수 없는 문자( :, /, ? 등 )를 치환
+        let fileName = key.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? key
+        return cacheDirectory.appendingPathComponent(fileName)
+    }
+    
+    /// 이미지를 디스크에 저장
+    func save(image: UIImage, for key: String) {
+        let fileURL = fileURL(for: key)
+        // JPEG 80% 압축 (압축률은 필요에 따라 조정 가능)
+        if let data = image.jpegData(compressionQuality: 0.8) {
+            try? data.write(to: fileURL)
+        }
+    }
+    
+    /// 디스크에서 이미지를 로드
+    func load(for key: String) -> UIImage? {
+        let fileURL = fileURL(for: key)
+        guard
+            let data = try? Data(contentsOf: fileURL),
+            let image = UIImage(data: data)
+        else {
+            return nil
+        }
+        return image
+    }
+    
+    /// 디스크 캐시 전체 삭제 (필요할 때 호출)
+    func clear() {
+        try? fileManager.removeItem(at: cacheDirectory)
+        try? fileManager.createDirectory(at: cacheDirectory, withIntermediateDirectories: true)
+    }
+}
+
+final class ImageProvider {
+    static let shared = ImageProvider()
+    
+    private let memoryCache = NSCache<NSString, UIImage>()
+    
+    // 생성자 접근 제한(싱글톤)
+    private init() {}
+    
+    /// URL로부터 이미지를 비동기적으로 로드하고,
+    /// 메모리 & 디스크 캐시에 저장합니다.
+    func loadImage(
+        urlString: String,
+        completion: @escaping (UIImage?) -> Void
     ) {
-        loadImage(urlString: urlString, qos: qos) { image in
+        // 1) 메모리 캐시에 있으면 즉시 반환
+        if let cachedImage = memoryCache.object(forKey: urlString as NSString) {
+            completion(cachedImage)
+            return
+        }
+        
+        // 2) 디스크 캐시 확인
+        if let diskImage = DiskCache.shared.load(for: urlString) {
+            // 디스크에서 꺼낸 이미지를 메모리 캐시에 다시 올려줌
+            memoryCache.setObject(diskImage, forKey: urlString as NSString)
+            
+            completion(diskImage)
+            return
+        }
+        
+        // 3) URL 객체 생성 실패 시 nil 반환
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        // 4) URLSession 비동기 요청
+        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30)
+        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            guard
+                let self = self,
+                let data = data,
+                let image = UIImage(data: data)
+            else {
+                // 실패면 nil 반환
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            
+            // 5) 메모리 캐시에 저장 (cost는 데이터 크기로 설정)
+            self.memoryCache.setObject(image, forKey: urlString as NSString, cost: data.count)
+            
+            // 6) 디스크 캐시에도 저장
+            DiskCache.shared.save(image: image, for: urlString)
+            
+            // 7) 메인 스레드에서 completion 실행
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }.resume()
+    }
+    
+    /// UIImageView에 이미지를 설정합니다.
+    func setImage(into imageView: UIImageView, from urlString: String) {
+        loadImage(urlString: urlString) { image in
+            // UI 업데이트는 메인 스레드에서
             imageView.image = image
         }
     }

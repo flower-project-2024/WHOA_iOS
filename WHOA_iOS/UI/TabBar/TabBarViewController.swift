@@ -53,7 +53,8 @@ final class TabBarViewController: UITabBarController {
             customizingCoordinator?.start()
         }
         
-        let homeVC = HomeViewController()
+        let homeVM = HomeVM()
+        let homeVC = HomeVC(homeVM: homeVM)
         homeVC.customizingCoordinator = customizingCoordinator
         let homeNavVC = UINavigationController(rootViewController: homeVC)
         

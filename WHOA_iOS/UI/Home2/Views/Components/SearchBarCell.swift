@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 final class SearchBarCell: UICollectionViewCell {
@@ -22,6 +23,15 @@ final class SearchBarCell: UICollectionViewCell {
     private enum Attributes {
         static let titleLabelText = "어떤 꽃을 찾으시나요?"
         static let searchIcon = "SearchIcon"
+    }
+    
+    // MARK: - Properties
+    
+    private let searchBarTapSubject = PassthroughSubject<Void, Never>()
+    var cancellables = Set<AnyCancellable>()
+    
+    var searchBarTapPublisher: AnyPublisher<Void, Never> {
+        searchBarTapSubject.eraseToAnyPublisher()
     }
     
     // MARK: - UI
@@ -47,6 +57,7 @@ final class SearchBarCell: UICollectionViewCell {
         addSubviews()
         setupAutoLayout()
         setupUI()
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -63,10 +74,20 @@ final class SearchBarCell: UICollectionViewCell {
     }
     
     private func setupUI() {
-        layer.cornerRadius = 25
+        layer.cornerRadius = 16
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray04.cgColor
         backgroundColor = .gray03
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchBar))
+        addGestureRecognizer(tapGesture)
+    }
+    
+    @objc
+    private func didTapSearchBar() {
+        searchBarTapSubject.send()
     }
 }
 

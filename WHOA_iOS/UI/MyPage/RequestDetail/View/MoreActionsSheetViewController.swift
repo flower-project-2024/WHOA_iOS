@@ -36,8 +36,8 @@ final class MoreActionsSheetViewController: UIViewController {
     
     private let productionCompletedOrGalleryButton: MoreActionCustomButton = {
         let button = MoreActionCustomButton(hasBezel: hasBezel,
-                                            title: "제작 완료",
-                                            subtitle: "실제 꽃다발을 만들었다면 완료해주세요.")
+                                            title: "꽃다발 제작 완료",
+                                            subtitle: "해당 요구서로 꽃다발을 만들었다면 제작 완료 버튼을 눌러주세요")
         button.addTarget(self, action: #selector(changeBouquetStatusToProducted), for: .touchUpInside)
         return button
     }()
@@ -58,7 +58,7 @@ final class MoreActionsSheetViewController: UIViewController {
         return button
     }()
     
-    private let cancelButton: UIButton = {
+    private lazy var cancelButton: UIButton = {
         let button = UIButton()
         
         var config = UIButton.Configuration.filled()
@@ -71,8 +71,14 @@ final class MoreActionsSheetViewController: UIViewController {
                                      bottom: 17.adjustedH(),
                                      trailing: 15.adjusted())
         config.baseForegroundColor = .gray02
-
         button.configuration = config
+        
+        button.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.dismiss(animated: true)
+            }),
+            for: .touchUpInside
+        )
         return button
     }()
     

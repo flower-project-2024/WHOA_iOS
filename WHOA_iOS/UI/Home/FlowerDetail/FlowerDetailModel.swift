@@ -17,7 +17,7 @@ struct FlowerDetailModel {
     var flowerExpressions: [FlowerExpression]?
 }
 
-struct FlowerExpression {
+struct FlowerExpression: Hashable {
     let flowerExpressionId: Int?
     let flowerColor: String?
     let flowerLanguage: String?

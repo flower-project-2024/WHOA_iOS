@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Group 1171276719.png",
+      "filename" : "WhoaLogo.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Group 1171276719@2x.png",
+      "filename" : "WhoaLogo@2x.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Group 1171276719@3x.png",
+      "filename" : "WhoaLogo@3x.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -42,6 +42,7 @@ final class RequestDetailViewController: UIViewController {
         label.textColor = .white
         label.backgroundColor = .init(hex: "141414", alpha: 0.5)
         label.layer.cornerRadius = 20.adjustedH()
+        label.isHidden = true
         return label
     }()
     
@@ -71,6 +72,7 @@ final class RequestDetailViewController: UIViewController {
         
         button.configuration = config
         button.addTarget(self, action: #selector(saveAsImageButtonTapped), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     

@@ -34,7 +34,6 @@ final class RequestDetailView: UIView {
         textField.spellCheckingType = .no
         textField.layer.masksToBounds = true
         textField.isHidden = true
-        
         // Placeholder
         textField.attributedPlaceholder = NSAttributedString(
             string: "꽃다발 요구서1",
@@ -46,10 +45,17 @@ final class RequestDetailView: UIView {
         return textField
     }()
     
-    lazy var editButton: UIButton = {
+    private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Edit"), for: .normal)
         button.isHidden = true
+        button.addAction(
+            UIAction(handler: {
+                [weak self] _ in
+                self?.requestTitleTextField.becomeFirstResponder()
+            }),
+            for: .touchUpInside
+        )
         return button
     }()
     

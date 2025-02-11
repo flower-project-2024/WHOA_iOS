@@ -143,7 +143,7 @@ class FlowerDetailViewController: UIViewController {
     private let colorChipDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "색상 별 다양한 꽃말을 확인해보세요"
-        label.font = .Pretendard(size: 16)
+        label.font = .Pretendard(size: 15)
         label.textColor = .gray06
         return label
     }()

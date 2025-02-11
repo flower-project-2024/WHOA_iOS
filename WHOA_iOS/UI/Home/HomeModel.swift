@@ -5,7 +5,7 @@
 //  Created by Suyeon Hwang on 5/6/24.
 //
 
-struct CheapFlowerModel {
+struct CheapFlowerModel: Hashable {
     let flowerId: Int?
     let flowerRankingName: String
     let flowerRankingLanguage: String?
@@ -14,7 +14,7 @@ struct CheapFlowerModel {
     let flowerRankingImg: String?
 }
 
-struct TodaysFlowerModel {
+struct TodaysFlowerModel: Hashable {
     var flowerId: Int?
     var flowerName: String?
     var flowerOneLineDescription: String?
