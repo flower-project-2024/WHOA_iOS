@@ -169,7 +169,7 @@ final class RankingCell: UICollectionViewCell {
         moveToDetailImageView.alpha = (model.flowerId == nil) ? 0 : 1
         flowerNameLabel.text = model.flowerRankingName
         priceLabel.text = model.flowerRankingPrice.formatNumberInThousands() + "원"
-        flowerLanguageLabel.text = model.flowerRankingLanguage?.components(separatedBy: ",").first
+        flowerLanguageLabel.text = model.flowerRankingLanguage?.components(separatedBy: ",").first ?? "꽃말 정보 없음"
         priceLabel.isHidden = false
         rankingChangeLabel.isHidden = true
         
@@ -183,7 +183,7 @@ final class RankingCell: UICollectionViewCell {
     func configurePopularRanking(rank: Int, model: popularityData) {
         rankingLabel.text = "\(rank)"
         flowerNameLabel.text = model.flowerName
-        flowerLanguageLabel.text = model.flowerLanguage.components(separatedBy: ",").first
+        flowerLanguageLabel.text = model.flowerLanguage.components(separatedBy: ",").first ?? "꽃말 정보 없음"
         configureRankChange(model.rankDifference)
         ImageProvider.shared.setImage(into: flowerImageView, from: model.flowerImageUrl)
         priceLabel.isHidden = true
