@@ -18,7 +18,6 @@ final class RankingCell: UICollectionViewCell {
         static let rankingLabelTopOffset: CGFloat = 12.0
         static let elementLeadingOffset: CGFloat = 17.0
         static let priceInfoHStackViewTrailingOffset: CGFloat = -10.0
-        static let colorChipSize: CGFloat = 18.0
         static let moveToDetailImageViewWidth: CGFloat = 9.0
         static let moveToDetailImageViewHeight: CGFloat = 16.0
     }
@@ -169,7 +168,7 @@ final class RankingCell: UICollectionViewCell {
         rankingLabel.text = "\(rank)"
         moveToDetailImageView.alpha = (model.flowerId == nil) ? 0 : 1
         flowerNameLabel.text = model.flowerRankingName
-        priceLabel.text = model.flowerRankingPrice + "원"
+        priceLabel.text = model.flowerRankingPrice.formatNumberInThousands() + "원"
         flowerLanguageLabel.text = model.flowerRankingLanguage?.components(separatedBy: ",").first
         priceLabel.isHidden = false
         rankingChangeLabel.isHidden = true
