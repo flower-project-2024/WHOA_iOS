@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0800412E2C302D5F00CDA693 /* CustomTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0800412D2C302D5F00CDA693 /* CustomTableView.swift */; };
 		080199772C34731E00EB01CF /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080199762C34731E00EB01CF /* UIStackView+.swift */; };
 		080D501D2C887F3C0080CD85 /* PatchBouquetStatusAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080D501C2C887F3C0080CD85 /* PatchBouquetStatusAPI.swift */; };
 		080D50202C887F8C0080CD85 /* BouquetStatusDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080D501F2C887F8C0080CD85 /* BouquetStatusDTO.swift */; };
@@ -15,7 +14,6 @@
 		08149E962BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */; };
 		08149E982BE90B1300F58A34 /* CheapFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */; };
 		08149E9A2BE9103400F58A34 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E992BE9103400F58A34 /* HomeModel.swift */; };
-		08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E9B2BE9141D00F58A34 /* HomeViewModel.swift */; };
 		08149E9E2BE94CB100F58A34 /* TodaysFlowerDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */; };
 		0824C5162C8B713F00A06348 /* BouquetProductionSuccessAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0824C5152C8B713F00A06348 /* BouquetProductionSuccessAlertController.swift */; };
 		0833EF782BE52E600024FB2C /* BouquetAllDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0833EF772BE52E600024FB2C /* BouquetAllDTO.swift */; };
@@ -49,14 +47,12 @@
 		0886DA632B957BB9003779CE /* RequestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA622B957BB9003779CE /* RequestDetailViewController.swift */; };
 		0886DA652B957C87003779CE /* RequestDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA642B957C87003779CE /* RequestDetailViewModel.swift */; };
 		0886DA692B962E3B003779CE /* FlowerTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0886DA682B962E3B003779CE /* FlowerTypeView.swift */; };
-		08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */; };
 		08877E282B7623B60028BD26 /* FlowerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */; };
 		08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08877E2C2B7641110028BD26 /* ColorChipButton.swift */; };
 		0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */; };
 		0887F6262B8677BF00727F14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6252B8677BF00727F14 /* MyPageViewController.swift */; };
 		0887F6292B867BAE00727F14 /* SavedRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F6282B867BAE00727F14 /* SavedRequestCell.swift */; };
 		0887F62C2B867D5800727F14 /* RequestCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0887F62B2B867D5800727F14 /* RequestCustomButton.swift */; };
-		08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */; };
 		0891433C2C25E11700F87A68 /* FlowerLanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */; };
 		0892C3372C2EE24F007DCFBA /* UISearchBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */; };
 		0892C3392C2F047F007DCFBA /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0892C3382C2F047E007DCFBA /* UIImage+.swift */; };
@@ -72,7 +68,6 @@
 		08C0ADF22BA979BC0099EFE5 /* RequestDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */; };
 		08C0ADF42BA9B8330099EFE5 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */; };
 		08C0ADF62BA9B91D0099EFE5 /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */; };
-		08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C498332B73439E00A2AB70 /* CheapFlowerView.swift */; };
 		08C635EE2C01EB220088DE39 /* UITabBar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635ED2C01EB220088DE39 /* UITabBar+.swift */; };
 		08C635F02C01EB470088DE39 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C635EF2C01EB470088DE39 /* CALayer+.swift */; };
 		08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D0CF322BF70D5B005CBECA /* ToolTipView.swift */; };
@@ -83,7 +78,6 @@
 		08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA470E2BF0AD6400956555 /* FlowerSearchModel.swift */; };
 		08DDC0862BA2C6F600C343CA /* RequestDetailStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */; };
 		08DDC0882BA2CAD900C343CA /* BorderLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DDC0872BA2CAD900C343CA /* BorderLine.swift */; };
-		08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */; };
 		08EBBC4C2C844525002FDE12 /* MoreActionsSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EBBC4B2C844525002FDE12 /* MoreActionsSheetViewController.swift */; };
 		08F2AE2D2C822E930096D75E /* MyPagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */; };
 		08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */; };
@@ -192,7 +186,6 @@
 		54F6959E2BF535D5009E3E4D /* RequestDetailType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6959D2BF535D5009E3E4D /* RequestDetailType.swift */; };
 		54FD0F2F2B6FCE2D00F964C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */; };
 		54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */; };
-		54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */; };
 		54FD0F382B6FCE2E00F964C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54FD0F372B6FCE2E00F964C3 /* Assets.xcassets */; };
 		54FD0F462B6FCE2E00F964C3 /* WHOA_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F452B6FCE2E00F964C3 /* WHOA_iOSTests.swift */; };
 		54FD0F502B6FCE2E00F964C3 /* WHOA_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F4F2B6FCE2E00F964C3 /* WHOA_iOSUITests.swift */; };
@@ -230,7 +223,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0800412D2C302D5F00CDA693 /* CustomTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableView.swift; sourceTree = "<group>"; };
 		080199762C34731E00EB01CF /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		080D501C2C887F3C0080CD85 /* PatchBouquetStatusAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchBouquetStatusAPI.swift; sourceTree = "<group>"; };
 		080D501F2C887F8C0080CD85 /* BouquetStatusDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetStatusDTO.swift; sourceTree = "<group>"; };
@@ -238,7 +230,6 @@
 		08149E952BE90ACB00F58A34 /* CheapFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingAPI.swift; sourceTree = "<group>"; };
 		08149E972BE90B1300F58A34 /* CheapFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerRankingDTO.swift; sourceTree = "<group>"; };
 		08149E992BE9103400F58A34 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
-		08149E9B2BE9141D00F58A34 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		08149E9D2BE94CB100F58A34 /* TodaysFlowerDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerDTO.swift; sourceTree = "<group>"; };
 		08149E9F2BE94E1A00F58A34 /* TodaysFlowerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerAPI.swift; sourceTree = "<group>"; };
 		0824C5152C8B713F00A06348 /* BouquetProductionSuccessAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetProductionSuccessAlertController.swift; sourceTree = "<group>"; };
@@ -271,14 +262,12 @@
 		0886DA622B957BB9003779CE /* RequestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewController.swift; sourceTree = "<group>"; };
 		0886DA642B957C87003779CE /* RequestDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailViewModel.swift; sourceTree = "<group>"; };
 		0886DA682B962E3B003779CE /* FlowerTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerTypeView.swift; sourceTree = "<group>"; };
-		08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerInfoCell.swift; sourceTree = "<group>"; };
 		08877E272B7623B60028BD26 /* FlowerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerDetailViewController.swift; sourceTree = "<group>"; };
 		08877E2C2B7641110028BD26 /* ColorChipButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorChipButton.swift; sourceTree = "<group>"; };
 		0887F6222B866ACC00727F14 /* NoSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchResultCell.swift; sourceTree = "<group>"; };
 		0887F6252B8677BF00727F14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		0887F6282B867BAE00727F14 /* SavedRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRequestCell.swift; sourceTree = "<group>"; };
 		0887F62B2B867D5800727F14 /* RequestCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCustomButton.swift; sourceTree = "<group>"; };
-		08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
 		0891433B2C25E11700F87A68 /* FlowerLanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerLanguageCell.swift; sourceTree = "<group>"; };
 		0892C3362C2EE24F007DCFBA /* UISearchBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISearchBar+.swift"; sourceTree = "<group>"; };
 		0892C3382C2F047E007DCFBA /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -294,7 +283,6 @@
 		08C0ADF12BA979BC0099EFE5 /* RequestDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailView.swift; sourceTree = "<group>"; };
 		08C0ADF32BA9B8330099EFE5 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		08C0ADF52BA9B91D0099EFE5 /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
-		08C498332B73439E00A2AB70 /* CheapFlowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheapFlowerView.swift; sourceTree = "<group>"; };
 		08C635ED2C01EB220088DE39 /* UITabBar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+.swift"; sourceTree = "<group>"; };
 		08C635EF2C01EB470088DE39 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		08D0CF322BF70D5B005CBECA /* ToolTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolTipView.swift; sourceTree = "<group>"; };
@@ -306,7 +294,6 @@
 		08DA47102BF0B24800956555 /* FlowerSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchViewModel.swift; sourceTree = "<group>"; };
 		08DDC0852BA2C6F600C343CA /* RequestDetailStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDetailStackView.swift; sourceTree = "<group>"; };
 		08DDC0872BA2CAD900C343CA /* BorderLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderLine.swift; sourceTree = "<group>"; };
-		08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		08EBBC4B2C844525002FDE12 /* MoreActionsSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreActionsSheetViewController.swift; sourceTree = "<group>"; };
 		08F2AE2C2C822E930096D75E /* MyPagePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePageViewController.swift; sourceTree = "<group>"; };
 		08F7B2A02B823DDF00DFD4F7 /* FlowerSearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowerSearchResultCell.swift; sourceTree = "<group>"; };
@@ -416,7 +403,6 @@
 		54FD0F2B2B6FCE2D00F964C3 /* WHOA_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WHOA_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54FD0F2E2B6FCE2D00F964C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54FD0F302B6FCE2D00F964C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		54FD0F372B6FCE2E00F964C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54FD0F3C2B6FCE2E00F964C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54FD0F412B6FCE2E00F964C3 /* WHOA_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WHOA_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -515,23 +501,10 @@
 		085738342B721C5A00AAFAC6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				085DEE9A2BA355F700CC5AC2 /* cell */,
 				085738402B726B3000AAFAC6 /* HashTagCustomLabel.swift */,
-				08C498332B73439E00A2AB70 /* CheapFlowerView.swift */,
 				085DEE982BA3404500CC5AC2 /* CustomButton.swift */,
-				0800412D2C302D5F00CDA693 /* CustomTableView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		085DEE9A2BA355F700CC5AC2 /* cell */ = {
-			isa = PBXGroup;
-			children = (
-				08DF4B4E2B89F76A00305E3F /* CustomizeIntroCell.swift */,
-				08899B752B7E07070087F258 /* TodaysFlowerViewCell.swift */,
-				08877E242B74C0F10028BD26 /* CheapFlowerInfoCell.swift */,
-			);
-			path = cell;
 			sourceTree = "<group>";
 		};
 		0886DA612B957BA6003779CE /* RequestDetail */ = {
@@ -1115,9 +1088,7 @@
 				080E1E8E2B7B6DB200902192 /* FlowerSearch */,
 				08877E262B7623990028BD26 /* FlowerDetail */,
 				085738342B721C5A00AAFAC6 /* View */,
-				54FD0F322B6FCE2D00F964C3 /* HomeViewController.swift */,
 				08149E992BE9103400F58A34 /* HomeModel.swift */,
-				08149E9B2BE9141D00F58A34 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1350,7 +1321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				089D507E2BB9833100877CE3 /* DecorateButton.swift in Sources */,
-				08899B762B7E07070087F258 /* TodaysFlowerViewCell.swift in Sources */,
 				54098F9A2C05E34D000C3F70 /* Coordinator.swift in Sources */,
 				54DCC9BA2D0AB15500AC1237 /* HomeMainView.swift in Sources */,
 				54086BE82C6FC42400286BAE /* UITextField+.swift in Sources */,
@@ -1370,7 +1340,6 @@
 				08D245FE2B7FBDA900CDF3B8 /* FlowerSearchViewController.swift in Sources */,
 				54F695962BF1505D009E3E4D /* MemberRegisterAPI.swift in Sources */,
 				54F695942BF15007009E3E4D /* MemberRegisterDTO.swift in Sources */,
-				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				085DEE992BA3404500CC5AC2 /* CustomButton.swift in Sources */,
 				08F7B2A12B823DDF00DFD4F7 /* FlowerSearchResultCell.swift in Sources */,
 				542292842C18B5D8007E13C6 /* ImageFile.swift in Sources */,
@@ -1378,10 +1347,8 @@
 				54DCC9C02D0B493100AC1237 /* HomeSection.swift in Sources */,
 				08478E3C2BEBB005003970B9 /* TabBarViewController.swift in Sources */,
 				08350ABB2BBE859100D30E6D /* ColorSheetHeaderCell.swift in Sources */,
-				08877E252B74C0F10028BD26 /* CheapFlowerInfoCell.swift in Sources */,
 				54FD0F312B6FCE2D00F964C3 /* SceneDelegate.swift in Sources */,
 				544FC0B72C03C40C0091EEE2 /* DeleteBouquetDTO.swift in Sources */,
-				08DF4B4F2B89F76A00305E3F /* CustomizeIntroCell.swift in Sources */,
 				08877E2D2B7641110028BD26 /* ColorChipButton.swift in Sources */,
 				08A5F4942CADC96100DA582D /* PostProductedBouquetImageAPI.swift in Sources */,
 				08A540192BB133C500710A7D /* ManagementView.swift in Sources */,
@@ -1389,7 +1356,6 @@
 				08A5401B2BB1355400710A7D /* ManagementCell.swift in Sources */,
 				54086BEF2C7B5D1200286BAE /* BouquetData.swift in Sources */,
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
-				08C498342B73439E00A2AB70 /* CheapFlowerView.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				080199772C34731E00EB01CF /* UIStackView+.swift in Sources */,
 				B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */,
@@ -1400,7 +1366,6 @@
 				54DCC9C22D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift in Sources */,
 				0858C4AB2C24190B00FAE6C3 /* FlowerDetailAPI.swift in Sources */,
 				54DCC9B82D0AB02200AC1237 /* HomeVC.swift in Sources */,
-				08149E9C2BE9141D00F58A34 /* HomeViewModel.swift in Sources */,
 				546071132B863BB70033B598 /* NumberOfColorsType.swift in Sources */,
 				08A5F4902CADB1DB00DA582D /* RequestDetailModel.swift in Sources */,
 				54086BE62C6F49DC00286BAE /* CustomStartViewModel.swift in Sources */,
@@ -1492,7 +1457,6 @@
 				54EA0A422C0A070900468B1E /* MultipartFilesDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				5413AA732BD5C12A006AA160 /* PurposeView.swift in Sources */,
-				54FD0F332B6FCE2D00F964C3 /* HomeViewController.swift in Sources */,
 				08DA470D2BF0ABD000956555 /* FlowerSearchDTO.swift in Sources */,
 				542DD3EB2B78F65D00DBFCCC /* FlowerColorPickerViewController.swift in Sources */,
 				0858C4AF2C241C8B00FAE6C3 /* FlowerDetailModel.swift in Sources */,
@@ -1531,7 +1495,6 @@
 				0843605C2C08FA9C00B18B90 /* FlowerSearchViewModel.swift in Sources */,
 				08D0CF332BF70D5B005CBECA /* ToolTipView.swift in Sources */,
 				54A73F522CE4EB180027E63E /* RequirementTextView.swift in Sources */,
-				0800412E2C302D5F00CDA693 /* CustomTableView.swift in Sources */,
 				54EB17CC2B9D83E200717E6F /* RangeSlider.swift in Sources */,
 				54EB17D12BA08C2100717E6F /* PhotoSelectionViewController.swift in Sources */,
 				54D6B7E62B9CAEA200628FF7 /* PackagingSelectionViewModel.swift in Sources */,

@@ -12,7 +12,7 @@ final class ToolTipView: UIView {
     
     // MARK: - Properties
     
-    var parentVC: HomeViewController?
+    var parentVC: HomeMainView?
 
     // MARK: - Views
 
@@ -106,10 +106,8 @@ final class ToolTipView: UIView {
     
     // MARK: - Actions
     
-    @objc func closeButtonDidTap() {
-        closeButton.removeFromSuperview()
-        label.removeFromSuperview()
-        shape.removeFromSuperlayer()
+    @objc private func closeButtonDidTap() {
+        removeFromSuperview()
         parentVC?.removeToolTipView()
     }
 }
