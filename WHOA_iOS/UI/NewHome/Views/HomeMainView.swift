@@ -16,8 +16,8 @@ final class HomeMainView: UIView {
     /// Attributes
     private enum Attributes {
         static let searchBarCellIdentifier = "SearchBarCell"
-        static let todaysFlowerViewCell2Identifier = "TodaysFlowerViewCell2"
-        static let customizeIntroCell2Identifier = "CustomizeIntroCell2"
+        static let todaysFlowerViewCellIdentifier = "TodaysFlowerViewCell"
+        static let customizeIntroCellIdentifier = "CustomizeIntroCell"
         static let rankingCellHeaderIdentifier = "RankingCellHeader"
         static let rankingCellIdentifier = "RankingCell"
     }
@@ -59,13 +59,13 @@ final class HomeMainView: UIView {
         )
         
         collectionView.register(
-            TodaysFlowerViewCell2.self,
-            forCellWithReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier
+            TodaysFlowerViewCell.self,
+            forCellWithReuseIdentifier: Attributes.todaysFlowerViewCellIdentifier
         )
         
         collectionView.register(
-            CustomizeIntroCell2.self,
-            forCellWithReuseIdentifier: Attributes.customizeIntroCell2Identifier
+            CustomizeIntroCell.self,
+            forCellWithReuseIdentifier: Attributes.customizeIntroCellIdentifier
         )
         
         collectionView.register(
@@ -105,9 +105,9 @@ final class HomeMainView: UIView {
                 
             case .bannerFlower(_, let todayFlowerModel):
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: Attributes.todaysFlowerViewCell2Identifier,
+                    withReuseIdentifier: Attributes.todaysFlowerViewCellIdentifier,
                     for: indexPath
-                ) as? TodaysFlowerViewCell2 else {
+                ) as? TodaysFlowerViewCell else {
                     return nil
                 }
                 cell.configure(with: todayFlowerModel)
@@ -122,9 +122,9 @@ final class HomeMainView: UIView {
                 
             case .bannerCustomize(_):
                 guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: Attributes.customizeIntroCell2Identifier,
+                    withReuseIdentifier: Attributes.customizeIntroCellIdentifier,
                     for: indexPath
-                ) as? CustomizeIntroCell2 else {
+                ) as? CustomizeIntroCell else {
                     return nil
                 }
                 

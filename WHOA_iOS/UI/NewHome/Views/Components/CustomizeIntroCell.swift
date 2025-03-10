@@ -1,5 +1,5 @@
 //
-//  CustomizeIntroCell2.swift
+//  CustomizeIntroCell.swift
 //  WHOA_iOS
 //
 //  Created by 김세훈 on 1/12/25.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class CustomizeIntroCell2: UICollectionViewCell {
+final class CustomizeIntroCell: UICollectionViewCell {
     
     // MARK: - Enums
     
@@ -128,7 +128,7 @@ final class CustomizeIntroCell2: UICollectionViewCell {
 
 // MARK: - AutoLayout
 
-extension CustomizeIntroCell2 {
+extension CustomizeIntroCell {
     private func setupAutoLayout() {
         customizeButton.snp.makeConstraints {
             $0.height.equalTo(Metric.customizeButtonHeight)

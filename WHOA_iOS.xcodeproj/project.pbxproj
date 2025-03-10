@@ -198,8 +198,8 @@
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
 		B18F45242D48AB730030F7DB /* PopularityFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */; };
 		B18F45262D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */; };
-		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */; };
-		B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */; };
+		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell.swift */; };
+		B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell.swift */; };
 		B1D9A0E02D3507CE00E84934 /* RankingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */; };
 		B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E12D350A3E00E84934 /* RankingCell.swift */; };
 		B1D9A0E92D37957400E84934 /* HomeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0E82D37957400E84934 /* HomeVM.swift */; };
@@ -417,8 +417,8 @@
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
 		B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingAPI.swift; sourceTree = "<group>"; };
 		B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingDTO.swift; sourceTree = "<group>"; };
-		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell2.swift; sourceTree = "<group>"; };
-		B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell2.swift; sourceTree = "<group>"; };
+		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
+		B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizeIntroCell.swift; sourceTree = "<group>"; };
 		B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCellHeader.swift; sourceTree = "<group>"; };
 		B1D9A0E12D350A3E00E84934 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
 		B1D9A0E82D37957400E84934 /* HomeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVM.swift; sourceTree = "<group>"; };
@@ -818,14 +818,14 @@
 			path = PackagingSelection;
 			sourceTree = "<group>";
 		};
-		54DCC9B62D0AB01400AC1237 /* Home2 */ = {
+		54DCC9B62D0AB01400AC1237 /* NewHome */ = {
 			isa = PBXGroup;
 			children = (
 				54DCC9BB2D0AB15B00AC1237 /* Views */,
 				54DCC9B72D0AB02200AC1237 /* HomeVC.swift */,
 				B1D9A0E82D37957400E84934 /* HomeVM.swift */,
 			);
-			path = Home2;
+			path = NewHome;
 			sourceTree = "<group>";
 		};
 		54DCC9BB2D0AB15B00AC1237 /* Views */ = {
@@ -841,8 +841,8 @@
 			isa = PBXGroup;
 			children = (
 				54DCC9BD2D0AB26F00AC1237 /* SearchBarCell.swift */,
-				B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell2.swift */,
-				B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell2.swift */,
+				B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell.swift */,
+				B1D9A0DD2D33AE5900E84934 /* CustomizeIntroCell.swift */,
 				54DCC9BF2D0B493100AC1237 /* HomeSection.swift */,
 				54DCC9C12D0C6F9D00AC1237 /* HomeMainLayoutProvider.swift */,
 				B1D9A0DF2D3507CE00E84934 /* RankingCellHeader.swift */,
@@ -1071,7 +1071,7 @@
 		54FD0F612B6FD60700F964C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				54DCC9B62D0AB01400AC1237 /* Home2 */,
+				54DCC9B62D0AB01400AC1237 /* NewHome */,
 				5467F00D2CA6C2E0008E3F5F /* Onboarding */,
 				08478E3A2BEBAFE6003970B9 /* TabBar */,
 				0887F6242B86777F00727F14 /* MyPage */,
@@ -1358,7 +1358,7 @@
 				0887F6232B866ACC00727F14 /* NoSearchResultCell.swift in Sources */,
 				08DA470F2BF0AD6400956555 /* FlowerSearchModel.swift in Sources */,
 				080199772C34731E00EB01CF /* UIStackView+.swift in Sources */,
-				B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell2.swift in Sources */,
+				B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell.swift in Sources */,
 				54EA0A402C086B8500468B1E /* PhotoSelectionModel.swift in Sources */,
 				54C789D72C207FE00068B6F8 /* KeywordType.swift in Sources */,
 				085738412B726B3000AAFAC6 /* HashTagCustomLabel.swift in Sources */,
@@ -1447,7 +1447,7 @@
 				54EB17ED2BAB103900717E6F /* CustomizingSummaryViewController.swift in Sources */,
 				54EB17E32BA2F07D00717E6F /* PhotoViewController.swift in Sources */,
 				54EB17EA2BA9ED5700717E6F /* UIButton+.swift in Sources */,
-				B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell2.swift in Sources */,
+				B1D9A0DE2D33AE5A00E84934 /* CustomizeIntroCell.swift in Sources */,
 				0858C4A92C2417A400FAE6C3 /* FlowerDetailDTO.swift in Sources */,
 				54EB17D22BA08CA300717E6F /* FlowerSelectionViewController.swift in Sources */,
 				54086BDF2C6DA1B400286BAE /* CustomStartViewController.swift in Sources */,

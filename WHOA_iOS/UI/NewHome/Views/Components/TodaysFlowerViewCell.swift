@@ -1,5 +1,5 @@
 //
-//  TodaysFlowerViewCell2.swift
+//  TodaysFlowerViewCell.swift
 //  WHOA_iOS
 //
 //  Created by 김세훈 on 1/11/25.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodaysFlowerViewCell2: UICollectionViewCell {
+final class TodaysFlowerViewCell: UICollectionViewCell {
     
     // MARK: - Enums
     
@@ -177,7 +177,7 @@ final class TodaysFlowerViewCell2: UICollectionViewCell {
 
 // MARK: - AutoLayout
 
-extension TodaysFlowerViewCell2 {
+extension TodaysFlowerViewCell {
     private func setupAutoLayout() {
         todaysFlowerButton.snp.makeConstraints {
             $0.height.equalTo(Metric.todaysFlowerButtonHeight)
