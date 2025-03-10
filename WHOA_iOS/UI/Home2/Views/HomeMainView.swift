@@ -46,6 +46,8 @@ final class HomeMainView: UIView {
     }
     
     private var bannerTimer: Timer?
+    private var tooltipView = ToolTipView()
+    private var tooltipIsClosed = false
     
     // MARK: - UI
     
@@ -191,7 +193,7 @@ final class HomeMainView: UIView {
         return dataSource
     }()
     
-    // MARK: - initialize
+    // MARK: - Initialize
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -200,6 +202,7 @@ final class HomeMainView: UIView {
         setupUI()
         initialSnapshot()
         startBannerTimer()
+        setupToolTipView()
     }
     
     required init?(coder: NSCoder) {
@@ -406,6 +409,26 @@ final class HomeMainView: UIView {
             let nextPath = IndexPath(item: nextItem, section: HomeSection.banner.rawValue)
             collectionView.scrollToItem(at: nextPath, at: .centeredHorizontally, animated: true)
         }
+    }
+    
+    private func setupToolTipView() {
+        addSubview(tooltipView)
+        
+        tooltipView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(45)
+        }
+        
+        tooltipView.layoutIfNeeded()
+        let tipStartX = tooltipView.bounds.width / 2 - 13 / 2
+        let tipStartY = tooltipView.bounds.height
+        tooltipView.drawTip(tipStartX: tipStartX, tipStartY: tipStartY, tipWidth: 13, tipHeight: 12)
+    }
+    
+    func removeToolTipView() {
+        tooltipIsClosed = true
+        tooltipView.removeFromSuperview()
+        setupToolTipView()
     }
 }
 
