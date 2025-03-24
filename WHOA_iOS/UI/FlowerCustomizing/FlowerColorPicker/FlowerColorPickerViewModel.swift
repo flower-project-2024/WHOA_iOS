@@ -35,6 +35,10 @@ final class FlowerColorPickerViewModel: ViewModel {
     private let showFlowerSelectionSubject = PassthroughSubject<Void, Never>()
     private var cancellables = Set<AnyCancellable>()
     
+    var isLockedFirstColor: Bool {
+        return isCustomV2
+    }
+    
     // MARK: - Initialize
     
     init(dataManager: BouquetDataManaging = BouquetDataManager.shared) {

@@ -71,6 +71,7 @@ final class FlowerColorPickerViewController: UIViewController {
         setupUI()
         bind()
         observe()
+        colorSelectionResultView.lockFirstColor(viewModel.isLockedFirstColor)
     }
     
     override func viewWillAppear(_ animated: Bool) {
