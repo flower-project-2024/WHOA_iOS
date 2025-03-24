@@ -66,6 +66,14 @@ final class ColorSelectionResultView: UIView {
         return label
     }()
     
+    private lazy var firstLockImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .lock
+        imageView.tintColor = .gray07
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     private lazy var firstResultButton = buildColorButton()
     private lazy var secondResultButton = buildColorButton()
     private lazy var thirdResultButton = buildColorButton()
@@ -126,6 +134,9 @@ final class ColorSelectionResultView: UIView {
             colorChoiceLabel,
             mainHStackView,
         ].forEach(addSubview(_:))
+        
+        firstResultButton.addSubview(firstLockImageView)
+        
         setupAutoLayout()
     }
     
@@ -141,6 +152,11 @@ final class ColorSelectionResultView: UIView {
         }
         adjustButtonSizes(for: colorType)
         updateSelectedButton(firstResultButton)
+    }
+    
+    func lockFirstColor(_ isLocked: Bool) {
+        firstLockImageView.isHidden = !isLocked
+        firstResultButton.isUserInteractionEnabled = !isLocked
     }
     
     private func updateSelectedButton(_ selectedButton: UIButton?) {
@@ -312,6 +328,10 @@ extension ColorSelectionResultView {
         mainHStackView.snp.makeConstraints {
             $0.top.equalTo(colorChoiceLabel.snp.bottom).offset(Metric.elementVerticalSpacing)
             $0.leading.trailing.equalToSuperview().inset(Metric.sideInset)
+        }
+        
+        firstLockImageView.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
     }
 }
