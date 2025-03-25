@@ -17,6 +17,9 @@ class FlowerDetailViewController: UIViewController {
     private let viewModel = FlowerDetailViewModel()
     var customizingCoordinator: CustomizingCoordinator?
     
+    private var autoScrollTimer: Timer?
+    private let autoScrollInterval: TimeInterval = 5.0
+    
     // MARK: - Views
     
     private let outerScrollView: UIScrollView = {
@@ -281,6 +284,16 @@ class FlowerDetailViewController: UIViewController {
         
         addSubViews()
         setupConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startAutoScroll()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopAutoScroll()
     }
     
     override func viewDidLayoutSubviews() {
@@ -687,3 +700,47 @@ extension FlowerDetailViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - Extension: UIGestureRecognizer
 
 extension FlowerDetailViewController: UIGestureRecognizerDelegate {}
+
+
+// MARK: - AutoScrollView
+
+extension FlowerDetailViewController {
+    private func startAutoScroll() {
+        guard autoScrollTimer == nil else { return }
+        
+        autoScrollTimer = Timer.scheduledTimer(
+            timeInterval: autoScrollInterval,
+            target: self,
+            selector: #selector(handleAutoScroll),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+
+    private func stopAutoScroll() {
+        autoScrollTimer?.invalidate()
+        autoScrollTimer = nil
+    }
+    
+    @objc private func handleAutoScroll() {
+        let currentPage = imagePageControl.currentPage
+        let totalPages = imagePageControl.numberOfPages
+        
+        // 페이지가 1개 이하라면 자동 슬라이드할 필요 없음
+        guard totalPages > 1 else { return }
+        
+        let nextPage = currentPage + 1
+        
+        // 마지막 페이지라면 "순간이동(animate = false)"으로 첫 페이지로 돌아감
+        if nextPage == totalPages {
+            // 첫 페이지로 점프 (중간 페이지 안 보이게, 애니메이션 없이)
+            imageScrollView.setContentOffset(.zero, animated: false)
+            imagePageControl.currentPage = 0
+        } else {
+            // 그 외(마지막 페이지 전)에는 다음 페이지로 이동 (애니메이션 사용)
+            let offsetX = CGFloat(nextPage) * imageScrollView.frame.width
+            imageScrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+            imagePageControl.currentPage = nextPage
+        }
+    }
+}
