@@ -213,6 +213,29 @@ final class NetworkManager {
         }
     }
     
+    /// 꽃다발 명세서 제목 수정(PATCH)하는 함수입니다.
+    /// - Parameters:
+    /// - Headers - memberID: 멤버 아이디
+    /// - BouquetId: 변경하는 주문서 ID
+    /// - BouquetName - 변경할 명세서 제목
+    func bouquetRename(
+        bouquetId: Int,
+        memberID: String,
+        bouquetName: String,
+        _ networkService: NetworkServable = NetworkService(),
+        completion: @escaping (Result<BouquetRenameDTO, NetworkError>) -> Void
+    ) {
+        let api = BouquetRenameAPI(memberID: memberID, bouquetId: bouquetId, bouquetName: bouquetName)
+        networkService.request(api) { result in
+            switch result {
+            case .success(let DTO):
+                completion(.success(DTO))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
     /// 꽃 상세 정보를 조회하는 함수입니다.
     func fetchFlowerDetail(
         flowerId: Int,

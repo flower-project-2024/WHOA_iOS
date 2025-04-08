@@ -196,6 +196,8 @@
 		54FD0F782B73CF6200F964C3 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F772B73CF6200F964C3 /* ImageManager.swift */; };
 		54FD0F852B74C13B00F964C3 /* PurposeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD0F842B74C13B00F964C3 /* PurposeType.swift */; };
 		54FD47CA2CEDE9FD008EBC16 /* Double+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FD47C92CEDE9FD008EBC16 /* Double+.swift */; };
+		B159A1312DA51086001153B5 /* BouquetRenameAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B159A1302DA51086001153B5 /* BouquetRenameAPI.swift */; };
+		B159A1332DA510CF001153B5 /* BouquetRenameDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B159A1322DA510CF001153B5 /* BouquetRenameDTO.swift */; };
 		B18F45242D48AB730030F7DB /* PopularityFlowerRankingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */; };
 		B18F45262D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */; };
 		B1D9A0DC2D3268EC00E84934 /* TodaysFlowerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell.swift */; };
@@ -415,6 +417,8 @@
 		54FD0F772B73CF6200F964C3 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		54FD0F842B74C13B00F964C3 /* PurposeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurposeType.swift; sourceTree = "<group>"; };
 		54FD47C92CEDE9FD008EBC16 /* Double+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+.swift"; sourceTree = "<group>"; };
+		B159A1302DA51086001153B5 /* BouquetRenameAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetRenameAPI.swift; sourceTree = "<group>"; };
+		B159A1322DA510CF001153B5 /* BouquetRenameDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouquetRenameDTO.swift; sourceTree = "<group>"; };
 		B18F45232D48AB730030F7DB /* PopularityFlowerRankingAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingAPI.swift; sourceTree = "<group>"; };
 		B18F45252D48AC7F0030F7DB /* PopularityFlowerRankingDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityFlowerRankingDTO.swift; sourceTree = "<group>"; };
 		B1D9A0DB2D3268EC00E84934 /* TodaysFlowerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysFlowerViewCell.swift; sourceTree = "<group>"; };
@@ -737,6 +741,7 @@
 				545588632C0A08B100B0C4CF /* PostBouquetAPI.swift */,
 				080D501C2C887F3C0080CD85 /* PatchBouquetStatusAPI.swift */,
 				08A5F4932CADC96100DA582D /* PostProductedBouquetImageAPI.swift */,
+				B159A1302DA51086001153B5 /* BouquetRenameAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -870,6 +875,7 @@
 				544FC0B22C03A5C70091EEE2 /* BouquetDetailDTO.swift */,
 				544FC0B62C03C40C0091EEE2 /* DeleteBouquetDTO.swift */,
 				54EA0A412C0A070900468B1E /* MultipartFilesDTO.swift */,
+				B159A1322DA510CF001153B5 /* BouquetRenameDTO.swift */,
 			);
 			path = BouquetCustomizing;
 			sourceTree = "<group>";
@@ -1412,6 +1418,8 @@
 				5476DCA92CAFF1B100834BC6 /* OnboardingView.swift in Sources */,
 				5411BA3A2BE11DD8002A85F0 /* UITextView+.swift in Sources */,
 				54EB17D62BA1D24100717E6F /* AlbumService.swift in Sources */,
+				B159A1312DA51086001153B5 /* BouquetRenameAPI.swift in Sources */,
+				B159A1332DA510CF001153B5 /* BouquetRenameDTO.swift in Sources */,
 				54EB17E02BA2EA2600717E6F /* PhotoSelectionViewModel.swift in Sources */,
 				545588642C0A08B100B0C4CF /* PostBouquetAPI.swift in Sources */,
 				B1D9A0E22D350A3E00E84934 /* RankingCell.swift in Sources */,
