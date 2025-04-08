@@ -21,7 +21,9 @@ protocol ServableAPI {
 }
 
 extension ServableAPI {
-    var baseURL: String { "http://3.35.183.117:8080" }
+    var baseURL: String { guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as? String else { return ""}
+        return apiKey
+    }
     var params: String { "" }
     var method: HTTPMethod { .get }
     var headers: [String : String]? { nil }
