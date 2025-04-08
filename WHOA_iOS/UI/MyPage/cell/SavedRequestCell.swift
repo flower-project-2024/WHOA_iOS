@@ -17,6 +17,7 @@ final class SavedRequestCell: UITableViewCell {
     var myPageVC: MyPageViewController?
     var customizingCoordinator: CustomizingCoordinator?
     private var bouquetId: Int?
+    private var bouquetStatus: BouquetStatusType?
     
     // MARK: - Views
     
@@ -149,18 +150,13 @@ final class SavedRequestCell: UITableViewCell {
     
     func configure(model: BouquetModel) {
         self.requestTitle = model.bouquetTitle
-        
+        self.bouquetStatus = model.bouquetStatus
         requestTitleLabel.text = model.bouquetTitle
-
-        if model.bouquetStatus == .producted {
-            productionCompleteLabel.isHidden = false
-        }
-        else {
-            productionCompleteLabel.isHidden = true
-        }
         
         bouquetId = model.bouquetId
         writtenDateLabel.text = model.bouquetCreatedAt.replacingOccurrences(of: "-", with: ".")
+        
+        productionCompleteLabel.isHidden = model.bouquetStatus != .producted
         
         flowerImageStackView.removeArrangedSubviews()
         
@@ -174,7 +170,6 @@ final class SavedRequestCell: UITableViewCell {
                 ImageProvider.shared.setImage(into: imageView, from: url.absoluteString)
             }
         }
-        
         else if !model.bouquetImgPaths.isEmpty {
             for image in model.bouquetImgPaths {
                 let imageView = UIImageView()
@@ -193,9 +188,15 @@ final class SavedRequestCell: UITableViewCell {
     
     @objc func modifyBtnTapped() {
         guard let requestTitle = requestTitle else { return }
-        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: .modify, currentVC: myPageVC!)
+        let alertType: CustomAlertViewController.AlertType = (bouquetStatus == .producted) ? .renameRequestAlert : .modify
+        let customAlertVC = CustomAlertViewController(requestTitle: requestTitle, alertType: alertType, currentVC: myPageVC!)
         customAlertVC.bouquetId = bouquetId
         customAlertVC.customizingCoordinator = customizingCoordinator
+        
+        if alertType == .renameRequestAlert {
+            customAlertVC.delegate = myPageVC
+        }
+        
         customAlertVC.modalPresentationStyle = .overFullScreen
         myPageVC?.present(customAlertVC, animated: false, completion: nil)
     }

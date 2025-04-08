@@ -48,13 +48,9 @@ final class BouquetListModel {
     func getBouquetsByType(_ type: BouquetStatusType) -> [BouquetModel] {
         switch type {
         case .producted:
-            return bouquetModelList.filter { bouquet in
-                bouquet.bouquetStatus == .producted
-            }
+            return bouquetModelList.filter { $0.bouquetStatus == .producted }
         case .saved:
-            return bouquetModelList.filter { bouquet in
-                bouquet.bouquetStatus == .saved
-            }
+            return bouquetModelList.filter { $0.bouquetStatus == .saved }
         default:
             return bouquetModelList
         }
@@ -62,5 +58,12 @@ final class BouquetListModel {
     
     func isBouquetModelListEmpty() -> Bool {
         return bouquetModelList.isEmpty
+    }
+    
+    func updateBouquetName(withId id: Int, newName: String) {
+        if let index = bouquetModelList.firstIndex(where: { $0.bouquetId == id }) {
+            bouquetModelList[index].bouquetTitle = newName
+            bouquetModelListDidChange?()
+        }
     }
 }

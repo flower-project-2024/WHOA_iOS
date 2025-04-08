@@ -10,6 +10,7 @@ import SnapKit
 
 protocol CustomAlertViewControllerDelegate: AnyObject {
     func deleteSuccessful(bouquetId: Int)
+    func renameSuccessful(bouquetId: Int, newName: String)
 }
 
 final class CustomAlertViewController: UIViewController {
@@ -20,6 +21,7 @@ final class CustomAlertViewController: UIViewController {
         case modify = "수정"
         case delete = "삭제"
         case requestSaveAlert = "요구서가 갤러리에 저장되었습니다"
+        case renameRequestAlert = ""
     }
     
     // MARK: - Properties
@@ -52,6 +54,11 @@ final class CustomAlertViewController: UIViewController {
         if alertType == .requestSaveAlert {
             label.text = alertType.rawValue
         }
+        
+        else if alertType == .renameRequestAlert {
+            label.text = "꽃다발 요구서 이름을 수정하세요."
+        }
+        
         else {
             fullTitle = "\(requestTitle)을 \(alertType.rawValue)할까요?"
             let attributedText = NSMutableAttributedString(string: fullTitle)
@@ -68,15 +75,42 @@ final class CustomAlertViewController: UIViewController {
         label.font = UIFont.Pretendard(size: 14, family: .Regular)
         
         if alertType == .delete {
+            label.isHidden = false
             label.text = "삭제하면 복구할 수 없습니다."
         }
         
         else if alertType == .modify {
+            label.isHidden = false
             label.text = "커스터마이징을 다시 시작합니다."
+        }
+        
+        else if alertType == .renameRequestAlert {
+            label.isHidden = true
         }
         
         label.textColor = UIColor(red: 117/255, green: 117/255, blue: 117/255, alpha: 1)
         return label
+    }()
+    
+    private let textField: UITextField = {
+        let textField = UITextField()
+        textField.font = .Pretendard(size: 16)
+        textField.textColor = .black
+        textField.textAlignment = .center
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.gray04.cgColor
+        textField.layer.masksToBounds = false
+        textField.layer.cornerRadius = 8.0
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "엄마생신 꽃다발",
+            attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor.gray05,
+                NSAttributedString.Key.font : UIFont.Pretendard()
+            ]
+        )
+        return textField
     }()
     
     private let cancelButton: UIButton = {
@@ -102,8 +136,9 @@ final class CustomAlertViewController: UIViewController {
         
         if alertType == .requestSaveAlert {
             config.attributedTitle = AttributedString("확인")
-        }
-        else {
+        } else if alertType == .renameRequestAlert {
+            config.attributedTitle = AttributedString("수정할래요")
+        } else {
             config.attributedTitle = AttributedString("\(alertType.rawValue)할래요")
         }
         
@@ -148,6 +183,7 @@ final class CustomAlertViewController: UIViewController {
         
         addViews()
         setupConstraints()
+        textField.delegate = self
     }
     
     // MARK: - Functions
@@ -155,7 +191,13 @@ final class CustomAlertViewController: UIViewController {
     private func addViews() {
         view.addSubview(alertView)
         alertView.addSubview(titleLabel)
-        alertView.addSubview(descriptionLabel)
+        
+        if alertType == .renameRequestAlert {
+            alertView.addSubview(textField)
+        } else {
+            alertView.addSubview(descriptionLabel)
+        }
+        
         alertView.addSubview(buttonStackView)
         
         if alertType != .requestSaveAlert {
@@ -175,15 +217,30 @@ final class CustomAlertViewController: UIViewController {
             make.top.equalToSuperview().inset(70)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-        }
-        
-        buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(50)
-            make.leading.trailing.equalToSuperview().inset(24)
-            make.bottom.equalToSuperview().inset(24)
+        if alertType == .renameRequestAlert {
+            textField.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(16)
+                make.centerX.equalToSuperview()
+                make.horizontalEdges.equalToSuperview().inset(24)
+                make.height.equalTo(40)
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.equalTo(textField.snp.bottom).offset(30)
+                make.leading.trailing.equalToSuperview().inset(24)
+                make.bottom.equalToSuperview().inset(24)
+            }
+        } else {
+            descriptionLabel.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            }
+            
+            buttonStackView.snp.makeConstraints { make in
+                make.top.equalTo(descriptionLabel.snp.bottom).offset(50)
+                make.leading.trailing.equalToSuperview().inset(24)
+                make.bottom.equalToSuperview().inset(24)
+            }
         }
     }
     
@@ -223,6 +280,32 @@ final class CustomAlertViewController: UIViewController {
                 }
             }
         }
+        
+        else if alertType == .renameRequestAlert {
+            guard let bouquetId = bouquetId,
+                  let memberID = KeychainManager.shared.loadMemberId() else { return }
+            guard let newName = textField.text, !newName.isEmpty else {
+                showAlert(title: "오류", message: "새로운 제목을 입력해주세요.")
+                return
+            }
+            NetworkManager.shared.bouquetRename(
+                bouquetId: bouquetId,
+                memberID: memberID,
+                bouquetName: newName
+            ) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(_):
+                        self?.dismiss(animated: true) {
+                            self?.delegate?.renameSuccessful(bouquetId: bouquetId, newName: newName)
+                        }
+                    case .failure(let error):
+                        self?.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
+                    }
+                }
+            }
+        }
+            
         else if alertType == .requestSaveAlert {
             dismiss(animated: true)
         }
@@ -243,5 +326,14 @@ final class CustomAlertViewController: UIViewController {
                 self.showAlert(title: "네트워킹 오류", message: error.localizedDescription)
             }
         }
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension CustomAlertViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

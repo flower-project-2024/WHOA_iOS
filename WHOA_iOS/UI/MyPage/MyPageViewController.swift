@@ -216,6 +216,10 @@ final class MyPageViewController: UIViewController, CustomAlertViewControllerDel
     func deleteSuccessful(bouquetId: Int) {
         viewModel.removeBouquet(withId: bouquetId)
     }
+    
+    func renameSuccessful(bouquetId: Int, newName: String) {
+        viewModel.updateBouquetName(withId: bouquetId, newName: newName)
+    }
 }
 
 // MARK: - Extension: TableView

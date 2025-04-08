@@ -7,7 +7,7 @@
 
 struct BouquetModel {
     let bouquetId: Int
-    let bouquetTitle: String
+    var bouquetTitle: String
     let bouquetCreatedAt: String
     let bouquetImgPaths: [String]
     let bouquetStatus: BouquetStatusType
